@@ -38,6 +38,7 @@ Bundle "jnwhiteh/vim-golang"
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Bundles
 """""""""""""""""""""""""""""""""""""""""""""""""
+Bundle 'edwlarkey/vim-textcal'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'othree/html5-syntax.vim'
 Bundle 'tpope/vim-markdown'
@@ -220,8 +221,6 @@ au BufRead *.php set ft=php.html
 au BufNewFile *.php set ft=php.html
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
-au BufRead *.textcal set ft=textcal
-au BufNewFile *.textcal set ft=textcal
 
 "Spelling
 :nnoremap <leader>s z=
