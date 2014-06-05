@@ -1,6 +1,6 @@
 # Requirements
 
-* [docopt](http://docopt.org/) [docopt - github](https://github.com/docopt/docopt)
+* [docopt](http://docopt.org/) -- [docopt - github](https://github.com/docopt/docopt)
 
 
 # Install
