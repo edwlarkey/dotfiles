@@ -100,7 +100,7 @@ def dotfiles(clone, location):
 
     # clone dotfiles repo if necessary
     if clone == 1:
-        call("git clone https://edwlarkey@bitbucket.org/edwlarkey/dotfiles.git $HOME/dotfiles", shell=True)
+        call("git clone https://github.com/edwlarkey/dotfiles.git $HOME/dotfiles", shell=True)
     # cd into repo and pull submodules
     call("cd $HOME/dotfiles && git submodule init && git submodule update", shell=True)
     call("mkdir $HOME/.vim-backup", shell=True)
