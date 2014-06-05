@@ -1,0 +1,141 @@
+#!/usr/bin/env python
+
+"""Usage:
+    edw install <apps>...
+    edw update
+    edw upgrade
+    edw dotfiles [--clone] (--home | --work)
+    edw -h | --help
+    edw --version
+
+Options:
+    -h --help   Show this screen.
+    --version   Show version.
+    --clone     Setup dotfiles repo, but clone first.
+    --home      Use home config for git.
+    --work      Use work config for git.
+
+"""
+
+__version__ = "0.0.1"
+
+import docopt
+from subprocess import call
+
+
+class colors:
+    RED_BG = '\033[41m'
+    CYAN_BG = '\033[46m'
+    BLACK_FG = '\033[30m'
+    ENDCOLOR = '\033[0m'
+
+def install(apps):
+    print("")
+    print(colors.CYAN_BG + " I will install the following programs:" + colors.ENDCOLOR)
+    for app in apps:
+        print(app)
+
+    print("")
+    confirm = raw_input(colors.RED_BG + " Does that work for you? [Y/N]" + colors.ENDCOLOR).lower()
+
+    if confirm == 'y' or confirm == 'yes':
+        call("sudo apt-get update", shell=True)
+        for app in apps:
+            call("sudo apt-get install -y " + app, shell=True)
+            print(colors.CYAN_BG + app + " is done." + colors.ENDCOLOR)
+    elif confirm == 'n':
+        print("")
+        print("That was a close one!!")
+    else:
+        print("")
+        print("NOPE! Try again. (Y y yes N n no)")
+        print("")
+        install(apps)
+
+
+def install_basic():
+    print("")
+    print("")
+    print(colors.CYAN_BG + " Should I run apt-get to install the following programs?" + colors.ENDCOLOR)
+    print("vim-nox")
+    print("zsh")
+    print("tmux")
+    print("curl")
+    print("wget")
+    print("tree")
+
+    print("")
+    confirm = raw_input(colors.RED_BG + " Sound good? [Y/N]" + colors.ENDCOLOR).lower()
+
+    # check confirmation. install if yes, continue if no, restart if ?
+    if confirm == 'y' or confirm == 'yes':
+        call("sudo apt-get update", shell=True)
+        call("sudo apt-get install -y vim-nox zsh tmux curl wget tree ", shell=True)
+    elif confirm == 'n':
+        print("")
+        print(colors.CYAN_BG + "Okay, cool. I won't install them." + colors.ENDCOLOR)
+    else:
+        print("")
+        print("NOPE! Try again. (Y y yes N n no)")
+        print("")
+        install_basic()
+
+
+def dotfiles(clone, location):
+    # Ask if it should install basic programs (vim, zsh, wget, curl, etc)
+    install_basic()
+
+    # setup git
+    if location == 'work':
+        git_username = "Edward Larkey 9ED6ABFD"
+        git_email = "edward.larkey@healthport.com"
+    elif location == 'home':
+        git_username = "Edward G. Larkey"
+        git_email = "edwlarkey@mac.com"
+    call("git config --global user.name '" + git_username + "'", shell=True)
+    call("git config --global user.email " + git_email, shell=True)
+    call("git config --global core.editor vim", shell=True)
+
+    print(colors.CYAN_BG + " Git has been configured." + colors.ENDCOLOR)
+
+    # clone dotfiles repo if necessary
+    if clone == 1:
+        call("git clone https://edwlarkey@bitbucket.org/edwlarkey/dotfiles.git $HOME/dotfiles", shell=True)
+    # cd into repo and pull submodules
+    call("cd $HOME/dotfiles && git submodule init && git submodule update", shell=True)
+    call("mkdir $HOME/.vim-backup", shell=True)
+    call("mkdir $HOME/.vim-swap", shell=True)
+    call("mkdir $HOME/.vim-undo", shell=True)
+    call("ln -nfs $HOME/dotfiles/vim/vimrc $HOME/.vimrc", shell=True)
+    call("ln -nfs $HOME/dotfiles/vim $HOME/.vim", shell=True)
+    call("ln -nfs $HOME/dotfiles/bin $HOME/bin", shell=True)
+    call("ln -nfs $HOME/dotfiles/mutt $HOME/.mutt", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto $HOME/.zprezto", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto-custom/zlogin $HOME/.zlogin", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto-custom/zlogout $HOME/.zlogout", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto-custom/zpreztorc $HOME/.zpreztorc", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto-custom/zprofile $HOME/.zprofile", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto-custom/zshrc $HOME/.zshrc", shell=True)
+    call("ln -nfs $HOME/dotfiles/zsh/prezto-custom/zshenv $HOME/.zshenv", shell=True)
+
+
+if __name__ == '__main__':
+    args = docopt.docopt(__doc__)
+    if args['--version']:
+        print("Version: " + __version__)
+    elif args['install']:
+        install(args['<apps>'])
+    elif args['update']:
+        call("sudo apt-get update", shell=True)
+    elif args['upgrade']:
+        call("sudo apt-get update && sudo apt-get upgrade", shell=True)
+    elif args['dotfiles']:
+        if args['--home']:
+            location = 'home'
+        elif args['--work']:
+            location = 'work'
+
+        if args['--clone']:
+            dotfiles(1, location)
+        else:
+            dotfiles(0, location)

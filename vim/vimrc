@@ -1,0 +1,229 @@
+set nocompatible               " be iMproved
+filetype off        "required
+
+let mapleader=" "
+
+" Make mouse middle click paste without formatting it.
+map <MouseMiddle> <Esc>"*p
+
+"set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" BUNDLES
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" let Vundle manage Vundle, required
+Bundle 'gmarik/vundle'
+"Bundle 'maciakl/vim-neatstatus'
+Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-commentary'
+Bundle 'tpope/vim-fugitive'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'scrooloose/syntastic'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'Townk/vim-autoclose'
+Bundle 'vim-scripts/closetag.vim'
+Bundle 'edsono/vim-matchit'
+Bundle 'godlygeek/tabular'
+"Bundle 'itchyny/calendar.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
+Bundle "kien/rainbow_parentheses.vim"
+Bundle "jnwhiteh/vim-golang"
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntax Bundles
+"""""""""""""""""""""""""""""""""""""""""""""""""
+Bundle 'hail2u/vim-css3-syntax'
+Bundle 'othree/html5-syntax.vim'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-haml'
+Bundle 'hdima/python-syntax'
+Bundle 'jelera/vim-javascript-syntax'
+Bundle 'jQuery'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" GENERAL CONFIG
+"""""""""""""""""""""""""""""""""""""""""""""""""
+syntax on
+filetype plugin indent on
+syntax enable
+:set backspace=2
+:set nu
+:set hidden
+:set tabstop=4
+:set shiftwidth=4
+:set expandtab
+:set cursorline
+set nowrap
+set autoindent
+set copyindent
+
+" Search
+set showmatch
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+set smarttab
+
+" Relative number
+set relativenumber
+set wildignore=*.swp,*.bak,*.pyc,*.class
+
+" Backup, swap, undo
+set backup 
+set backupdir=~/.vim-backup//
+set directory=~/.vim-swap//
+set undofile
+set undodir=~/.vim-undo//
+set writebackup
+
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+autocmd filetype html,xml set listchars-=tab:>.
+autocmd FileType mail,md,markdown set spell
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+"color scheme
+"""""""""""""""""""""""""""""""""""""""""""""""""
+let g:solarized_termtrans = 1
+set background=dark
+"let g:solarized_termcolors=16
+set t_Co=256
+colorscheme solarized
+
+" dont display color column if it doesn't support it
+if v:version > 703
+    let &colorcolumn="80,".join(range(120,999),",")
+endif
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGIN CONFIGS
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Fugititve
+:map <leader>c :Gcommit<CR>
+:map <leader>g :Gwrite<CR>
+
+" NERDTree
+map <leader>n :NERDTreeToggle<CR>
+
+" AIRLINE
+set laststatus=2
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts=1
+let g:airline_detect_paste=1
+let g:airline_enable_branch=1
+let g:airline_enable_syntastic=1
+let g:airline#extensions#syntastic#enabled = 1
+
+" Calendar
+"let g:calendar_cache_directory='/Users/edwlarkey/calendar'
+"let g:calendar_google_calendar=1
+
+" syntastic
+let g:syntastic_check_on_open=1
+"let g:syntastic_mode_map = { 'mode': 'passive' }
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+
+"vim-markdown disable folding
+let g:vim_markdown_folding_disabled=1
+
+"let python_version_2 = 0
+let python_highlight_all = 1
+let g:syntastic_python_checkers=['pylint3','flake8']
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" " made, these lines close it on movement in insert mode or when leaving
+" " insert mode
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+:let g:closetag_html_style=1 
+:au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
+
+" snipMate
+imap <C-J> <Plug>snipMateNextOrTrigger
+smap <C-J> <Plug>snipMateNextOrTrigger
+
+"  Parentheses colours using Solarized
+let g:rbpt_colorpairs = [
+\ [ '13', '#6c71c4'],
+\ [ '5',  '#d33682'],
+\ [ '1',  '#dc322f'],
+\ [ '9',  '#cb4b16'],
+\ [ '3',  '#b58900'],
+\ [ '2',  '#859900'],
+\ [ '6',  '#2aa198'],
+\ [ '4',  '#268bd2'],
+\ ]
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" GENERAL KEYBINDINGS
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" no autodindent with F2
+set pastetoggle=<F2>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Left/Right arrow keys change buffers in all modes
+noremap <Left> <Esc>:bp<CR>
+inoremap <Left> <Esc>:bp<CR>
+nnoremap <Left> <Esc>:bp<CR>
+vnoremap <Left> <Esc>:bp<CR>
+
+noremap <Right> <Esc>:bn<CR>
+inoremap <Right> <Esc>:bn<CR>
+nnoremap <Right> <Esc>:bn<CR>
+vnoremap <Right> <Esc>:bn<CR>
+
+" Disable up/down arrow keys
+noremap <up> <nop>
+noremap <down> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+vnoremap <up> <nop>
+vnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+
+" F3 to insert timestamp
+nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
+imap <F3> <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
+
+" F4 to insert date
+nmap <F4> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+imap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
+
+"Fast Saving
+map <leader>w :w<CR>
+map <leader>q :wq<CR>
+
+au BufRead *.php set ft=php.html
+au BufNewFile *.php set ft=php.html
+au BufRead *.py set ft=python
+au BufNewFile *.py set ft=python
+au BufRead *.textcal set ft=textcal
+au BufNewFile *.textcal set ft=textcal
+
+"Spelling
+:nnoremap <leader>s z=
+:nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
+:inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>

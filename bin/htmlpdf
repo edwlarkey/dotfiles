@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+filename=$(basename "$1")
+extension="${filename##*.}"
+filename="${filename%.*}"
+
+if [ "$(uname)" == "Darwin" ]; then
+    echo "converting to html"
+    mmd "$1"
+
+    echo "converting to latex and pdf"
+    mmd2tex "$1"
+    sleep 1
+    pdflatex "$filename.tex"
+
+    sleep 1
+    echo "deleting aux files"
+    rm "$filename.aux" "$filename.glo" "$filename.idx" "$filename.ist" "$filename.log" "$filename.out" "$filename.tex"
+elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+    echo "converting to html"
+    multimarkdown "$1" > "$filename.html"
+
+    echo "converting to latex and pdf"
+    mmd2LaTeX.pl "$1"
+    sleep 1
+    pdflatex "$filename.tex"
+
+    sleep 1
+    echo "deleting aux files"
+    rm "$filename.aux" "$filename.glo" "$filename.idx" "$filename.ist" "$filename.log" "$filename.out" "$filename.tex"
+fi

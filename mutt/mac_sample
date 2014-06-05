@@ -1,0 +1,33 @@
+# Me
+set from = "MAC_EMAIL_ADDRESS"
+set use_from=yes
+set realname = "Edward Larkey"
+
+# Account info
+set imap_user = "USERNAME"
+set imap_pass = "PASSWORD"
+set folder = "imaps://imap.mail.me.com:993"
+
+# mailboxes
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set record="+Sent Messages"
+set copy=yes
+# archive
+macro index A "s=Archive\n" "move message to archive"
+macro pager A "s=Archive\n" "move message to archive"
+# trash
+macro index d "s=Deleted<quote-char> Messages\n" "move message to trash"
+macro pager d "s=Deleted<quote-char> Messages\n" "move message to trash"
+
+# SMTP
+set smtp_url="smtp://USERNAME@smtp.mail.me.com:587/"
+set smtp_pass = "PASSWORD"
+set envelope_from=yes
+#set ssl_force_tls=yes
+
+# imap settings
+set ssl_starttls=yes
+set imap_pipeline_depth=0
+
+source ~/.mutt/mutt_general

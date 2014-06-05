@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cheatfile=~/Dropbox/txt/life/cheat.md
+
+awk '{IGNORECASE = 1}/'$1'/{a=1}{gsub(/#|-----/,"\033[1;31m&\033[1;000m")}/8-8/{a=0}a{print}' $cheatfile
+

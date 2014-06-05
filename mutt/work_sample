@@ -1,0 +1,59 @@
+# Me
+set from = "EMAIL_ADDRESS"
+set use_from=yes
+set realname = "Edward Larkey"
+
+
+# Account info
+set imap_user = "USERNAME"
+set imap_pass = "PASSWORD"
+set folder = "imap://USERNAME:PASSWORD@10.13.171.32:143"
+
+# mailboxes
+set spoolfile = "imap://USERNAME:PASSWORD@10.13.171.32:143/"
+set postponed = "imap://USERNAME:PASSWORD@10.13.171.32:143/Drafts"
+set record = "imap://USERNAME:PASSWORD@10.13.171.32:143/Sent Items"
+#set copy=no
+# archive
+macro index A "s=Archive\n" "move message to archive"
+macro pager A "s=Archive\n" "move message to archive"
+# hold
+macro index H "s=Hold\n" "move message to Hold"
+macro pager H "s=Hold\n" "move message to Hold"
+# FollowUp
+macro index U "s=FollowUp\n" "move message to FollowUp"
+macro pager U "s=FollowUp\n" "move message to FollowUp"
+# trash
+macro index d "s=Deleted<quote-char> Items\n" "move message to trash"
+macro pager d "s=Deleted<quote-char> Items\n" "move message to trash"
+
+# Change Folders F keys
+# Inbox
+macro index <F1> "<change-folder> =INBOX<enter>" "Change to inbox"
+macro pager <F1> "<change-folder> =INBOX<enter>" "Change to inbox"
+# followUp
+macro index <F2> "<change-folder> =FollowUp<enter>" "Change to FollowUp"
+macro pager <F2> "<change-folder> =FollowUp<enter>" "Change to FollowUp"
+# Hold
+macro index <F3> "<change-folder> =Hold<enter>" "Change to Hold"
+macro pager <F3> "<change-folder> =Hold<enter>" "Change to Hold"
+# Archive
+macro index <F4> "<change-folder> =Archive<enter>" "Change to Archive"
+macro pager <F4> "<change-folder> =Archive<enter>" "Change to Archive"
+# Sent Items
+macro index <F5> "<change-folder> =Sent<quote-char> Items<enter>" "Change to Sent"
+macro pager <F5> "<change-folder> =Sent<quote-char> Items<enter>" "Change to Sent"
+
+
+# SMTP
+set smtp_url="smtp://USERNAME:PASSWORD@10.13.171.32:587/"
+set smtp_pass = ""
+set envelope_from=yes
+
+set imap_keepalive=50
+
+#set query_command = "~/bin/mutt-ldap.pl '%s'"
+
+set query_command = "mutt_ldap.py '%s'"
+
+source ~/.mutt/mutt_general

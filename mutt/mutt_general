@@ -1,0 +1,89 @@
+# GENERAL MUTT SETTINGS
+
+# aliases
+#set alias_file=~/.mutt/aliases
+#source ~/.mutt/aliases
+
+# abook
+set query_command = "abook --mutt-query '%s'"
+macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro index,pager a "<pipe-message>abook --add-email<return>" "add the sender address to abook"
+
+# tab instead of ctrl t
+bind editor <Tab> complete-query
+bind editor ^T complete
+
+# imap check G
+bind index G imap-fetch-mail
+
+macro index l <display-message>
+macro index h <sync-mailbox><change-folder>? "Go to the folder menu"
+
+macro pager h exit
+bind pager h exit
+macro pager   <up>       <previous-line>
+macro pager   <down>     <next-line>
+macro pager   <pageup>       <previous-line>
+macro pager   <pagedown>     <next-line>
+
+# print
+# set print_command="~/.mutt/print.sh"
+
+# BEEP on new mail
+set beep_new
+
+# DELETE!!
+set delete
+
+# Index and Date format
+set date_format="%b-%d"
+set index_format="%3C %Z %d %-25.25L %s"
+
+# Misc
+set include             # Include the message in replies.
+set nomarkers           # no + on wrapped lines
+set noconfirmappend     # JUST APPEND IT
+
+# Sort
+set sort=reverse-threads
+set sort_browser=reverse-date
+set sort_aux=last-date-received
+
+# Vim
+# set editor="vim"
+# set editor="vim +':set wrap'"
+set editor="vim +':set textwidth=0' +':set wrap'"
+
+set text_flowed=yes
+set fast_reply = yes
+
+# Pager Index Lines
+set pager_index_lines=8
+
+# Solarized
+source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
+
+# cache and Cert
+set header_cache=~/.mutt/cache/headers
+set message_cachedir=~/.mutt/cache/bodies
+set certificate_file=~/.mutt/certificates
+
+# mime
+set mailcap_path=~/.mutt/mailcap:/usr/local/etc/mailcap:/etc/mailcap
+auto_view text/html application/pdf application/x-pdf application/msword application/x-msword application/vnd.ms-powerpoint application/vnd.ms-excel image/* application/x-zip-compressed application/zip application/x-zip application/gzip
+alternative_order text/plain text/html text
+unset wait_key
+set implicit_autoview = yes
+set edit_headers=yes
+
+set timeout=60
+set mail_check=2
+
+# PGP
+#source ~/.mutt/crypto
+source ~/.mutt/gpg.rc
+set pgp_use_gpg_agent = yes
+set pgp_timeout = 30
+set crypt_replysign
+set crypt_replyencrypt = yes
+set crypt_replysignencrypted=yes
