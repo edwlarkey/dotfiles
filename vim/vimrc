@@ -217,10 +217,15 @@ imap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 map <leader>w :w<CR>
 map <leader>q :wq<CR>
 
+"File type specifics
 au BufRead *.php set ft=php.html
 au BufNewFile *.php set ft=php.html
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
+"Markdown files textwidth
+au BufRead,BufNewFile *.md setlocal textwidth=79
+"Ruby 2 space tab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 
 "Spelling
 :nnoremap <leader>s z=
