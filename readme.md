@@ -1,17 +1,9 @@
-# Requirements
-
-* [docopt](http://docopt.org/) -- [docopt - github](https://github.com/docopt/docopt)
-
-
 # Install
 
+Run setup.rb to install and configure.
 
-run bin/edw
-
-    Usage:
-        edw install <apps>...
-        edw update
-        edw upgrade
-        edw dotfiles [--clone] (--home | --work)
-        edw -h | --help
-        edw --version
+```
+setup.rb [options]
+    -c, --clone                      Clone repo to ~/
+    -l, --location LOC               Set location for git. home||work
+```
