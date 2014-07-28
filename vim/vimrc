@@ -97,7 +97,11 @@ let g:solarized_termtrans = 1
 set background=dark
 "let g:solarized_termcolors=16
 set t_Co=256
-colorscheme solarized
+try
+    colorscheme solarized
+catch
+    colorscheme default
+endtry
 
 " dont display color column if it doesn't support it
 if v:version > 703
