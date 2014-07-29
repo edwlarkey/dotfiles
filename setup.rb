@@ -146,7 +146,7 @@ def link_files_dirs
 
   # mutt
   command = "ln -nfs $HOME/dotfiles/mutt $HOME/.mutt"
-  puts "Linking bin".cyan
+  puts "Linking mutt".cyan
   stdout_str, stderr_str, status = Open3.capture3(command)
   unless status.exitstatus == 0
     puts "There was a problem running '#{command}'".red
