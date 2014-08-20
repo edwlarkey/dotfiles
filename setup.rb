@@ -7,11 +7,12 @@
 # support.
 #
 # Usage: setup [options]
-#     -c, --clone                      Clone repo to ~/
-#         --home                       Use the home git configuration.
-#         --work                       Use the work git configuration.
+#      -c, --clone                      Clone repo to ~/
+#      -l, --location LOC               Set location for git. home||work
+#          --no-ycm                     Don't run the YouCompleteMe install script
 #
-
+#
+#
 # optparse to parse options passed
 require 'optparse'
 require 'open3'
@@ -39,7 +40,11 @@ def bold;           "\033[1m#{self}\033[22m" end
 def reverse_color;  "\033[7m#{self}\033[27m" end
 end
 
-
+# Setup git config with correct info based on location
+#
+# location - String - Either 'home' or 'work'
+#
+# Puts success and error messages.
 def setup_git(location)
   # Set which username/email to used based on option
   case location
@@ -52,7 +57,7 @@ def setup_git(location)
   end
 
   # Set username
-  command = "git config --global user.name #{git_username}"
+  command = "git config --global user.name '#{git_username}'"
   puts ("Setting git username as: #{git_username}").cyan
   stdout_str, stderr_str, status = Open3.capture3(command)
   unless status.exitstatus == 0
@@ -62,7 +67,7 @@ def setup_git(location)
   end
 
   # Set email
-  command = "git config --global user.email #{git_email}"
+  command = "git config --global user.email '#{git_email}'"
   puts "Setting git email as: #{git_email}".cyan
   stdout_str, stderr_str, status = Open3.capture3(command)
   unless status.exitstatus == 0
@@ -83,6 +88,7 @@ def setup_git(location)
   puts "\u2713 Setup Git".green
 end
 
+# Clone dotfiles repository into ~/
 def clone_dotfiles
   command = "git clone http://github.com/edwlarkey/dotfiles.git $HOME/dotfiles"
   puts "Cloning dotfiles repo".cyan
@@ -140,7 +146,7 @@ def link_files_dirs
 
   # mutt
   command = "ln -nfs $HOME/dotfiles/mutt $HOME/.mutt"
-  puts "Linking bin".cyan
+  puts "Linking mutt".cyan
   stdout_str, stderr_str, status = Open3.capture3(command)
   unless status.exitstatus == 0
     puts "There was a problem running '#{command}'".red
@@ -222,30 +228,17 @@ def link_files_dirs
 end
 
 def make_vim_dirs
-  command = "mkdir $HOME/.vim-backup"
-  puts "Making directory ~/.vim-backup".cyan
-  stdout_str, stderr_str, status = Open3.capture3(command)
-  unless status.exitstatus == 0
-    puts "There was a problem running '#{command}'".red
-    puts stderr_str
-    exit 1
-  end
-  command = "mkdir $HOME/.vim-swap"
-  puts "Making directory ~/.vim-swap".cyan
-  stdout_str, stderr_str, status = Open3.capture3(command)
-  unless status.exitstatus == 0
-    puts "There was a problem running '#{command}'".red
-    puts stderr_str
-    exit 1
-  end
-  command = "mkdir $HOME/.vim-undo"
-  puts "Making directory ~/.vim-undo".cyan
-  stdout_str, stderr_str, status = Open3.capture3(command)
-  unless status.exitstatus == 0
-    puts "There was a problem running '#{command}'".red
-    puts stderr_str
-    exit 1
-  end
+  home = Dir.home
+
+  puts "Making sure directory ~/.vim-backup exists".cyan
+  Dir.mkdir(home, ".vim-backup") unless File.exists?(home + "/.vim-backup")
+
+  puts "Making sure directory ~/.vim-swap exists".cyan
+  Dir.mkdir(home, ".vim-swap") unless File.exists?(home + "/.vim-swap")
+
+  puts "Making sure directory ~/.vim-undo exists".cyan
+  Dir.mkdir(home, ".vim-undo") unless File.exists?(home + "/.vim-undo")
+
   puts "\u2713 Make vim directories".green
 end
 
@@ -286,6 +279,9 @@ option_parser = OptionParser.new do |opts|
   opts.on("-l", "--location LOC", [:home, :work], "Set location for git. home||work") do |loc|
     options[:location] = loc
   end
+  opts.on("--no-ycm", "Don't run the YouCompleteMe install script") do
+    options[:noycm] = true
+  end
 end
 
 option_parser.parse!
@@ -294,14 +290,20 @@ if options[:clone].nil?
   setup_git(options[:location].to_s)
   pull_submodules
   link_files_dirs
+  make_vim_dirs
   install_vim_plugins
-  install_youcompleteme
+  unless options[:noycm]
+    install_youcompleteme
+  end
 else
   setup_git(options[:location].to_s)
   clone_dotfiles
   pull_submodules
   link_files_dirs
+  make_vim_dirs
   install_vim_plugins
-  install_youcompleteme
+  unless options[:noycm]
+    install_youcompleteme
+  end
 end
 
