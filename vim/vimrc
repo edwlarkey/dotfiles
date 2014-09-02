@@ -31,7 +31,6 @@ Bundle 'scrooloose/nerdtree'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
 Bundle "kien/rainbow_parentheses.vim"
 Bundle "jnwhiteh/vim-golang"
 
@@ -171,8 +170,12 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 :au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
 " snipMate
-imap <C-J> <Plug>snipMateNextOrTrigger
-smap <C-J> <Plug>snipMateNextOrTrigger
+imap <TAB> <Plug>snipMateNextOrTrigger
+smap <TAB> <Plug>snipMateNextOrTrigger
+
+" YCM
+let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 
 "  Parentheses colours using Solarized
 let g:rbpt_colorpairs = [
