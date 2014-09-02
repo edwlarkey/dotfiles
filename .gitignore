@@ -26,6 +26,3 @@ zsh/prezto/**
 bin/fabric
 atlas_backup
 bin/atlas_backup
-
-# ignore bin/git
-bin/git
