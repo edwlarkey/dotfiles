@@ -1,0 +1,48 @@
+snippet form
+	{{ Form::open(array('route' => 'foo.bar')) }}
+		//
+	{{ Form::close() }}
+snippet form.token
+	{{ Form::token(); }}
+snippet form.email
+	<div class="form-group">
+	  {{ Form::label('email', 'Email') }}
+	  {{ Form::email('email', null, ['class' => 'form-control']) }}
+	</div>
+snippet form.text
+	<div class="form-group">
+	  {{ Form::label('${1:text}', '${2:Text}') }}
+	  {{ Form::text('${3:text}', null, ['class' => 'form-control']) }}
+	</div>
+snippet form.select
+	<div class="form-group">
+	  {{ Form::label('${1:text}', '${2:Text}') }}
+	  {{ Form::select('${3:name}', array(
+	    'L' => 'Large',
+	    'S' => 'Small'
+	  ), null, ['class' => 'form-control']); }}
+	</div>
+snippet form.submit
+	{{ Form::submit('Submit', null, ['class' => 'btn btn-default']); }}
+snippet form.submit.primary
+	{{ Form::submit('Submit', null, ['class' => 'btn btn-primary']); }}
+snippet form.submit.success
+	{{ Form::submit('Submit', null, ['class' => 'btn btn-success']); }}
+snippet form.submit.info
+	{{ Form::submit('Submit', null, ['class' => 'btn btn-info']); }}
+snippet form.submit.warning
+	{{ Form::submit('Submit', null, ['class' => 'btn btn-warning']); }}
+snippet form.submit.danger
+	{{ Form::submit('Submit', null, ['class' => 'btn btn-danger']); }}
+snippet form.button
+	{{ Form::button('Button', null, ['class' => 'btn btn-default']); }}
+snippet form.button.primary
+	{{ Form::button('Button', null, ['class' => 'btn btn-primary']); }}
+snippet form.button.success
+	{{ Form::button('Button', null, ['class' => 'btn btn-success']); }}
+snippet form.button.info
+	{{ Form::button('Button', null, ['class' => 'btn btn-info']); }}
+snippet form.button.warning
+	{{ Form::button('Button', null, ['class' => 'btn btn-warning']); }}
+snippet form.button.danger
+	{{ Form::button('Button', null, ['class' => 'btn btn-danger']); }}

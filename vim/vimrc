@@ -21,18 +21,23 @@ Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'Townk/vim-autoclose'
 Bundle 'vim-scripts/closetag.vim'
 Bundle 'edsono/vim-matchit'
 Bundle 'godlygeek/tabular'
 "Bundle 'itchyny/calendar.vim'
 Bundle 'scrooloose/nerdtree'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
 Bundle "kien/rainbow_parentheses.vim"
 Bundle "jnwhiteh/vim-golang"
+" Python plugin bundles
+if has('python') || has('python3')
+  Bundle 'Valloric/YouCompleteMe'
+  Bundle 'SirVer/ultisnips'
+else
+  Bundle "MarcWeber/vim-addon-mw-utils"
+  Bundle "tomtom/tlib_vim"
+  Bundle 'garbas/vim-snipmate'
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Bundles
@@ -58,8 +63,8 @@ syntax enable
 :set cursorline
 
 "indentation
-:set tabstop=2
-:set shiftwidth=2
+:set ts=2
+:set sw=2
 :set expandtab
 set autoindent
 set copyindent
@@ -67,6 +72,7 @@ set copyindent
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype php setlocal ts=4 sw=4 expandtab
+autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
 set smarttab
 
 set nowrap
@@ -95,8 +101,8 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 autocmd filetype html,xml set listchars-=tab:>.
 
 "File type specifics
-au BufRead *.php set ft=php.html
-au BufNewFile *.php set ft=php.html
+au BufRead *.php set ft=php.html.laravel
+au BufNewFile *.php set ft=php.html.laravel
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
 "Markdown files textwidth
@@ -169,13 +175,24 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 :let g:closetag_html_style=1 
 :au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
-" snipMate
-imap <TAB> <Plug>snipMateNextOrTrigger
-smap <TAB> <Plug>snipMateNextOrTrigger
 
-" YCM
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+" Python plugin config
+if has('python') || has('python3')
+  " YCM
+  let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+  let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+
+  " ultisnips
+  " Trigger configuration. Do not use <tab> if you use
+  " https://github.com/Valloric/YouCompleteMe.
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+else
+  " snipMate
+  imap <TAB> <Plug>snipMateNextOrTrigger
+  smap <TAB> <Plug>snipMateNextOrTrigger
+endif
 
 "  Parentheses colours using Solarized
 let g:rbpt_colorpairs = [
