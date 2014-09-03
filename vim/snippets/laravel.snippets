@@ -46,3 +46,11 @@ snippet form.button.warning
 	{{ Form::button('Button', null, ['class' => 'btn btn-warning']); }}
 snippet form.button.danger
 	{{ Form::button('Button', null, ['class' => 'btn btn-danger']); }}
+snippet errors
+	@if ($errors->any())
+	  <ul>
+	    @foreach ($errors->all() as $error)
+	    <li>{{ $error }}</li>
+	    @endforeach
+	  </ul>
+	@endif
