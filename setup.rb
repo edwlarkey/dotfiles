@@ -365,12 +365,11 @@ option_parser.parse!
 if options[:clone].nil?
   if options[:mac]
     install_homebrew
-    tap_homebrewcask
-    update_homebrew
-    install_brewcask
     install_with_homebrew("vim")
     install_with_homebrew("git")
     install_with_homebrew("zsh")
+    tap_homebrewcask
+    install_brewcask
   end
   setup_git(options[:name].to_s, options[:email].to_s)
   pull_submodules
@@ -384,12 +383,11 @@ if options[:clone].nil?
 else
   if options[:mac]
     install_homebrew
-    tap_homebrewcask
-    update_homebrew
-    install_brewcask
     install_with_homebrew("vim")
     install_with_homebrew("git")
     install_with_homebrew("zsh")
+    tap_homebrewcask
+    install_brewcask
   end
   setup_git(options[:name].to_s, options[:email].to_s)
   clone_dotfiles
