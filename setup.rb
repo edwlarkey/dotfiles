@@ -1,15 +1,17 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
 #
-# This program setups up this dotfiles repository.
+# This program sets up this dotfiles repository.
 #
 # I dedicate this to my wonderful wife, Natasha. Thanks for all of your
 # support.
 #
 # Usage: setup [options]
-#      -c, --clone                      Clone repo to ~/
-#      -l, --location LOC               Set location for git. home||work
-#          --no-ycm                     Don't run the YouCompleteMe install script
+#      -c, --clone                   Clone repo to ~/
+#      -n, --name NAME               Set location for git. home||work
+#      -e, --email EMAIL             Set location for git. home||work
+#          --no-ycm                  Don't run the YouCompleteMe install script
+#          --mac                     If this is a mac. Homebrew install stuff.
 #
 #
 #
@@ -45,16 +47,9 @@ end
 # location - String - Either 'home' or 'work'
 #
 # Puts success and error messages.
-def setup_git(location)
-  # Set which username/email to used based on option
-  case location
-  when "home"
-    git_username = "Edward G. Larkey"
-    git_email = "edwlarkey@mac.com"
-  when "work"
-    git_username = "Edward Larkey"
-    git_email = "Edward.Larkey@HealthPort.com"
-  end
+def setup_git(name, email)
+    git_username = name
+    git_email = email
 
   # Set username
   command = "git config --global user.name '#{git_username}'"
@@ -227,7 +222,7 @@ def link_files_dirs
   puts "\u2713 Link files and directories".green
 end
 
-def make_vim_dirs
+def make_dirs
   home = Dir.home
 
   puts "Making sure directory ~/.vim-backup exists".cyan
@@ -239,7 +234,22 @@ def make_vim_dirs
   puts "Making sure directory ~/.vim-undo exists".cyan
   Dir.mkdir(home, ".vim-undo") unless File.exists?(home + "/.vim-undo")
 
-  puts "\u2713 Make vim directories".green
+  puts "Making sure directory ~/git exists".cyan
+  Dir.mkdir(home, "git") unless File.exists?(home + "/git")
+
+  puts "\u2713 Make directories".green
+end
+
+def change_shell
+  command = "chsh -s /bin/zsh"
+  puts "Changing shell to zsh".cyan
+  stdout_str, stderr_str, status = Open3.capture3(command)
+  unless status.exitstatus == 0
+    puts "There was a problem running '#{command}'".red
+    puts stderr_str
+    exit 1
+  end
+  puts "\u2713 Change shell to zsh".green
 end
 
 def install_vim_plugins
@@ -268,6 +278,66 @@ def install_youcompleteme
   puts "\u2713 Run vim plugin install scripts".green
 end
 
+def install_homebrew
+  command = %Q|ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"|
+  puts "Installing Homebrew".cyan
+  puts "This could take a while!".magenta
+  stdout_str, stderr_str, status = Open3.capture3(command)
+  unless status.exitstatus == 0
+    puts "There was a problem running '#{command}'".red
+    puts stderr_str
+    exit 1
+  end
+  puts "\u2713 Install Homebrew".green
+end
+
+def update_homebrew
+  command = %Q|brew update|
+  puts "Updating Homebrew".cyan
+  stdout_str, stderr_str, status = Open3.capture3(command)
+  unless status.exitstatus == 0
+    puts "There was a problem running '#{command}'".red
+    puts stderr_str
+    exit 1
+  end
+  puts "\u2713 Update Homebrew".green
+end
+
+def install_with_homebrew(app)
+  command = %Q|brew install #{app}|
+  puts "Installing #{app}".cyan
+  stdout_str, stderr_str, status = Open3.capture3(command)
+  unless status.exitstatus == 0
+    puts "There was a problem running '#{command}'".red
+    puts stderr_str
+    exit 1
+  end
+  puts "\u2713 Install #{app}".green
+end
+
+def tap_homebrewcask
+  command = %Q|brew tap phinze/homebrew-cask|
+  puts "Tapping homebrew-cask".cyan
+  stdout_str, stderr_str, status = Open3.capture3(command)
+  unless status.exitstatus == 0
+    puts "There was a problem running '#{command}'".red
+    puts stderr_str
+    exit 1
+  end
+  puts "\u2713 Install Homebrew".green
+end
+
+def install_brewcask
+  command = %Q|brew install brew-cask|
+  puts "Tapping homebrew-cask".cyan
+  stdout_str, stderr_str, status = Open3.capture3(command)
+  unless status.exitstatus == 0
+    puts "There was a problem running '#{command}'".red
+    puts stderr_str
+    exit 1
+  end
+  puts "\u2713 Install Homebrew".green
+end
 
 options = {}
 option_parser = OptionParser.new do |opts|
@@ -276,31 +346,57 @@ option_parser = OptionParser.new do |opts|
     options[:clone] = true
   end
   # home git information
-  opts.on("-l", "--location LOC", [:home, :work], "Set location for git. home||work") do |loc|
-    options[:location] = loc
+  opts.on("-e", "--email EMAIL", "Email for git") do |email|
+    options[:email] = email
+  end
+  opts.on("-n", "--name NAME", "Name for git") do |name|
+    options[:name] = name
   end
   opts.on("--no-ycm", "Don't run the YouCompleteMe install script") do
     options[:noycm] = true
+  end
+  opts.on("--mac", "If this is a mac. Homebrew install stuff.") do
+    options[:mac] = true
   end
 end
 
 option_parser.parse!
 
 if options[:clone].nil?
-  setup_git(options[:location].to_s)
+  unless options[:mac]
+    install_homebrew
+    tap_homebrewcask
+    update_homebrew
+    install_brewcask
+    install_with_homebrew("vim")
+    install_with_homebrew("git")
+    install_with_homebrew("zsh")
+  end
+  setup_git(options[:name].to_s, options[:email].to_s)
   pull_submodules
+  change_shell
   link_files_dirs
-  make_vim_dirs
+  make_dirs
   install_vim_plugins
   unless options[:noycm]
     install_youcompleteme
   end
 else
-  setup_git(options[:location].to_s)
+  unless options[:mac]
+    install_homebrew
+    tap_homebrewcask
+    update_homebrew
+    install_brewcask
+    install_with_homebrew("vim")
+    install_with_homebrew("git")
+    install_with_homebrew("zsh")
+  end
+  setup_git(options[:name].to_s, options[:email].to_s)
   clone_dotfiles
   pull_submodules
+  change_shell
   link_files_dirs
-  make_vim_dirs
+  make_dirs
   install_vim_plugins
   unless options[:noycm]
     install_youcompleteme
