@@ -363,7 +363,7 @@ end
 option_parser.parse!
 
 if options[:clone].nil?
-  unless options[:mac]
+  if options[:mac]
     install_homebrew
     tap_homebrewcask
     update_homebrew
@@ -382,7 +382,7 @@ if options[:clone].nil?
     install_youcompleteme
   end
 else
-  unless options[:mac]
+  if options[:mac]
     install_homebrew
     tap_homebrewcask
     update_homebrew
