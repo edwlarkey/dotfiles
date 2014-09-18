@@ -72,6 +72,8 @@ set copyindent
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype php setlocal ts=4 sw=4 expandtab
+autocmd Filetype css setlocal ts=4 sw=4 expandtab
+autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4
 set smarttab
 
@@ -105,7 +107,10 @@ au BufRead *.php set ft=php.html.laravel
 au BufNewFile *.php set ft=php.html.laravel
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
+au BufRead *.scss set ft=css.scss
+au BufNewFile *.scss set ft=css.scss
 "Markdown files textwidth
+au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
 
 
