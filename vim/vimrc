@@ -274,3 +274,6 @@ map <leader>2 :set ft=html<CR>
 :nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
 :inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
 autocmd FileType mail,md,markdown set spell
+
+" GUI font
+set gfn=Anonymous\ Pro\ for\ Powerline:h16
