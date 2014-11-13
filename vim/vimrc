@@ -3,9 +3,6 @@ filetype off        "required
 
 let mapleader=" "
 
-" Make mouse middle click paste without formatting it.
-map <MouseMiddle> <Esc>"*p
-
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -24,14 +21,12 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
 Bundle 'vim-scripts/closetag.vim'
 Bundle 'godlygeek/tabular'
-"Bundle 'itchyny/calendar.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle "kien/rainbow_parentheses.vim"
 Bundle 'mileszs/ack.vim'
 Bundle 'kien/ctrlp.vim'
 " Python plugin bundles
 if has('python') || has('python3')
-  Bundle 'Valloric/YouCompleteMe'
   Bundle 'SirVer/ultisnips'
 else
   Bundle "MarcWeber/vim-addon-mw-utils"
@@ -158,14 +153,11 @@ let g:airline#extensions#syntastic#enabled = 1
 " CTRLP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+nnoremap <leader>o :CtrlP<CR>
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-
-" Calendar
-"let g:calendar_cache_directory='/Users/edwlarkey/calendar'
-"let g:calendar_google_calendar=1
 
 " syntastic
 let g:syntastic_check_on_open=1
@@ -182,19 +174,14 @@ let g:syntastic_python_checkers=['pylint','flake8']
 " If you prefer the Omni-Completion tip window to close when a selection is
 " " made, these lines close it on movement in insert mode or when leaving
 " " insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 :let g:closetag_html_style=1 
 :au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
-
 " Python plugin config
 if has('python') || has('python3')
-  " YCM
-  let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-  let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
