@@ -170,7 +170,7 @@ let g:vim_markdown_folding_disabled=1
 
 "let python_version_2 = 0
 let python_highlight_all = 1
-let g:syntastic_python_checkers=['pylint3','flake8']
+let g:syntastic_python_checkers=['pylint','flake8']
 
 " If you prefer the Omni-Completion tip window to close when a selection is
 " " made, these lines close it on movement in insert mode or when leaving
