@@ -2,8 +2,6 @@
 # ALIASES [I could do this in a plugin I guess]
 ###############################################################################
 
-alias ag='sudo apt-get'
-
 # Functions
 
 take () {

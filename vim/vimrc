@@ -22,14 +22,13 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
-Bundle 'Townk/vim-autoclose'
 Bundle 'vim-scripts/closetag.vim'
-Bundle 'edsono/vim-matchit'
 Bundle 'godlygeek/tabular'
 "Bundle 'itchyny/calendar.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle "kien/rainbow_parentheses.vim"
-Bundle "jnwhiteh/vim-golang"
+Bundle 'mileszs/ack.vim'
+Bundle 'kien/ctrlp.vim'
 " Python plugin bundles
 if has('python') || has('python3')
   Bundle 'Valloric/YouCompleteMe'
@@ -155,6 +154,14 @@ let g:airline_detect_paste=1
 let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1
 let g:airline#extensions#syntastic#enabled = 1
+
+" CTRLP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+
 
 " Calendar
 "let g:calendar_cache_directory='/Users/edwlarkey/calendar'

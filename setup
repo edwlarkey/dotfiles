@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+#
+# Sets up my dotfiles
+#
+# I dedicate this to my wonderful wife, Natasha. Thanks for all of your
+# support.
+#
+
+set -e
+
+echo ''
+
+info () {
+    printf "  [ \033[00;34m..\033[0m ] $1"
+}
+
+user () {
+    printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+    printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+    printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+    echo ''
+    exit
+}
+
+setup_gitconfig () {
+    info 'Setup git'
+
+    user ' - What is your github author name?'
+    read -e git_authorname
+    user ' - What is your github author email?'
+    read -e git_authoremail
+
+    git config --global user.name $git_authorname
+    git config --global user.email $git_authoremail
+    git config --global core.editor vim
+
+    success 'Git setup complete'
+}
+
+link_files () {
+    info 'Linking files'
+    ln -nfs $HOME/dotfiles/vim $HOME/.vim
+    ln -nfs $HOME/dotfiles/vim/vimrc $HOME/.vimrc
+    success 'vim linked'
+    ln -nfs $HOME/dotfiles/bin $HOME/bin
+    success 'bin linked'
+    ln -nfs $HOME/dotfiles/mutt $HOME/.mutt
+    success 'mutt linked'
+    ln -nfs $HOME/dotfiles/zsh/prezto $HOME/.zprezto
+    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zlogin $HOME/.zlogin
+    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zlogout $HOME/.zlogout
+    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zpreztorc $HOME/.zpreztorc
+    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zprofile $HOME/.zprofile
+    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zshrc $HOME/.zshrc
+    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zshenv $HOME/.zshenv
+    success 'zsh linked'
+}
+
+make_dirs () {
+    info 'Linking files'
+    mkdir -p $HOME/.vim-backup
+    mkdir -p $HOME/.vim-undo
+    mkdir -p $HOME/.vim-swap
+    success 'vim dirs created'
+    mkdir -p $HOME/git
+    success '~/git created'
+}
+
+pull_submodules () {
+    cd $HOME/dotfiles && git submodule init && git submodule update
+}
+
+install_vim_plugins () {
+    info 'Install Vim plugins'
+    vim +PluginInstall +qall
+    success 'Plugins installed'
+}
+
+setup_gitconfig
+link_files
+make_dirs
+pull_submodules
+install_vim_plugins
