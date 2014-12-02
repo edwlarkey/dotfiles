@@ -21,6 +21,7 @@ macro index d "s=Deleted<quote-char> Messages\n" "move message to trash"
 macro pager d "s=Deleted<quote-char> Messages\n" "move message to trash"
 
 # SMTP
+set smtp_authenticators = 'gssapi:login'
 set smtp_url="smtp://USERNAME@smtp.mail.me.com:587/"
 set smtp_pass = "PASSWORD"
 set envelope_from=yes
