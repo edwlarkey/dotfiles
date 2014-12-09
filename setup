@@ -50,6 +50,8 @@ link_files () {
     success 'vim linked'
     ln -nfs $HOME/dotfiles/bin $HOME/bin
     success 'bin linked'
+    ln -nfs $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+    success 'tmux linked'
     ln -nfs $HOME/dotfiles/mutt $HOME/.mutt
     success 'mutt linked'
     ln -nfs $HOME/dotfiles/zsh/prezto $HOME/.zprezto
