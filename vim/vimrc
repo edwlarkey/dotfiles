@@ -47,6 +47,21 @@ Bundle 'jelera/vim-javascript-syntax'
 Bundle 'jQuery'
 
 """""""""""""""""""""""""""""""""""""""""""""""""
+" FUNCTIONS
+"""""""""""""""""""""""""""""""""""""""""""""""""
+function! Preserve(command)
+  " Preparation save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL CONFIG
 """""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
@@ -86,7 +101,7 @@ set relativenumber
 set wildignore=*.swp,*.bak,*.pyc,*.class
 
 " Backup, swap, undo
-set backup 
+set backup
 set backupdir=~/.vim-backup//
 set directory=~/.vim-swap//
 set undofile
@@ -155,7 +170,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 nnoremap <leader>o :CtrlP<CR>
 let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 
@@ -177,7 +192,7 @@ let g:syntastic_python_checkers=['pylint','flake8']
 "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-:let g:closetag_html_style=1 
+:let g:closetag_html_style=1
 :au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
 " Python plugin config
@@ -245,6 +260,12 @@ vnoremap <up> <nop>
 vnoremap <down> <nop>
 inoremap <up> <nop>
 inoremap <down> <nop>
+
+" delete trailing spaces
+nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+" retab!!
+nmap <LEADER><TAB> :call Preserve("retab")<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
 
 " F3 to insert timestamp
 nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
