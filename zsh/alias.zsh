@@ -38,4 +38,8 @@ fi
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
+# generate tags
 alias new_work_tags="ctags -R -f ~/.worktags --fields=+l --file-scope=no ~/.tag_files/work"
+
+# Fast ssh
+alias admin="ssh bd_admin@admin.builderdesigns.com"
