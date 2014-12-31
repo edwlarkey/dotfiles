@@ -1,4 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/Users/edwlarkey/Dropbox/txt/life/logs'
 let g:netrw_dirhist_2='/Users/edwlarkey/git/edwlarkey.com'
+let g:netrw_dirhist_3='scp://104.236.1.211/'
+let g:netrw_dirhist_4='scp://104.236.1.211/git/'
+let g:netrw_dirhist_5='scp://104.236.1.211/dotfiles/'
+let g:netrw_dirhist_6='scp://bd_admin@104.236.1.211/'
+let g:netrw_dirhist_7='scp://bd_admin@104.236.1.211/ansible/'
