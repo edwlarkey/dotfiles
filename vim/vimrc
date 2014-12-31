@@ -28,6 +28,7 @@ Bundle 'kien/ctrlp.vim'
 " Python plugin bundles
 if has('python') || has('python3')
   Bundle 'SirVer/ultisnips'
+  Bundle 'Valloric/YouCompleteMe'
 else
   Bundle "MarcWeber/vim-addon-mw-utils"
   Bundle "tomtom/tlib_vim"
@@ -64,13 +65,18 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL CONFIG
 """""""""""""""""""""""""""""""""""""""""""""""""
+set encoding=utf-8
 syntax on
 filetype plugin indent on
 syntax enable
-:set backspace=2
-:set nu
-:set hidden
-:set cursorline
+set backspace=2
+set nu
+set hidden
+set cursorline
+set visualbell
+set noerrorbells
+set tags=./tags,tags,~/.worktags;
+set mouse=a
 
 "indentation
 :set ts=2
@@ -171,6 +177,7 @@ let g:ctrlp_cmd = 'CtrlP'
 nnoremap <leader>o :CtrlP<CR>
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/vendor/**
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 
@@ -197,6 +204,11 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Python plugin config
 if has('python') || has('python3')
+ " YCM
+  let g:ycm_collect_identifiers_from_tags_files = 1
+  let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+  let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
+  "UltiSnips
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
@@ -239,6 +251,13 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+
+" fast esacpe
+imap jj <esc>
+
+" go to next line on screen
+nnoremap j gj
+nnoremap k gk
 
 " Left/Right arrow keys change buffers in all modes
 noremap <Left> <Esc>:bp<CR>
@@ -284,12 +303,25 @@ map <leader>q :wq<CR>
 map <leader>1 :set ft=php<CR>
 map <leader>2 :set ft=html<CR>
 
-
 "Spelling
 :nnoremap <leader>s z=
 :nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
 :inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
 autocmd FileType mail,md,markdown set spell
 
+" Open splits
+nmap vs :vsplit<cr>
+nmap sp :split<cr>
+
+"Resize vsplit
+nmap <C-v> :vertical resize +5<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" MISC
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
 " GUI font
 set gfn=Anonymous\ Pro\ for\ Powerline:h16
+
+" Laravel fast opens
+nmap <leader>lr :e app/Http/routes.php<cr>
