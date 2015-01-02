@@ -19,17 +19,17 @@ Bundle 'tpope/vim-surround'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
-Bundle "kien/rainbow_parentheses.vim"
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Shougo/neocomplete.vim'
 " Python plugin bundles
 if has('python') || has('python3')
   Bundle 'SirVer/ultisnips'
-  Bundle 'Valloric/YouCompleteMe'
 else
   Bundle "MarcWeber/vim-addon-mw-utils"
-  Bundle "tomtom/tlib_vim"
+  Bundle 'tomtom/tlib_vim'
   Bundle 'garbas/vim-snipmate'
 endif
 
@@ -153,6 +153,12 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIGS
 """""""""""""""""""""""""""""""""""""""""""""""""
+" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+
 
 " Fugititve
 :map <leader>c :Gcommit<CR>
@@ -200,10 +206,6 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Python plugin config
 if has('python') || has('python3')
- " YCM
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-  let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
   "UltiSnips
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
