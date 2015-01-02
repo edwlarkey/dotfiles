@@ -12,18 +12,16 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""
 " let Vundle manage Vundle, required
 Bundle 'gmarik/vundle'
-"Bundle 'maciakl/vim-neatstatus'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
-Bundle 'vim-scripts/closetag.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'scrooloose/nerdtree'
 Bundle "kien/rainbow_parentheses.vim"
 Bundle 'mileszs/ack.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 " Python plugin bundles
 if has('python') || has('python3')
@@ -84,6 +82,9 @@ set mouse=a
 :set expandtab
 set autoindent
 set copyindent
+set smarttab
+set nowrap
+
 "Tabs for various file types.
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
@@ -91,9 +92,7 @@ autocmd Filetype php setlocal ts=4 sw=4 expandtab
 autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4
-set smarttab
 
-set nowrap
 
 " Search
 set showmatch
@@ -199,9 +198,6 @@ let g:syntastic_python_checkers=['pylint','flake8']
 "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-:let g:closetag_html_style=1
-:au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-
 " Python plugin config
 if has('python') || has('python3')
  " YCM
@@ -220,6 +216,7 @@ else
   imap <TAB> <Plug>snipMateNextOrTrigger
   smap <TAB> <Plug>snipMateNextOrTrigger
 endif
+
 
 "  Parentheses colours using Solarized
 let g:rbpt_colorpairs = [
