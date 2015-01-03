@@ -12,26 +12,24 @@ call vundle#rc()
 """""""""""""""""""""""""""""""""""""""""""""""""
 " let Vundle manage Vundle, required
 Bundle 'gmarik/vundle'
-"Bundle 'maciakl/vim-neatstatus'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'scrooloose/syntastic'
-Bundle 'vim-scripts/closetag.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'scrooloose/nerdtree'
-Bundle "kien/rainbow_parentheses.vim"
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
+Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
+Bundle 'Shougo/neocomplete.vim'
 " Python plugin bundles
 if has('python') || has('python3')
   Bundle 'SirVer/ultisnips'
-  Bundle 'Valloric/YouCompleteMe'
 else
   Bundle "MarcWeber/vim-addon-mw-utils"
-  Bundle "tomtom/tlib_vim"
+  Bundle 'tomtom/tlib_vim'
   Bundle 'garbas/vim-snipmate'
 endif
 
@@ -84,6 +82,9 @@ set mouse=a
 :set expandtab
 set autoindent
 set copyindent
+set smarttab
+set nowrap
+
 "Tabs for various file types.
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
@@ -91,9 +92,7 @@ autocmd Filetype php setlocal ts=4 sw=4 expandtab
 autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4
-set smarttab
 
-set nowrap
 
 " Search
 set showmatch
@@ -154,6 +153,12 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIGS
 """""""""""""""""""""""""""""""""""""""""""""""""
+" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+
 
 " Fugititve
 :map <leader>c :Gcommit<CR>
@@ -199,15 +204,8 @@ let g:syntastic_python_checkers=['pylint','flake8']
 "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-:let g:closetag_html_style=1
-:au Filetype html,php,xml,xsl source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
-
 " Python plugin config
 if has('python') || has('python3')
- " YCM
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-  let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
   "UltiSnips
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
@@ -220,6 +218,7 @@ else
   imap <TAB> <Plug>snipMateNextOrTrigger
   smap <TAB> <Plug>snipMateNextOrTrigger
 endif
+
 
 "  Parentheses colours using Solarized
 let g:rbpt_colorpairs = [
