@@ -23,15 +23,15 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Shougo/neocomplete.vim'
+"Bundle 'Shougo/neocomplete.vim'
 " Python plugin bundles
-if has('python') || has('python3')
-  Bundle 'SirVer/ultisnips'
-else
-  Bundle "MarcWeber/vim-addon-mw-utils"
-  Bundle 'tomtom/tlib_vim'
-  Bundle 'garbas/vim-snipmate'
-endif
+"if has('python') || has('python3')
+"  Bundle 'SirVer/ultisnips'
+"else
+"  Bundle "MarcWeber/vim-addon-mw-utils"
+"  Bundle 'tomtom/tlib_vim'
+"  Bundle 'garbas/vim-snipmate'
+"endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Bundles
@@ -128,7 +128,13 @@ au BufNewFile *.scss set ft=css.scss
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
 
-
+" Completion
+set completeopt=longest,menuone,preview
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+inoremap <tab> <c-x><c-o>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "color scheme
@@ -153,11 +159,6 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN CONFIGS
 """""""""""""""""""""""""""""""""""""""""""""""""
-" Neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 
 
 " Fugititve
@@ -205,19 +206,15 @@ let g:syntastic_python_checkers=['pylint','flake8']
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Python plugin config
-if has('python') || has('python3')
+"if has('python') || has('python3')
   "UltiSnips
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-else
-  " snipMate
-  imap <TAB> <Plug>snipMateNextOrTrigger
-  smap <TAB> <Plug>snipMateNextOrTrigger
-endif
+"  let g:UltiSnipsExpandTrigger="<c-w>"
+"  let g:UltiSnipsJumpForwardTrigger="<c-w>"
+"  let g:UltiSnipsJumpBackwardTrigger="<c-q>"
+"endif
 
 
 "  Parentheses colours using Solarized
@@ -257,6 +254,10 @@ imap jj <esc>
 " go to next line on screen
 nnoremap j gj
 nnoremap k gk
+
+" Command-space to C-N
+inoremap <D-x> <C-x>
+inoremap <D-Space> <C-n>
 
 " Left/Right arrow keys change buffers in all modes
 noremap <Left> <Esc>:bp<CR>
