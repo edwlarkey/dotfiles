@@ -60,6 +60,13 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
+function! Doc()
+  " Insert docblock
+  exe 'r ~/.vim/snippets/php/doc'
+endfunction
+
+:command Doc :call Doc()
+
 """""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL CONFIG
 """""""""""""""""""""""""""""""""""""""""""""""""
