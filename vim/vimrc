@@ -45,27 +45,8 @@ Bundle 'hdima/python-syntax'
 Bundle 'jelera/vim-javascript-syntax'
 Bundle 'jQuery'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" FUNCTIONS
-"""""""""""""""""""""""""""""""""""""""""""""""""
-function! Preserve(command)
-  " Preparation save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
 
-function! Doc()
-  " Insert docblock
-  exe 'r ~/.vim/snippets/php/doc'
-endfunction
-
-:command Doc :call Doc()
+source ~/.vim/functions.vim
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL CONFIG
