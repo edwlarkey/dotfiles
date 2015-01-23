@@ -13,17 +13,10 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
-function! PhpDoc()
-  " Insert docblock
-  exe 'r ~/.vim/snippets/php/doc'
+function! Tpl(file)
+  exe 'r ~/.vim/snippets/' . a:file
 endfunction
 
-function! PhpDocHead()
-  " Insert docblock
-  exe 'r ~/.vim/snippets/php/doc_h'
-endfunction
-
-" PHP template inserts
-:command Doc :call PhpDoc()
-:command Doch :call PhpDocHead()
+" Template inserts
+:command -nargs=1 T :call Tpl(<f-args>)
 
