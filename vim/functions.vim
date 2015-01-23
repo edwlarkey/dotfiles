@@ -24,6 +24,6 @@ function! PhpDocHead()
 endfunction
 
 " PHP template inserts
-:command Pdoc :call PhpDoc()
-:command Phdoc :call PhpDocHead()
+:command Doc :call PhpDoc()
+:command Doch :call PhpDocHead()
 
