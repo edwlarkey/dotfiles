@@ -14,7 +14,12 @@ function! Preserve(command)
 endfunction
 
 function! Tpl(file)
-  exe 'r ~/.vim/snippets/' . a:file
+  if &filetype == 'php'
+      let b:dir = 'php'
+  else
+      let b:dir = 'misc'
+  endif
+  exe 'r ~/.vim/snippets/'.b:dir.'/'.a:file
 endfunction
 
 " Template inserts
