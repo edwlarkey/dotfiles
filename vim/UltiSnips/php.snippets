@@ -1,0 +1,43 @@
+# Docblock
+snippet doc
+/**
+ *
+ *
+ * @param
+ * @return
+ */
+endsnippet
+
+# Header
+snippet doc_h
+/**
+ * ${1}
+ *
+ * @author ${2:`g:snips_author`}
+ * @version ${3:$Id$}
+ * @copyright ${4:$2}, `strftime('%d %B, %Y')`
+ * @package ${0:default}
+ */
+endsnippet
+
+# function
+snippet func
+/**
+ * ${1}
+ *
+ * @param ${2}
+ * @return ${3}
+ */
+function ${4}()
+{
+}
+endsnippet
+
+# Long Comment
+snippet comment
+/**
+ *
+ * ${1}
+ *
+ */
+endsnippet

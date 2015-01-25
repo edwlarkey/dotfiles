@@ -23,15 +23,14 @@ Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
-"Bundle 'Shougo/neocomplete.vim'
 " Python plugin bundles
-"if has('python') || has('python3')
-"  Bundle 'SirVer/ultisnips'
+if has('python') || has('python3')
+  Bundle 'SirVer/ultisnips'
 "else
 "  Bundle "MarcWeber/vim-addon-mw-utils"
 "  Bundle 'tomtom/tlib_vim'
 "  Bundle 'garbas/vim-snipmate'
-"endif
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " Syntax Bundles
@@ -46,7 +45,33 @@ Bundle 'jelera/vim-javascript-syntax'
 Bundle 'jQuery'
 
 
-source ~/.vim/functions.vim
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" FUNCTIONS
+"""""""""""""""""""""""""""""""""""""""""""""""""
+function! Preserve(command)
+  " Preparation save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+function! Tpl(file)
+  if &filetype =~ 'php'
+      let a:dir = 'php'
+  else
+      let a:dir = 'misc'
+  endif
+  exe 'r ~/.vim/snippets/'.a:dir.'/'.a:file
+endfunction
+
+" Template inserts
+:command -nargs=1 T :call Tpl(<f-args>)
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL CONFIG
@@ -79,7 +104,7 @@ autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype php setlocal ts=4 sw=4 expandtab
 autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
-autocmd Filetype snippets setlocal ts=4 sw=4
+autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
 
 
 " Search
@@ -123,7 +148,14 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-inoremap <tab> <c-x><c-o>
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" " made, these lines close it on movement in insert mode or when leaving
+" " insert mode
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+inoremap <c-]> <c-x><c-o>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "color scheme
@@ -189,22 +221,17 @@ let g:vim_markdown_folding_disabled=1
 let python_highlight_all = 1
 let g:syntastic_python_checkers=['pylint','flake8']
 
-" If you prefer the Omni-Completion tip window to close when a selection is
-" " made, these lines close it on movement in insert mode or when leaving
-" " insert mode
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Python plugin config
-"if has('python') || has('python3')
+if has('python') || has('python3')
   "UltiSnips
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
-"  let g:UltiSnipsExpandTrigger="<c-w>"
-"  let g:UltiSnipsJumpForwardTrigger="<c-w>"
-"  let g:UltiSnipsJumpBackwardTrigger="<c-q>"
-"endif
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<tab>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+endif
 
 
 "  Parentheses colours using Solarized

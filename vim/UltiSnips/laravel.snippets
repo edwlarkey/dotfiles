@@ -1,0 +1,92 @@
+snippet form
+    {{ Form::open(array('route' => 'foo.bar')) }}
+        //
+    {{ Form::close() }}
+endsnippet
+
+snippet form.token
+    {{ Form::token(); }}
+endsnippet
+
+snippet form.email
+    <div class="form-group">
+      {{ Form::label('email', 'Email') }}
+      {{ Form::email('email', null, ['class' => 'form-control']) }}
+    </div>
+endsnippet
+
+snippet form.text
+    <div class="form-group">
+      {{ Form::label('${1:text}', '${2:Text}') }}
+      {{ Form::text('${3:text}', null, ['class' => 'form-control']) }}
+    </div>
+endsnippet
+
+snippet form.select
+    <div class="form-group">
+      {{ Form::label('${1:text}', '${2:Text}') }}
+      {{ Form::select('${3:name}', array(
+        'L' => 'Large',
+        'S' => 'Small'
+      ), null, ['class' => 'form-control']); }}
+    </div>
+endsnippet
+
+snippet form.submit
+    {{ Form::submit('Submit', null, ['class' => 'btn btn-default']); }}
+endsnippet
+
+snippet form.submit.primary
+    {{ Form::submit('Submit', null, ['class' => 'btn btn-primary']); }}
+endsnippet
+
+snippet form.submit.success
+    {{ Form::submit('Submit', null, ['class' => 'btn btn-success']); }}
+endsnippet
+
+snippet form.submit.info
+    {{ Form::submit('Submit', null, ['class' => 'btn btn-info']); }}
+endsnippet
+
+snippet form.submit.warning
+    {{ Form::submit('Submit', null, ['class' => 'btn btn-warning']); }}
+endsnippet
+
+snippet form.submit.danger
+    {{ Form::submit('Submit', null, ['class' => 'btn btn-danger']); }}
+endsnippet
+
+snippet form.button
+    {{ Form::button('Button', null, ['class' => 'btn btn-default']); }}
+endsnippet
+
+snippet form.button.primary
+    {{ Form::button('Button', null, ['class' => 'btn btn-primary']); }}
+endsnippet
+
+snippet form.button.success
+    {{ Form::button('Button', null, ['class' => 'btn btn-success']); }}
+endsnippet
+
+snippet form.button.info
+    {{ Form::button('Button', null, ['class' => 'btn btn-info']); }}
+endsnippet
+
+snippet form.button.warning
+    {{ Form::button('Button', null, ['class' => 'btn btn-warning']); }}
+endsnippet
+
+snippet form.button.danger
+    {{ Form::button('Button', null, ['class' => 'btn btn-danger']); }}
+endsnippet
+
+snippet errors
+    @if ($errors->any())
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+    @endif
+endsnippet
+

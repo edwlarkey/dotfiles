@@ -1,0 +1,200 @@
+snippet html5
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title></title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="container">
+        <h1>TEMPLATE</h1>
+
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
+endsnippet
+
+snippet a
+<a href="${1}">${2}</a>
+endsnippet
+
+snippet a.
+<a class="${1}" href="${2:url}">${3:title}</a>
+endsnippet
+
+snippet a#
+<a id="${1}" href="${2:url}">${3:title}</a>
+endsnippet
+
+# Lists
+snippet ul
+<ul>
+  <li>${1}</li>
+<ul>
+endsnippet
+
+snippet ol
+<ol>
+  <li>${1}</li>
+<ol>
+endsnippet
+
+snippet dl
+<dl>
+  <dt>${1}</dt>
+  <dd>${2}</dd>
+</dl>
+# Divs
+endsnippet
+
+snippet div
+<div class="${1}">
+  ${0:${VISUAL}}
+</div>
+endsnippet
+
+snippet div.
+<div class="${1}">
+</div>
+endsnippet
+
+snippet div#
+<div class="${1}" id="${2}>
+</div>
+# Headings
+endsnippet
+
+snippet h1
+<h1>${0}</h1>
+endsnippet
+
+snippet h2
+<h2>${0}</h2>
+endsnippet
+
+snippet h3
+<h3>${0}</h3>
+endsnippet
+
+snippet h4
+<h4>${0}</h4>
+endsnippet
+
+snippet h5
+<h5>${0}</h5>
+endsnippet
+
+snippet h6
+<h6>${0}</h6>
+endsnippet
+
+# Images
+snippet img
+<img class="${1} id="${2} src="${3}" alt="${4}" />
+endsnippet
+
+# Forms
+snippet input
+<input type="${1}" name="${2:name}" id="${3:$2}" />
+endsnippet
+
+snippet input.text
+<input type="text" name="${1:name}" id="${2:$1}" />
+endsnippet
+
+snippet input.submit
+<input type="submit" id="${1:submitButton}" value="${2:Submit}" />
+endsnippet
+
+snippet input.hidden
+<input type="hidden" name="${1:name}" id="${2:$1}" value="${3}" />
+endsnippet
+
+snippet input.checkbox
+<input type="checkbox" name="${1:name}" id="${2:$1}" />
+endsnippet
+
+snippet input.radio
+<input type="radio" name="${1:name}" id="${2:$1}" />
+endsnippet
+
+snippet input.email
+<input type="email" name="email" id="email" />
+endsnippet
+
+snippet opt+
+<option value="${1}">${2}</option>
+opt+${0}
+endsnippet
+
+snippet select
+<select name="${1:name}" id="${2:$1}">
+  <option>${3}</option>
+  opt+${0}
+</select>
+endsnippet
+
+snippet tr
+<tr>${0}</tr>
+endsnippet
+
+snippet th
+<th>${0}</th>
+endsnippet
+
+snippet th+
+<th>${1}</th>
+th+${0}
+endsnippet
+
+snippet td
+<td>${1}</td>
+endsnippet
+
+snippet td+
+<td>${1}</td>
+td+${0}
+endsnippet
+
+snippet table
+<table>
+  <thead>
+    <tr>
+      <th>${1}</th>
+      th+${0}
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    </tr>
+  </tbody>
+</table>
+endsnippet
+
