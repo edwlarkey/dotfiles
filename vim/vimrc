@@ -155,7 +155,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-inoremap <c-]> <c-x><c-o>
+inoremap <c-o> <c-x><c-o>
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "color scheme
