@@ -22,6 +22,9 @@ vim/bundle/**
 
 zsh/prezto/**
 
+#netrw
+vim/.netrwhist
+
 # ignore work files
 bin/fabric
 atlas_backup
