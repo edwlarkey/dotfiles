@@ -198,3 +198,24 @@ snippet table
 </table>
 endsnippet
 
+snippet lightbox
+<script src="common/swipebox/src/js/jquery.swipebox.min.js"></script>
+<link rel="stylesheet" href="common/swipebox/src/css/swipebox.min.css">
+<script>
+    $( document ).ready(function() {
+    /* Photos */
+    $( '.lightbox a' ).swipebox({useSVG : false});
+});
+</script>
+endsnippet
+
+snippet lightbox.video
+<script src="common/swipebox/src/js/jquery.swipebox.min.js"></script>
+<link rel="stylesheet" href="common/swipebox/src/css/swipebox.min.css">
+<script>
+    $( document ).ready(function() {
+    /* Video */
+    $( '.swipebox-video' ).swipebox({useSVG : false});
+});
+</script>
+endsnippet
