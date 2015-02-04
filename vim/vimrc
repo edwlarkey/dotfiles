@@ -21,7 +21,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'godlygeek/tabular'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'mileszs/ack.vim'
-"Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdtree'
 Bundle 'kien/ctrlp.vim'
 " Python plugin bundles
 if has('python') || has('python3')
@@ -155,11 +155,8 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-inoremap <c-o> <c-x><c-o>
+inoremap <s-tab> <c-x><c-o>
 
-"Explore
-let g:netrw_liststyle=3
-map <leader>n :Explore<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -192,7 +189,7 @@ endif
 :map <leader>g :Gwrite<CR>
 
 " NERDTree
-"map <leader>n :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 
 " AIRLINE
 set laststatus=2
