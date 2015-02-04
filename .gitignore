@@ -18,6 +18,7 @@ gmail
 work
 
 vim/bundle/**
+vim/plugged/**
 ~vim/bundle/vundle
 
 zsh/prezto/**

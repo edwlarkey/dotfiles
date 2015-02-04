@@ -3,46 +3,46 @@ filetype off        "required
 
 let mapleader=" "
 
-"set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/plugged')
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-" BUNDLES
+" PLUGINS
 """""""""""""""""""""""""""""""""""""""""""""""""
 " let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'scrooloose/syntastic'
-Bundle 'godlygeek/tabular'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'kien/ctrlp.vim'
+Plug 'gmarik/vundle'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'altercation/vim-colors-solarized'
+Plug 'scrooloose/syntastic'
+Plug 'godlygeek/tabular'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'mileszs/ack.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
 " Python plugin bundles
 if has('python') || has('python3')
-  Bundle 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips'
 "else
-"  Bundle "MarcWeber/vim-addon-mw-utils"
-"  Bundle 'tomtom/tlib_vim'
-"  Bundle 'garbas/vim-snipmate'
+"  Plug "MarcWeber/vim-addon-mw-utils"
+"  Plug 'tomtom/tlib_vim'
+"  Plug 'garbas/vim-snipmate'
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""
-" Syntax Bundles
+" Syntax Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""
-Bundle 'edwlarkey/vim-textcal'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'othree/html5-syntax.vim'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-haml'
-Bundle 'hdima/python-syntax'
-Bundle 'jelera/vim-javascript-syntax'
-Bundle 'jQuery'
+Plug 'edwlarkey/vim-textcal'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'othree/html5-syntax.vim'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-haml'
+Plug 'hdima/python-syntax'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'jQuery'
+
+call plug#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""
