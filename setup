@@ -80,7 +80,7 @@ pull_submodules () {
 
 install_vim_plugins () {
     info 'Install Vim plugins'
-    vim +PluginInstall +qall
+    vim +PlugInstall +qall
     success 'Plugins installed'
 }
 
