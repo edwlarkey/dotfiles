@@ -80,9 +80,9 @@ function prompt_steeef_setup {
 
   # Define prompts.
   PROMPT="
-${_prompt_steeef_colors[1]}%n%f at ${_prompt_steeef_colors[2]}%m%f in ${_prompt_steeef_colors[5]}%~%f"'${vcs_info_msg_0_}'"
+${_prompt_steeef_colors[1]}%n%f at ${_prompt_steeef_colors[2]}%m%f in ${_prompt_steeef_colors[5]}%~%f"'${vcs_info_msg_0_} - ${vim_mode}'"
 ${_prompt_steeef_colors[2]}>_%f "
-  RPROMPT='${vim_mode}'
+  RPROMPT=''
 }
 
 prompt_steeef_setup "$@"
