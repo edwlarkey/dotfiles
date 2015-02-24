@@ -28,11 +28,14 @@ zstyle ':prezto:load' pmodule \
   'terminal' \
   'editor' \
   'history' \
+  'history-substring-search' \
   'directory' \
   'spectrum' \
   'utility' \
-  'git' \
   'completion' \
+  'syntax-highlighting' \
+  'tmux' \
+  'git' \
   'prompt'
 
 #
@@ -158,5 +161,3 @@ zstyle ':prezto:module:prompt' theme 'edwlarkey'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
-
-source $HOME/dotfiles/zsh/alias.zsh
