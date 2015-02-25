@@ -20,6 +20,8 @@ work
 vim/bundle/**
 ~vim/bundle/vundle
 
+vim/plugged
+
 zsh/prezto/**
 
 #netrw
