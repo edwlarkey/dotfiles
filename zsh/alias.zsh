@@ -19,8 +19,7 @@ alias edwmail='mutt -F ~/.mutt/edwlarkey'
 alias gac="git add . && git commit -v"
 
 ## Calendar
-alias c="textcal"
-alias ec="textcal -s"
+alias c="textcal open"
 
 ## todo.txt
 alias life="cd ~/Dropbox/txt/life"
