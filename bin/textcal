@@ -5,7 +5,7 @@
 # License: GPLv3
 
 # Calendar location
-CALENDAR=~/Dropbox/txt/life/2014.textcal
+CALENDAR=~/SYNC/txt/2015.textcal
 
 # Loction of generate_calendar.py
 # GENERATE=~/bin/generate_calendar.py

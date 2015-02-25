@@ -12,4 +12,14 @@ fi
 
 # Customize to your needs...
 
-export PATH=$HOME/bin:$HOME/.composer/vendor/bin:/usr/local/bin:$PATH
+
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^r' history-incremental-search-backward
+
+
+#
+# Aliases
+#
+
+source $HOME/dotfiles/zsh/alias.zsh

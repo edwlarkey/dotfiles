@@ -10,3 +10,5 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
+export OCTOPUS_ANSIBLE_PATH=$HOME/ansible
+export TEXTCAL=$HOME/SYNC/txt/2015.textcal
