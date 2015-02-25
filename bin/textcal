@@ -1,75 +1,137 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python
+# coding:utf-8
 
-# Author: Edward G. Larkey (edwlarkey at mac dot com)
-# Copyright: Copyright (c) 2014 Edward G. Larkey
-# License: GPLv3
+"""Textcal
 
-# Calendar location
-CALENDAR=~/SYNC/txt/2015.textcal
+A plain text calendar generator.
+"""
 
-# Loction of generate_calendar.py
-# GENERATE=~/bin/generate_calendar.py
+__author__ = "Edward Larkey <edwlarkey@gmail.com>"
+__copyright__ = "Copyright (c) 2014-2015 Edward Larkey"
+__license__ = "GPL Version 3"
+__version__ = "0.1.0"
 
-# Current DAte
-DATE=$(date +%Y-%m-%d)
+import os
+import argparse
+import subprocess
+import calendar
+import datetime
 
-function usage() {
-    echo """
-    text-calendar [options]
+class Textcal(object):
+    """Textcal"""
 
-    When run without options, calendar is opened in vim at the current date.
+    def __init__(self):
+        """Main execution path"""
+        self.textcal_path = ''
+        self.args = {}
 
-    -h: this usage message
-    -s: edit calendar in vim with search (e.g. -s 05-02)
+        # defaults
+        self.create = False
+        self.open = False
+        self.year = ''
+        # Years start in January
+        self.month = 1
+        self.date = datetime.date.today().strftime('%Y-%m-%d')
 
-    See http://github.com/edwlarkey/textcal.vim for syntax highlighting
-    .textcal files
+        self.read_environment()
+        self.parse_cli()
 
-    """
-}
+        if self.create:
+            # for each month of the year, print calendar and then list of dates.
+            while self.month <= 12:
+                self.print_calendar()
+                self.print_days()
+                self.month += 1
+        elif self.open:
+            self.open_calendar()
 
-# Generate calendar.
-# Get location of generate_calendar.py and include year argument.
-#function generate() {
-#    $GENERATE $1
-#}
+    def read_environment(self):
+        """Reads the settings from environment variables"""
+        # Calendar location
+        if os.getenv('TEXTCAL'):
+            self.textcal_path = os.getenv('TEXTCAL')
 
-# Edit calendar in vim. If argument, then search.
-function edit() {
-    vim +/$1 $CALENDAR
-}
+    def parse_cli(self):
+        """Command line argument processing"""
+        parser = argparse.ArgumentParser(description="A plain text calendar")
 
+        # Version information
+        parser.add_argument('--version', action='version',
+                            version="%(prog)s: " + __version__)
 
-# Get options and arguments.
-while getopts ":hes:g:" o; do
-    case "${o}" in
-        s)
-            s=${OPTARG}
-            ;;
-#        g)
-#            g=${OPTARG}
-#            ;;
-        h)
-            usage
-            ;;
-        *)
-            usage
-            ;;
-    esac
-done
-shift $((OPTIND-1))
+        commands = parser.add_subparsers(help='Commands', dest='command')
 
-# Generate or Edit with search
-# if [[ ${g} || ${s} ]]; then
-#     if [[ ${g} ]]; then
-#         generate ${g}
-#     elif [[ ${s} ]]; then
-#         edit ${s}
-#     fi
+        # Create command and arguments
+        create = commands.add_parser('create', help='Create new calendar')
+        create.add_argument('-y', '--year', required=True, type=int,
+                            help="""YEAR for new calendar""")
 
-if [[ ${s} ]]; then
-    edit ${s}
-# If no options, open calendar in vim to current date
-else
-    edit $DATE
-fi
+        # open command and arguments
+        open = commands.add_parser('open', help='Open calendar at date')
+        open.add_argument('-d', '--date', help="""DATE to open. e.g. 02-24""")
+
+        args = parser.parse_args()
+
+        if args.command == 'create':
+            self.create = True
+            self.year = args.year
+        elif args.command == 'open':
+            self.open = True
+            if args.date:
+                self.date = args.date
+
+    def print_calendar(self):
+        """Prints a text calendar of the year and month supplied."""
+
+        cal = calendar.month(self.year, self.month)
+        print cal
+
+    def print_days(self):
+        """Prints each day in a month in the format:
+        YYYY-MM-DD  A[:1]  :
+        """
+        day = 1
+        last_day = calendar.monthrange(self.year, self.month)[1]
+
+        while day <= last_day:
+            # date
+            date = datetime.date(self.year, self.month, day)
+
+            # string date
+            strdate = date.strftime('%Y-%m-%d')
+
+            # full day of week
+            dow = date.strftime('%A')
+
+            # convert day of week(dow) into single character dayofweek
+            if dow == "Monday":
+                dayofweek = 'M'
+            elif dow == "Tuesday":
+                dayofweek = 'T'
+            elif dow == "Wednesday":
+                dayofweek = 'W'
+            elif dow == "Thursday":
+                dayofweek = 'R'
+            elif dow == "Friday":
+                dayofweek = 'F'
+            else:
+                dayofweek = 'S'
+
+            # if it is the beginning of the week, print a new line first.
+            if dayofweek == 'M':
+                print ""
+                print "%s  %s  :" % (strdate, dayofweek)
+            else:
+                print "%s  %s  :" % (strdate, dayofweek)
+
+            day += 1
+
+        # print ^^ at the end of the month (used for gawk printing stop pattern)
+        print "^^\n"
+
+    def open_calendar(self):
+        """Open calendar to specified date"""
+        search_string = "+/%s" % (self.date)
+        subprocess.call(["vim", search_string, self.textcal_path])
+
+Textcal()
