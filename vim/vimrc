@@ -21,6 +21,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 " Python plugin bundles
 if has('python') || has('python3')
   Plug 'SirVer/ultisnips'
@@ -225,13 +226,14 @@ let g:syntastic_python_checkers=['pylint','flake8']
 
 " Python plugin config
 if has('python') || has('python3')
+  let g:ycm_collect_identifiers_from_tags_files = 1
   "UltiSnips
   " ultisnips
   " Trigger configuration. Do not use <tab> if you use
   " https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-b>"
+  let g:UltiSnipsExpandTrigger="<c-k>"
+  let g:UltiSnipsJumpForwardTrigger="<c-k>"
+  let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
 endif
 
 
