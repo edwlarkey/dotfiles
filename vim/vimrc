@@ -84,11 +84,11 @@ syntax enable
 set backspace=2
 set nu
 set hidden
+set title
 set cursorline
 set visualbell
 set noerrorbells
 set tags=./tags,tags,~/.worktags;
-set mouse=a
 
 "indentation
 :set ts=2
