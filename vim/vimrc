@@ -19,6 +19,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
+Plug 'shawncplus/phpcomplete.vim'
 Plug 'ajh17/VimCompletesMe'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 " Python plugin bundles
@@ -149,7 +150,6 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-autocmd FileType php let b:vcm_tab_complete = "tags"
 
 " If you prefer the Omni-Completion tip window to close when a selection is
 " " made, these lines close it on movement in insert mode or when leaving
@@ -158,8 +158,6 @@ autocmd FileType php let b:vcm_tab_complete = "tags"
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 inoremap <s-tab> <c-x><c-o>
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 "color scheme
@@ -260,9 +258,6 @@ endif
 " GENERAL KEYBINDINGS
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" no autodindent with F2
-set pastetoggle=<F2>
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -304,6 +299,9 @@ nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 nmap <LEADER><TAB> :call Preserve("retab")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
+" no autodindent with F2
+set pastetoggle=<F2>
+
 " F3 to insert timestamp
 nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
 imap <F3> <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
@@ -316,7 +314,6 @@ imap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
 map <leader>w :w<CR>
 map <leader>q :wq<CR>
 
-
 "Fast filetype switching
 map <leader>1 :set ft=php<CR>
 map <leader>2 :set ft=html<CR>
@@ -325,7 +322,7 @@ map <leader>2 :set ft=html<CR>
 :nnoremap <leader>s z=
 :nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
 :inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
-autocmd FileType mail,md,markdown set spell
+autocmd FileType gitcommit,mail,md,markdown set spell
 
 " Open splits
 nmap vs :vsplit<cr>
