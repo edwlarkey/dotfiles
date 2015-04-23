@@ -21,6 +21,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
 Plug 'shawncplus/phpcomplete.vim'
 Plug 'ajh17/VimCompletesMe'
+Plug 'christoomey/vim-tmux-navigator'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 " Python plugin bundles
 if has('python') || has('python3')
@@ -218,7 +219,7 @@ let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 "vim-markdown disable folding
 let g:vim_markdown_folding_disabled=1
 
-"let python_version_2 = 0
+let python_version_2 = 0
 let python_highlight_all = 1
 let g:syntastic_python_checkers=['pylint','flake8']
 
