@@ -31,13 +31,16 @@ fail () {
 setup_gitconfig () {
     info 'Setup git'
 
-    user ' - What is your github author name?'
-    read -e git_authorname
-    user ' - What is your github author email?'
-    read -e git_authoremail
+    #user ' - What is your github author name?'
+    #read -e git_authorname
+    #user ' - What is your github author email?'
+    #read -e git_authoremail
 
-    git config --global user.name $git_authorname
-    git config --global user.email $git_authoremail
+    #git config --global user.name $git_authorname
+    #git config --global user.email $git_authoremail
+
+    git config --global user.name 'Edward Larkey'
+    git config --global user.email edwlarkey@mac.com
     git config --global core.editor vim
 
     success 'Git setup complete'
@@ -65,7 +68,7 @@ link_files () {
 }
 
 make_dirs () {
-    info 'Linking files'
+    info 'Creating directories'
     mkdir -p $HOME/.vim-backup
     mkdir -p $HOME/.vim-undo
     mkdir -p $HOME/.vim-swap
@@ -76,6 +79,7 @@ make_dirs () {
 
 pull_submodules () {
     cd $HOME/dotfiles && git submodule init && git submodule update
+    git pull && git submodule update --init --recursive
 }
 
 install_vim_plugins () {
