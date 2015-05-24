@@ -1,13 +1,31 @@
-set nocompatible               " be iMproved
+" Edward Larkey's vimrc
+"
+" I dedicate this to my wonderful wife, Natasha. Thanks for all of your
+" support.
+"
+" Snippets were taken from many places over the years.
+"
+" Organization was inspired by: https://github.com/gregstallings/vimfiles
+"
+" =============================================================================
+" Initialization
+" =============================================================================
+
+" Clear autocmds
+autocmd!
+
+" Use Vim settings, rather than Vi settings (default when a vimrc exists)
+set nocompatible
+
 filetype off        "required
 
-let mapleader=" "
 
+
+" =============================================================================
+" Plugins
+" =============================================================================
 call plug#begin('~/.vim/plugged')
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGINS
-"""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -19,9 +37,10 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim'
-Plug 'shawncplus/phpcomplete.vim'
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'klen/python-mode', { 'for': 'python' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 " Python plugin bundles
 if has('python') || has('python3')
@@ -32,24 +51,24 @@ if has('python') || has('python3')
 "  Plug 'garbas/vim-snipmate'
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
 Plug 'edwlarkey/vim-textcal'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'othree/html5-syntax.vim'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-haml'
-Plug 'hdima/python-syntax'
+Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'jelera/vim-javascript-syntax'
 Plug 'jQuery'
 
 call plug#end()
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" FUNCTIONS
-"""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================
+" Functions
+" =============================================================================
 function! Preserve(command)
   " Preparation save last search, and cursor position.
   let _s=@/
@@ -62,45 +81,54 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
-function! Tpl(file)
-  if &filetype =~ 'php'
-      let a:dir = 'php'
-  else
-      let a:dir = 'misc'
-  endif
-  exe 'r ~/.vim/snippets/'.a:dir.'/'.a:file
-endfunction
+" function! Tpl(file)
+"   if &filetype =~ 'php'
+"       let a:dir = 'php'
+"   else
+"       let a:dir = 'misc'
+"   endif
+"   exe 'r ~/.vim/snippets/'.a:dir.'/'.a:file
+" endfunction
 
 " Template inserts
-:command -nargs=1 T :call Tpl(<f-args>)
+":command! -nargs=1 T :call Tpl(<f-args>)
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" GENERAL CONFIG
-"""""""""""""""""""""""""""""""""""""""""""""""""
-set encoding=utf-8
+" =============================================================================
+" General Config
+" =============================================================================
+
+" Use UTF-8 without BOM
+set encoding=utf-8 nobomb
+
+" Use <SPACE> as leader
+let mapleader=" "
+
 syntax on
 filetype plugin indent on
 syntax enable
-set backspace=2
-set nu
-set hidden
-set title
-set cursorline
-set visualbell
-set noerrorbells
+" Backspace over everything in insert mode
+set backspace=indent,eol,start
+
+" Tags
 set tags=./tags,tags,~/.worktags;
 
-"indentation
-:set ts=2
-:set sw=2
-:set expandtab
-set autoindent
-set copyindent
-set smarttab
-set nowrap
 
-"Tabs for various file types.
+""
+"" Whitespace
+""
+
+"indentation
+set expandtab     " Tab in insert mode will produce spaces
+set tabstop=2     " Width of a tab
+set shiftwidth=2  " Width of reindent operations and auto indentation
+set softtabstop=2 " Set spaces for tab in insert mode
+set autoindent    " Enable auto indentation
+set copyindent    " Copy indentation from source
+set smarttab
+set nowrap        " Don't wrap lines
+
+" Tabs for various file types.
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype php setlocal ts=4 sw=4 expandtab
@@ -108,17 +136,83 @@ autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
 
+" Invisible characters
+set list
+set listchars=tab:>.,trail:.,extends:#,nbsp:.
+autocmd filetype html,xml set listchars-=tab:>.
 
-" Search
-set showmatch
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
 
-" Relative number
-set relativenumber
-set wildignore=*.swp,*.bak,*.pyc,*.class
+""
+"" Joining
+""
+
+" Use only 1 space after "." when joining lines instead of 2
+set nojoinspaces
+
+" Joining with indents is useless - instead join and delete spaces
+nnoremap gJ Jdiw
+
+" Don't reset cursor to start of line when moving around
+set nostartofline
+
+" =============================================================================
+" Appearance
+" =============================================================================
+
+set cursorline      " Highlight current line
+set scrolloff=5     " Keep more buffer context when scrolling
+set cmdheight=1     " Set command line height (default)
+set title           " Show the filename in the window titlebar
+set t_Co=256        " 256 colors
+set background=dark " Dark background
+syntax on           " Enable syntax highlighting
+set visualbell
+set noerrorbells    " Disable error bells
+set number          " Show line numbers
+set relativenumber  " Relative numbering
+
+""
+"" Colorscheme and colorcolumn
+""
+
+let g:solarized_termtrans = 1
+try
+    colorscheme solarized
+catch
+    colorscheme default
+endtry
+
+" dont display color column if it doesn't support it
+if v:version > 703
+    let &colorcolumn="80,".join(range(120,999),",")
+endif
+
+
+""
+"" Wildmode
+""
+
+" Make tab completion for files/buffers act like bash
+set wildmenu
+
+" Use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore node modules
+set wildignore+=node_modules/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+set wildignore=*.bak,*.pyc,*.class
 
 " Backup, swap, undo
 set backup
@@ -128,17 +222,67 @@ set undofile
 set undodir=~/.vim-undo//
 set writebackup
 
-set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
-autocmd filetype html,xml set listchars-=tab:>.
+""
+"" Search
+""
+set showmatch  " Show matches
+set hlsearch   " Highlight searches
+set incsearch  " Highlight dynamically as pattern is typed
+set ignorecase " Make searches case-insensitive...
+set smartcase  " ...unless they contain at least one uppercase character
 
-"File type specifics
+" =============================================================================
+" Buffers
+" =============================================================================
+
+" Allow unsaved background buffers and remember marks/undo for them
+set hidden
+
+" Auto-reload buffers when files are changed on disk
+set autoread
+
+" Left/Right arrow keys change buffers in all modes
+noremap <Left> <Esc>:bp<CR>
+inoremap <Left> <Esc>:bp<CR>
+nnoremap <Left> <Esc>:bp<CR>
+vnoremap <Left> <Esc>:bp<CR>
+
+noremap <Right> <Esc>:bn<CR>
+inoremap <Right> <Esc>:bn<CR>
+nnoremap <Right> <Esc>:bn<CR>
+vnoremap <Right> <Esc>:bn<CR>
+
+" =============================================================================
+" Registers
+" =============================================================================
+
+" Use the OS clipboard by default
+set clipboard=unnamed
+
+" Copy to X11 primary clipboard
+map <leader>y "*y
+
+" Paste from unnamed register and fix indentation
+nmap <leader>p pV`]=
+
+" Repeat the last macro in the `q` register
+nmap <leader>2 @q
+
+" Delete to the blackhole register
+nnoremap <leader>x "_x
+nnoremap <leader>d "_dd
+
+" =============================================================================
+" Filetypes and Custom Autocmds
+" =============================================================================
+
 au BufRead *.php set ft=php.html.laravel
 au BufNewFile *.php set ft=php.html.laravel
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
 au BufRead *.scss set ft=css.scss
 au BufNewFile *.scss set ft=css.scss
+
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
@@ -160,29 +304,12 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 inoremap <s-tab> <c-x><c-o>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-"color scheme
-"""""""""""""""""""""""""""""""""""""""""""""""""
-let g:solarized_termtrans = 1
-set background=dark
-"let g:solarized_termcolors=16
-set t_Co=256
-try
-    colorscheme solarized
-catch
-    colorscheme default
-endtry
-
-" dont display color column if it doesn't support it
-if v:version > 703
-    let &colorcolumn="80,".join(range(120,999),",")
-endif
 
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGIN CONFIGS
-"""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================
+" Plugin Settings and Mappings
+" =============================================================================
 
 
 " Fugititve
@@ -255,9 +382,13 @@ if exists('RainbowParenthesesToggle')
     au Syntax * RainbowParenthesesLoadBraces
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" GENERAL KEYBINDINGS
-"""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================
+" General Keybindings
+" =============================================================================
+
+" quick vimrc editing
+:nnoremap <leader>v $MYVIMRC<cr>
+autocmd BufWritePost .vimrc source %
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -273,16 +404,6 @@ nnoremap k gk
 inoremap <D-x> <C-x>
 inoremap <D-Space> <C-n>
 
-" Left/Right arrow keys change buffers in all modes
-noremap <Left> <Esc>:bp<CR>
-inoremap <Left> <Esc>:bp<CR>
-nnoremap <Left> <Esc>:bp<CR>
-vnoremap <Left> <Esc>:bp<CR>
-
-noremap <Right> <Esc>:bn<CR>
-inoremap <Right> <Esc>:bn<CR>
-nnoremap <Right> <Esc>:bn<CR>
-vnoremap <Right> <Esc>:bn<CR>
 
 " Disable up/down arrow keys
 noremap <up> <nop>
