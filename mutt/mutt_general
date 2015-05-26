@@ -16,6 +16,9 @@ bind editor ^T complete
 # imap check G
 bind index G imap-fetch-mail
 
+macro index H <display-toggle-weed>
+macro pager H <display-toggle-weed>
+
 macro index l <display-message>
 macro index h <sync-mailbox><change-folder>? "Go to the folder menu"
 
