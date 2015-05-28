@@ -14,8 +14,8 @@
 " Clear autocmds
 autocmd!
 
-" Use Vim settings, rather than Vi settings (default when a vimrc exists)
-set nocompatible
+
+set nocompatible    " Use Vim settings, rather than Vi settings
 
 filetype off        "required
 
@@ -57,7 +57,7 @@ endif
 Plug 'edwlarkey/vim-textcal'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'othree/html5-syntax.vim'
-Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-haml'
 Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'jelera/vim-javascript-syntax'
@@ -286,6 +286,9 @@ au BufNewFile *.scss set ft=css.scss
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
+
+" Comments
+autocmd FileType gitcommit set commentstring=#\ %s
 
 " Completion
 set completeopt=longest,menuone,preview

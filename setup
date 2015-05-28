@@ -42,6 +42,7 @@ setup_gitconfig () {
     git config --global user.name 'Edward Larkey'
     git config --global user.email edwlarkey@mac.com
     git config --global core.editor vim
+    git config --global commit.template $HOME/dotfiles/git-commit-template
 
     success 'Git setup complete'
 }
