@@ -10,10 +10,10 @@ take () {
 }
 
 ## MUTT
-alias mutt='mutt -F ~/.mutt/mac'
 alias email='mutt -F ~/.mutt/work'
 alias gmail='mutt -F ~/.mutt/gmail'
 alias edwmail='mutt -F ~/.mutt/edwlarkey'
+alias mac='mutt -F ~/.mutt/mac'
 
 ## GIT extra
 alias gac="git add . && git commit -v"
@@ -43,3 +43,4 @@ alias ctags="ctags -R -f ./tags --fields=+l"
 
 # Fast ssh
 alias admin="ssh bd_admin@admin.builderdesigns.com"
+alias backups="ssh bd_admin@10.1.10.254"

@@ -17,6 +17,10 @@ bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^r' history-incremental-search-backward
 
+if [[ `uname -s` == "Linux" ]]; then
+  setxkbmap -option ctrl:nocaps
+fi
+
 
 #
 # Aliases
