@@ -42,46 +42,49 @@ setup_gitconfig () {
     git config --global user.name 'Edward Larkey'
     git config --global user.email edwlarkey@mac.com
     git config --global core.editor vim
-    git config --global commit.template $HOME/dotfiles/git-commit-template
+    git config --global commit.template "$HOME/dotfiles/git-commit-template"
 
     success 'Git setup complete'
 }
 
 link_files () {
     info 'Linking files'
-    ln -nfs $HOME/dotfiles/vim $HOME/.vim
-    ln -nfs $HOME/dotfiles/vim/vimrc $HOME/.vimrc
+    ln -nfs "$HOME/dotfiles/vim $HOME/.vim"
+    ln -nfs "$HOME/dotfiles/vim/vimrc $HOME/.vimrc"
+    # NeoVim
+    ln -nfs "$HOME/dotfiles/vim $HOME/.nvim"
+    ln -nfs "$HOME/dotfiles/vim/vimrc $HOME/.nvimrc"
     success 'vim linked'
-    ln -nfs $HOME/dotfiles/bin $HOME/bin
+    ln -nfs "$HOME/dotfiles/bin $HOME/bin"
     success 'bin linked'
-    ln -nfs $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+    ln -nfs "$HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf"
     success 'tmux linked'
-    ln -nfs $HOME/dotfiles/mutt $HOME/.mutt
+    ln -nfs "$HOME/dotfiles/mutt $HOME/.mutt"
     success 'mutt linked'
-    ln -nfs $HOME/dotfiles/zsh/prezto $HOME/.zprezto
-    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zlogin $HOME/.zlogin
-    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zlogout $HOME/.zlogout
-    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zpreztorc $HOME/.zpreztorc
-    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zprofile $HOME/.zprofile
-    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zshrc $HOME/.zshrc
-    ln -nfs $HOME/dotfiles/zsh/prezto-custom/zshenv $HOME/.zshenv
+    ln -nfs "$HOME/dotfiles/zsh/prezto $HOME/.zprezto"
+    ln -nfs "$HOME/dotfiles/zsh/prezto-custom/zlogin $HOME/.zlogin"
+    ln -nfs "$HOME/dotfiles/zsh/prezto-custom/zlogout $HOME/.zlogout"
+    ln -nfs "$HOME/dotfiles/zsh/prezto-custom/zpreztorc $HOME/.zpreztorc"
+    ln -nfs "$HOME/dotfiles/zsh/prezto-custom/zprofile $HOME/.zprofile"
+    ln -nfs "$HOME/dotfiles/zsh/prezto-custom/zshrc $HOME/.zshrc"
+    ln -nfs "$HOME/dotfiles/zsh/prezto-custom/zshenv $HOME/.zshenv"
     success 'zsh linked'
-    ln -nfs $HOME/dotfiles/awesome $HOME/.config/awesome
+    ln -nfs "$HOME/dotfiles/awesome $HOME/.config/awesome"
     success 'awesome config linked'
 }
 
 make_dirs () {
     info 'Creating directories'
-    mkdir -p $HOME/.vim-backup
-    mkdir -p $HOME/.vim-undo
-    mkdir -p $HOME/.vim-swap
+    mkdir -p "$HOME/.vim-backup"
+    mkdir -p "$HOME/.vim-undo"
+    mkdir -p "$HOME/.vim-swap"
     success 'vim dirs created'
-    mkdir -p $HOME/git
+    mkdir -p "$HOME/git"
     success '~/git created'
 }
 
 pull_submodules () {
-    cd $HOME/dotfiles && git submodule init && git submodule update
+    cd "$HOME/dotfiles" && git submodule init && git submodule update
     git pull && git submodule update --init --recursive
 }
 

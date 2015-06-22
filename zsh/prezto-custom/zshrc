@@ -27,3 +27,5 @@ fi
 #
 
 source $HOME/dotfiles/zsh/alias.zsh
+
+export TERM=screen-256color

@@ -15,57 +15,15 @@ awful.rules.rules = {
       -- For browser
     { rule_any = { class = {"Iceweasel", "Chromium", "Firefox"} },
       properties = { tag = tags[1][1] } },
-      -- For Chat
-    { rule = { class = "HipChat", role = "buddy_list" },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
     { rule = { class = "HipChat" },
       properties = { tag = tags[1][8] } },
-    { rule = { class = "Terminator" },
-      properties = { tag = tags[1][2] } },
-    { rule = { class = "Chromium" },
-      properties = { tag = tags[1][1] } },
+    { rule = { class = "Spotify" },
+      properties = { tag = tags[1][9] } },
 
-      callback = function (c)
-          -- width of buddy list window
-          local cl_width = 250
-          -- default placement. note: you have to restart
-          -- pidgin for changes to take effect
-          local def_left = true
-
-          local scr_area = screen[c.screen].workarea
-          local cl_strut = c:struts()
-          local geometry = nil
-
-          -- adjust scr_area for this client's struts
-          if cl_strut ~= nil then
-              if cl_strut.left ~= nil and cl_strut.left > 0 then
-                  geometry = {x=scr_area.x-cl_strut.left, y=scr_area.y,
-                              width=cl_strut.left}
-              elseif cl_strut.right ~= nil and cl_strut.right > 0 then
-                  geometry = {x=scr_area.x+scr_area.width, y=scr_area.y,
-                              width=cl_strut.right}
-              end
-          end
-          -- scr_area is unaffected, so we can use the naive coordinates
-          if geometry == nil then
-              if def_left then
-                  c:struts({left=cl_width, right=0})
-                  geometry = {x=scr_area.x, y=scr_area.y,
-                              width=cl_width}
-              else
-                  c:struts({right=cl_width, left=0})
-                  geometry = {x=scr_area.x+scr_area.width-cl_width, y=scr_area.y,
-                              width=cl_width}
-              end
-          end
-          c:geometry(geometry)
-    end },
-    { rule = { class = "Pidgin", role = "conversation"},
-      properties = { tag = tags[1][1] },
-      callback = awful.client.setslave}
 }
 -- }}}
 

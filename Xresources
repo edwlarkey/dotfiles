@@ -20,7 +20,7 @@ xterm*scrollTtyOutput: false
 
 
 
-! URxvt*termName:                       string
+URxvt*termName:                       rxvt-unicode-256color
 ! URxvt*geometry:                       geometry
 ! URxvt*chdir:                          string
 ! URxvt*reverseVideo:                   boolean

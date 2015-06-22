@@ -9,8 +9,8 @@ myawesomemenu = {
 }
 
 mysystemmenu = {
-  { "restart", terminal .. " -e sudo systemctl reboot" },
-  { "shutdown", terminal .. " -e sudo systemctl poweroff" }
+  { "reboot", "zsh -c -i 'sudo shutdown -r now'" },
+  { "shutdown", "zsh -c -i 'sudo shutdown -h now'"}
 }
 
 mymainmenu = awful.menu({ items = { 

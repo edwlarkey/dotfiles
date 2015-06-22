@@ -63,7 +63,8 @@ beautiful.fg_widget_value                = "#E0E0D1"
 beautiful.fg_widget_value_important      = "#E0E0D1"
 beautiful.fg_widget_clock                = "#E0E0D1"
 
-terminal = "terminator"
+-- terminal = "terminator"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "chromium"
@@ -167,6 +168,8 @@ end
 -- {{ redshift }} -
 run_once("redshift -l 38.881126:-94.821048")
 
+run_once("chromium")
+run_once("hipchat")
 
 client.connect_signal("focus",
     function(c) c.border_color = beautiful.border_focus end)
