@@ -162,7 +162,7 @@ set cursorline      " Highlight current line
 set scrolloff=5     " Keep more buffer context when scrolling
 set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar
-set t_Co=256        " 256 colors
+set t_Co=16         " 256 colors
 set background=dark " Dark background
 syntax on           " Enable syntax highlighting
 set visualbell
@@ -174,7 +174,7 @@ set relativenumber  " Relative numbering
 "" Colorscheme and colorcolumn
 ""
 
-let g:solarized_termtrans = 1
+let g:solarized_termcolors=16
 try
     colorscheme solarized
 catch
