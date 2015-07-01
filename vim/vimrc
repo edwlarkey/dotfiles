@@ -39,7 +39,6 @@ Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'klen/python-mode', { 'for': 'python' }
-Plug 'takac/vim-hardtime'
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 " Python plugin bundles
@@ -312,12 +311,12 @@ inoremap <s-tab> <c-x><c-o>
 " =============================================================================
 
 " HardTime
-let g:hardtime_default_on = 1
-let g:hardtime_timeout = 2000
-let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
-let g:list_of_visual_keys = ["0"]
-let g:list_of_insert_keys = ["0"]
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
+" let g:hardtime_default_on = 1
+" let g:hardtime_timeout = 2000
+" let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
+" let g:list_of_visual_keys = ["0"]
+" let g:list_of_insert_keys = ["0"]
+" let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
 
 " Fugititve
 :map <leader>c :Gcommit<CR>
@@ -430,7 +429,7 @@ nmap <LEADER><TAB> :call Preserve("retab")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
 " no autodindent with F2
-set pastetoggle=<leader>0
+set pastetoggle=<F2>
 
 " F3 to insert timestamp
 nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>

@@ -63,8 +63,8 @@ beautiful.fg_widget_value                = "#E0E0D1"
 beautiful.fg_widget_value_important      = "#E0E0D1"
 beautiful.fg_widget_clock                = "#E0E0D1"
 
--- terminal = "terminator"
-terminal = "urxvt"
+terminal = "terminator"
+-- terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 browser = "chromium"
