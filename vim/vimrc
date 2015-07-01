@@ -264,9 +264,6 @@ map <leader>y "*y
 " Paste from unnamed register and fix indentation
 nmap <leader>p pV`]=
 
-" Repeat the last macro in the `q` register
-nmap <leader>2 @q
-
 " Delete to the blackhole register
 nnoremap <leader>x "_x
 nnoremap <leader>d "_dd
@@ -433,7 +430,7 @@ nmap <LEADER><TAB> :call Preserve("retab")<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
 " no autodindent with F2
-set pastetoggle=<F2>
+set pastetoggle=<leader>0
 
 " F3 to insert timestamp
 nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>

@@ -1,5 +1,5 @@
-! Use a nice truetype font and size by default... 
-xterm*faceName: Anonymous Pro for Powerline
+! Use a nice truetype font and size by default...
+xterm*faceName: Anonymice Powerline
 xterm*faceSize: 13
 
 ! Every shell is a login shell by default (for inclusion of all necessary environment variables)
