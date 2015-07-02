@@ -473,3 +473,12 @@ set gfn=Anonymous\ Pro\ for\ Powerline:h16
 
 " Laravel fast opens
 nmap <leader>lr :e app/Http/routes.php<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" Check for local modifications for env specific settings
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+if !empty(glob("~/.vimrc.local"))
+  source ~/.local.vimrc
+endif

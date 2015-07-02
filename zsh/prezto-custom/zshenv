@@ -11,4 +11,3 @@ if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
 fi
 
 export OCTOPUS_ANSIBLE_PATH=$HOME/ansible
-export TEXTCAL=$HOME/sync/txt/2015.textcal

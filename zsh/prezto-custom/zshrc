@@ -29,3 +29,9 @@ fi
 source $HOME/dotfiles/zsh/alias.zsh
 
 export TERM=screen-256color
+
+
+# Check for local settings
+if [[ -s "${ZDOTDIR:-$HOME}/.local.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.local.zsh"
+fi
