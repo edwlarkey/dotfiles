@@ -1,6 +1,6 @@
 [submodule "zsh/prezto"]
 	path = zsh/prezto
-	url = https://github.com/sorin-ionescu/prezto.git
+	url = https://github.com/edwlarkey/prezto.git
 [submodule "awesome/awesome-solarized"]
 	path = awesome/awesome-solarized
 	url = https://github.com/cycojesus/awesome-solarized.git
