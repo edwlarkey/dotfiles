@@ -22,16 +22,9 @@ alias gac="git add . && git commit -v"
 alias c="textcal open"
 
 ## todo.txt
-alias life="cd ~/Dropbox/txt/life"
+alias life="cd ~/Dropbox/txt"
 
-## work vs home
-if [[ $(uname) = 'Linux' ]]; then
-    alias t="~/Dropbox/txt/life/todo/.todo.sh -d ~/Dropbox/txt/life/todo/.todo_work.cfg"
-fi
-
-if [[ $(uname) = 'Darwin' ]]; then
-    alias t="~/Dropbox/txt/life/todo/.todo.sh -d ~/Dropbox/txt/life/todo/.todo.cfg"
-fi
+alias t="~/bin/todo"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
