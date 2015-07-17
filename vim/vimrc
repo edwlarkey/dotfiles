@@ -8,7 +8,7 @@
 " Organization was inspired by: https://github.com/gregstallings/vimfiles
 "
 " =============================================================================
-" Initialization
+" Initialization {{{1
 " =============================================================================
 
 " Clear autocmds
@@ -20,7 +20,7 @@ set nocompatible    " Use Vim settings, rather than Vi settings
 filetype off        "required
 
 " =============================================================================
-" Plugins
+" Plugins {{{1
 " =============================================================================
 call plug#begin('~/.vim/plugged')
 
@@ -40,7 +40,9 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
+Plug 'ssh://carbon.edwlarkey.com/home/edwlarkey/git/vim-toggler.git'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
+"Plug 'ervandew/supertab'
 " Python plugin bundles
 if has('python') || has('python3')
   Plug 'SirVer/ultisnips'
@@ -65,7 +67,7 @@ call plug#end()
 
 
 " =============================================================================
-" Functions
+" Functions {{{1
 " =============================================================================
 function! Preserve(command)
   " Preparation save last search, and cursor position.
@@ -93,7 +95,7 @@ endfunction
 
 
 " =============================================================================
-" General Config
+" General Config {{{1
 " =============================================================================
 
 " Use UTF-8 without BOM
@@ -155,7 +157,7 @@ nnoremap gJ Jdiw
 set nostartofline
 
 " =============================================================================
-" Appearance
+" Appearance {{{1
 " =============================================================================
 
 set cursorline      " Highlight current line
@@ -231,7 +233,7 @@ set ignorecase " Make searches case-insensitive...
 set smartcase  " ...unless they contain at least one uppercase character
 
 " =============================================================================
-" Buffers
+" Buffers {{{1
 " =============================================================================
 
 " Allow unsaved background buffers and remember marks/undo for them
@@ -252,7 +254,7 @@ nnoremap <Right> <Esc>:bn<CR>
 vnoremap <Right> <Esc>:bn<CR>
 
 " =============================================================================
-" Registers
+" Registers {{{1
 " =============================================================================
 
 " Use the OS clipboard by default
@@ -269,7 +271,7 @@ nnoremap <leader>x "_x
 nnoremap <leader>d "_dd
 
 " =============================================================================
-" Filetypes and Custom Autocmds
+" Filetypes and Custom Autocmds {{{1
 " =============================================================================
 
 au BufRead *.php set ft=php.html.laravel
@@ -282,7 +284,7 @@ au BufNewFile *.scss set ft=css.scss
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
-au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
+" au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
 
 " Comments
 autocmd FileType gitcommit set commentstring=#\ %s
@@ -308,7 +310,7 @@ inoremap <s-tab> <c-x><c-o>
 
 
 " =============================================================================
-" Plugin Settings and Mappings
+" Plugin Settings and Mappings {{{1
 " =============================================================================
 
 " HardTime
@@ -318,6 +320,14 @@ inoremap <s-tab> <c-x><c-o>
 " let g:list_of_visual_keys = ["0"]
 " let g:list_of_insert_keys = ["0"]
 " let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
+
+" Toggler
+:nnoremap <leader>t :Toggle<CR>
+let g:toggler_keywords = [
+  \ ['TODO', 'DOING', 'DONE'],
+  \ ['YES', 'NO'],
+  \ ['\[ \]', '\[x\]'],
+  \]
 
 " Fugititve
 :map <leader>c :Gcommit<CR>
@@ -352,7 +362,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 
 "vim-markdown disable folding
-let g:vim_markdown_folding_disabled=0
+let g:vim_markdown_folding_disabled=1
 
 let python_version_2 = 0
 let python_highlight_all = 1
@@ -391,7 +401,7 @@ if exists('RainbowParenthesesToggle')
 endif
 
 " =============================================================================
-" General Keybindings
+" General Keybindings {{{1
 " =============================================================================
 
 " quick vimrc editing
@@ -462,9 +472,9 @@ autocmd FileType gitcommit,mail,md,markdown,mkd set spell
 nmap vs :vsplit<cr>
 nmap sp :split<cr>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
-" MISC
-"""""""""""""""""""""""""""""""""""""""""""""""""
+" =============================================================================
+" MISC {{{1
+" =============================================================================
 
 " GUI font
 set gfn=Anonymous\ Pro\ for\ Powerline:h16
@@ -473,10 +483,12 @@ set gfn=Anonymous\ Pro\ for\ Powerline:h16
 nmap <leader>lr :e app/Http/routes.php<cr>
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " Check for local modifications for env specific settings
-"""""""""""""""""""""""""""""""""""""""""""""""""
+"
 
 if !empty(glob("~/.vimrc.local"))
   source ~/.local.vimrc
 endif
+
+" vim:fdm=marker:fen:fdl=0:

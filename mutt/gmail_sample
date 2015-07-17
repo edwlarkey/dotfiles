@@ -23,6 +23,7 @@ macro pager d "s=Trash\n" "move message to trash"
 set smtp_url="smtp://USERNAME@smtp.gmail.com:587/"
 set smtp_pass = "PASSWORD"
 set envelope_from=yes
+set smtp_authenticators = 'gssapi:login'
 #set ssl_force_tls=yes
 
 # imap settings

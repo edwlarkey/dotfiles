@@ -1,0 +1,5 @@
+PANEL_FONT='Inconsolata'
+PANEL_FONT_FALLBACK='Symbola'
+PANEL_UNDERLINE='0'
+PANEL_HEIGHT='x25'
+PANEL_FIFO="/tmp/panel-fifo"

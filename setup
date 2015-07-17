@@ -68,8 +68,12 @@ link_files () {
     ln -nfs $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
     ln -nfs $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
     success 'zsh linked'
+    mkdir -p $HOME/.config
     ln -nfs $HOME/dotfiles/awesome $HOME/.config/awesome
     success 'awesome config linked'
+    ln -nfs $HOME/dotfiles/bspwm $HOME/.config/bspwm
+    ln -nfs $HOME/dotfiles/sxhkd $HOME/.config/sxhkd
+    success 'bspwm config linked'
 }
 
 make_dirs () {
@@ -84,7 +88,7 @@ make_dirs () {
 
 pull_submodules () {
     cd $HOME/dotfiles && git submodule init && git submodule update
-    git pull && git submodule update --init --recursive
+    git submodule update --init --recursive
 }
 
 install_vim_plugins () {
