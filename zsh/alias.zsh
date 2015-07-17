@@ -25,6 +25,8 @@ alias c="textcal open"
 alias life="cd ~/Dropbox/txt"
 
 alias t="~/bin/todo"
+alias tls="~/bin/todo ls"
+alias tdo="~/bin/todo -a do"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"

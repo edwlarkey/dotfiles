@@ -101,6 +101,7 @@ set encoding=utf-8 nobomb
 
 " Use <SPACE> as leader
 let mapleader=" "
+let maplocalleader=","
 
 syntax on
 filetype plugin indent on
@@ -175,14 +176,14 @@ set relativenumber  " Relative numbering
 
 let g:solarized_termcolors=16
 try
-    colorscheme solarized
+  colorscheme solarized
 catch
-    colorscheme default
+  colorscheme default
 endtry
 
 " dont display color column if it doesn't support it
 if v:version > 703
-    let &colorcolumn="80,".join(range(120,999),",")
+  let &colorcolumn="80,".join(range(120,999),",")
 endif
 
 
@@ -383,10 +384,10 @@ let g:rbpt_colorpairs = [
 \ [ '4',  '#268bd2'],
 \ ]
 if exists('RainbowParenthesesToggle')
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
 endif
 
 " =============================================================================
@@ -394,7 +395,7 @@ endif
 " =============================================================================
 
 " quick vimrc editing
-:nnoremap <leader>v $MYVIMRC<cr>
+:nnoremap <leader>v :e $MYVIMRC<cr>
 autocmd BufWritePost .vimrc source %
 
 " Smart way to move between windows
@@ -431,13 +432,13 @@ nmap _= :call Preserve("normal gg=G")<CR>
 " no autodindent with F2
 set pastetoggle=<F2>
 
-" F3 to insert timestamp
-nmap <F3> a<C-R>=strftime("%Y-%m-%d %a %H:%M")<CR><Esc>
-imap <F3> <C-R>=strftime("%Y-%m-%d %a %H:%M")<CR>
+" gidt to insert timestamp
+nmap gidt a<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>
+imap gidt <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
 
-" F4 to insert date
-nmap <F4> a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
-imap <F4> <C-R>=strftime("%Y-%m-%d")<CR>
+" gid to insert date
+nmap gid a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+imap gid <C-R>=strftime("%Y-%m-%d")<CR>
 
 "Fast Saving
 map <leader>w :w<CR>
@@ -455,7 +456,7 @@ nnoremap <leader>fo :set foldenable<CR>
 :nnoremap <leader>s z=
 :nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
 :inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
-autocmd FileType gitcommit,mail,md,markdown set spell
+autocmd FileType gitcommit,mail,md,markdown,mkd set spell
 
 " Open splits
 nmap vs :vsplit<cr>
