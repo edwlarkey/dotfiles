@@ -40,7 +40,7 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
-Plug 'ssh://carbon.edwlarkey.com/home/edwlarkey/git/vim-toggler.git'
+Plug 'edwlarkey/vim-toggler'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 "Plug 'ervandew/supertab'
 " Python plugin bundles

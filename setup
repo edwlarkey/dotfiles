@@ -74,6 +74,8 @@ link_files () {
     ln -nfs $HOME/dotfiles/bspwm $HOME/.config/bspwm
     ln -nfs $HOME/dotfiles/sxhkd $HOME/.config/sxhkd
     success 'bspwm config linked'
+    ln -nfs $HOME/dotfiles/xinitrc $HOME/.xinitrc
+    success 'xinitrc linked'
 }
 
 make_dirs () {

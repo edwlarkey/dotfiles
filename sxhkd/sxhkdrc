@@ -85,8 +85,8 @@ alt + Return
 	terminator
 
 alt + space
-	dmenu_run -fn "Inconsolata-12:normal" -nb "#f3f3f3" -nf "#657b83" -sb "#657b83" -sf "#f3f3f3" -i -l 10
-#	dmenu_run
+  ${HOME}/.config/bspwm/dmenuwrapper
+#dmenu_run -fn "Inconsolata-12:normal" -nb "#f3f3f3" -nf "#657b83" -sb "#657b83" -sf "#f3f3f3" -i -l 10
 
 # make sxhkd reload its configuration files:
 alt + Escape
