@@ -34,13 +34,15 @@ Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
 Plug 'edwlarkey/vim-toggler'
+Plug 'esneider/YUNOcommit.vim'
+Plug 'airblade/vim-gitgutter'
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 "Plug 'ervandew/supertab'
 " Python plugin bundles

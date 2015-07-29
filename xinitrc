@@ -10,7 +10,8 @@ case $WM in
   i3      ) exec i3;;
   bspwm   )
     sxhkd &
-    terminator &
+    dunst &
+    dzen &
     chromium &
     hipchat &
     exec bspwm;;

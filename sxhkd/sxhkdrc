@@ -81,6 +81,15 @@ alt + {minus,equal}
 # wm independent hotkeys
 #
 
+# alt + up
+#   amixer set Master playback 5%+
+
+# alt + down
+#   amixer set Master playback 5%-
+
+# alt + m
+#   amixer set Master playback toggle
+
 alt + Return
 	terminator
 
