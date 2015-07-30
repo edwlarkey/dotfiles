@@ -6,7 +6,7 @@ then
   width="120"
   offset="80"
   (
-  echo "^ca(1,$XDG_CONFIG_HOME/bspwm/bspwm_logout)Logout^ca()"
+  echo "^ca(1,$HOME/.config/bspwm/bspwm_logout)Logout^ca()"
   echo "^ca(1,reboot)Reboot^ca()"
   echo "^ca(1,poweroff)Poweroff^ca()"
 

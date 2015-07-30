@@ -1,7 +1,7 @@
 #!/bin/env bash
 
-source "$XDG_CONFIG_HOME/bspwm/panel/config"
-source "$XDG_CONFIG_HOME/bspwm/panel/colors"
+source "$HOME/.config/bspwm/panel/config"
+source "$HOME/.config/bspwm/panel/colors"
 
 panel_workspaces() {
   desktop=1
@@ -74,15 +74,15 @@ panel_sound() {
   else
     icon="|||"
   fi
-  echo "%{A4:amixer set Master 10%+ > /dev/null:}%{A5:amixer set Master 10%- > /dev/null:}%{A:$XDG_CONFIG_HOME/bspwm/panel/popup_sound &:}%{B#ffC1C7BF}%{F#fff3f3f3} $icon $volume%{F-}%{B-}%{A}%{A}%{A}"
+  echo "%{A4:amixer set Master 10%+ > /dev/null:}%{A5:amixer set Master 10%- > /dev/null:}%{A:$HOME/.config/bspwm/panel/popup_sound &:}%{B#ffC1C7BF}%{F#fff3f3f3} $icon $volume%{F-}%{B-}%{A}%{A}%{A}"
 }
 
 panel_hostname() {
-  echo "%{A:$XDG_CONFIG_HOME/bspwm/panel/popup_power &:}%{B#ff93a1a1}%{F#fff3f3f3} $(hostname) %{F-}%{B-}%{A}"
+  echo "%{A:$HOME/.config/bspwm/panel/popup_power &:}%{B#ff93a1a1}%{F#fff3f3f3} $(hostname) %{F-}%{B-}%{A}"
 }
 
 panel_clock() {
-  echo "%{A:$XDG_CONFIG_HOME/bspwm/panel/popup_cal &:}%{B#ff657b83}%{F#fff3f3f3} $(date +'%a %-I:%M %p') %{A}%{F-}%{B-}"
+  echo "%{A:$HOME/.config/bspwm/panel/popup_cal &:}%{B#ff657b83}%{F#fff3f3f3} $(date +'%a %-I:%M %p') %{A}%{F-}%{B-}"
 }
 
 # print to panel
