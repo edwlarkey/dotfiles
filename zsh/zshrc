@@ -33,3 +33,4 @@ export TERM=screen-256color
 if [[ -s "${ZDOTDIR:-$HOME}/.local.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.local.zsh"
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

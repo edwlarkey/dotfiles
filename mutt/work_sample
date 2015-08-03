@@ -1,59 +1,39 @@
 # Me
-set from = "EMAIL_ADDRESS"
+set from = "EMAIL"
 set use_from=yes
 set realname = "Edward Larkey"
 
-
 # Account info
-set imap_user = "USERNAME"
-set imap_pass = "PASSWORD"
-set folder = "imap://USERNAME:PASSWORD@10.13.171.32:143"
+set imap_user = "EMAIL"
+set imap_pass = "PASS"
+set folder = "imaps://imap.gmail.com:993"
 
 # mailboxes
-set spoolfile = "imap://USERNAME:PASSWORD@10.13.171.32:143/"
-set postponed = "imap://USERNAME:PASSWORD@10.13.171.32:143/Drafts"
-set record = "imap://USERNAME:PASSWORD@10.13.171.32:143/Sent Items"
-#set copy=no
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+
 # archive
-macro index A "s=Archive\n" "move message to archive"
-macro pager A "s=Archive\n" "move message to archive"
-# hold
-macro index H "s=Hold\n" "move message to Hold"
-macro pager H "s=Hold\n" "move message to Hold"
-# FollowUp
-macro index U "s=FollowUp\n" "move message to FollowUp"
-macro pager U "s=FollowUp\n" "move message to FollowUp"
+macro index A "s=[Gmail]/All Mail\n" "move message to archive"
+macro pager A "s=[Gmail]/All Mail\n" "move message to archive"
 # trash
-macro index d "s=Deleted<quote-char> Items\n" "move message to trash"
-macro pager d "s=Deleted<quote-char> Items\n" "move message to trash"
-
-# Change Folders F keys
-# Inbox
-macro index <F1> "<change-folder> =INBOX<enter>" "Change to inbox"
-macro pager <F1> "<change-folder> =INBOX<enter>" "Change to inbox"
-# followUp
-macro index <F2> "<change-folder> =FollowUp<enter>" "Change to FollowUp"
-macro pager <F2> "<change-folder> =FollowUp<enter>" "Change to FollowUp"
-# Hold
-macro index <F3> "<change-folder> =Hold<enter>" "Change to Hold"
-macro pager <F3> "<change-folder> =Hold<enter>" "Change to Hold"
-# Archive
-macro index <F4> "<change-folder> =Archive<enter>" "Change to Archive"
-macro pager <F4> "<change-folder> =Archive<enter>" "Change to Archive"
-# Sent Items
-macro index <F5> "<change-folder> =Sent<quote-char> Items<enter>" "Change to Sent"
-macro pager <F5> "<change-folder> =Sent<quote-char> Items<enter>" "Change to Sent"
-
+macro index d "s=Trash\n" "move message to trash"
+macro pager d "s=Trash\n" "move message to trash"
 
 # SMTP
-set smtp_url="smtp://USERNAME:PASSWORD@10.13.171.32:587/"
-set smtp_pass = ""
+set smtp_url="smtp://EMAIL@smtp.gmail.com:587/"
+set smtp_pass = "PASS"
 set envelope_from=yes
+set smtp_authenticators = 'gssapi:login'
+#set ssl_force_tls=yes
 
-set imap_keepalive=50
+# imap settings
+set ssl_starttls=yes
+set imap_pipeline_depth=0
+set move = no  #Stop asking to "move read messages to mbox"!
+set imap_keepalive = 900
 
-#set query_command = "~/bin/mutt-ldap.pl '%s'"
-
-set query_command = "mutt_ldap.py '%s'"
+# Signature
+set signature="~/.mutt/work_signature"
+set sig_on_top=yes
 
 source ~/.mutt/mutt_general

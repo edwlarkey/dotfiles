@@ -33,7 +33,8 @@ Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-vinegar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
@@ -43,6 +44,7 @@ Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 "Plug 'ervandew/supertab'
 " Python plugin bundles
@@ -336,7 +338,9 @@ let g:toggler_keywords = [
 :map <leader>g :Gwrite<CR>
 
 " NERDTree
-map <leader>n :NERDTreeToggle<CR>
+" map <leader>n :NERDTreeToggle<CR>
+" Netrw
+map <leader>n :Vexplore<CR>
 
 " AIRLINE
 set laststatus=2
@@ -346,10 +350,13 @@ let g:airline_detect_paste=1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
 
+" FZF
+nnoremap <leader>o :FZF<CR>
+
 " CTRLP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-nnoremap <leader>o :CtrlP<CR>
+"nnoremap <leader>o :CtrlP<CR>
 let g:ctrlp_working_path_mode = 'ra'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/vendor/**

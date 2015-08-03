@@ -1,9 +1,9 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 
-#awesome is default
+#bspwm is default
 
-WM=${2:-awesome}
+WM=${2:-bspwm}
 
 case $WM in
   awesome ) exec awesome;;
