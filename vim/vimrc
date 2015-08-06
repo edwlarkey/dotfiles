@@ -33,8 +33,8 @@ Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
-"Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-vinegar'
+Plug 'scrooloose/nerdtree'
+" Plug 'tpope/vim-vinegar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
@@ -338,9 +338,9 @@ let g:toggler_keywords = [
 :map <leader>g :Gwrite<CR>
 
 " NERDTree
-" map <leader>n :NERDTreeToggle<CR>
+map <leader>n :NERDTreeToggle<CR>
 " Netrw
-map <leader>n :Vexplore<CR>
+" map <leader>n :Vexplore<CR>
 
 " AIRLINE
 set laststatus=2
