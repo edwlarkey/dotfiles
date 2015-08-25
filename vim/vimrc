@@ -140,6 +140,7 @@ autocmd Filetype php setlocal ts=4 sw=4 expandtab
 autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
+autocmd Filetype markdown,mkd setlocal ts=4 sw=4 expandtab
 
 " Invisible characters
 set list

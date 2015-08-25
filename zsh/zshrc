@@ -1,5 +1,6 @@
 # Zshrc
 
+[ -e "${HOME}/.zshenv" ] && source "${HOME}/.zshenv"
 [ -e "${HOME}/.zsh/alias.zsh" ] && source "${HOME}/.zsh/alias.zsh"
 [ -e "${HOME}/.local.zsh" ] && source "${HOME}/.local.zsh"
 
