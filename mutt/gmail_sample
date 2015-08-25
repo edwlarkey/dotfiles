@@ -13,8 +13,8 @@ set spoolfile = "+INBOX"
 set postponed = "+[Google Mail]Drafts"
 
 # archive
-macro index A "s=Archive\n" "move message to archive"
-macro pager A "s=Archive\n" "move message to archive"
+macro index A "s=[Gmail]/All Mail\n" "move message to archive"
+macro pager A "s=[Gmail]/All Mail\n" "move message to archive"
 # trash
 macro index d "s=Trash\n" "move message to trash"
 macro pager d "s=Trash\n" "move message to trash"
