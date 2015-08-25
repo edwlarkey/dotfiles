@@ -60,10 +60,9 @@ link_files () {
     success 'tmux linked'
     ln -nfs $HOME/dotfiles/mutt $HOME/.mutt
     success 'mutt linked'
-    ln -nfs $HOME/dotfiles/zsh/prezto $HOME/.zprezto
+    ln -nfs $HOME/dotfiles/zsh $HOME/.zsh
     ln -nfs $HOME/dotfiles/zsh/zlogin $HOME/.zlogin
     ln -nfs $HOME/dotfiles/zsh/zlogout $HOME/.zlogout
-    ln -nfs $HOME/dotfiles/zsh/zpreztorc $HOME/.zpreztorc
     ln -nfs $HOME/dotfiles/zsh/zprofile $HOME/.zprofile
     ln -nfs $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
     ln -nfs $HOME/dotfiles/zsh/zshenv $HOME/.zshenv

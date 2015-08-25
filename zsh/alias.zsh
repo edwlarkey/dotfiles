@@ -21,9 +21,9 @@ alias gac="git add . && git commit -v"
 ## Calendar
 alias c="textcal open"
 
-## todo.txt
-alias life="cd ~/Dropbox/txt"
+# alias life="cd ~/Dropbox/txt"
 
+## todo.txt
 alias t="~/bin/todo"
 alias tls="~/bin/todo ls"
 alias tdo="~/bin/todo -a do"
