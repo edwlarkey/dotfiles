@@ -31,7 +31,7 @@ else
       tmux rename-window -t org "BuilderDesigns"
 
       # Create new windows
-      tmux new-window -t org -a -n "personal" -c "$HOME"
+      # tmux new-window -t org -a -n "personal" -c "$HOME"
       tmux new-window -t org -a -n "calendar" -c "$HOME"
       tmux new-window -t org -a -n "wiki" -c "$HOME"
 
@@ -40,7 +40,7 @@ else
 
       # Start programs
       tmux send-keys -t org:BuilderDesigns 'email' C-m
-      tmux send-keys -t org:personal 'gmail' C-m
+      # tmux send-keys -t org:personal 'gmail' C-m
       tmux send-keys -t org:calendar.1 'textcal open' C-m
       tmux send-keys -t org:calendar.2 'vim /home/edwlarkey/txt/wiki/00_tasks.md' C-m
       # tmux send-keys -t org:wiki 'wiki' C-m

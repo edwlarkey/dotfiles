@@ -432,6 +432,7 @@ nnoremap k gk
 inoremap <D-x> <C-x>
 inoremap <D-Space> <C-n>
 
+nnoremap <leader>r :Ack TODO /home/edwlarkey/Dropbox/txt/2015.textcal /home/edwlarkey/Dropbox/txt/wiki/00_tasks.md <CR> :copen <CR>
 
 " Disable up/down arrow keys
 noremap <up> <nop>

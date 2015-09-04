@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+
+# Check if sessions exists already
+tmux has-session -t "$1" 2>/dev/null
+
+if [[ $? -eq 0 ]]; then
+  tmux attach -t "$1"
+else
+  # New session
+  tmux new -s "$1" -d
+  # Rename the default window
+  tmux rename-window -t "$1" "dev"
+
+  # Create new windows
+  tmux new-window -t "$1" -a -n "email" -c "$HOME"
+  tmux new-window -t "$1" -a -n "org" -c "$HOME"
+
+  # Create a new split in the org window
+  # tmux split-window -h -t "$1":org
+
+  # Start programs
+  tmux send-keys -t "$1":email 'email' C-m
+  # tmux send-keys -t "$1":personal 'gmail' C-m
+  tmux send-keys -t "$1":org 'textcal open' C-m
+  # tmux send-keys -t "$1":org.1 'textcal open' C-m
+  # tmux send-keys -t "$1":org.2 'vim /home/edwlarkey/txt/wiki/00_tasks.md' C-m
+
+  # Select my starting window
+  tmux select-window -t "$1":dev
+
+  # Attach
+  tmux attach -t "$1"
+fi
+
