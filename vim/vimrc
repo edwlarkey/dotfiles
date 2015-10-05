@@ -34,8 +34,6 @@ Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
-" Plug 'tpope/vim-vinegar'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
