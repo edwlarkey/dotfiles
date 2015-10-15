@@ -91,7 +91,7 @@ alt + {minus,equal}
 #   amixer set Master playback toggle
 
 alt + Return
-	termite
+	terminator
 
 alt + space
   ${HOME}/.config/bspwm/dmenuwrapper
@@ -100,6 +100,3 @@ alt + space
 # make sxhkd reload its configuration files:
 alt + Escape
 	pkill -USR1 -x sxhkd
-
-XF86Audio{Raise,Lower}Volume
-    amixer set Master {5+,5-} unmute
