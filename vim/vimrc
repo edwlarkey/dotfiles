@@ -370,6 +370,8 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:syntastic_check_on_open=1
 "let g:syntastic_mode_map = { 'mode': 'passive' }
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
+let g:syntastic_enable_perl_checker=1
 
 "vim-markdown disable folding
 let g:vim_markdown_folding_disabled=1
