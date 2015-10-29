@@ -4,7 +4,7 @@
 [ -e "${HOME}/.zsh/alias.zsh" ] && source "${HOME}/.zsh/alias.zsh"
 [ -e "${HOME}/.local.zsh" ] && source "${HOME}/.local.zsh"
 
-if ! type "$setxkbmap" > /dev/null; then
+if type setxkbmap >/dev/null 2>&1; then
   setxkbmap -option ctrl:nocaps
 fi
 
