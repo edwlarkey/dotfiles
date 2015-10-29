@@ -42,6 +42,7 @@ Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'Valloric/MatchTagAlways'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 "Plug 'ervandew/supertab'
@@ -139,6 +140,7 @@ autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
 autocmd Filetype markdown,mkd setlocal ts=4 sw=4 expandtab
+autocmd Filetype perl setlocal ts=4 sw=4 expandtab
 
 " Invisible characters
 set list
@@ -277,8 +279,8 @@ nnoremap <leader>d "_dd
 " Filetypes and Custom Autocmds {{{1
 " =============================================================================
 
-au BufRead *.php set ft=php.html.laravel
-au BufNewFile *.php set ft=php.html.laravel
+au BufRead *.php set ft=html.php.laravel
+au BufNewFile *.php set ft=html.php.laravel
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
 au BufRead *.scss set ft=css.scss
