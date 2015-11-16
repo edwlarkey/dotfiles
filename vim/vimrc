@@ -373,7 +373,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
 let g:syntastic_enable_perl_checker=1
-let g:syntastic_html_Tidy_ignore_errors=['proprietary attribute']
+let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
 
 "vim-markdown disable folding
 let g:vim_markdown_folding_disabled=1
