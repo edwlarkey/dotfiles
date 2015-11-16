@@ -18,7 +18,7 @@ bspc monitor DVI-I-1 -n 1 -d IV V VI VII
 
 bspc rule -a Chromium desktop=^1
 bspc rule -a HipChat desktop=^6
-bspc rule -a Spotify desktop=^5
+bspc rule -a Spotify desktop=^3
 
 $HOME/.config/bspwm/panel/panel &
 

@@ -43,6 +43,7 @@ Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/MatchTagAlways'
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 "Plug 'ervandew/supertab'
@@ -372,6 +373,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
 let g:syntastic_enable_perl_checker=1
+let g:syntastic_html_Tidy_ignore_errors=['proprietary attribute']
 
 "vim-markdown disable folding
 let g:vim_markdown_folding_disabled=1
