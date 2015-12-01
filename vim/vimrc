@@ -29,7 +29,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'altercation/vim-colors-solarized'
-Plug 'scrooloose/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
@@ -147,6 +146,9 @@ autocmd Filetype perl setlocal ts=4 sw=4 expandtab
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 autocmd filetype html,xml set listchars-=tab:>.
+
+" No Folding by default
+set nofoldenable
 
 
 ""
@@ -292,6 +294,13 @@ au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
 " au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
 
+
+" Make on write
+autocmd BufWritePost *.py make
+
+" QuickFix on make
+autocmd QuickFixCmdPost * copen
+
 " Comments
 autocmd FileType gitcommit set commentstring=#\ %s
 
@@ -350,7 +359,7 @@ let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts=1
 let g:airline_detect_paste=1
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 1
 
 " FZF
 nnoremap <leader>o :FZF<CR>
@@ -368,19 +377,19 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 
 " syntastic
-let g:syntastic_check_on_open=1
-"let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
-let g:syntastic_enable_perl_checker=1
-let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
+" let g:syntastic_check_on_open=1
+" let g:syntastic_mode_map = { 'mode': 'passive' }
+" let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+" let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
+" let g:syntastic_enable_perl_checker=1
+" let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
+" let g:syntastic_python_checkers=['pylint','flake8']
 
 "vim-markdown disable folding
 let g:vim_markdown_folding_disabled=1
 
 let python_version_2 = 0
 let python_highlight_all = 1
-let g:syntastic_python_checkers=['pylint','flake8']
 
 
 " Python plugin config
@@ -505,5 +514,3 @@ nmap <leader>lr :e app/Http/routes.php<cr>
 if !empty(glob("~/.vimrc.local"))
   source ~/.local.vimrc
 endif
-
-" vim:fdm=marker:fen:fdl=0:
