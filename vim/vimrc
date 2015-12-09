@@ -84,17 +84,16 @@ function! Preserve(command)
   call cursor(l, c)
 endfunction
 
-" function! Tpl(file)
-"   if &filetype =~ 'php'
-"       let a:dir = 'php'
-"   else
-"       let a:dir = 'misc'
-"   endif
-"   exe 'r ~/.vim/snippets/'.a:dir.'/'.a:file
-" endfunction
-
-" Template inserts
-":command! -nargs=1 T :call Tpl(<f-args>)
+" Format HTML
+function! FormatHTML()
+  set ft=html
+  " remove trailing spaces
+  call Preserve("%s/\\s\\+$//e")
+  " tabs -> spaces
+  call Preserve("retab")
+  " re indent the file correctly
+  call Preserve("normal gg=G")
+endfunction
 
 
 " =============================================================================
@@ -296,7 +295,7 @@ au BufRead,BufNewFile *.md setlocal textwidth=79
 
 
 " Make on write
-autocmd BufWritePost *.py make
+" autocmd BufWritePost *.py make
 
 " QuickFix on make
 autocmd QuickFixCmdPost * copen
@@ -365,15 +364,15 @@ let g:airline#extensions#branch#enabled = 1
 nnoremap <leader>o :FZF<CR>
 
 " CTRLP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-"nnoremap <leader>o :CtrlP<CR>
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set wildignore+=*/vendor/**
-set wildignore+=*/blog/**
-set wildignore+=*/node_modules/**
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+" "nnoremap <leader>o :CtrlP<CR>
+" let g:ctrlp_working_path_mode = 'ra'
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+" set wildignore+=*/vendor/**
+" set wildignore+=*/blog/**
+" set wildignore+=*/node_modules/**
+" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 
 " syntastic
@@ -461,6 +460,7 @@ inoremap <down> <nop>
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 " retab!!
 nmap <LEADER><TAB> :call Preserve("retab")<CR>
+nmap <F9> :call FormatHTML()<CR>
 nmap _= :call Preserve("normal gg=G")<CR>
 
 " no autodindent with F2
