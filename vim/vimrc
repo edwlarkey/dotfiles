@@ -42,6 +42,7 @@ Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/MatchTagAlways'
+Plug 'pearofducks/ansible-vim'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
@@ -389,6 +390,9 @@ let g:vim_markdown_folding_disabled=1
 
 let python_version_2 = 0
 let python_highlight_all = 1
+
+" Pymode
+let g:pymode_lint_ignore = "C0103"
 
 
 " Python plugin config
