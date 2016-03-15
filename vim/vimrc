@@ -24,11 +24,14 @@ filetype off        "required
 " =============================================================================
 call plug#begin('~/.vim/plugged')
 
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-speeddating'
+Plug 'dhruvasagar/vim-dotoo'
 Plug 'altercation/vim-colors-solarized'
 Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
@@ -37,8 +40,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'klen/python-mode', { 'for': 'python' }
-Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
+"Plug 'klen/python-mode', { 'for': 'python' }
+"Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
@@ -64,7 +67,7 @@ Plug 'edwlarkey/vim-textcal'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html'] }
 Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
 Plug 'tpope/vim-haml', { 'for': ['scss', 'sass', 'haml'] }
-Plug 'hdima/python-syntax', { 'for': 'python' }
+"Plug 'hdima/python-syntax', { 'for': 'python' }
 Plug 'jelera/vim-javascript-syntax', { 'for': ['html', 'php', 'js', 'javascript'] }
 Plug 'jQuery', { 'for': ['html', 'php', 'js', 'javascript'] }
 
@@ -149,7 +152,7 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 autocmd filetype html,xml set listchars-=tab:>.
 
 " No Folding by default
-set nofoldenable
+"set nofoldenable
 
 
 ""
@@ -293,11 +296,16 @@ au BufNewFile *.scss set ft=css.scss
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
-" au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
+au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=2
+au BufRead,BufNewFile *.md,*.markdown setlocal fdm=marker
+
+" PyLint
+autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
+autocmd FileType python set errorformat=%f:%l:\ %m
 
 
 " Make on write
-" autocmd BufWritePost *.py make
+autocmd BufWritePost *.py Make
 
 " QuickFix on make
 autocmd QuickFixCmdPost * copen
@@ -336,6 +344,10 @@ inoremap <s-tab> <c-x><c-o>
 " let g:list_of_visual_keys = ["0"]
 " let g:list_of_insert_keys = ["0"]
 " let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
+
+" dotoo
+let g:dotoo#agenda#files = ['~/Dropbox/txt/org/*.dotoo']
+let g:dotoo#capture#refile = '~/Dropbox/txt/org/refile.dotoo'
 
 " Toggler
 :nnoremap <leader>t :Toggle<CR>
@@ -387,7 +399,7 @@ nnoremap <leader>o :FZF<CR>
 " let g:syntastic_python_checkers=['pylint','flake8']
 
 "vim-markdown disable folding
-let g:vim_markdown_folding_disabled=1
+" let g:vim_markdown_folding_disabled=1
 
 let python_version_2 = 0
 let python_highlight_all = 1
