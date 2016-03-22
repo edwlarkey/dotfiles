@@ -64,7 +64,7 @@ set fast_reply = yes
 set pager_index_lines=8
 
 # Solarized
-source ~/.mutt/mutt-colors-solarized-dark-16.muttrc
+source ~/.mutt/base16-eighties.muttrc
 
 # cache and Cert
 set header_cache=~/.mutt/cache/headers
