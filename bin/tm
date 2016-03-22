@@ -25,7 +25,7 @@ else
   # tmux send-keys -t "$1":email 'email' C-m
   # tmux send-keys -t "$1":personal 'gmail' C-m
   # tmux send-keys -t "$1":org 'textcal open' C-m
-  tmux send-keys -t "$1":org 'task' C-m
+  tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
   # tmux send-keys -t "$1":org.1 'textcal open' C-m
   # tmux send-keys -t "$1":org.2 'vim /home/edwlarkey/txt/wiki/00_tasks.md' C-m
 
