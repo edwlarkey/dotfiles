@@ -10,24 +10,27 @@ else
   # New session
   tmux new -s "$1" -d
   # Rename the default window
-  tmux rename-window -t "$1" "dev"
+  tmux rename-window -t "$1" "home"
 
   # Create new windows
-  tmux new-window -t "$1" -a -n "email" -c "$HOME"
+  tmux new-window -t "$1" -a -n "dev" -c "$HOME"
+  tmux new-window -t "$1" -a -n "ssh" -c "$HOME"
+  # tmux new-window -t "$1" -a -n "email" -c "$HOME"
   tmux new-window -t "$1" -a -n "org" -c "$HOME"
 
   # Create a new split in the org window
   # tmux split-window -h -t "$1":org
 
   # Start programs
-  tmux send-keys -t "$1":email 'email' C-m
+  # tmux send-keys -t "$1":email 'email' C-m
   # tmux send-keys -t "$1":personal 'gmail' C-m
-  tmux send-keys -t "$1":org 'textcal open' C-m
+  # tmux send-keys -t "$1":org 'textcal open' C-m
+  tmux send-keys -t "$1":org 'task' C-m
   # tmux send-keys -t "$1":org.1 'textcal open' C-m
   # tmux send-keys -t "$1":org.2 'vim /home/edwlarkey/txt/wiki/00_tasks.md' C-m
 
   # Select my starting window
-  tmux select-window -t "$1":dev
+  tmux select-window -t "$1":home
 
   # Attach
   tmux attach -t "$1"

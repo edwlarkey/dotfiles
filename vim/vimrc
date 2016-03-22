@@ -32,7 +32,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-speeddating'
 Plug 'dhruvasagar/vim-dotoo'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
+Plug 'chriskempson/base16-vim'
 Plug 'godlygeek/tabular'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
@@ -188,9 +189,10 @@ set relativenumber  " Relative numbering
 "" Colorscheme and colorcolumn
 ""
 
-let g:solarized_termcolors=16
+" let g:solarized_termcolors=16
+let base16colorspace=256
 try
-  colorscheme solarized
+  colorscheme base16-eighties
 catch
   colorscheme default
 endtry
@@ -368,7 +370,7 @@ map <leader>n :NERDTreeToggle<CR>
 
 " AIRLINE
 set laststatus=2
-let g:airline_theme = 'solarized'
+let g:airline_theme = 'base16_eighties'
 let g:airline_powerline_fonts=1
 let g:airline_detect_paste=1
 let g:airline#extensions#branch#enabled = 1
