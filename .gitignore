@@ -34,6 +34,8 @@ atlas_backup
 bin/atlas_backup
 
 # ignore some binaries
+bin/doctl
+bin/rtop
 bin/ex
 bin/rview
 bin/rvim
