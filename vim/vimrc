@@ -305,6 +305,11 @@ au BufRead,BufNewFile *.md,*.markdown setlocal fdm=marker
 autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
 autocmd FileType python set errorformat=%f:%l:\ %m
 
+" LaTeX
+au BufRead,BufNewFile *.tex setlocal textwidth=79
+au BufRead,BufNewFile *.tex setlocal textwidth=79
+autocmd FileType tex setlocal makeprg=pdflatex\ '%'
+autocmd FileType tex set spell
 
 " Make on write
 autocmd BufWritePost *.py Make
@@ -448,6 +453,9 @@ endif
 " quick vimrc editing
 :nnoremap <leader>v :e $MYVIMRC<cr>
 autocmd BufWritePost .vimrc source %
+
+" Make
+nmap <leader>m :Make<CR>
 
 " Smart way to move between windows
 map <C-j> <C-W>j
