@@ -79,6 +79,8 @@ link_files () {
     success 'xinitrc config linked'
     ln -nfs $HOME/dotfiles/dunst $HOME/.config/dunst
     success 'dunst config linked'
+    ln -nfs $HOME/dotfiles/khal $HOME/.config/khal
+    success 'khal config linked'
 }
 
 make_dirs () {
