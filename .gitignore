@@ -32,6 +32,7 @@ vim/.netrwhist
 bin/fabric
 atlas_backup
 bin/atlas_backup
+bin/backup.sh
 
 # ignore some binaries
 bin/doctl

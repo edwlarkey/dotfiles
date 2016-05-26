@@ -31,23 +31,20 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-speeddating'
-Plug 'dhruvasagar/vim-dotoo'
-" Plug 'altercation/vim-colors-solarized'
-Plug 'chriskempson/base16-vim'
 Plug 'godlygeek/tabular'
+Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
 Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
-"Plug 'klen/python-mode', { 'for': 'python' }
-"Plug 'plasticboy/vim-markdown', { 'for': ['markdown', 'mkd', 'md'] }
+Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/MatchTagAlways'
-Plug 'pearofducks/ansible-vim'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
@@ -68,7 +65,7 @@ Plug 'edwlarkey/vim-textcal'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html'] }
 Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
 Plug 'tpope/vim-haml', { 'for': ['scss', 'sass', 'haml'] }
-"Plug 'hdima/python-syntax', { 'for': 'python' }
+Plug 'pearofducks/ansible-vim'
 Plug 'jelera/vim-javascript-syntax', { 'for': ['html', 'php', 'js', 'javascript'] }
 Plug 'jQuery', { 'for': ['html', 'php', 'js', 'javascript'] }
 
@@ -140,6 +137,7 @@ set nowrap        " Don't wrap lines
 " Tabs for various file types.
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype python setlocal ts=4 sw=4 expandtab
 autocmd Filetype php setlocal ts=4 sw=4 expandtab
 autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
@@ -302,17 +300,17 @@ au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=2
 au BufRead,BufNewFile *.md,*.markdown setlocal fdm=marker
 
 " PyLint
-autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
-autocmd FileType python set errorformat=%f:%l:\ %m
+" autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
+" autocmd FileType python set errorformat=%f:%l:\ %m
 
 " LaTeX
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 au BufRead,BufNewFile *.tex setlocal textwidth=79
-autocmd FileType tex setlocal makeprg=pdflatex\ '%'
+" autocmd FileType tex setlocal makeprg=pdflatex\ '%'
 autocmd FileType tex set spell
 
 " Make on write
-autocmd BufWritePost *.py Make
+" autocmd BufWritePost *.py Make
 
 " QuickFix on make
 autocmd QuickFixCmdPost * copen
@@ -344,18 +342,6 @@ inoremap <s-tab> <c-x><c-o>
 " Plugin Settings and Mappings {{{1
 " =============================================================================
 
-" HardTime
-" let g:hardtime_default_on = 1
-" let g:hardtime_timeout = 2000
-" let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
-" let g:list_of_visual_keys = ["0"]
-" let g:list_of_insert_keys = ["0"]
-" let g:hardtime_ignore_buffer_patterns = [ "NERD.*" ]
-
-" dotoo
-let g:dotoo#agenda#files = ['~/Dropbox/txt/org/*.dotoo']
-let g:dotoo#capture#refile = '~/Dropbox/txt/org/refile.dotoo'
-
 " Toggler
 :nnoremap <leader>t :Toggle<CR>
 let g:toggler_keywords = [
@@ -363,6 +349,9 @@ let g:toggler_keywords = [
   \ ['YES', 'NO'],
   \ ['\[ \]', '\[x\]'],
   \]
+
+" Python-mode
+let g:pymode_folding = 0
 
 " Fugititve
 :map <leader>c :Gcommit<CR>
@@ -379,31 +368,21 @@ let g:airline_theme = 'base16_eighties'
 let g:airline_powerline_fonts=1
 let g:airline_detect_paste=1
 let g:airline#extensions#branch#enabled = 1
-" let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 
 " FZF
 nnoremap <leader>o :FZF<CR>
 
-" CTRLP
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
-" "nnoremap <leader>o :CtrlP<CR>
-" let g:ctrlp_working_path_mode = 'ra'
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-" set wildignore+=*/vendor/**
-" set wildignore+=*/blog/**
-" set wildignore+=*/node_modules/**
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-
 " syntastic
-" let g:syntastic_check_on_open=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
 " let g:syntastic_mode_map = { 'mode': 'passive' }
-" let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-" let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
-" let g:syntastic_enable_perl_checker=1
-" let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
-" let g:syntastic_python_checkers=['pylint','flake8']
+let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
+let g:syntastic_enable_perl_checker=1
+let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
+let g:syntastic_enable_python_checker=0
+" let g:syntastic_python_checkers=['pylint', 'flake8']
 
 "vim-markdown disable folding
 " let g:vim_markdown_folding_disabled=1

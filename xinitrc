@@ -12,11 +12,12 @@ case $WM in
     xrandr --output HDMI-0 --auto --primary
     xrandr --output DVI-I-1 --auto --right-of HDMI-0
     sxhkd &
-    dunst &
+    # dunst &
     dzen &
     chromium &
-    hipchat &
+    # hipchat &
     setxkbmap -option caps:ctrl
+    xinput set-ptr-feedback 10 800 800 400
     exec bspwm;;
   *) exec $2;;
 esac

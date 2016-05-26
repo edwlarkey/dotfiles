@@ -213,14 +213,14 @@
     appname = Spotify
     urgency = low
 
-[hipchat]
-    appname = HipChat
-    urgency = normal
+#[hipchat]
+#    appname = HipChat
+#    urgency = normal
 
-[hipchat-down]
-    appname = HipChat
-    body = "*down*"
-    urgency = critical
+#[hipchat-down]
+#    appname = HipChat
+#    body = "*down*"
+#    urgency = critical
 
 #[espeak]
 #    summary = "*"

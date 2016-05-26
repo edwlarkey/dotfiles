@@ -73,6 +73,8 @@ link_files () {
     ln -nfs $HOME/dotfiles/bspwm $HOME/.config/bspwm
     ln -nfs $HOME/dotfiles/sxhkd $HOME/.config/sxhkd
     success 'bspwm config linked'
+    ln -nfs $HOME/dotfiles/termite $HOME/.config/termite
+    success 'termite config linked'
     ln -nfs $HOME/dotfiles/xinitrc $HOME/.xinitrc
     success 'xinitrc config linked'
     ln -nfs $HOME/dotfiles/dunst $HOME/.config/dunst
