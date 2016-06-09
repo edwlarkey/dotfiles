@@ -33,6 +33,7 @@ bin/fabric
 atlas_backup
 bin/atlas_backup
 bin/backup.sh
+bin/bdconnect
 
 # ignore some binaries
 bin/doctl

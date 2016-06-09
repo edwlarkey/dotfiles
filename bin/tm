@@ -13,14 +13,15 @@ else
   tmux rename-window -t "$1" "home"
 
   # Create new windows
-  tmux new-window -t "$1" -a -n "dev" -c "$HOME"
+  tmux new-window -t "$1" -a -n "dev" -c "$HOME/git"
   tmux new-window -t "$1" -a -n "ssh" -c "$HOME"
   # tmux new-window -t "$1" -a -n "email" -c "$HOME"
   tmux new-window -t "$1" -a -n "org" -c "$HOME/Dropbox/txt/org/"
   tmux new-window -t "$1" -a -n "chat" -c "$HOME"
 
   # Create a new split in the org window
-  # tmux split-window -h -t "$1":org
+  tmux split-window -h -t "$1":org
+  tmux split-window -t "$1":org.2
 
   # Start programs
   # tmux send-keys -t "$1":email 'email' C-m
@@ -28,7 +29,8 @@ else
   # tmux send-keys -t "$1":org 'textcal open' C-m
   # tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
   # tmux send-keys -t "$1":org.1 'textcal open' C-m
-  # tmux send-keys -t "$1":org.2 'vim /home/edwlarkey/txt/wiki/00_tasks.md' C-m
+  tmux send-keys -t "$1":org.2 'vdirsyncer sync && khal' C-m
+  tmux send-keys -t "$1":org.3 'newsbeuter' C-m
   tmux send-keys -t "$1":chat 'profanity' C-m
 
   # Select my starting window

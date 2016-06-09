@@ -24,8 +24,8 @@ filetype off        "required
 " =============================================================================
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -35,9 +35,9 @@ Plug 'godlygeek/tabular'
 Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+" Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'klen/python-mode', { 'for': 'python' }
@@ -50,13 +50,13 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.sh --clang-completer' }
 "Plug 'ervandew/supertab'
 " Python plugin bundles
-if has('python') || has('python3')
-  Plug 'SirVer/ultisnips'
+" if has('python') || has('python3')
+  " Plug 'SirVer/ultisnips'
 "else
-"  Plug "MarcWeber/vim-addon-mw-utils"
+"  Plug 'MarcWeber/vim-addon-mw-utils'
 "  Plug 'tomtom/tlib_vim'
 "  Plug 'garbas/vim-snipmate'
-endif
+" endif
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -64,10 +64,10 @@ endif
 Plug 'edwlarkey/vim-textcal'
 Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html'] }
 Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
-Plug 'tpope/vim-haml', { 'for': ['scss', 'sass', 'haml'] }
+" Plug 'tpope/vim-haml', { 'for': ['scss', 'sass', 'haml'] }
 Plug 'pearofducks/ansible-vim'
-Plug 'jelera/vim-javascript-syntax', { 'for': ['html', 'php', 'js', 'javascript'] }
-Plug 'jQuery', { 'for': ['html', 'php', 'js', 'javascript'] }
+" Plug 'jelera/vim-javascript-syntax', { 'for': ['html', 'php', 'js', 'javascript'] }
+" Plug 'jQuery', { 'for': ['html', 'php', 'js', 'javascript'] }
 
 call plug#end()
 
@@ -182,6 +182,25 @@ syntax on           " Enable syntax highlighting
 set noerrorbells    " Disable error bells
 set number          " Show line numbers
 set relativenumber  " Relative numbering
+
+""
+"" Statusline
+""
+
+set noruler
+set laststatus=2
+set statusline=
+set statusline+=%t\       "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}]\  "file format
+set statusline+=%y\      "filetype
+set statusline+=%h\      "help file flag
+set statusline+=%m\      "modified flag
+set statusline+=%r\      "read only flag
+set statusline+=%=      "left/right separator
+set statusline+=line:%l/%L\    "cursor line/total lines
+set statusline+=col:%c\     "cursor column
+set statusline+=\ %P    "percent through file
 
 ""
 "" Colorscheme and colorcolumn
@@ -346,6 +365,7 @@ inoremap <s-tab> <c-x><c-o>
 :nnoremap <leader>t :Toggle<CR>
 let g:toggler_keywords = [
   \ ['TODO', 'DOING', 'DONE'],
+  \ ['True', 'False'],
   \ ['YES', 'NO'],
   \ ['\[ \]', '\[x\]'],
   \]
@@ -358,17 +378,17 @@ let g:pymode_folding = 0
 :map <leader>g :Gwrite<CR>
 
 " NERDTree
-map <leader>n :NERDTreeToggle<CR>
+" map <leader>n :NERDTreeToggle<CR>
 " Netrw
-" map <leader>n :Vexplore<CR>
+map <leader>n :Vexplore<CR>
 
 " AIRLINE
-set laststatus=2
-let g:airline_theme = 'base16_eighties'
-let g:airline_powerline_fonts=1
-let g:airline_detect_paste=1
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
+" set laststatus=2
+" let g:airline_theme = 'base16_eighties'
+" let g:airline_powerline_fonts=1
+" let g:airline_detect_paste=1
+" let g:airline#extensions#branch#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 1
 
 " FZF
 nnoremap <leader>o :FZF<CR>
@@ -395,16 +415,16 @@ let g:pymode_lint_ignore = "C0103"
 
 
 " Python plugin config
-if has('python') || has('python3')
-  let g:ycm_collect_identifiers_from_tags_files = 1
-  "UltiSnips
-  " ultisnips
-  " Trigger configuration. Do not use <tab> if you use
-  " https://github.com/Valloric/YouCompleteMe.
-  let g:UltiSnipsExpandTrigger="<c-k>"
-  let g:UltiSnipsJumpForwardTrigger="<c-k>"
-  let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
-endif
+" if has('python') || has('python3')
+"   let g:ycm_collect_identifiers_from_tags_files = 1
+"   "UltiSnips
+"   " ultisnips
+"   " Trigger configuration. Do not use <tab> if you use
+"   " https://github.com/Valloric/YouCompleteMe.
+"   let g:UltiSnipsExpandTrigger="<c-k>"
+"   let g:UltiSnipsJumpForwardTrigger="<c-k>"
+"   let g:UltiSnipsJumpBackwardTrigger="<s-c-j>"
+" endif
 
 
 "  Parentheses colours using Solarized

@@ -81,6 +81,8 @@ link_files () {
     success 'dunst config linked'
     ln -nfs $HOME/dotfiles/khal $HOME/.config/khal
     success 'khal config linked'
+    ln -nfs $HOME/dotfiles/khard $HOME/.config/khard
+    success 'khard config linked'
 }
 
 make_dirs () {
