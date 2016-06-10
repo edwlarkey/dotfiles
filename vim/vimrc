@@ -48,7 +48,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 " Syntax Plugins
 """""""""""""""""""""""""""""""""""""""
 Plug 'edwlarkey/vim-textcal'
-Plug 'hail2u/vim-css3-syntax', { 'for': ['css', 'html'] }
 Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
 Plug 'pearofducks/ansible-vim'
 
