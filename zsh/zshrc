@@ -1,5 +1,4 @@
 # Zshrc
-
 [ -e "${HOME}/.zshenv" ] && source "${HOME}/.zshenv"
 [ -e "${HOME}/.zsh/alias.zsh" ] && source "${HOME}/.zsh/alias.zsh"
 [ -e "${HOME}/.local.zsh" ] && source "${HOME}/.local.zsh"
@@ -8,31 +7,40 @@ if type setxkbmap >/dev/null 2>&1; then
   setxkbmap -option ctrl:nocaps
 fi
 
-source "$HOME/.zsh/antigen/antigen.zsh"
-
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
-
-antigen bundle git
-antigen bundle mercurial
-antigen bundle pip
-antigen bundle rsync
-antigen bundle python
-antigen bundle tmux
-
-if [ "$OSTYPE"="darwin11.0" ]; then
-  antigen bundle osx
-fi
-
-antigen bundle vagrant
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
-
-antigen theme "$HOME/.zsh/themes/edwlarkey"  --loc=edwlarkey --no-local-clone
-
-antigen-apply
+# Command line edit in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
 
+# Completion.
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' completer _expand _complete _ignored _approximate
+zstyle ':completion:*' menu select=2
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 
 
+# Modules
+source "${ZSHDIR}/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "${ZSHDIR}/modules/zsh-history-substring-search/zsh-history-substring-search.zsh"
+
+## Module config
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=magenta,fg=white,bold'
+HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=red,fg=white,bold'
+HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
+# bind UP and DOWN keys
+bindkey "${terminfo[kcuu1]}" history-substring-search-up
+bindkey "${terminfo[kcud1]}" history-substring-search-down
+# bind UP and DOWN arrow keys (compatibility fallback)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Prompt
+source "${ZSHDIR}/themes/edwlarkey/edwlarkey.zsh-theme"
+
+# Fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

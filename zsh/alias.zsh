@@ -1,5 +1,5 @@
 ###############################################################################
-# ALIASES [I could do this in a plugin I guess]
+# ALIASES
 ###############################################################################
 
 # Functions
@@ -9,24 +9,28 @@ take () {
     cd $1
 }
 
-## MUTT
+## Convenience and Safety
+alias ls='ls --color'
+alias rm='rm -I'
+
+if [[ ${OSTYPE} == linux* ]]; then
+  alias chmod='chmod --preserve-root -v'
+  alias chown='chown --preserve-root -v'
+fi
+
+## mutt
 alias email='mutt -F ~/.mutt/work'
 alias gmail='mutt -F ~/.mutt/gmail'
 alias edwmail='mutt -F ~/.mutt/edwlarkey'
 alias mac='mutt -F ~/.mutt/mac'
 
-## GIT extra
+## git
 alias gac="git add . && git commit -v"
 
 ## Calendar
 alias c="textcal open"
 
 # alias life="cd ~/Dropbox/txt"
-
-## todo.txt
-alias t="~/bin/todo"
-alias tls="~/bin/todo ls"
-alias tdo="~/bin/todo -a do"
 
 # Show/hide hidden files in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"

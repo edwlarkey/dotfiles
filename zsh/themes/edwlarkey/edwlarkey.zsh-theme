@@ -18,29 +18,10 @@ setopt prompt_subst
 
 autoload -U add-zsh-hook
 autoload -Uz vcs_info
-
-#use extended color pallete if available
-if [[ $TERM = *256color* || $TERM = *rxvt* ]]; then
-    turquoise="%F{006}"
-    orange="%F{001}"
-    purple="%F{005}"
-    hotpink="%F{003}"
-    limegreen="%F{002}"
-    # turquoise="%F{81}"
-    # orange="%F{166}"
-    # purple="%F{135}"
-    # hotpink="%F{161}"
-    # limegreen="%F{118}"
-else
-    turquoise="$fg[cyan]"
-    orange="$fg[yellow]"
-    purple="$fg[magenta]"
-    hotpink="$fg[red]"
-    limegreen="$fg[green]"
-fi
+autoload -Uz colors && colors
 
 # enable VCS systems you use
-zstyle ':vcs_info:*' enable git hg
+zstyle ':vcs_info:*' enable git
 
 # check-for-changes can be really slow.
 # you should disable it, if you work with large repositories
@@ -54,10 +35,10 @@ zstyle ':vcs_info:*:prompt:*' check-for-changes true
 # %R - repository path
 # %S - path in the repository
 PR_RST="%{${reset_color}%}"
-FMT_BRANCH=" on %{$hotpink%}%b%u%c${PR_RST} "
-FMT_ACTION="(%{$limegreen%}%a${PR_RST})"
-FMT_UNSTAGED="%{$orange%}+"
-FMT_STAGED="%{$limegreen%}+"
+FMT_BRANCH=" on %{$fg[magenta]%}%b%u%c${PR_RST} "
+FMT_ACTION="(%{$fg[green]%}%a${PR_RST})"
+FMT_UNSTAGED="%{$fg[red]%}+"
+FMT_STAGED="%{$fg[green]%}+"
 
 zstyle ':vcs_info:*:prompt:*' unstagedstr   "${FMT_UNSTAGED}"
 zstyle ':vcs_info:*:prompt:*' stagedstr     "${FMT_STAGED}"
@@ -88,9 +69,9 @@ function steeef_precmd {
         # check for untracked files or updated submodules, since vcs_info doesn't
         if git ls-files --other --exclude-standard 2> /dev/null | grep -q "."; then
             PR_GIT_UPDATE=1
-            FMT_BRANCH="on %{$turquoise%}%b %u%c%{$hotpink%}+${PR_RST}"
+            FMT_BRANCH="on %{$fg[cyan]%}%b %u%c%{$fg[magenta]%}+${PR_RST}"
         else
-            FMT_BRANCH="on %{$turquoise%}%b %u%c ${PR_RST}"
+            FMT_BRANCH="on %{$fg[cyan]%}%b %u%c ${PR_RST}"
         fi
         zstyle ':vcs_info:*:prompt:*' formats "${FMT_BRANCH} "
 
@@ -100,6 +81,6 @@ function steeef_precmd {
 }
 add-zsh-hook precmd steeef_precmd
 
-PROMPT=$'
-%{$turquoise%}%n%{$reset_color%} at %{$orange%}%m%{$reset_color%} in %{$limegreen%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%}
-%{$orange%}>_%{$reset_color%} '
+PROMPT='
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%}
+%{$fg[red]%}>_%{$reset_color%} '
