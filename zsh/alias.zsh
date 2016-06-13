@@ -10,7 +10,6 @@ take () {
 }
 
 ## Convenience and Safety
-alias ls='ls --color'
 alias rm='rm -I'
 
 if [[ ${OSTYPE} == linux* ]]; then
@@ -43,3 +42,32 @@ alias ctags="ctags -R -f ./tags --fields=+l"
 # Fast ssh
 alias admin="ssh bd_admin@admin.builderdesigns.com"
 alias backups="ssh bd_admin@10.1.10.254"
+
+#
+# ls Colours
+#
+
+if (( ${+commands[dircolors]} )); then
+  # GNU
+  if [[ -s ${HOME}/.dir_colors ]]; then
+    eval "$(dircolors --sh ${HOME}/.dir_colors)"
+  else
+    eval "$(dircolors --sh)"
+  fi
+
+  alias ls='ls --classify --color=auto'
+else
+  # BSD
+
+  # colors for ls and completion
+  export LSCOLORS='exfxcxdxbxGxDxabagacad'
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
+  # stock OpenBSD ls does not support colors at all, but colorls does.
+  if [[ $OSTYPE == openbsd* ]]; then
+    if (( ${+commands[colorls]} )); then
+      alias ls='colorls -G'
+    fi
+  else
+    alias ls='ls -G'
+  fi
+fi
