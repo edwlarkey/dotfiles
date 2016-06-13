@@ -79,26 +79,26 @@ link_files () {
     success 'xinitrc config linked'
     ln -nfs $HOME/dotfiles/dunst $HOME/.config/dunst
     success 'dunst config linked'
-    ln -nfs "$HOME/dotfiles/khal" "$HOME/.config/khal"
+    ln -nfs $HOME/dotfiles/khal $HOME/.config/khal
     success 'khal config linked'
-    ln -nfs "$HOME/dotfiles/khard" "$HOME/.config/khard"
+    ln -nfs $HOME/dotfiles/khard $HOME/.config/khard
     success 'khard config linked'
-    ln -nfs "$HOME/dotfiles/newsbeuter/" "$HOME/.newsbeuter"
+    ln -nfs $HOME/dotfiles/newsbeuter/ $HOME/.newsbeuter
     success 'newsbeuter config linked'
 }
 
 make_dirs () {
     info 'Creating directories'
-    mkdir -p "$HOME/.vim-backup"
-    mkdir -p "$HOME/.vim-undo"
-    mkdir -p "$HOME/.vim-swap"
+    mkdir -p $HOME/.vim-backup
+    mkdir -p $HOME/.vim-undo
+    mkdir -p $HOME/.vim-swap
     success 'vim dirs created'
-    mkdir -p "$HOME/git"
+    mkdir -p $HOME/git
     success '~/git created'
 }
 
 pull_submodules () {
-    cd "$HOME/dotfiles" && git submodule init && git submodule update
+    cd $HOME/dotfiles && git submodule init && git submodule update
     git submodule update --init --recursive
 }
 
