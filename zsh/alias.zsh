@@ -10,7 +10,13 @@ take () {
 }
 
 ## Convenience and Safety
-alias rm='rm -I'
+if [[ ${OSTYPE} == linux* ]]; then
+  alias rm='rm -I'
+fi
+
+if [[ ${OSTYPE} == darwin* ]]; then
+  alias rm='rm -i'
+fi
 
 if [[ ${OSTYPE} == linux* ]]; then
   alias chmod='chmod --preserve-root -v'
