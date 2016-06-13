@@ -35,6 +35,12 @@ bin/atlas_backup
 bin/backup.sh
 bin/bdconnect
 
+# newsbeuter
+newsbeuter/cache.db
+newsbeuter/cache.db.lock
+newsbeuter/history.cmdline
+newsbeuter/history.search
+
 # ignore some binaries
 bin/doctl
 bin/rtop

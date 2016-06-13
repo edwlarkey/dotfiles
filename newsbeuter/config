@@ -1,0 +1,39 @@
+# automatic reloading
+refresh-on-startup yes
+auto-reload yes
+reload-time 60 # minutes
+
+# reloading
+reload-threads 10
+reload-only-visible-feeds no
+show-read-feeds no
+download-retries 4
+
+# notification
+notify-beep yes
+
+# storage
+max-items 200
+
+# external
+browser chromium
+
+# interface
+confirm-exit yes
+always-display-description true
+
+# bindings
+bind-key k prev
+bind-key j next
+bind-key h quit
+bind-key SPACE toggle-article-read
+bind-key O open-in-browser-and-mark-read
+
+# theme
+color background            color0      color7
+color listnormal            color7      color0
+color listnormal_unread     color4      color0
+color listfocus             color7     color19
+color listfocus_unread      color7     color19
+color info                  color8     color18
+color article               color7      color0
