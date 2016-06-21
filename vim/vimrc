@@ -409,8 +409,9 @@ let g:pymode_folding = 0
 " map <leader>n :vsplit .<CR>
 " open from current directory
 nnoremap <leader>n :call VexToggle(getcwd())<CR>
+let g:netrw_liststyle= 3
 " open from current file
-" nnoremap <leader>` :call VexToggle("")<CR>
+" nnoremap <leader>n :call VexToggle("")<CR>
 
 " FZF
 nnoremap <leader>o :FZF<CR>
