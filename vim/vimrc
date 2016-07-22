@@ -510,8 +510,8 @@ nmap gid a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 imap gid <C-R>=strftime("%Y-%m-%d")<CR>
 
 "Fast Saving
-map <leader>w :w<CR>
-map <leader>q :wq<CR>
+" map <leader>w :w<CR>
+" map <leader>q :wq<CR>
 
 "Fast filetype switching
 map <leader>1 :set ft=php<CR>
@@ -527,20 +527,12 @@ nnoremap <leader>fo :set foldenable<CR>
 :inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
 autocmd FileType gitcommit,mail,md,markdown,mkd set spell
 
-" Open splits
-nmap vs :vsplit<cr>
-nmap sp :split<cr>
-
 " =============================================================================
 " MISC {{{1
 " =============================================================================
 
 " GUI font
 set gfn=Anonymous\ Pro\ for\ Powerline:h16
-
-" Laravel fast opens
-nmap <leader>lr :e app/Http/routes.php<cr>
-
 
 "
 " Check for local modifications for env specific settings

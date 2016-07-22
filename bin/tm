@@ -22,6 +22,7 @@ else
   # Create a new split in the org window
   tmux split-window -h -t "$1":org
   tmux split-window -t "$1":org.2
+  tmux split-window -t "$1":org.1
 
   # Start programs
   # tmux send-keys -t "$1":email 'email' C-m
@@ -29,8 +30,10 @@ else
   # tmux send-keys -t "$1":org 'textcal open' C-m
   # tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
   # tmux send-keys -t "$1":org.1 'textcal open' C-m
+  tmux send-keys -t "$1":org.1 'email' C-m
   tmux send-keys -t "$1":org.2 'vdirsyncer sync && khal' C-m
   tmux send-keys -t "$1":org.3 'newsbeuter' C-m
+  tmux send-keys -t "$1":org.4 'vdirsyncer sync && clear && todo' C-m
   tmux send-keys -t "$1":chat 'profanity' C-m
 
   # Select my starting window

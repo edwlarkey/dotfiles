@@ -63,7 +63,6 @@ set fast_reply = yes
 # Pager Index Lines
 set pager_index_lines=8
 
-# Solarized
 source ~/.mutt/base16-eighties.muttrc
 
 # cache and Cert
