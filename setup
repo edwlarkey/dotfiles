@@ -85,6 +85,8 @@ link_files () {
     success 'khard config linked'
     ln -nfs $HOME/dotfiles/newsbeuter/ $HOME/.newsbeuter
     success 'newsbeuter config linked'
+    ln -nfs $HOME/dotfiles/qutebrowser $HOME/.config/qutebrowser
+    success 'qutebrowser config linked'
 }
 
 make_dirs () {
