@@ -43,6 +43,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/MatchTagAlways'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -231,7 +233,7 @@ set statusline+=\ %P    "percent through file
 ""
 
 " let g:solarized_termcolors=16
-let base16colorspace=256
+let base16colorspace=16
 try
   colorscheme base16-eighties
 catch
@@ -313,17 +315,17 @@ vnoremap <Right> <Esc>:bn<CR>
 " =============================================================================
 
 " Use the OS clipboard by default
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " Copy to X11 primary clipboard
-map <leader>y "*y
+" map <leader>y "*y
 
 " Paste from unnamed register and fix indentation
-nmap <leader>p pV`]=
+" nmap <leader>p pV`]=
 
 " Delete to the blackhole register
-nnoremap <leader>x "_x
-nnoremap <leader>d "_dd
+" nnoremap <leader>x "_x
+" nnoremap <leader>d "_dd
 
 " =============================================================================
 " Filetypes and Custom Autocmds {{{1
@@ -335,6 +337,8 @@ au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
 au BufRead *.scss set ft=css.scss
 au BufNewFile *.scss set ft=css.scss
+au BufRead *.jira set ft=jira
+au BufNewFile *.jira set ft=jira
 
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
@@ -356,7 +360,7 @@ autocmd FileType tex set spell
 " autocmd BufWritePost *.py Make
 
 " QuickFix on make
-autocmd QuickFixCmdPost * copen
+"autocmd QuickFixCmdPost * copen
 
 " Comments
 autocmd FileType gitcommit set commentstring=#\ %s
@@ -385,6 +389,11 @@ inoremap <s-tab> <c-x><c-o>
 " Plugin Settings and Mappings {{{1
 " =============================================================================
 
+" Gist
+let g:gist_api_url = 'https://github.cerner.com/api/v3'
+let g:gist_show_privates = 1
+let g:gist_post_private = 1
+
 " Toggler
 :nnoremap <leader>t :Toggle<CR>
 let g:toggler_keywords = [
@@ -392,6 +401,7 @@ let g:toggler_keywords = [
   \ ['True', 'False'],
   \ ['YES', 'NO'],
   \ ['\[ \]', '\[x\]'],
+  \ ['x', '/'],
   \]
 
 " Python-mode

@@ -31,16 +31,19 @@ fail () {
 setup_gitconfig () {
     info 'Setup git'
 
-    #user ' - What is your github author name?'
-    #read -e git_authorname
-    #user ' - What is your github author email?'
-    #read -e git_authoremail
+    if [[ $(git config user.name) = "" ]]; then
+      IFS= read -r -p "What is your github author name? " git_authorname
+      git config --global user.name "$git_authorname"
+    fi
 
-    #git config --global user.name $git_authorname
-    #git config --global user.email $git_authoremail
+    if [ $(git config user.email) == '' ]; then
+      IFS= read -r -p "What is your github author email? " git_authoremail
+      git config --global user.email "$git_authoremail"
+    fi
 
-    git config --global user.name 'Edward Larkey'
-    git config --global user.email edwlarkey@mac.com
+
+    # git config --global user.name 'Edward Larkey'
+    # git config --global user.email edwlarkey@mac.com
     git config --global core.editor vim
     git config --global commit.template $HOME/dotfiles/git-commit-template
 
@@ -51,8 +54,6 @@ link_files () {
     info 'Linking files'
     ln -nfs $HOME/dotfiles/vim $HOME/.vim
     ln -nfs $HOME/dotfiles/vim/vimrc $HOME/.vimrc
-    ln -nfs $HOME/dotfiles/vim $HOME/.nvim
-    ln -nfs $HOME/dotfiles/vim/vimrc $HOME/.nvimrc
     success 'vim linked'
     ln -nfs $HOME/dotfiles/bin $HOME/bin
     success 'bin linked'
