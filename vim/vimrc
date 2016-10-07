@@ -14,7 +14,6 @@
 " Clear autocmds
 autocmd!
 
-
 set nocompatible    " Use Vim settings, rather than Vi settings
 
 filetype off        "required
@@ -25,7 +24,7 @@ filetype off        "required
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-speeddating'
@@ -34,7 +33,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
 Plug 'scrooloose/syntastic'
-Plug 'ajh17/VimCompletesMe'
+" Plug 'ajh17/VimCompletesMe'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'edwlarkey/vim-toggler'
@@ -42,14 +41,14 @@ Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/MatchTagAlways'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'mattn/webapi-vim'
-Plug 'mattn/gist-vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+" Plug 'mattn/webapi-vim'
+" Plug 'mattn/gist-vim'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
 """""""""""""""""""""""""""""""""""""""
-Plug 'edwlarkey/vim-textcal'
+" Plug 'edwlarkey/vim-textcal'
 Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
 Plug 'pearofducks/ansible-vim'
 
@@ -137,9 +136,7 @@ set encoding=utf-8 nobomb
 let mapleader=" "
 let maplocalleader=","
 
-syntax on
 filetype plugin indent on
-syntax enable
 " Backspace over everything in insert mode
 set backspace=indent,eol,start
 
@@ -168,7 +165,7 @@ autocmd Filetype php setlocal ts=4 sw=4 expandtab
 autocmd Filetype css setlocal ts=4 sw=4 expandtab
 autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
-autocmd Filetype markdown,mkd setlocal ts=4 sw=4 expandtab
+autocmd Filetype markdown,mkd,md setlocal ts=4 sw=4 expandtab
 autocmd Filetype perl setlocal ts=4 sw=4 expandtab
 
 " Invisible characters
@@ -203,11 +200,11 @@ set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar
 set t_Co=16         " 256 colors
 set background=dark " Dark background
-syntax on           " Enable syntax highlighting
-"set visualbell
 set noerrorbells    " Disable error bells
 set number          " Show line numbers
 set relativenumber  " Relative numbering
+syntax on
+syntax enable
 
 ""
 "" Statusline
@@ -247,8 +244,10 @@ endif
 
 
 ""
-"" Wildmode
+"" Fuzzy finding
 ""
+set path+=~/txt/**
+set path+=**
 
 " Make tab completion for files/buffers act like bash
 set wildmenu
@@ -272,7 +271,9 @@ set wildignore+=*/node_modules/*
 set wildignore+=*.swp,*~,._*
 set wildignore=*.bak,*.pyc,*.class
 
-" Backup, swap, undo
+""
+"" Backup, swap, undo
+""
 set backup
 set backupdir=~/.vim-backup//
 set directory=~/.vim-swap//
@@ -340,6 +341,9 @@ au BufNewFile *.scss set ft=css.scss
 au BufRead *.jira set ft=jira
 au BufNewFile *.jira set ft=jira
 
+"Spelling
+autocmd FileType gitcommit,mail,md,markdown,mkd,jira set spell
+
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
@@ -389,11 +393,6 @@ inoremap <s-tab> <c-x><c-o>
 " Plugin Settings and Mappings {{{1
 " =============================================================================
 
-" Gist
-let g:gist_api_url = 'https://github.cerner.com/api/v3'
-let g:gist_show_privates = 1
-let g:gist_post_private = 1
-
 " Toggler
 :nnoremap <leader>t :Toggle<CR>
 let g:toggler_keywords = [
@@ -408,8 +407,8 @@ let g:toggler_keywords = [
 let g:pymode_folding = 0
 
 " Fugititve
-:map <leader>c :Gcommit<CR>
-:map <leader>g :Gwrite<CR>
+" :map <leader>c :Gcommit<CR>
+" :map <leader>g :Gwrite<CR>
 
 " NERDTree
 " map <leader>n :NERDTreeToggle<CR>
@@ -424,7 +423,7 @@ let g:netrw_liststyle= 3
 " nnoremap <leader>n :call VexToggle("")<CR>
 
 " FZF
-nnoremap <leader>o :FZF<CR>
+" nnoremap <leader>o :FZF<CR>
 
 " syntastic
 let g:syntastic_check_on_open=1
@@ -463,6 +462,9 @@ if exists('RainbowParenthesesToggle')
   au Syntax * RainbowParenthesesLoadSquare
   au Syntax * RainbowParenthesesLoadBraces
 endif
+" =============================================================================
+" Commands {{{1
+" =============================================================================
 
 " =============================================================================
 " General Keybindings {{{1
@@ -484,12 +486,6 @@ map <C-l> <C-W>l
 " go to next line on screen
 nnoremap j gj
 nnoremap k gk
-
-" Command-space to C-N
-inoremap <D-x> <C-x>
-inoremap <D-Space> <C-n>
-
-nnoremap <leader>r :Ack TODO /home/edwlarkey/Dropbox/txt/2015.textcal /home/edwlarkey/Dropbox/txt/wiki/00_tasks.md <CR> :copen <CR>
 
 " Disable up/down arrow keys
 noremap <up> <nop>
@@ -519,10 +515,6 @@ imap gidt <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
 nmap gid a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 imap gid <C-R>=strftime("%Y-%m-%d")<CR>
 
-"Fast Saving
-" map <leader>w :w<CR>
-" map <leader>q :wq<CR>
-
 "Fast filetype switching
 map <leader>1 :set ft=php<CR>
 map <leader>2 :set ft=html<CR>
@@ -530,12 +522,6 @@ map <leader>2 :set ft=html<CR>
 " Folding on and off
 nnoremap <leader>f :set nofoldenable<CR>
 nnoremap <leader>fo :set foldenable<CR>
-
-"Spelling
-:nnoremap <leader>s z=
-:nnoremap <F5> :setlocal spell! spelllang=en_us<CR>
-:inoremap <F5> <C-o>:setlocal spell! spelllang=en_us<CR>
-autocmd FileType gitcommit,mail,md,markdown,mkd set spell
 
 " =============================================================================
 " MISC {{{1
