@@ -1,0 +1,48 @@
+set my_username=""
+set my_password=""
+set my_email=""
+set realname = ""
+set hostname = ""
+
+# IMAP config
+set imap_user=$my_username
+set imap_pass=$my_password
+
+# IMAP folders
+set my_drafts="Drafts"
+set my_drafts_noquote="Drafts"
+set my_sent="Sent<quote-char><space>Items"
+set my_sent_noquote="Sent Items"
+set my_trash="Deleted<quote-char><space>Items"
+set my_trash_noquote="Deleted Items"
+
+set folder="imaps://outlook.office365.com/"
+set spoolfile= +INBOX
+set postponed= +$my_drafts_noquote
+set record = +$my_sent_noquote
+set trash = +$my_trash_noquote
+mailboxes
+
+set imap_check_subscribed="yes"
+set imap_list_subscribed="yes"
+set timeout=15
+set mail_check=90
+set imap_keepalive=180
+set imap_idle
+unset mark_old
+set ssl_use_sslv3=yes
+
+# SMTP config
+set from = $my_email
+set smtp_pass = $my_password
+set smtp_url = "smtp://$my_username@outlook.office365.com:587/"
+set ssl_force_tls = yes
+set smtp_authenticators = "login"
+set use_from=yes
+
+
+# Signature
+set signature="~/.mutt/work_signature"
+set sig_on_top=yes
+
+source ~/.mutt/mutt_general

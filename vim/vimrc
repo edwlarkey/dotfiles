@@ -24,7 +24,6 @@ filetype off        "required
 call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-speeddating'
@@ -32,18 +31,15 @@ Plug 'godlygeek/tabular'
 Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mileszs/ack.vim'
-Plug 'scrooloose/syntastic'
-" Plug 'ajh17/VimCompletesMe'
+" Plug 'w0rp/ale'
+Plug '~/git/ale'
+Plug 'maralla/completor.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'klen/python-mode', { 'for': 'python' }
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/MatchTagAlways'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-" Plug 'mattn/webapi-vim'
-" Plug 'mattn/gist-vim'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -143,6 +139,9 @@ set backspace=indent,eol,start
 " Tags
 set tags=./tags,tags,~/.worktags;
 
+" Spelling file
+set spellfile+=~/Documents/spellfile.add
+
 ""
 "" Whitespace
 ""
@@ -230,7 +229,7 @@ set statusline+=\ %P    "percent through file
 ""
 
 " let g:solarized_termcolors=16
-let base16colorspace=16
+let base16colorspace=256
 try
   colorscheme base16-eighties
 catch
@@ -342,7 +341,7 @@ au BufRead *.jira set ft=jira
 au BufNewFile *.jira set ft=jira
 
 "Spelling
-autocmd FileType gitcommit,mail,md,markdown,mkd,jira set spell
+autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex set spell
 
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
@@ -358,7 +357,6 @@ au BufRead,BufNewFile *.md,*.markdown setlocal fdm=marker
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 " autocmd FileType tex setlocal makeprg=pdflatex\ '%'
-autocmd FileType tex set spell
 
 " Make on write
 " autocmd BufWritePost *.py Make
@@ -403,8 +401,6 @@ let g:toggler_keywords = [
   \ ['x', '/'],
   \]
 
-" Python-mode
-let g:pymode_folding = 0
 
 " Fugititve
 " :map <leader>c :Gcommit<CR>
@@ -426,24 +422,24 @@ let g:netrw_liststyle= 3
 " nnoremap <leader>o :FZF<CR>
 
 " syntastic
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
+" let g:syntastic_check_on_open=1
+" let g:syntastic_check_on_wq=0
 " let g:syntastic_mode_map = { 'mode': 'passive' }
-let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
-let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
-let g:syntastic_enable_perl_checker=1
-let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
-let g:syntastic_enable_python_checker=0
+" let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
+" let g:syntastic_perl_checkers=['perl', 'perlcritic', 'podchecker']
+" let g:syntastic_enable_perl_checker=1
+" let g:syntastic_html_tidy_ignore_errors=['proprietary attribute']
+" let g:syntastic_enable_python_checker=0
 " let g:syntastic_python_checkers=['pylint', 'flake8']
+
+" ALE
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 "vim-markdown disable folding
 " let g:vim_markdown_folding_disabled=1
 
 let python_version_2 = 0
 let python_highlight_all = 1
-
-" Pymode
-let g:pymode_lint_ignore = "C0103"
 
 "  Parentheses colours using Solarized
 let g:rbpt_colorpairs = [
@@ -465,6 +461,8 @@ endif
 " =============================================================================
 " Commands {{{1
 " =============================================================================
+
+command -nargs=1 Note :e ~/txt/notes/<args>.md
 
 " =============================================================================
 " General Keybindings {{{1

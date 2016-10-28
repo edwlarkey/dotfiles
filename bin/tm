@@ -15,18 +15,19 @@ else
   # Create new windows
   tmux new-window -t "$1" -a -n "ssh" -c "$HOME"
   tmux new-window -t "$1" -a -n "util" -c "$HOME"
-  tmux new-window -t "$1" -a -n "org" -c "$HOME/txt"
-  tmux new-window -t "$1" -a -n "nodes" -c "$HOME"
+  tmux new-window -t "$1" -a -n "org" -c "$HOME"
+  tmux new-window -t "$1" -a -n "notes" -c "$HOME/txt/notes"
 
   # Create a new split in the org window
-  tmux split-window -h -t "$1":nodes
+  tmux split-window -h -t "$1":org
 
   # Start programs
   # tmux send-keys -t "$1":email 'email' C-m
   # tmux send-keys -t "$1":personal 'gmail' C-m
   # tmux send-keys -t "$1":org 'textcal open' C-m
   # tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
-  # tmux send-keys -t "$1":org.1 'textcal open' C-m
+  tmux send-keys -t "$1":org.1 'vdirsyncer sync && todo' C-m
+  tmux send-keys -t "$1":org 'sleep 10 && khal' C-m
   # tmux send-keys -t "$1":org.1 'email' C-m
   # tmux send-keys -t "$1":org.2 'vdirsyncer sync && khal' C-m
   # tmux send-keys -t "$1":org.3 'newsbeuter' C-m
