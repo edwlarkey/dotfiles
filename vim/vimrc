@@ -27,12 +27,13 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
 Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'mileszs/ack.vim'
-" Plug 'w0rp/ale'
-Plug '~/git/ale'
+Plug 'mhinz/vim-grepper'
+Plug 'w0rp/ale'
+" Plug '~/git/ale'
 Plug 'maralla/completor.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -44,9 +45,9 @@ Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
 """""""""""""""""""""""""""""""""""""""
-" Plug 'edwlarkey/vim-textcal'
-Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
-Plug 'pearofducks/ansible-vim'
+Plug 'edwlarkey/vim-textcal'
+" Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
+" Plug 'pearofducks/ansible-vim'
 
 call plug#end()
 
@@ -140,7 +141,7 @@ set backspace=indent,eol,start
 set tags=./tags,tags,~/.worktags;
 
 " Spelling file
-set spellfile+=~/Documents/spellfile.add
+set spellfile+=~/onedrive/spellfile.add
 
 ""
 "" Whitespace
@@ -169,7 +170,7 @@ autocmd Filetype perl setlocal ts=4 sw=4 expandtab
 
 " Invisible characters
 set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
+set listchars=tab:>.,trail:·,extends:#,nbsp:.
 autocmd filetype html,xml set listchars-=tab:>.
 
 " No Folding by default
@@ -343,11 +344,15 @@ au BufNewFile *.jira set ft=jira
 "Spelling
 autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex set spell
 
+" Grep quickfix
+autocmd QuickFixCmdPost *grep* cwindow
+
 "Markdown files textwidth
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
-au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=2
-au BufRead,BufNewFile *.md,*.markdown setlocal fdm=marker
+au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
+" au BufRead,BufNewFile *.md,*.markdown setlocal fdm=syntax
+autocmd FileType markdown set foldmethod=syntax
 
 " PyLint
 " autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
@@ -390,6 +395,12 @@ inoremap <s-tab> <c-x><c-o>
 " =============================================================================
 " Plugin Settings and Mappings {{{1
 " =============================================================================
+
+" dotoo
+let g:dotoo#agenda#files = ['~/txt/dotoo/*.dotoo']
+
+" org
+:let g:org_agenda_files=['~/txt/org/*.org']
 
 " Toggler
 :nnoremap <leader>t :Toggle<CR>
@@ -434,9 +445,6 @@ let g:netrw_liststyle= 3
 
 " ALE
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-"vim-markdown disable folding
-" let g:vim_markdown_folding_disabled=1
 
 let python_version_2 = 0
 let python_highlight_all = 1
@@ -486,14 +494,14 @@ nnoremap j gj
 nnoremap k gk
 
 " Disable up/down arrow keys
-noremap <up> <nop>
-noremap <down> <nop>
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-vnoremap <up> <nop>
-vnoremap <down> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
+" noremap <up> <nop>
+" noremap <down> <nop>
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" vnoremap <up> <nop>
+" vnoremap <down> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
 
 " delete trailing spaces
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>

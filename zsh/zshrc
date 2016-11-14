@@ -13,6 +13,7 @@ SAVEHIST="${HISTSIZE}"
 
 
 setopt inc_append_history
+setopt extended_glob
 setopt extended_history
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
@@ -125,6 +126,7 @@ zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 # Modules
 source "${ZSHDIR}/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "${ZSHDIR}/modules/zsh-history-substring-search/zsh-history-substring-search.zsh"
+source "${ZSHDIR}/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## Module config
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=magenta,fg=white,bold'
