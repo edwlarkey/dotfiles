@@ -126,7 +126,6 @@ zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
 # Modules
 source "${ZSHDIR}/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "${ZSHDIR}/modules/zsh-history-substring-search/zsh-history-substring-search.zsh"
-source "${ZSHDIR}/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 ## Module config
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=magenta,fg=white,bold'
