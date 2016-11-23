@@ -396,6 +396,9 @@ inoremap <s-tab> <c-x><c-o>
 " Plugin Settings and Mappings {{{1
 " =============================================================================
 
+" Stop that stupid window
+map q: :q
+
 " dotoo
 let g:dotoo#agenda#files = ['~/txt/dotoo/*.dotoo']
 

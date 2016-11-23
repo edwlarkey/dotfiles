@@ -82,5 +82,5 @@ function steeef_precmd {
 add-zsh-hook precmd steeef_precmd
 
 PROMPT='
-%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%}
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%} $vcs_info_msg_0_$(virtualenv_info)%{$reset_color%} (%{$fg[magenta]%}$(chefvm current)%{$reset_color%})
 %{$fg[red]%}>_%{$reset_color%} '

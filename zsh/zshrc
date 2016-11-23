@@ -12,9 +12,12 @@ HISTSIZE='10000'
 SAVEHIST="${HISTSIZE}"
 
 
+setopt append_history
+setopt extended_history
 setopt inc_append_history
 setopt extended_glob
 setopt extended_history
+setopt complete_in_word
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt hist_reduce_blanks
@@ -116,6 +119,7 @@ fi
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
