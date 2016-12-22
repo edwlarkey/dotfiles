@@ -33,13 +33,15 @@ Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'w0rp/ale'
+Plug 'vimwiki/vimwiki'
 " Plug '~/git/ale'
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
+Plug '~/git/completor'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'Valloric/MatchTagAlways'
+" Plug 'Valloric/MatchTagAlways'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 
 """""""""""""""""""""""""""""""""""""""
@@ -133,6 +135,9 @@ set encoding=utf-8 nobomb
 let mapleader=" "
 let maplocalleader=","
 
+" Stop that stupid window
+map q: :q
+
 filetype plugin indent on
 " Backspace over everything in insert mode
 set backspace=indent,eol,start
@@ -141,7 +146,7 @@ set backspace=indent,eol,start
 set tags=./tags,tags,~/.worktags;
 
 " Spelling file
-set spellfile+=~/onedrive/spellfile.add
+set spellfile+=~/txt/spellfile.add
 
 ""
 "" Whitespace
@@ -167,11 +172,13 @@ autocmd Filetype scss setlocal ts=4 sw=4 expandtab
 autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
 autocmd Filetype markdown,mkd,md setlocal ts=4 sw=4 expandtab
 autocmd Filetype perl setlocal ts=4 sw=4 expandtab
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+autocmd FileType calendar set noexpandtab shiftwidth=8 softtabstop=0
 
 " Invisible characters
 set list
-set listchars=tab:>.,trail:·,extends:#,nbsp:.
-autocmd filetype html,xml set listchars-=tab:>.
+set listchars=tab:>·,trail:·,extends:#,nbsp:.
+autocmd filetype html,xml set listchars-=tab:>·
 
 " No Folding by default
 "set nofoldenable
@@ -332,17 +339,17 @@ vnoremap <Right> <Esc>:bn<CR>
 " Filetypes and Custom Autocmds {{{1
 " =============================================================================
 
-au BufRead *.php set ft=html.php.laravel
-au BufNewFile *.php set ft=html.php.laravel
+au BufRead *.php set ft=html.php
+au BufNewFile *.php set ft=html.php
 au BufRead *.py set ft=python
 au BufNewFile *.py set ft=python
-au BufRead *.scss set ft=css.scss
-au BufNewFile *.scss set ft=css.scss
+au BufRead *.scss set ft=css
+au BufNewFile *.scss set ft=css
 au BufRead *.jira set ft=jira
 au BufNewFile *.jira set ft=jira
 
 "Spelling
-autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex set spell
+autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex,vimwiki set spell
 
 " Grep quickfix
 autocmd QuickFixCmdPost *grep* cwindow
@@ -396,15 +403,6 @@ inoremap <s-tab> <c-x><c-o>
 " Plugin Settings and Mappings {{{1
 " =============================================================================
 
-" Stop that stupid window
-map q: :q
-
-" dotoo
-let g:dotoo#agenda#files = ['~/txt/dotoo/*.dotoo']
-
-" org
-:let g:org_agenda_files=['~/txt/org/*.org']
-
 " Toggler
 :nnoremap <leader>t :Toggle<CR>
 let g:toggler_keywords = [
@@ -415,6 +413,17 @@ let g:toggler_keywords = [
   \ ['x', '/'],
   \]
 
+" completor
+let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
+
+" Vimwiki
+let g:vimwiki_list = [
+      \ {'path': '~/txt/vimwiki',
+      \ 'path_html': '~/vimwiki_html/',
+      \ 'custom_wiki2html': '$HOME/bin/misaka_md2html.py',
+      \ 'syntax': 'markdown', 'ext': '.md'}
+      \ ]
+let g:vimwiki_global_ext = 0
 
 " Fugititve
 " :map <leader>c :Gcommit<CR>

@@ -13,10 +13,10 @@ else
   tmux rename-window -t "$1" "home"
 
   # Create new windows
-  tmux new-window -t "$1" -a -n "ssh" -c "$HOME"
   tmux new-window -t "$1" -a -n "util" -c "$HOME"
   tmux new-window -t "$1" -a -n "org" -c "$HOME"
-  tmux new-window -t "$1" -a -n "notes" -c "$HOME/txt/notes"
+  tmux new-window -t "$1" -a -n "ssh" -c "$HOME"
+  tmux new-window -t "$1" -a -c "$HOME"
 
   # Create a new split in the org window
   # tmux split-window -h -t "$1":org
@@ -26,7 +26,7 @@ else
   # tmux send-keys -t "$1":personal 'gmail' C-m
   # tmux send-keys -t "$1":org 'textcal open' C-m
   # tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
-  tmux send-keys -t "$1":org 'cd ~/txt/ && vim cerner.md' C-m
+  tmux send-keys -t "$1":org 'cd ~/txt/ && vim life.md' C-m
   # tmux send-keys -t "$1":org.1 'email' C-m
   # tmux send-keys -t "$1":org.2 'vdirsyncer sync && khal' C-m
   # tmux send-keys -t "$1":org.3 'newsbeuter' C-m

@@ -1,5 +1,3 @@
-syntax region markdownFold start="^\z(#\+\) " end="\(^#\(\z1#*\)\@!#*[^#]\)\@=" transparent fold
-
 syn match edwTodo "\vTODO"
 syn match edwDoing "\vDOING"
 syn match edwHold "\vHOLD"
