@@ -3,14 +3,14 @@
 PATTERN="DUE:$(date +%Y-%m-%d)"
 
 if [ -z "$1" ]; then
-  DAYS="$1"
-else
   DAYS=10
+else
+  DAYS="$1"
 fi
 
 for i in $(seq 1 $DAYS); do
 
-PATTERN="$PATTERN|DUE:$(date --date="+$i days" +%Y-%m-%d)"
+  PATTERN="$PATTERN|DUE:$(date --date="+$i days" +%Y-%m-%d)"
 
 done;
 
