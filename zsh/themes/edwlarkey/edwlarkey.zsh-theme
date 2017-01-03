@@ -28,5 +28,5 @@ autoload -Uz colors && colors
 # zstyle ':vcs_info:*:prompt:*' check-for-changes true
 
 PROMPT='
-%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%} on $(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%} (%{$fg[magenta]%}$(chefvm current)%{$reset_color%})
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%} (%{$fg[magenta]%}$(chefvm current)%{$reset_color%})
 %{$fg[red]%}>_%{$reset_color%} '
