@@ -1,3 +1,10 @@
+```
+bin/git-prompt
+```
+
+Was taken from
+https://github.com/josuah/config/blob/master/.local/bin/git-prompt
+
 # Install
 
 Everything will be configured for you when you run
@@ -19,7 +26,6 @@ they are sourced last.
 # Requirements
 
 For bspwm:
-
 
 * [bspwm](http://github.com/baskerville/bspwm)
 * [sxhkd](http://github.com/baskerville/sxhkd)

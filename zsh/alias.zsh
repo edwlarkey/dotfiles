@@ -23,6 +23,9 @@ if [[ ${OSTYPE} == linux* ]]; then
   alias chown='chown --preserve-root -v'
 fi
 
+## Docker
+alias dc='docker-compose'
+
 ## mutt
 alias email='mutt -F ~/.mutt/work'
 alias gmail='mutt -F ~/.mutt/gmail'

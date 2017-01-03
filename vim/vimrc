@@ -27,7 +27,7 @@ Plug 'chriskempson/base16-vim'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'w0rp/ale'
-Plug 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
 " Plug 'maralla/completor.vim'
 Plug '~/git/completor'

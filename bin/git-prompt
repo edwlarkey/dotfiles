@@ -1,0 +1,44 @@
+git rev-parse 2> /dev/null && git status --porcelain -b | awk '
+/^## / {
+  branch = $0;
+  sub(/^## /, "", branch);
+  sub(/\.\.\..*/, "", branch);
+
+  if ($0 ~ /ahead /) {
+    ahead = $0;
+    sub(/.*ahead /,  "", ahead);
+    sub(/\].*|, .*/, "", ahead);
+  }
+
+  if ($0 ~ /behind /) {
+    behind = $0;
+    sub(/.*behind /, "", behind);
+    sub(/\].*|, .*/, "", behind);
+  }
+
+  next;
+}
+
+/^\?\? /  { untracked++; next; }
+/^U. /    { conflicts++; next; }
+/^.U /    { conflicts++; next; }
+/^DD /    { conflicts++; next; }
+/^AA /    { conflicts++; next; }
+/^.M /    { changed++;         }
+/^.D /    { changed++;         }
+/^[^ ]. / { staged++;          }
+
+END {
+  printf("\033[36m%s\033[0m", branch);
+
+  if (untracked + conflicts + changed + staged + behind + ahead == 0) {
+    printf " \033[32mok\033[0m";
+  } else {
+    if (untracked) printf " \033[33m?\033[0m%d", untracked;
+    if (conflicts) printf " \033[31m!\033[0m%d", conflicts;
+    if (changed  ) printf " \033[32m+\033[0m%d", changed  ;
+    if (staged   ) printf " \033[34m*\033[0m%d", staged   ;
+    if (behind   ) printf " \033[31m↓\033[0m%d", behind   ;
+    if (ahead    ) printf " \033[36m↑\033[0m%d", ahead    ;
+  }
+}'
