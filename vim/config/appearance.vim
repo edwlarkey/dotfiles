@@ -6,7 +6,7 @@ set cursorline      " Highlight current line
 set scrolloff=5     " Keep more buffer context when scrolling
 set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar
-set t_Co=16         " 256 colors
+set t_Co=256         " 256 colors
 set background=dark " Dark background
 set noerrorbells    " Disable error bells
 set number          " Show line numbers

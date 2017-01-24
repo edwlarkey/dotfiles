@@ -1,15 +1,19 @@
 [calendars]
 
   [[home]]
-      path = ~/.calendars/83AD1CD1-827F-4D68-90B6-B12B5F40FF82/
+      path = ~/.calendars/CCC4BE23-EF4D-47C9-BD66-7978B16E5B49/
       color = dark cyan
 
   [[Payday]]
-      path = ~/.calendars/calendar/
+      path = ~/.calendars/00EC5C59-E34E-437F-BEE0-48164BB2CC7D/
       color = dark green
 
+  [[Cerner]]
+      path = ~/Library/Calendars/AA297B4C-F57E-451B-A70F-56BBFBAFA40A.exchange/9D24F1A5-B33E-44F5-AA14-70AFBFBF1FA2.calendar/Events
+      color = dark red
+
   [[birthdays]]
-      path = ~/.contacts/addressbook/
+      path = ~/.contacts/default/
       type = birthdays
       color = dark magenta
 
@@ -20,7 +24,7 @@
 
 [default]
     default_calendar = home
-    days = 7
+#    days = 7
     highlight_event_days = True
 
 [locale]

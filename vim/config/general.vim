@@ -17,7 +17,7 @@ filetype plugin indent on
 set backspace=indent,eol,start
 
 " Tags
-set tags=./tags,tags,~/.worktags;
+set tags=./tags,tags;
 
 " Spelling file
 set spellfile+=~/txt/spellfile.add
@@ -51,7 +51,7 @@ set path+=**
 set wildmenu
 
 " Use emacs-style tab completion when selecting files, etc
-set wildmode=longest,list
+" set wildmode=longest,list
 
 " Disable output and VCS files
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
@@ -87,3 +87,8 @@ set hlsearch   " Highlight searches
 set incsearch  " Highlight dynamically as pattern is typed
 set ignorecase " Make searches case-insensitive...
 set smartcase  " ...unless they contain at least one uppercase character
+
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif

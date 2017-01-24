@@ -26,7 +26,7 @@ vnoremap <Right> <Esc>:bn<CR>
 " nnoremap <leader>x "_x
 " nnoremap <leader>d "_dd
 
-inoremap <s-tab> <c-x><c-o>
+" inoremap <s-tab> <c-x><c-o>
 
 " =============================================================================
 " General Keybindings
