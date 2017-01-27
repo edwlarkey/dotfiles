@@ -31,18 +31,14 @@ fail () {
 setup_gitconfig () {
     info 'Setup git'
 
-    if [[ $(git config user.name) = "" ]]; then
-      IFS= read -r -p "What is your github author name? " git_authorname
-      git config --global user.name "$git_authorname"
-    fi
+    # I'm always me
+    git config --global user.name 'Edward Larkey'
 
     if [ $(git config user.email) == '' ]; then
       IFS= read -r -p "What is your github author email? " git_authoremail
       git config --global user.email "$git_authoremail"
     fi
 
-
-    # git config --global user.name 'Edward Larkey'
     # git config --global user.email edwlarkey@mac.com
     git config --global core.editor vim
     git config --global commit.template $HOME/dotfiles/git-commit-template
