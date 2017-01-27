@@ -29,7 +29,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
 " Plug '~/git/completor'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -37,6 +37,8 @@ Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 " Plug 'Valloric/MatchTagAlways'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+" Plug 'tweekmonster/gofmt.vim', { 'for': 'go' }
+Plug 'fatih/vim-go', { 'for': 'go' }
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -65,6 +67,7 @@ source ~/.vim/config/plugins/netrw.vim
 source ~/.vim/config/plugins/rainbow_parentheses.vim
 source ~/.vim/config/plugins/toggler.vim
 source ~/.vim/config/plugins/vimwiki.vim
+source ~/.vim/config/plugins/vim-go.vim
 
 " NERDTree
 " map <leader>n :NERDTreeToggle<CR>

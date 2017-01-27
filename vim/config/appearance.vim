@@ -64,19 +64,6 @@ set copyindent    " Copy indentation from source
 set smarttab
 set nowrap        " Don't wrap lines
 
-" Tabs for various file types.
-autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype python setlocal ts=4 sw=4 expandtab
-autocmd Filetype php setlocal ts=4 sw=4 expandtab
-autocmd Filetype css setlocal ts=4 sw=4 expandtab
-autocmd Filetype scss setlocal ts=4 sw=4 expandtab
-autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
-autocmd Filetype markdown,mkd,md setlocal ts=4 sw=4 expandtab
-autocmd Filetype perl setlocal ts=4 sw=4 expandtab
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
-autocmd FileType calendar set noexpandtab shiftwidth=8 softtabstop=0
-
 " Invisible characters
 set list
 set listchars=tab:>·,trail:·,extends:#,nbsp:.
