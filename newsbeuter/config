@@ -16,7 +16,7 @@ notify-beep yes
 max-items 200
 
 # external
-browser chromium
+browser opera
 
 # interface
 confirm-exit yes
@@ -30,7 +30,7 @@ bind-key SPACE toggle-article-read
 bind-key O open-in-browser-and-mark-read
 
 # theme
-color background            color0      color7
+color background            color7      color0
 color listnormal            color7      color0
 color listnormal_unread     color4      color0
 color listfocus             color7     color19

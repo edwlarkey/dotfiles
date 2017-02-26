@@ -59,3 +59,4 @@ bin/zsh-5.0.7
 bin/syncthing
 bin/unison
 bin/sso
+bin/rclone
