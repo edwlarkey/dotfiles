@@ -1,4 +1,6 @@
 http://onethingwell.org/rss "Tech"
+https://golangnews.com/index.xml "golang"
+https://codeascraft.com/atom "devops,Tech"
 http://feeds.feedburner.com/codinghorror/ "Tech"
 http://xkcd.com/rss.xml "humor"
 http://feeds.feedburner.com/HashPrompt?format=xml "linux"
