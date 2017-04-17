@@ -24,7 +24,7 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
 Plug 'chriskempson/base16-vim'
-Plug 'kien/rainbow_parentheses.vim'
+" Plug 'kien/rainbow_parentheses.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
@@ -49,44 +49,477 @@ Plug 'edwlarkey/vim-textcal'
 
 call plug#end()
 
+" =============================================================================
+" Functions {{{1
+" =============================================================================
+function! Preserve(command)
+  " Preparation save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
 
-source ~/.vim/config/functions.vim
-source ~/.vim/config/general.vim
-source ~/.vim/config/appearance.vim
-source ~/.vim/config/key_bindings.vim
-source ~/.vim/config/filetypes.vim
+" Format HTML
+function! FormatHTML()
+  set ft=html
+  " remove trailing spaces
+  call Preserve("%s/\\s\\+$//e")
+  " tabs -> spaces
+  call Preserve("retab")
+  " re indent the file correctly
+  call Preserve("normal gg=G")
+endfunction
+
+fun! VexSize(vex_width)
+  execute "vertical resize" . a:vex_width
+  set winfixwidth
+  call NormalizeWidths()
+endf
+
+fun! NormalizeWidths()
+  let eadir_pref = &eadirection
+  set eadirection=hor
+  set equalalways! equalalways!
+  let &eadirection = eadir_pref
+endf
+
+function! VexOpen(dir)
+  let g:netrw_browse_split=4    " open files in previous window
+  let vex_width = 25
+
+  execute "Vexplore " . a:dir
+  let t:vex_buf_nr = bufnr("%")
+  wincmd H
+
+  call VexSize(vex_width)
+endf
+
+function! VexClose()
+  let cur_win_nr = winnr()
+  let target_nr = ( cur_win_nr == 1 ? winnr("#") : cur_win_nr )
+
+  1wincmd w
+  close
+  unlet t:vex_buf_nr
+
+  execute (target_nr - 1) . "wincmd w"
+  call NormalizeWidths()
+endf
+
+function! VexToggle(dir)
+  if exists("t:vex_buf_nr")
+    call VexClose()
+  else
+    call VexOpen(a:dir)
+  endif
+endf
+
+" =============================================================================
+" General Config {{{1
+" =============================================================================
+
+" Use UTF-8 without BOM
+set encoding=utf-8 nobomb
+
+" Use <SPACE> as leader
+let mapleader=" "
+let maplocalleader=","
+
+" Stop that stupid window
+map q: :q
+
+filetype plugin indent on
+" Backspace over everything in insert mode
+set backspace=indent,eol,start
+
+" Tags
+set tags=./tags,tags;
+
+" Spelling file
+set spellfile+=~/txt/spellfile.add
+
+" Allow unsaved background buffers and remember marks/undo for them
+set hidden
+
+" Auto-reload buffers when files are changed on disk
+set autoread
+
+""
+"" Joining
+""
+
+" Use only 1 space after "." when joining lines instead of 2
+set nojoinspaces
+
+" Joining with indents is useless - instead join and delete spaces
+nnoremap gJ Jdiw
+
+" Don't reset cursor to start of line when moving around
+set nostartofline
+
+""
+"" Fuzzy finding
+""
+set path+=~/txt/**
+set path+=**
+
+" Make tab completion for files/buffers act like bash
+set wildmenu
+
+" Use emacs-style tab completion when selecting files, etc
+" set wildmode=longest,list
+
+" Disable output and VCS files
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
+
+" Disable archive files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
+
+" Ignore bundler and sass cache
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
+
+" Ignore node modules
+set wildignore+=*/node_modules/*
+
+" Disable temp and backup files
+set wildignore+=*.swp,*~,._*
+set wildignore=*.bak,*.pyc,*.class
+
+""
+"" Backup, swap, undo
+""
+set backup
+set backupdir=~/.vim-backup//
+set directory=~/.vim-swap//
+set undofile
+set undodir=~/.vim-undo//
+set writebackup
+
+""
+"" Search
+""
+set showmatch  " Show matches
+set hlsearch   " Highlight searches
+set incsearch  " Highlight dynamically as pattern is typed
+set ignorecase " Make searches case-insensitive...
+set smartcase  " ...unless they contain at least one uppercase character
+
+if executable("ag")
+  set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" =============================================================================
+" Appearance {{{1
+" =============================================================================
+
+set cursorline      " Highlight current line
+set scrolloff=5     " Keep more buffer context when scrolling
+set cmdheight=1     " Set command line height (default)
+set title           " Show the filename in the window titlebar
+" set t_Co=256         " 256 colors
+" set background=dark " Dark background
+set noerrorbells    " Disable error bells
+set number          " Show line numbers
+set relativenumber  " Relative numbering
+syntax on
+
+""
+"" Statusline
+""
+
+set noruler
+set laststatus=2
+set statusline=
+set statusline+=%t\       "tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
+set statusline+=%{&ff}]\  "file format
+set statusline+=%y\      "filetype
+set statusline+=%h\      "help file flag
+set statusline+=%m\      "modified flag
+set statusline+=%r\      "read only flag
+set statusline+=%=      "left/right separator
+set statusline+=line:%l/%L\    "cursor line/total lines
+set statusline+=col:%c\     "cursor column
+set statusline+=\ %P    "percent through file
+
+""
+"" Colorscheme and colorcolumn
+""
+
+" let g:solarized_termcolors=16
+let base16colorspace=256
+try
+  colorscheme base16-eighties
+catch
+  colorscheme default
+endtry
+
+" dont display color column if it doesn't support it
+if v:version > 703
+  let &colorcolumn="80,".join(range(120,999),",")
+endif
+
+""
+"" Whitespace
+""
+
+"indentation
+set expandtab     " Tab in insert mode will produce spaces
+set tabstop=2     " Width of a tab
+set shiftwidth=2  " Width of reindent operations and auto indentation
+set softtabstop=2 " Set spaces for tab in insert mode
+set autoindent    " Enable auto indentation
+set copyindent    " Copy indentation from source
+set smarttab
+set nowrap        " Don't wrap lines
+
+" Invisible characters
+set list
+set listchars=tab:>·,trail:·,extends:#,nbsp:.
+autocmd filetype html,xml set listchars-=tab:>·
+
+" =============================================================================
+" Registers
+" =============================================================================
+
+" Use the OS clipboard by default
+" set clipboard=unnamed
+
+" Copy to X11 primary clipboard
+" map <leader>y "*y
+
+" Paste from unnamed register and fix indentation
+" nmap <leader>p pV`]=
+
+" Delete to the blackhole register
+" nnoremap <leader>x "_x
+" nnoremap <leader>d "_dd
+
+" inoremap <s-tab> <c-x><c-o>
+
+" =============================================================================
+" General Keybindings
+" =============================================================================
+
+" Left/Right arrow keys change buffers in all modes
+noremap <Left> <Esc>:bp<CR>
+inoremap <Left> <Esc>:bp<CR>
+nnoremap <Left> <Esc>:bp<CR>
+vnoremap <Left> <Esc>:bp<CR>
+
+noremap <Right> <Esc>:bn<CR>
+inoremap <Right> <Esc>:bn<CR>
+nnoremap <Right> <Esc>:bn<CR>
+vnoremap <Right> <Esc>:bn<CR>
+
+" quick vimrc editing
+" The autocmd should be in another secion, but I like it all together
+:nnoremap <leader>v :e $MYVIMRC<cr>
+autocmd BufWritePost .vimrc source %
+
+" Make
+nmap <leader>m :Make<CR>
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" go to next line on screen
+nnoremap j gj
+nnoremap k gk
+
+" Disable up/down arrow keys
+" noremap <up> <nop>
+" noremap <down> <nop>
+" nnoremap <up> <nop>
+" nnoremap <down> <nop>
+" vnoremap <up> <nop>
+" vnoremap <down> <nop>
+" inoremap <up> <nop>
+" inoremap <down> <nop>
+
+" delete trailing spaces
+nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
+" retab!!
+nmap <LEADER><TAB> :call Preserve("retab")<CR>
+nmap <F9> :call FormatHTML()<CR>
+nmap _= :call Preserve("normal gg=G")<CR>
+
+" no autodindent with F2
+set pastetoggle=<F2>
+
+" gidt to insert timestamp
+nmap gidt a<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>
+imap gidt <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
+
+" gid to insert date
+nmap gid a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
+imap gid <C-R>=strftime("%Y-%m-%d")<CR>
+
+"Fast filetype switching
+map <leader>1 :set ft=php<CR>
+map <leader>2 :set ft=html<CR>
+
+" Folding on and off
+nnoremap <leader>f :set nofoldenable<CR>
+nnoremap <leader>fo :set foldenable<CR>
+
+" =============================================================================
+" Filetypes and Custom Autocmds {{{1
+" =============================================================================
+
+" Tabs for various file types.
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype python setlocal ts=4 sw=4 expandtab
+autocmd Filetype php setlocal ts=4 sw=4 expandtab
+autocmd Filetype css setlocal ts=4 sw=4 expandtab
+autocmd Filetype scss setlocal ts=4 sw=4 expandtab
+autocmd Filetype snippets setlocal ts=4 sw=4 expandtab
+autocmd Filetype markdown,mkd,md setlocal ts=4 sw=4 expandtab
+autocmd Filetype perl setlocal ts=4 sw=4 expandtab
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+autocmd FileType calendar set noexpandtab shiftwidth=8 softtabstop=0
+
+augroup go
+  autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+  autocmd FileType go set listchars=tab:\ \ 
+augroup END
+
+au BufRead *.php set ft=html.php
+au BufNewFile *.php set ft=html.php
+au BufRead *.py set ft=python
+au BufNewFile *.py set ft=python
+au BufRead *.scss set ft=css
+au BufNewFile *.scss set ft=css
+au BufRead *.jira set ft=jira
+au BufNewFile *.jira set ft=jira
+au BufNewFile,BufRead *.rb set ft=ruby.chef
+
+"Spelling
+autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex,vimwiki set spell
+
+" Grep quickfix
+autocmd QuickFixCmdPost *grep* cwindow
+
+"Markdown files textwidth
+au BufRead,BufNewFile *.md setlocal textwidth=79
+au BufRead,BufNewFile *.md setlocal textwidth=79
+au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
+" au BufRead,BufNewFile *.md,*.markdown setlocal fdm=syntax
+autocmd FileType markdown set foldmethod=syntax
+
+" PyLint
+" autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
+" autocmd FileType python set errorformat=%f:%l:\ %m
+
+" LaTeX
+au BufRead,BufNewFile *.tex setlocal textwidth=79
+au BufRead,BufNewFile *.tex setlocal textwidth=79
+" autocmd FileType tex setlocal makeprg=pdflatex\ '%'
+
+" Make on write
+" autocmd BufWritePost *.py Make
+
+" QuickFix on make
+"autocmd QuickFixCmdPost * copen
+
+" Comments
+autocmd FileType gitcommit set commentstring=#\ %s
+
+" Completion
+set completeopt=longest,menuone,preview
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+
+
+" If you prefer the Omni-Completion tip window to close when a selection is
+" " made, these lines close it on movement in insert mode or when leaving
+" " insert mode
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " =============================================================================
 " Plugin Settings and Mappings {{{1
 " =============================================================================
 
-source ~/.vim/config/plugins/ale.vim
-source ~/.vim/config/plugins/completor.vim
-source ~/.vim/config/plugins/fugitive.vim
-source ~/.vim/config/plugins/netrw.vim
-source ~/.vim/config/plugins/rainbow_parentheses.vim
-source ~/.vim/config/plugins/toggler.vim
-source ~/.vim/config/plugins/vimwiki.vim
-source ~/.vim/config/plugins/vim-go.vim
+" ALE
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-" NERDTree
-" map <leader>n :NERDTreeToggle<CR>
-" Netrw
-" map <leader>n :Vexplore<CR>
-" map <leader>n :vsplit .<CR>
-" map <leader>n :vsplit .<CR>
+" Completor
+" let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
 
+" Fugititve
+" :map <leader>c :Gcommit<CR>
+" :map <leader>g :Gwrite<CR>
 
-" let python_version_2 = 0
-" let python_highlight_all = 1
+" netrw
+" open from current directory
+nnoremap <leader>n :call VexToggle(getcwd())<CR>
+let g:netrw_liststyle= 3
+" open from current file
+" nnoremap <leader>n :call VexToggle("")<CR>
 
-" GUI font
-set gfn=Anonymous\ Pro\ for\ Powerline:h16
+"  Parentheses colours using Solarized
+" let g:rbpt_colorpairs = [
+" \ [ '13', '#6c71c4'],
+" \ [ '5',  '#d33682'],
+" \ [ '1',  '#dc322f'],
+" \ [ '9',  '#cb4b16'],
+" \ [ '3',  '#b58900'],
+" \ [ '2',  '#859900'],
+" \ [ '6',  '#2aa198'],
+" \ [ '4',  '#268bd2'],
+" \ ]
+" if exists('RainbowParenthesesToggle')
+"   au VimEnter * RainbowParenthesesToggle
+"   au Syntax * RainbowParenthesesLoadRound
+"   au Syntax * RainbowParenthesesLoadSquare
+"   au Syntax * RainbowParenthesesLoadBraces
+" endif
+
+" Toggler
+:nnoremap <leader>t :Toggle<CR>
+let g:toggler_keywords = [
+  \ ['TODO', 'DOING', 'DONE'],
+  \ ['True', 'False'],
+  \ ['YES', 'NO'],
+  \ ['\[ \]', '\[x\]'],
+  \ ['x', '/'],
+  \]
+
+" Vimwiki
+let g:vimwiki_list = [
+      \ {'path': '~/txt/vimwiki',
+      \ 'path_html': '~/vimwiki_html/',
+      \ 'custom_wiki2html': '$HOME/bin/misaka_md2html.py',
+      \ 'syntax': 'markdown', 'ext': '.md'}
+      \ ]
+let g:vimwiki_global_ext = 0
+
+" vim-go plugin settings
+let g:go_fmt_command = "goimports"
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 "
-" Check for local modifications for env specific settings
+" Check for local settings for env specific settings. e.g. Work specific
+" config
 "
-
 if !empty(glob("~/.vimrc.local"))
   source ~/.local.vimrc
 endif
