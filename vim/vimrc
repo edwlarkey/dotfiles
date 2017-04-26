@@ -24,8 +24,6 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
 Plug 'chriskempson/base16-vim'
-" Plug 'kien/rainbow_parentheses.vim'
-Plug 'mhinz/vim-grepper'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
@@ -35,9 +33,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
-" Plug 'Valloric/MatchTagAlways'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-" Plug 'tweekmonster/gofmt.vim', { 'for': 'go' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 """""""""""""""""""""""""""""""""""""""
