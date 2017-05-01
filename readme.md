@@ -3,7 +3,7 @@ bin/git-prompt
 ```
 
 Was taken from
-https://github.com/josuah/config/blob/master/.local/bin/git-prompt
+https://github.com/josuah/etc/blob/4da46f6f89131a5fcbaf5ae760ef7a8e8c392b92/.local/bin/git-prompt
 
 # Install
 
