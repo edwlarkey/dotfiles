@@ -36,6 +36,7 @@ atlas_backup
 bin/atlas_backup
 bin/backup.sh
 bin/bdconnect
+bin/healthechecker
 
 # newsbeuter
 newsbeuter/cache.db
