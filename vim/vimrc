@@ -116,6 +116,12 @@ function! VexToggle(dir)
 endf
 
 " =============================================================================
+" Snippets {{{1
+" =============================================================================
+" Read an empty HTML template and move cursor to title
+nnoremap ,html :-1read $HOME/.vim/templates/html<CR>4jwf>a
+
+" =============================================================================
 " General Config {{{1
 " =============================================================================
 
@@ -502,6 +508,7 @@ let g:vimwiki_list = [
       \ 'syntax': 'markdown', 'ext': '.md'}
       \ ]
 let g:vimwiki_global_ext = 0
+let g:vimwiki_hl_headers = 1
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"
