@@ -1,0 +1,9 @@
+[user]
+  email = edward.larkey@cerner.com
+  name = Edward Larkey
+  signkey = C475032FED5EA14A
+[commit]
+  gpgsign = true
+
+
+; vim: filetype=gitconfig

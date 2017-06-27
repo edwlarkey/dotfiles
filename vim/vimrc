@@ -167,8 +167,8 @@ set nostartofline
 ""
 "" Fuzzy finding
 ""
-set path+=~/txt/**
-set path+=**
+" set path+=~/txt/**
+" set path+=**
 
 " Make tab completion for files/buffers act like bash
 set wildmenu
