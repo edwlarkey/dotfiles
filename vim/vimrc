@@ -255,10 +255,8 @@ set statusline+=\ %P    "percent through file
 "" Colorscheme and colorcolumn
 ""
 
-" let g:solarized_termcolors=16
-let base16colorspace=256
 try
-  colorscheme base16-eighties
+  colorscheme distinguished
 catch
   colorscheme default
 endtry
