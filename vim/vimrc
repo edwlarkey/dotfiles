@@ -256,7 +256,7 @@ set statusline+=\ %P    "percent through file
 ""
 
 try
-  colorscheme distinguished
+  colorscheme apprentice
 catch
   colorscheme default
 endtry
@@ -503,11 +503,12 @@ let g:toggler_keywords = [
 let g:vimwiki_list = [
       \ {'path': '~/txt/vimwiki',
       \ 'path_html': '~/vimwiki_html/',
+      \ 'auto_tags': 1,
       \ 'custom_wiki2html': '$HOME/bin/misaka_md2html.py',
       \ 'syntax': 'markdown', 'ext': '.md'}
       \ ]
 let g:vimwiki_global_ext = 0
-let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_headers = 0
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"

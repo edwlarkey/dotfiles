@@ -43,6 +43,7 @@ find $VIMWIKIPATH -type f -name "*.md" |while read -r line; do
 done
 
 # Now print all tasks due in the next 14 days, in order 
-sort -g "$FILE" | grep -E '(^[^0-9][0-9]+|^[0-9]{1}|^[1-3][0-9]+) days?'
+# sort -g "$FILE" | grep -E '(^[^0-9][0-9]+|^[0-9]{1}|^[1-3][0-9]+) days?'
+sort -g "$FILE"
 echo ""
 grep -r -e "-\\ \\[[o|O|.|\\ ]\\]" $VIMWIKIPATH |grep -v "due(" |sed -e "s#$VIMWIKIPATH##g"
