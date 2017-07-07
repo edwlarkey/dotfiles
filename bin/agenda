@@ -24,7 +24,7 @@ VIMWIKIPATH=$HOME/txt/vimwiki
 find $VIMWIKIPATH -type f -name "*.md" |while read -r line; do
 
 # Get all matches where due date is in body of file
-  grep -E "due\(.*($THISMO|$NEXTMO|$LASTMO)+.+\)" "$line" | while read -r match; do
+  grep -E "due\:.*($THISMO|$NEXTMO|$LASTMO)+.+" "$line" | while read -r match; do
     DUEDATE=$(echo "$match" | grep -o '[0-9]\{4\}-[0-9]\{1,2\}-[0-9]\{1,2\}')
     DAYS=$(expr '(' $(date -d $DUEDATE +%s) - $(date +%s) + 86399 ')' / 86400)
     if [ $DAYS -eq 1 ]; then
@@ -44,6 +44,6 @@ done
 
 # Now print all tasks due in the next 14 days, in order 
 # sort -g "$FILE" | grep -E '(^[^0-9][0-9]+|^[0-9]{1}|^[1-3][0-9]+) days?'
-sort -g "$FILE"
+sort -g "$FILE" | grep -v "\\[X\\]"
 echo ""
-grep -r -e "-\\ \\[[o|O|.|\\ ]\\]" $VIMWIKIPATH |grep -v "due(" |sed -e "s#$VIMWIKIPATH##g"
+grep -r -e "-\\ \\[[o|O|.|\\ ]\\]" $VIMWIKIPATH |grep -v "due:" |sed -e "s#$VIMWIKIPATH##g"
