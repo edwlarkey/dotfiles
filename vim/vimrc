@@ -324,6 +324,9 @@ vnoremap <Right> <Esc>:bn<CR>
 :nnoremap <leader>v :e $MYVIMRC<cr>
 autocmd BufWritePost .vimrc source %
 
+" Move item to bottom and append timestamp
+nnoremap <leader>mv ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``
+
 " Make
 nmap <leader>m :Make<CR>
 
