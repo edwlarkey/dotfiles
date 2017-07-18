@@ -48,3 +48,5 @@ done
 sort -g "$FILE" | grep -v "\\[X\\]"
 echo ""
 grep -r -e "-\\ \\[[o|O|.|\\ ]\\]" $VIMWIKIPATH |grep -v "due:" |sed -e "s#$VIMWIKIPATH##g"
+# Playing with the below to sort the remaining tasks by priority
+# grep -r -e "-\\ \\[[o|O|.|\\ ]\\]" $VIMWIKIPATH |grep -v "due:" |sed -e "s#$VIMWIKIPATH##g"|awk -Fq '{print NF,$0}' |sort -r
