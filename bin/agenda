@@ -1,17 +1,50 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-PATTERN="DUE:$(date +%Y-%m-%d)"
+#####
+#
+# Original taken from https://gist.github.com/wcaleb/2702834
+#
+#
+# NOTE. You need to use GNU date for these date commands.
+# `brew install coreutils`
+#
+#####
 
-if [ -z "$1" ]; then
-  DAYS=10
-else
-  DAYS="$1"
-fi
+THISMO=$(date +%m)
+LASTMO=$(date -d 'now - 1 month' +%m)
+NEXTMO=$(date -d 'now + 1 month' +%m)
+FILE=~/.duesoon
+VIMWIKIPATH=$HOME/txt/vimwiki
 
-for i in $(seq 1 $DAYS); do
 
-  PATTERN="$PATTERN|DUE:$(date --date="+$i days" +%Y-%m-%d)"
+# Empty file where matches will be stored
+echo '' > "$FILE"
 
-done;
+# Find all qq tasks where due date is this month or next month
+find $VIMWIKIPATH -type f -name "*.md" |while read -r line; do
 
-ack "$PATTERN" "$HOME/txt/vimwiki/"
+# Get all matches where due date is in body of file
+  grep -E "due\:.*($THISMO|$NEXTMO|$LASTMO)+.+" "$line" | while read -r match; do
+    DUEDATE=$(echo "$match" | grep -o '[0-9]\{4\}-[0-9]\{1,2\}-[0-9]\{1,2\}')
+    # DAYS=$(expr '(' $(date -d $DUEDATE +%s) - $(date +%s) + 86399 ')' / 86400)
+    DAYS=$((( $(date -d "$DUEDATE" +%s) - $(date +%s) + 86399)/86400))
+    if [ "$DAYS" == 1 ]; then
+      printf "%s day\t%s\n" "$DAYS" "$match" >> "$FILE"
+    else
+      printf "%s days\t%s\n" "$DAYS" "$match" >> "$FILE"
+    fi
+  done
+
+# Get all matches where due date is in filename
+  # basename "$line" | grep -E "due\(.*($THISMO|$NEXTMO|$LASTMO)+.+\)" | while read -r match; do
+  #   DUEDATE=$(echo "$match" | grep -o '[0-9]\{4\}-[0-9]\{1,2\}-[0-9]\{1,2\}')
+  #   echo $(expr '(' $(date -d $DUEDATE +%s) - $(date +%s) + 86399 ')' / 86400) "days    " "$match" >> "$FILE" 
+  # done
+
+done
+
+# Now print all tasks due in the next 14 days, in order 
+# sort -g "$FILE" | grep -E '(^[^0-9][0-9]+|^[0-9]{1}|^[1-3][0-9]+) days?'
+sort -g "$FILE" | grep -v "\\[X\\]"
+echo ""
+grep -r -e "-\\ \\[[o|O|.|\\ ]\\]" $VIMWIKIPATH |grep -v "due:" |sed -e "s#$VIMWIKIPATH##g"

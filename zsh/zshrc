@@ -72,10 +72,12 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   $HOME/bin
+  /usr/local/opt/coreutils/libexec/gnubin
   /usr/local/{bin,sbin}
   $path
 )
 
+MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 #
 # Less
 #
@@ -150,6 +152,9 @@ export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=32:bd=36;01:cd=33;01:su=31;40;07:sg
 
 export GOPATH=$HOME/git/go
 export GOBIN=$GOPATH/bin
+
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Source any local zsh configuration
 [ -e "${HOME}/.local.zsh" ] && source "${HOME}/.local.zsh"

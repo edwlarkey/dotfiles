@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+PATTERN="DUE:$(date +%Y-%m-%d)"
+
+if [ -z "$1" ]; then
+  DAYS=10
+else
+  DAYS="$1"
+fi
+
+for i in $(seq 1 $DAYS); do
+
+  PATTERN="$PATTERN|due\\($(date --date="+$i days" +%Y-%m-%d)"
+
+done;
+
+ack "$PATTERN" "$HOME/txt/vimwiki/"

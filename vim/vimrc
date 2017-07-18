@@ -22,12 +22,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
-" Plug 'maralla/completor.vim'
+Plug 'maralla/completor.vim'
 " Plug '~/git/completor'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -254,10 +255,8 @@ set statusline+=\ %P    "percent through file
 "" Colorscheme and colorcolumn
 ""
 
-" let g:solarized_termcolors=16
-let base16colorspace=256
 try
-  colorscheme base16-eighties
+  colorscheme apprentice
 catch
   colorscheme default
 endtry
@@ -324,6 +323,9 @@ vnoremap <Right> <Esc>:bn<CR>
 " The autocmd should be in another secion, but I like it all together
 :nnoremap <leader>v :e $MYVIMRC<cr>
 autocmd BufWritePost .vimrc source %
+
+" Move item to bottom and append timestamp
+nnoremap <leader>mv ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``
 
 " Make
 nmap <leader>m :Make<CR>
@@ -504,11 +506,12 @@ let g:toggler_keywords = [
 let g:vimwiki_list = [
       \ {'path': '~/txt/vimwiki',
       \ 'path_html': '~/vimwiki_html/',
+      \ 'auto_tags': 1,
       \ 'custom_wiki2html': '$HOME/bin/misaka_md2html.py',
       \ 'syntax': 'markdown', 'ext': '.md'}
       \ ]
 let g:vimwiki_global_ext = 0
-let g:vimwiki_hl_headers = 1
+let g:vimwiki_hl_headers = 0
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"
