@@ -28,7 +28,7 @@ Plug 'godlygeek/tabular'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
-Plug 'maralla/completor.vim'
+" Plug 'maralla/completor.vim'
 " Plug '~/git/completor'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -221,7 +221,7 @@ endif
 " Appearance {{{1
 " =============================================================================
 
-set cursorline      " Highlight current line
+" set cursorline      " Highlight current line
 set scrolloff=5     " Keep more buffer context when scrolling
 set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar

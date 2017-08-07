@@ -8,10 +8,10 @@
       path = ~/.calendars/E36A7D50-45E3-434D-9C47-BFAB75732B9F/
       color = dark green
 
-#  [[Cerner]]
-#      path = ~/Library/Calendars/628335AF-F718-4559-90DF-187AA8DF2AB6.exchange/EFEEEB53-B832-4D28-8401-A5BD32CEA3AF.calendar/Events/
-#      color = dark red
-#      readonly = True
+  [[Hudl]]
+      path = /Users/edward.larkey/Library/Calendars/DC46B97F-164C-4C05-A432-3912301D13E4.exchange/174312A5-E2EB-4B4D-A3E3-52C10D4C1017.calendar/Events/
+      color = dark red
+      readonly = True
 
   [[birthdays]]
       path = ~/.contacts/default/
