@@ -1,11 +1,14 @@
 # Me
-set from = "GMAIL_ADDRESS"
-set use_from=yes
+set my_email = "EMAIL"
+set my_password  = `pass mail/gmail`
 set realname = "Edward Larkey"
 
+set from = $my_email
+set use_from=yes
+
 # Account info
-set imap_user = "GMAIL_ADDRESS"
-set imap_pass = "PASSWORD"
+set imap_user = $my_email
+set imap_pass = $my_password
 set folder = "imaps://imap.gmail.com:993"
 
 # mailboxes
@@ -20,8 +23,8 @@ macro index d "s=Trash\n" "move message to trash"
 macro pager d "s=Trash\n" "move message to trash"
 
 # SMTP
-set smtp_url="smtp://USERNAME@smtp.gmail.com:587/"
-set smtp_pass = "PASSWORD"
+set smtp_url="smtp://$my_email@smtp.gmail.com:587/"
+set smtp_pass = $my_password
 set envelope_from=yes
 set smtp_authenticators = 'gssapi:login'
 #set ssl_force_tls=yes

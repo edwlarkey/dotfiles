@@ -1,11 +1,10 @@
-set my_username=""
-set my_password=""
-set my_email=""
-set realname = ""
-set hostname = ""
+# Me
+set my_email="EMAIL"
+set my_password=`pass mail/outlook365`
+set realname = "Edward Larkey"
 
 # IMAP config
-set imap_user=$my_username
+set imap_user=$my_email
 set imap_pass=$my_password
 
 # IMAP folders
@@ -33,16 +32,16 @@ unset mark_old
 set ssl_use_sslv3=yes
 
 # SMTP config
-set from = $my_email
 set smtp_pass = $my_password
-set smtp_url = "smtp://$my_username@outlook.office365.com:587/"
+set smtp_url = "smtp://$my_email@outlook.office365.com:587/"
 set ssl_force_tls = yes
 set smtp_authenticators = "login"
+set from = $my_email
 set use_from=yes
-
 
 # Signature
 set signature="~/.mutt/work_signature"
 set sig_on_top=yes
 
 source ~/.mutt/mutt_general
+
