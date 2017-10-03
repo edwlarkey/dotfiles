@@ -37,6 +37,7 @@ bin/atlas_backup
 bin/backup.sh
 bin/bdconnect
 bin/healthechecker
+bin/jira
 
 # newsbeuter
 newsbeuter/cache.db
@@ -61,3 +62,5 @@ bin/syncthing
 bin/unison
 bin/sso
 bin/rclone
+bin/vpn
+bin/vimwiki*
