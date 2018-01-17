@@ -1,5 +1,6 @@
 text/html; lynx %s; nametemplate=%s.html
 text/html; lynx -nonumbers -dump %s; copiousoutput; nametemplate=%s.html
+# text/html; w3m -I %{charset} -T text/html; copiousoutput;
 image/*; ~/.mutt/view_attachment.sh %s -
 audio/*; ~/.mutt/view_attachment.sh %s -
 video/*; ~/.mutt/view_attachment.sh %s -

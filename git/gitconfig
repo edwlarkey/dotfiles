@@ -11,7 +11,7 @@
   lg = log --graph --oneline --decorate --all
   lg2 = log --graph --abbrev-commit --decorate --date=relative --all
 [push]
-  default = current
+	default = current
 [gpg]
   program = gpg
 

@@ -48,10 +48,6 @@ alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && kil
 alias new_work_tags="ctags -R -f ~/.worktags --fields=+l --file-scope=no ~/.tag_files/work"
 alias ctags="ctags -R -f ./tags --fields=+l"
 
-# Fast ssh
-alias admin="ssh bd_admin@admin.builderdesigns.com"
-alias backups="ssh bd_admin@10.1.10.254"
-
 #
 # ls Colours
 #

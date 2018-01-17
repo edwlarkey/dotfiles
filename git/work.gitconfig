@@ -1,7 +1,7 @@
 [user]
-  email = edward.larkey@cerner.com
+  email = edward.larkey@hudl.com
   name = Edward Larkey
-  signkey = C475032FED5EA14A
+  signkey = C9B5BD06E15C39DC
 [commit]
   gpgsign = true
 
