@@ -1,20 +1,15 @@
 [calendars]
 
   [[home]]
-      path = ~/.calendars/default/
+      path = ~/.calendars/gipopotam/default/
       color = dark cyan
 
   [[Payday]]
-      path = ~/.calendars/E36A7D50-45E3-434D-9C47-BFAB75732B9F/
+      path = ~/.calendars/gipopotam/E36A7D50-45E3-434D-9C47-BFAB75732B9F/
       color = dark green
 
-#  [[Cerner]]
-#      path = ~/Library/Calendars/628335AF-F718-4559-90DF-187AA8DF2AB6.exchange/EFEEEB53-B832-4D28-8401-A5BD32CEA3AF.calendar/Events/
-#      color = dark red
-#      readonly = True
-
   [[birthdays]]
-      path = ~/.contacts/default/
+      path = ~/.contacts/gipopotam/default/
       type = birthdays
       color = dark magenta
 
