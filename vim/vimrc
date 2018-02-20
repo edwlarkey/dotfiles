@@ -30,12 +30,14 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
 Plug 'maralla/completor.vim'
 " Plug '~/git/completor'
-Plug 'https://github.com/m-kat/aws-vim'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
-Plug 'esneider/YUNOcommit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+Plug 'Chiel92/vim-autoformat'
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 """""""""""""""""""""""""""""""""""""""
@@ -227,8 +229,10 @@ set scrolloff=5     " Keep more buffer context when scrolling
 set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar
 " set t_Co=256         " 256 colors
+set termguicolors
 " set background=dark " Dark background
 set noerrorbells    " Disable error bells
+set vb t_vb=        " Disable bells
 set number          " Show line numbers
 set relativenumber  " Relative numbering
 syntax on
@@ -297,7 +301,7 @@ autocmd filetype html,xml set listchars-=tab:>·
 " map <leader>y "*y
 
 " Paste from unnamed register and fix indentation
-" nmap <leader>p pV`]=
+nmap <leader>p pV`]=
 
 " Delete to the blackhole register
 " nnoremap <leader>x "_x
@@ -504,7 +508,7 @@ let g:netrw_liststyle= 3
 " endif
 
 " Toggler
-:nnoremap <leader>t :Toggle<CR>
+:nnoremap <F8> :Toggle<CR>
 let g:toggler_keywords = [
   \ ['TODO', 'DOING', 'DONE'],
   \ ['True', 'False'],
@@ -533,6 +537,15 @@ let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
+" fzf
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>f :Files<CR>
+nmap <Leader>r :Tags<CR>
+
+" vim-autoformat
+noremap <F3> :Autoformat<CR>
 
 "
 " Check for local settings for env specific settings. e.g. Work specific

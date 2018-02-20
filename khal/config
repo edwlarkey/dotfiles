@@ -13,6 +13,11 @@
       color = dark red
       readonly = True
 
+  [[Omaha]]
+      path = /Users/edward.larkey/Library/Calendars/C7600F83-D660-43CA-BA83-9475F7DEAC67.calendar/Events/
+      color = yellow
+      readonly = True
+
   [[birthdays]]
       path = ~/.contacts/default/
       type = birthdays
@@ -41,3 +46,4 @@ longdatetimeformat= %Y-%m-%d %H:%M
 
 [view]
 agenda_event_format = {calendar-color}{start-end-time-style} {title} {repeat-symbol} @ {location}{reset}
+dynamic_days = True
