@@ -112,7 +112,7 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 # TERM
-#export TERM=xterm-256color
+export TERM=xterm-256color
 
 #
 # Source aliases

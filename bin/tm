@@ -26,12 +26,11 @@ else
   # tmux send-keys -t "$1":personal 'gmail' C-m
   # tmux send-keys -t "$1":org 'textcal open' C-m
   # tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
-  tmux send-keys -t "$1":org 'cd ~/txt/ && vim life.md' C-m
+  # tmux send-keys -t "$1":org 'cd ~/txt/ && vim life.md' C-m
   # tmux send-keys -t "$1":org.1 'email' C-m
   # tmux send-keys -t "$1":org.2 'vdirsyncer sync && khal' C-m
   # tmux send-keys -t "$1":org.3 'newsbeuter' C-m
   # tmux send-keys -t "$1":org.4 'sleep 15 && todo' C-m
-  # tmux send-keys -t "$1":chat 'profanity' C-m
 
   # Select my starting window
   tmux select-window -t "$1":home
