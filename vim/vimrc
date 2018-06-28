@@ -28,7 +28,7 @@ Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
 Plug 'maralla/completor.vim'
-Plug '~/git/completor'
+" Plug '~/git/completor'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -293,10 +293,10 @@ set listchars=tab:>·,trail:·,extends:#,nbsp:.
 " =============================================================================
 
 " Use the OS clipboard by default
-" set clipboard=unnamed
+set clipboard=unnamed
 
 " Copy to X11 primary clipboard
-" map <leader>y "*y
+map <leader>y "*y
 
 " Paste from unnamed register and fix indentation
 nmap <leader>p pV`]=
@@ -475,6 +475,7 @@ let g:ale_fixers = {
 " Completor
 " let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
 let g:completor_python_binary = '/usr/local/bin/python3'
+let g:completor_gocode_binary = '/Users/edward.larkey/git/go/bin/gocode'
 
 " Fugititve
 " :map <leader>c :Gcommit<CR>
@@ -550,5 +551,5 @@ noremap <F3> :Autoformat<CR>
 " config
 "
 if !empty(glob("~/.vimrc.local"))
-  source ~/.local.vimrc
+  source ~/.vimrc.local
 endif
