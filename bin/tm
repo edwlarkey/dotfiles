@@ -7,34 +7,37 @@ tmux has-session -t "$1" 2>/dev/null
 if [[ $? -eq 0 ]]; then
   tmux attach -t "$1"
 else
-  # New session
-  tmux new -s "$1" -d
-  # Rename the default window
-  tmux rename-window -t "$1" "home"
+  case "$1" in
+    org)
+      # New session
+      tmux new -s org -d
 
-  # Create new windows
-  tmux new-window -t "$1" -a -n "util" -c "$HOME"
-  tmux new-window -t "$1" -a -n "org" -c "$HOME"
-  tmux new-window -t "$1" -a -n "ssh" -c "$HOME"
-  tmux new-window -t "$1" -a -c "$HOME"
+      # Create new windows
+      tmux rename-window -t org "wiki"
+      tmux new-window -t org -a -n "calendar" -c "$HOME"
+      tmux new-window -t org -a -n "email" -c "$HOME"
 
-  # Create a new split in the org window
-  # tmux split-window -h -t "$1":org
+      # Start programs
+      tmux send-keys -t org:wiki 'vorg' C-m
+      tmux send-keys -t org:calendar 'textcal open' C-m
 
-  # Start programs
-  # tmux send-keys -t "$1":email 'email' C-m
-  # tmux send-keys -t "$1":personal 'gmail' C-m
-  # tmux send-keys -t "$1":org 'textcal open' C-m
-  # tmux send-keys -t "$1":org 'cd ~/Dropbox/txt/org/' C-m
-  # tmux send-keys -t "$1":org 'cd ~/txt/ && vim life.md' C-m
-  # tmux send-keys -t "$1":org.1 'email' C-m
-  # tmux send-keys -t "$1":org.2 'vdirsyncer sync && khal' C-m
-  # tmux send-keys -t "$1":org.3 'newsbeuter' C-m
-  # tmux send-keys -t "$1":org.4 'sleep 15 && todo' C-m
+      # Select my starting window
+      tmux select-window -t org:wiki
 
-  # Select my starting window
-  tmux select-window -t "$1":home
-
-  # Attach
-  tmux attach -t "$1"
+      # Attach
+      tmux attach -t org
+      ;;
+    SRE)
+      ;;
+    *)
+      ;;
+  esac
 fi
+
+
+
+
+
+
+
+

@@ -293,10 +293,10 @@ set listchars=tab:>·,trail:·,extends:#,nbsp:.
 " =============================================================================
 
 " Use the OS clipboard by default
-set clipboard=unnamed
+" set clipboard=unnamed
 
 " Copy to X11 primary clipboard
-map <leader>y "*y
+" map <leader>y "*y
 
 " Paste from unnamed register and fix indentation
 nmap <leader>p pV`]=
