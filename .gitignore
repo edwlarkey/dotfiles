@@ -38,6 +38,7 @@ bin/backup.sh
 bin/bdconnect
 bin/healthechecker
 bin/jira
+bin/macallan
 
 # newsbeuter
 newsbeuter/cache.db
@@ -61,6 +62,7 @@ bin/zsh-5.0.7
 bin/syncthing
 bin/unison
 bin/sso
+bin/sam
 bin/rclone
 bin/vpn
 bin/vimwiki*
