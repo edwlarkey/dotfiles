@@ -38,7 +38,7 @@ Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'Chiel92/vim-autoformat'
-Plug 'nightsense/snow'
+Plug 'morhetz/gruvbox'
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 """""""""""""""""""""""""""""""""""""""
@@ -262,7 +262,7 @@ set statusline+=\ %P    "percent through file
 ""
 
 try
-  colorscheme snow
+  colorscheme gruvbox
 catch
   colorscheme default
 endtry
@@ -547,6 +547,10 @@ nmap <Leader>r :Tags<CR>
 
 " vim-autoformat
 noremap <F3> :Autoformat<CR>
+
+" Gruvbox
+let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_contrast_dark = 'soft'
 
 "
 " Check for local settings for env specific settings. e.g. Work specific
