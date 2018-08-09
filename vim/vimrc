@@ -26,6 +26,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug '~/git/ale'
 Plug 'maralla/completor.vim'
 " Plug '~/git/completor'
@@ -37,6 +38,7 @@ Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'Chiel92/vim-autoformat'
+Plug 'nightsense/snow'
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 """""""""""""""""""""""""""""""""""""""
@@ -260,7 +262,7 @@ set statusline+=\ %P    "percent through file
 ""
 
 try
-  colorscheme apprentice
+  colorscheme snow
 catch
   colorscheme default
 endtry
@@ -401,15 +403,12 @@ augroup go
   autocmd FileType go set listchars=tab:\ \ 
 augroup END
 
-au BufRead *.php set ft=html.php
-au BufNewFile *.php set ft=html.php
-au BufRead *.py set ft=python
-au BufNewFile *.py set ft=python
-au BufRead *.scss set ft=css
-au BufNewFile *.scss set ft=css
-au BufRead *.jira set ft=jira
-au BufNewFile *.jira set ft=jira
-au BufNewFile,BufRead *.rb set ft=ruby.chef
+au BufRead,BufNewFile *.php set ft=html.php
+au BufRead,BufNewFile *.py set ft=python
+au BufRead,BufNewFile *.scss set ft=css
+au BufRead,BufNewFile *.jira set ft=jira
+au BufRead,BufNewFile *.rb set ft=ruby.chef
+au BufRead,BufNewFile */cloudformation/**/*.yml,*/cloudformation/**/*.yaml set ft=yaml.cloudformation
 
 "Spelling
 autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex,vimwiki set spell
@@ -474,7 +473,7 @@ let g:ale_fixers = {
 
 " Completor
 " let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
-let g:completor_python_binary = '/usr/local/bin/python3'
+let g:completor_python_binary = 'python3'
 let g:completor_gocode_binary = '/Users/edward.larkey/git/go/bin/gocode'
 
 " Fugititve
@@ -533,13 +532,16 @@ let g:go_fmt_command = "goimports"
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
 " fzf
-nmap <Leader>b :Buffers<CR>
+nmap <Leader>l :Buffers<CR>
 nmap <Leader>f :Files<CR>
 nmap <Leader>r :Tags<CR>
 

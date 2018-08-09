@@ -39,6 +39,7 @@ bin/bdconnect
 bin/healthechecker
 bin/jira
 bin/macallan
+bin/setparam
 
 # newsbeuter
 newsbeuter/cache.db
