@@ -39,6 +39,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'morhetz/gruvbox'
+Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 
 """""""""""""""""""""""""""""""""""""""
