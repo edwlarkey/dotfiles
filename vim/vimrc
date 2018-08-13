@@ -378,8 +378,8 @@ map <leader>1 :set ft=php<CR>
 map <leader>2 :set ft=html<CR>
 
 " Folding on and off
-nnoremap <leader>f :set nofoldenable<CR>
-nnoremap <leader>fo :set foldenable<CR>
+" nnoremap <leader>f :set nofoldenable<CR>
+" nnoremap <leader>fo :set foldenable<CR>
 
 " =============================================================================
 " Filetypes and Custom Autocmds {{{1
