@@ -21,6 +21,7 @@ work
 
 vim/bundle/**
 vim/plugged/**
+vim/black
 ~vim/bundle/vundle
 
 vim/plugged

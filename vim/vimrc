@@ -26,16 +26,17 @@ Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-Plug 'jceb/vim-orgmode', { 'for': 'org' }
 " Plug '~/git/ale'
-Plug 'maralla/completor.vim'
+Plug 'maralla/completor.vim',
 " Plug '~/git/completor'
+Plug 'freitass/todo.txt-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
+Plug 'ambv/black', { 'for': 'python' }
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'morhetz/gruvbox'
@@ -525,7 +526,7 @@ let g:vimwiki_list = [
       \ 'custom_wiki2html_args': '',
       \ 'syntax': 'markdown', 'ext': '.md'}
       \ ]
-let g:vimwiki_global_ext = 0
+" let g:vimwiki_global_ext = 0
 let g:vimwiki_hl_headers = 0
 
 " vim-go plugin settings
@@ -552,6 +553,9 @@ noremap <F3> :Autoformat<CR>
 " Gruvbox
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
+
+" Black
+let g:black_linelength = 79
 
 "
 " Check for local settings for env specific settings. e.g. Work specific
