@@ -9,6 +9,17 @@ take () {
     cd $1
 }
 
+function aws-switch() {
+    case ${1} in
+        "" | "clear")
+            export AWS_PROFILE=""
+            ;;
+        *)
+            export AWS_PROFILE="${1}"
+            ;;
+    esac
+}
+
 ## Convenience and Safety
 if [[ ${OSTYPE} == linux* ]]; then
   alias rm='rm -I'

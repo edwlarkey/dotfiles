@@ -9,8 +9,12 @@
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
+function aws_info {
+    [ $AWS_PROFILE ] && echo ' (AWS: '$fg[red]`basename $AWS_PROFILE`%{$reset_color%}') '
+}
+
 function virtualenv_info {
-    [ $VIRTUAL_ENV ] && echo '('$fg[blue]`basename $VIRTUAL_ENV`%{$reset_color%}') '
+    [ $VIRTUAL_ENV ] && echo ' ('$fg[blue]`basename $VIRTUAL_ENV`%{$reset_color%}') '
 }
 PR_GIT_UPDATE=1
 
@@ -28,5 +32,5 @@ autoload -Uz colors && colors
 # zstyle ':vcs_info:*:prompt:*' check-for-changes true
 
 PROMPT='
-%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}
 %{$fg[red]%}>_%{$reset_color%} '
