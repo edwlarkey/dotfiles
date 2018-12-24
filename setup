@@ -46,7 +46,7 @@ setup_gitconfig () {
     user "git gpgsign: $git_commit_gpgsign"
 
     git config --global core.editor vim
-    git config  --file "$HOME/.config/git/config" commit.template $HOME/dotfiles/git/git-commit-template
+    git config  --file "$HOME/.config/git/config" commit.template "$HOME/dotfiles/git/git-commit-template"
 
     success 'Git setup complete'
 }
@@ -58,54 +58,54 @@ link_files () {
     ln -nfs "$HOME/dotfiles/vim" "$HOME/.vim"
     ln -nfs "$HOME/dotfiles/vim/vimrc" "$HOME/.vimrc"
     success 'vim linked'
-    ln -nfs $HOME/dotfiles/bin $HOME/bin
+    ln -nfs "$HOME/dotfiles/bin" "$HOME/bin"
     success 'bin linked'
-    ln -nfs $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf
+    ln -nfs "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
     success 'tmux linked'
-    ln -nfs $HOME/dotfiles/mutt $HOME/.mutt
+    ln -nfs "$HOME/dotfiles/mutt" "$HOME/.mutt"
     success 'mutt linked'
-    ln -nfs $HOME/dotfiles/zsh $HOME/.zsh
-    ln -nfs $HOME/dotfiles/zsh/zlogin $HOME/.zlogin
-    ln -nfs $HOME/dotfiles/zsh/zlogout $HOME/.zlogout
-    ln -nfs $HOME/dotfiles/zsh/zprofile $HOME/.zprofile
-    ln -nfs $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-    ln -nfs $HOME/dotfiles/zsh/zshenv $HOME/.zshenv
+    ln -nfs "$HOME/dotfiles/zsh" "$HOME/.zsh"
+    ln -nfs "$HOME/dotfiles/zsh/zlogin" "$HOME/.zlogin"
+    ln -nfs "$HOME/dotfiles/zsh/zlogout" "$HOME/.zlogout"
+    ln -nfs "$HOME/dotfiles/zsh/zprofile" "$HOME/.zprofile"
+    ln -nfs "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
+    ln -nfs "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
     success 'zsh linked'
-    ln -nfs $HOME/dotfiles/awesome $HOME/.config/awesome
+    ln -nfs "$HOME/dotfiles/awesome" "$HOME/.config/awesome"
     success 'awesome config linked'
-    ln -nfs $HOME/dotfiles/bspwm $HOME/.config/bspwm
-    ln -nfs $HOME/dotfiles/sxhkd $HOME/.config/sxhkd
+    ln -nfs "$HOME/dotfiles/bspwm" "$HOME/.config/bspwm"
+    ln -nfs "$HOME/dotfiles/sxhkd" "$HOME/.config/sxhkd"
     success 'bspwm config linked'
-    ln -nfs $HOME/dotfiles/termite $HOME/.config/termite
+    ln -nfs "$HOME/dotfiles/termite" "$HOME/.config/termite"
     success 'termite config linked'
-    ln -nfs $HOME/dotfiles/xinitrc $HOME/.xinitrc
+    ln -nfs "$HOME/dotfiles/xinitrc" "$HOME/.xinitrc"
     success 'xinitrc config linked'
-    ln -nfs $HOME/dotfiles/dunst $HOME/.config/dunst
+    ln -nfs "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
     success 'dunst config linked'
-    ln -nfs $HOME/dotfiles/khal $HOME/.config/khal
+    ln -nfs "$HOME/dotfiles/khal" "$HOME/.config/khal"
     success 'khal config linked'
-    ln -nfs $HOME/dotfiles/khard $HOME/.config/khard
+    ln -nfs "$HOME/dotfiles/khard" "$HOME/.config/khard"
     success 'khard config linked'
-    ln -nfs $HOME/dotfiles/newsbeuter/ $HOME/.newsbeuter
+    ln -nfs "$HOME/dotfiles/newsbeuter/" "$HOME/.newsbeuter"
     success 'newsbeuter config linked'
-    ln -nfs $HOME/dotfiles/qutebrowser $HOME/.config/qutebrowser
+    ln -nfs "$HOME/dotfiles/qutebrowser" "$HOME/.config/qutebrowser"
     success 'qutebrowser config linked'
 }
 
 make_dirs () {
     info 'Creating directories'
-    mkdir -p $HOME/.config
-    mkdir -p $HOME/.config/git
-    mkdir -p $HOME/.vim-backup
-    mkdir -p $HOME/.vim-undo
-    mkdir -p $HOME/.vim-swap
+    mkdir -p "$HOME/.config"
+    mkdir -p "$HOME/.config/git"
+    mkdir -p "$HOME/.vim-backup"
+    mkdir -p "$HOME/.vim-undo"
+    mkdir -p "$HOME/.vim-swap"
     success 'vim dirs created'
-    mkdir -p $HOME/git
-    success '~/git created'
+    mkdir -p "$HOME/git"
+    success "$HOME/git created"
 }
 
 pull_submodules () {
-    cd $HOME/dotfiles && git submodule init && git submodule update
+    cd "$HOME/dotfiles" && git submodule init && git submodule update
     git submodule update --init --recursive
 }
 
