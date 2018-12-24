@@ -1,9 +1,0 @@
-[user]
-  email = edward.larkey@hudl.com
-  name = Edward Larkey
-  signkey = C9B5BD06E15C39DC
-[commit]
-  gpgsign = true
-
-
-; vim: filetype=gitconfig

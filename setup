@@ -15,7 +15,7 @@ info () {
 }
 
 user () {
-    printf "\r\033[2K  [ \033[00;33m?\033[0m ] %s\n" "$1"
+    printf "\r\033[2K  [ \033[00;33m##\033[0m ] %s\n" "$1"
 }
 
 success () {
@@ -31,17 +31,22 @@ fail () {
 setup_gitconfig () {
     info 'Setup git'
 
-    # I'm always me
-    git config --global user.name 'Edward Larkey'
-
-    if [ $(git config user.email) == '' ]; then
-      IFS= read -r -p "What is your github author email? " git_authoremail
-      git config --global user.email "$git_authoremail"
+    if [ -f "$HOME/.local.gitconfig" ]; then
+      info "$HOME/.local.gitconfig found, deleting"
+      rm "$HOME/.local.gitconfig"
     fi
 
-    # git config --global user.email edwlarkey@mac.com
+    git config --file "$HOME/.config/git/config" user.name "$git_user_name"
+    user "git name: $git_user_name"
+    git config --file "$HOME/.config/git/config" user.email "$git_user_email"
+    user "git email: $git_user_email"
+    git config --file "$HOME/.config/git/config" user.signkey "$git_user_signkey"
+    user "git signkey: $git_user_signkey"
+    git config --file "$HOME/.config/git/config" commit.gpgsign "$git_commit_gpgsign"
+    user "git gpgsign: $git_commit_gpgsign"
+
     git config --global core.editor vim
-    git config --global commit.template $HOME/dotfiles/git-commit-template
+    git config  --file "$HOME/.config/git/config" commit.template $HOME/dotfiles/git/git-commit-template
 
     success 'Git setup complete'
 }
@@ -49,7 +54,6 @@ setup_gitconfig () {
 link_files () {
     info 'Linking files'
     ln -nfs "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
-    ln -nfs "$HOME/dotfiles/git/$LOCALGITCONFIG" "$HOME/.local.gitconfig"
     success 'git linked'
     ln -nfs "$HOME/dotfiles/vim" "$HOME/.vim"
     ln -nfs "$HOME/dotfiles/vim/vimrc" "$HOME/.vimrc"
@@ -91,6 +95,7 @@ link_files () {
 make_dirs () {
     info 'Creating directories'
     mkdir -p $HOME/.config
+    mkdir -p $HOME/.config/git
     mkdir -p $HOME/.vim-backup
     mkdir -p $HOME/.vim-undo
     mkdir -p $HOME/.vim-swap
@@ -112,18 +117,32 @@ install_vim_plugins () {
 
 # setup_gitconfig
 PS3='Set up for which location: '
-options=("Personal" "Work" "Quit")
+options=("Home" "Work" "Other" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
-        "Personal")
-            success "Setting up for Personal"
-            LOCALGITCONFIG=personal.gitconfig
+        "Home")
+            info "Setting up for Home"
+            git_user_name="Edward Larkey"
+            git_user_email="edwlarkey@mac.com"
+            git_user_signkey="25FE9E4C"
+            git_commit_gpgsign="true"
             break
             ;;
         "Work")
-            success "Setting up for Work"
-            LOCALGITCONFIG=work.gitconfig
+            info "Setting up for Work"
+            git_user_name="Edward Larkey"
+            git_user_email="edward.larkey@hudl.com"
+            git_user_signkey="C9B5BD06E15C39DC"
+            git_commit_gpgsign="true"
+            break
+            ;;
+        "Other")
+            info "Setting up for Other"
+            IFS= read -r -p "What is your github user name? " git_user_name
+            IFS= read -r -p "What is your github user email? " git_user_email
+            git_user_signkey=""
+            git_commit_gpgsign="false"
             break
             ;;
         "Quit")
@@ -134,6 +153,7 @@ do
 done
 
 make_dirs
+setup_gitconfig
 link_files
 pull_submodules
 install_vim_plugins

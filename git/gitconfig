@@ -1,17 +1,12 @@
-[include]
-  path = ~/.local.gitconfig
-
 [core]
-  editor = vim
-[commit]
-  template = ~/dotfiles/git/git-commit-template
+	editor = vim
 [init]
   templatedir = ~/dotfiles/git/git_template
 [alias]
   lg = log --graph --oneline --decorate --all
   lg2 = log --graph --abbrev-commit --decorate --date=relative --all
 [push]
-	default = current
+  default = current
 [gpg]
   program = gpg
 

@@ -164,3 +164,6 @@ export GPG_TTY
 
 # Source any local zsh configuration
 [ -e "${HOME}/.local.zsh" ] && source "${HOME}/.local.zsh"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/vault vault

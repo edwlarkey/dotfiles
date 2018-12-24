@@ -29,17 +29,18 @@ Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 " Plug '~/git/ale'
 Plug 'maralla/completor.vim',
 " Plug '~/git/completor'
-Plug 'freitass/todo.txt-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
-Plug 'ambv/black', { 'for': 'python' }
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'morhetz/gruvbox'
+Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
+Plug 'ambv/black', { 'for': 'python' }
+Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 
@@ -475,7 +476,7 @@ let g:ale_fixers = {
 
 " Completor
 " let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
-let g:completor_python_binary = 'python3'
+let g:completor_python_binary = '/usr/local/bin/python3'
 let g:completor_gocode_binary = '/Users/edward.larkey/git/go/bin/gocode'
 
 " Fugititve
@@ -557,7 +558,6 @@ let g:gruvbox_contrast_dark = 'soft'
 " Black
 let g:black_linelength = 79
 
-"
 " Check for local settings for env specific settings. e.g. Work specific
 " config
 "
