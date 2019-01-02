@@ -148,7 +148,7 @@ set backspace=indent,eol,start
 set tags=./tags,tags;
 
 " Spelling file
-set spellfile+=~/txt/spellfile.add
+" set spellfile+=~/txt/spellfile.add
 
 " Allow unsaved background buffers and remember marks/undo for them
 set hidden
