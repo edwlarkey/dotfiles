@@ -168,4 +168,6 @@ export GPG_TTY
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/vault vault
 
-tmux new-session -A -s org
+if [ -z "$TMUX" ]; then
+  tmux new-session -A -s org
+fi
