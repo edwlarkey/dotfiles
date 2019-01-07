@@ -11,6 +11,7 @@ HISTFILE="${ZDOTDIR}/.zsh_history"
 HISTSIZE='10000'
 SAVEHIST="${HISTSIZE}"
 
+bindkey -v
 
 setopt append_history
 setopt extended_history

@@ -314,15 +314,15 @@ nmap <leader>p pV`]=
 " =============================================================================
 
 " Left/Right arrow keys change buffers in all modes
-noremap <Left> <Esc>:bp<CR>
-inoremap <Left> <Esc>:bp<CR>
-nnoremap <Left> <Esc>:bp<CR>
-vnoremap <Left> <Esc>:bp<CR>
+noremap <C-h> <Esc>:bp<CR>
+inoremap <C-h> <Esc>:bp<CR>
+nnoremap <C-h> <Esc>:bp<CR>
+vnoremap <C-h> <Esc>:bp<CR>
 
-noremap <Right> <Esc>:bn<CR>
-inoremap <Right> <Esc>:bn<CR>
-nnoremap <Right> <Esc>:bn<CR>
-vnoremap <Right> <Esc>:bn<CR>
+noremap <C-l> <Esc>:bn<CR>
+inoremap <C-l> <Esc>:bn<CR>
+nnoremap <C-l> <Esc>:bn<CR>
+vnoremap <C-l> <Esc>:bn<CR>
 
 " quick vimrc editing
 " The autocmd should be in another secion, but I like it all together
@@ -335,25 +335,28 @@ nnoremap <leader>mv ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``
 " Make
 nmap <leader>m :Make<CR>
 
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
 
 " go to next line on screen
 nnoremap j gj
 nnoremap k gk
 
-" Disable up/down arrow keys
-" noremap <up> <nop>
-" noremap <down> <nop>
-" nnoremap <up> <nop>
-" nnoremap <down> <nop>
-" vnoremap <up> <nop>
-" vnoremap <down> <nop>
-" inoremap <up> <nop>
-" inoremap <down> <nop>
+" Disable arrow keys
+noremap <up> <nop>
+nnoremap <up> <nop>
+vnoremap <up> <nop>
+inoremap <up> <nop>
+noremap <down> <nop>
+nnoremap <down> <nop>
+vnoremap <down> <nop>
+inoremap <down> <nop>
+noremap <left> <nop>
+nnoremap <left> <nop>
+vnoremap <left> <nop>
+inoremap <left> <nop>
+noremap <right> <nop>
+nnoremap <right> <nop>
+vnoremap <right> <nop>
+inoremap <right> <nop>
 
 " delete trailing spaces
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
@@ -554,6 +557,20 @@ let g:gruvbox_contrast_dark = 'soft'
 
 " Black
 let g:black_linelength = 79
+
+" tmux-navigator
+
+let g:tmux_navigator_no_mappings = 1
+nmap <silent> <C-w>h :TmuxNavigateLeft<cr>
+nmap <silent> <C-w>j :TmuxNavigateDown<cr>
+nmap <silent> <C-w>k :TmuxNavigateUp<cr>
+nmap <silent> <C-w>l :TmuxNavigateRight<cr>
+
+" easier window navigation with ctrl pressed
+nmap <silent> <C-w><C-h> :TmuxNavigateLeft<cr>
+nmap <silent> <C-w><C-j> :TmuxNavigateDown<cr>
+nmap <silent> <C-w><C-k> :TmuxNavigateUp<cr>
+nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 
 " Check for local settings for env specific settings. e.g. Work specific
 " config
