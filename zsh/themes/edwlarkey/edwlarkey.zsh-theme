@@ -13,6 +13,14 @@ function aws_info {
     [ $AWS_PROFILE ] && echo ' (AWS: '$fg[red]`basename $AWS_PROFILE`%{$reset_color%}') '
 }
 
+function vi_mode {
+    case ${KEYMAP} in
+      (vicmd)      echo " -- NORMAL -- " ;;
+      (main|viins) echo " -- INSERT -- ";;
+      (*)          echo " -- INSERT -- " ;;
+    esac
+}
+
 function virtualenv_info {
     [ $VIRTUAL_ENV ] && echo ' ('$fg[blue]`basename $VIRTUAL_ENV`%{$reset_color%}') '
 }
@@ -21,16 +29,14 @@ PR_GIT_UPDATE=1
 setopt prompt_subst
 
 autoload -U add-zsh-hook
-# autoload -Uz vcs_info
 autoload -Uz colors && colors
 
-# enable VCS systems you use
-# zstyle ':vcs_info:*' enable git
 
-# check-for-changes can be really slow.
-# you should disable it, if you work with large repositories
-# zstyle ':vcs_info:*:prompt:*' check-for-changes true
-
-PROMPT='
-%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}
+function zle-line-init zle-keymap-select {
+    PROMPT='
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}$(vi_mode)
 %{$fg[red]%}>_%{$reset_color%} '
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select

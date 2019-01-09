@@ -12,6 +12,7 @@ HISTSIZE='10000'
 SAVEHIST="${HISTSIZE}"
 
 bindkey -v
+export KEYTIMEOUT=1
 
 setopt append_history
 setopt extended_history
@@ -148,14 +149,19 @@ HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND='bg=magenta,fg=white,bold'
 HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND='bg=red,fg=white,bold'
 HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
 # bind UP and DOWN keys
-bindkey "${terminfo[kcuu1]}" history-substring-search-up
-bindkey "${terminfo[kcud1]}" history-substring-search-down
+#bindkey "${terminfo[kcuu1]}" history-substring-search-up
+#bindkey "${terminfo[kcud1]}" history-substring-search-down
 # bind UP and DOWN arrow keys (compatibility fallback)
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 # bind j and k for history search as well in vi mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+# backspace and ^h working even after
+# returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
 
 # Prompt
 source "${ZSHDIR}/themes/edwlarkey/edwlarkey.zsh-theme"
