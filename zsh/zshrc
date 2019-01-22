@@ -154,6 +154,8 @@ HISTORY_SUBSTRING_SEARCH_GLOBBING_FLAGS='i'
 # bind UP and DOWN arrow keys (compatibility fallback)
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey '^p' history-substring-search-up
+bindkey '^n' history-substring-search-down
 # bind j and k for history search as well in vi mode
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
