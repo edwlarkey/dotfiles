@@ -23,6 +23,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'freitass/todo.txt-vim'
 " Plug '~/git/ale'
 Plug 'maralla/completor.vim',
 " Plug '~/git/completor'
@@ -119,6 +120,36 @@ function! VexToggle(dir)
     call VexOpen(a:dir)
   endif
 endf
+
+
+function! Wiki()
+  let l:fzf_opts = {}
+  let l:fzf_opts.sink = 'e'
+  let l:fzf_opts.dir = '~/txt/vimwiki'
+  let l:fzf_opts.source = 'ls -td $(find .)'
+  let l:fzf_opts.options = '--delimiter ":" --preview="cat ~/txt/vimwiki/{1}" --preview-window=right:80'
+  call fzf#run(fzf#wrap(l:fzf_opts))
+endfunction
+
+function! VimwikiLinkHandler(link)
+  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
+  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
+  "   2) [[vfile:./|Wiki Home]]
+  let link = a:link
+  if link =~# '^vfile:'
+    let link = link[1:]
+  else
+    return 0
+  endif
+  let link_infos = vimwiki#base#resolve_link(link)
+  if link_infos.filename == ''
+    echomsg 'Vimwiki Error: Unable to resolve link!'
+    return 0
+  else
+    exe 'edit ' . fnameescape(link_infos.filename)
+    return 1
+  endif
+endfunction
 
 " =============================================================================
 " Snippets {{{1
@@ -529,6 +560,8 @@ let g:vimwiki_list = [
       \ ]
 " let g:vimwiki_global_ext = 0
 let g:vimwiki_hl_headers = 0
+
+nmap <Leader>g :call Wiki()<CR>
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"

@@ -15,9 +15,9 @@ function aws_info {
 
 function vi_mode {
     case ${KEYMAP} in
-      (vicmd)      echo " -- NORMAL -- " ;;
-      (main|viins) echo " -- INSERT -- ";;
-      (*)          echo " -- INSERT -- " ;;
+      (vicmd)      echo ":  " ;;
+      (main|viins) echo "+  ";;
+      (*)          echo "+  " ;;
     esac
 }
 
@@ -34,8 +34,8 @@ autoload -Uz colors && colors
 
 function zle-line-init zle-keymap-select {
     PROMPT='
-%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}$(vi_mode)
-%{$fg[red]%}>_%{$reset_color%} '
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%~%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}
+$(vi_mode)%{$fg[red]%}>_%{$reset_color%} '
     zle reset-prompt
 }
 zle -N zle-line-init

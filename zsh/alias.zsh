@@ -24,8 +24,10 @@ function in() {
   echo -e "$text\n\n" >> "$HOME/txt/vimwiki/inbox.md"
 }
 
+
 function ril() {
-  echo "- [ ] $*" >> "$HOME/txt/vimwiki/ReadingList.md"
+  title=$(curl -sL "$*" |perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si' |recode html)
+  echo "- [ ] [$title]($*)" >> "$HOME/txt/vimwiki/ReadingList.md"
 }
 
 function track() {
