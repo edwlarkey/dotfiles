@@ -28,6 +28,7 @@ function in() {
 function ril() {
   title=$(curl -sL "$*" |perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si' |recode html)
   echo "- [ ] [$title]($*)" >> "$HOME/txt/vimwiki/ReadingList.md"
+  pandoc -o "$HOME/Nextcloud/ReadingList.html" "$HOME/txt/vimwiki/ReadingList.md"
 }
 
 function track() {

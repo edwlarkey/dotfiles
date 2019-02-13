@@ -561,7 +561,6 @@ let g:vimwiki_list = [
 " let g:vimwiki_global_ext = 0
 let g:vimwiki_hl_headers = 0
 
-nmap <Leader>g :call Wiki()<CR>
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"
@@ -578,8 +577,11 @@ autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
 " fzf
 nmap <Leader>l :Buffers<CR>
-nmap <Leader>f :Files<CR>
-nmap <Leader>r :Tags<CR>
+nmap <Leader>f :GFiles<CR>
+nmap <Leader>g :GFiles?<CR>
+nmap <Leader>d :Files<CR>
+nmap <Leader>r :Tags<CR
+nmap <Leader>k :call Wiki()<CR>
 
 " vim-autoformat
 noremap <F3> :Autoformat<CR>
