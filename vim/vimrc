@@ -41,6 +41,7 @@ Plug 'ambv/black', { 'for': 'python' }
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -508,7 +509,7 @@ let g:ale_fixers = {
 " Completor
 " let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
 let g:completor_python_binary = '/usr/local/bin/python3'
-let g:completor_gocode_binary = '/Users/edward.larkey/git/go/bin/gocode'
+let g:completor_gocode_binary = '/Users/edw/git/go/bin/gocode'
 
 " Fugititve
 " :map <leader>c :Gcommit<CR>
