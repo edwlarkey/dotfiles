@@ -24,9 +24,7 @@ Plug 'godlygeek/tabular'
 Plug 'w0rp/ale'
 Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'freitass/todo.txt-vim'
-" Plug '~/git/ale'
 Plug 'maralla/completor.vim',
-" Plug '~/git/completor'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -47,8 +45,6 @@ Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symli
 " Syntax Plugins
 """""""""""""""""""""""""""""""""""""""
 Plug 'edwlarkey/vim-textcal'
-" Plug 'othree/html5-syntax.vim', { 'for': ['html', 'php'] }
-" Plug 'pearofducks/ansible-vim'
 
 call plug#end()
 
@@ -162,68 +158,27 @@ nnoremap ,html :-1read $HOME/.vim/templates/html<CR>4jwf>a
 " General Config {{{1
 " =============================================================================
 
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
+
+set encoding=utf-8 nobomb " Use UTF-8 without BOM
 
 " Use <SPACE> as leader
 let mapleader=" "
 let maplocalleader=","
 
-" Stop that stupid window
-map q: :q
-
 filetype plugin indent on
-" Backspace over everything in insert mode
-set backspace=indent,eol,start
 
-" Tags
-set tags=./tags,tags;
-
-" Spelling file
-set spellfile+=~/txt/spell/en.utf-8.add
-
-" Allow unsaved background buffers and remember marks/undo for them
-set hidden
-
-" Auto-reload buffers when files are changed on disk
-set autoread
-
-""
-"" Joining
-""
-
-" Use only 1 space after "." when joining lines instead of 2
-set nojoinspaces
-
-" Joining with indents is useless - instead join and delete spaces
-nnoremap gJ Jdiw
-
-" Don't reset cursor to start of line when moving around
-set nostartofline
-
-""
-"" Fuzzy finding
-""
-" set path+=~/txt/**
-" set path+=**
-
-" Make tab completion for files/buffers act like bash
-set wildmenu
-
-" Use emacs-style tab completion when selecting files, etc
-" set wildmode=longest,list
-
-" Disable output and VCS files
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
-
-" Disable archive files
-set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-
-" Ignore bundler and sass cache
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
-
-" Ignore node modules
-set wildignore+=*/node_modules/*
+set backspace=indent,eol,start                                               " Backspace over everything in insert mode
+set tags=./tags,tags;                                                        " Tags
+set spellfile+=~/txt/spell/en.utf-8.add                                      " Spelling file
+set hidden                                                                   " Allow unsaved background buffers and remember marks/undo for them
+set autoread                                                                 " Auto-reload buffers when files are changed on disk
+set nojoinspaces                                                             " Use only 1 space after ' . ' when joining lines instead of 2
+set nostartofline                                                            " Don't reset cursor to start of line when moving around
+set wildmenu                                                                 " Make tab completion for files/buffers act like bash
+set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem          " Disable output and VCS files
+set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz                      " Disable archive files
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/* " Ignore bundler and sass cache
+set wildignore+=*/node_modules/*                                             " Ignore node modules
 
 " Disable temp and backup files
 set wildignore+=*.swp,*~,._*
@@ -257,13 +212,13 @@ endif
 " Appearance {{{1
 " =============================================================================
 
-" set cursorline      " Highlight current line
+" set cursorline    " Highlight current line
+" set t_Co=256      " 256 colors
 set scrolloff=5     " Keep more buffer context when scrolling
 set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar
-" set t_Co=256         " 256 colors
 set termguicolors
-" set background=dark " Dark background
+set background=dark " Dark background
 set noerrorbells    " Disable error bells
 set vb t_vb=        " Disable bells
 set number          " Show line numbers
@@ -277,17 +232,17 @@ syntax on
 set noruler
 set laststatus=2
 set statusline=
-set statusline+=%t\       "tail of the filename
-set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-set statusline+=%{&ff}]\  "file format
-set statusline+=%y\      "filetype
-set statusline+=%h\      "help file flag
-set statusline+=%m\      "modified flag
-set statusline+=%r\      "read only flag
-set statusline+=%=      "left/right separator
-set statusline+=line:%l/%L\    "cursor line/total lines
-set statusline+=col:%c\     "cursor column
-set statusline+=\ %P    "percent through file
+set statusline+=%t\                             " tail of the filename
+set statusline+=[%{strlen(&fenc)?&fenc:'none'}, " file encoding
+set statusline+=%{&ff}]\                        " file format
+set statusline+=%y\                             " filetype
+set statusline+=%h\                             " help file flag
+set statusline+=%m\                             " modified flag
+set statusline+=%r\                             " read only flag
+set statusline+=%=                              " left/right separator
+set statusline+=line:%l/%L\                     " cursor line/total lines
+set statusline+=col:%c\                         " cursor column
+set statusline+=\ %P                            " percent through file
 
 ""
 "" Colorscheme and colorcolumn
@@ -308,7 +263,7 @@ endif
 "" Whitespace
 ""
 
-"indentation
+" Indentation
 set expandtab     " Tab in insert mode will produce spaces
 " set tabstop=2     " Width of a tab
 set shiftwidth=2  " Width of reindent operations and auto indentation
@@ -345,7 +300,13 @@ nmap <leader>p pV`]=
 " General Keybindings
 " =============================================================================
 
-" Left/Right arrow keys change buffers in all modes
+" stop the command window
+map q: :q
+
+" Joining with indents is useless - instead join and delete spaces
+nnoremap gJ Jdiw
+
+" C-h and C-l keys change buffers in all modes
 noremap <C-h> <Esc>:bp<CR>
 inoremap <C-h> <Esc>:bp<CR>
 nnoremap <C-h> <Esc>:bp<CR>
@@ -366,7 +327,6 @@ nnoremap <leader>mv ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``
 
 " Make
 nmap <leader>m :Make<CR>
-
 
 " go to next line on screen
 nnoremap j gj
@@ -408,14 +368,6 @@ imap gidt <C-R>=strftime("%Y-%m-%d %H:%M")<CR>
 nmap gid a<C-R>=strftime("%Y-%m-%d")<CR><Esc>
 imap gid <C-R>=strftime("%Y-%m-%d")<CR>
 
-"Fast filetype switching
-map <leader>1 :set ft=php<CR>
-map <leader>2 :set ft=html<CR>
-
-" Folding on and off
-" nnoremap <leader>f :set nofoldenable<CR>
-" nnoremap <leader>fo :set foldenable<CR>
-
 " =============================================================================
 " Filetypes and Custom Autocmds {{{1
 " =============================================================================
@@ -455,23 +407,12 @@ autocmd QuickFixCmdPost *grep* cwindow
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md setlocal textwidth=79
 au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
-" au BufRead,BufNewFile *.md,*.markdown setlocal fdm=syntax
 autocmd FileType markdown set foldmethod=syntax
-
-" PyLint
-" autocmd FileType python set makeprg=pylint\ --reports=n\ --msg-template=\"{path}:{line}:\ {msg_id}\ {symbol},\ {obj}\ {msg}\"\ %:p
-" autocmd FileType python set errorformat=%f:%l:\ %m
 
 " LaTeX
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 " autocmd FileType tex setlocal makeprg=pdflatex\ '%'
-
-" Make on write
-" autocmd BufWritePost *.py Make
-
-" QuickFix on make
-"autocmd QuickFixCmdPost * copen
 
 " Comments
 autocmd FileType gitcommit set commentstring=#\ %s
@@ -511,34 +452,12 @@ let g:ale_fixers = {
 let g:completor_python_binary = '/usr/local/bin/python3'
 let g:completor_gocode_binary = '/Users/edw/git/go/bin/gocode'
 
-" Fugititve
-" :map <leader>c :Gcommit<CR>
-" :map <leader>g :Gwrite<CR>
-
 " netrw
 " open from current directory
 nnoremap <leader>n :call VexToggle(getcwd())<CR>
 let g:netrw_liststyle= 3
 " open from current file
 " nnoremap <leader>n :call VexToggle("")<CR>
-
-"  Parentheses colours using Solarized
-" let g:rbpt_colorpairs = [
-" \ [ '13', '#6c71c4'],
-" \ [ '5',  '#d33682'],
-" \ [ '1',  '#dc322f'],
-" \ [ '9',  '#cb4b16'],
-" \ [ '3',  '#b58900'],
-" \ [ '2',  '#859900'],
-" \ [ '6',  '#2aa198'],
-" \ [ '4',  '#268bd2'],
-" \ ]
-" if exists('RainbowParenthesesToggle')
-"   au VimEnter * RainbowParenthesesToggle
-"   au Syntax * RainbowParenthesesLoadRound
-"   au Syntax * RainbowParenthesesLoadSquare
-"   au Syntax * RainbowParenthesesLoadBraces
-" endif
 
 " Toggler
 :nnoremap <F8> :Toggle<CR>
@@ -595,7 +514,6 @@ let g:gruvbox_contrast_dark = 'soft'
 let g:black_linelength = 79
 
 " tmux-navigator
-
 let g:tmux_navigator_no_mappings = 1
 nmap <silent> <C-w>h :TmuxNavigateLeft<cr>
 nmap <silent> <C-w>j :TmuxNavigateDown<cr>
