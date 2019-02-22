@@ -17,26 +17,24 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
-Plug 'godlygeek/tabular'
-Plug 'w0rp/ale'
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
-Plug 'freitass/todo.txt-vim'
-Plug 'maralla/completor.vim',
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'godlygeek/tabular'
+Plug 'w0rp/ale'
+Plug 'maralla/completor.vim',
+Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
-Plug 'Chiel92/vim-autoformat'
 Plug 'morhetz/gruvbox'
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'ambv/black', { 'for': 'python' }
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
+Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
@@ -48,105 +46,9 @@ Plug 'edwlarkey/vim-textcal'
 
 call plug#end()
 
-" =============================================================================
-" Functions {{{1
-" =============================================================================
-function! Preserve(command)
-  " Preparation save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
-endfunction
-
-" Format HTML
-function! FormatHTML()
-  set ft=html
-  " remove trailing spaces
-  call Preserve("%s/\\s\\+$//e")
-  " tabs -> spaces
-  call Preserve("retab")
-  " re indent the file correctly
-  call Preserve("normal gg=G")
-endfunction
-
-fun! VexSize(vex_width)
-  execute "vertical resize" . a:vex_width
-  set winfixwidth
-  call NormalizeWidths()
-endf
-
-fun! NormalizeWidths()
-  let eadir_pref = &eadirection
-  set eadirection=hor
-  set equalalways! equalalways!
-  let &eadirection = eadir_pref
-endf
-
-function! VexOpen(dir)
-  let g:netrw_browse_split=4    " open files in previous window
-  let vex_width = 25
-
-  execute "Vexplore " . a:dir
-  let t:vex_buf_nr = bufnr("%")
-  wincmd H
-
-  call VexSize(vex_width)
-endf
-
-function! VexClose()
-  let cur_win_nr = winnr()
-  let target_nr = ( cur_win_nr == 1 ? winnr("#") : cur_win_nr )
-
-  1wincmd w
-  close
-  unlet t:vex_buf_nr
-
-  execute (target_nr - 1) . "wincmd w"
-  call NormalizeWidths()
-endf
-
-function! VexToggle(dir)
-  if exists("t:vex_buf_nr")
-    call VexClose()
-  else
-    call VexOpen(a:dir)
-  endif
-endf
-
-
-function! Wiki()
-  let l:fzf_opts = {}
-  let l:fzf_opts.sink = 'e'
-  let l:fzf_opts.dir = '~/txt/vimwiki'
-  let l:fzf_opts.source = 'ls -td $(find .)'
-  let l:fzf_opts.options = '--delimiter ":" --preview="cat ~/txt/vimwiki/{1}" --preview-window=right:80'
-  call fzf#run(fzf#wrap(l:fzf_opts))
-endfunction
-
-function! VimwikiLinkHandler(link)
-  " Use Vim to open external files with the 'vfile:' scheme.  E.g.:
-  "   1) [[vfile:~/Code/PythonProject/abc123.py]]
-  "   2) [[vfile:./|Wiki Home]]
-  let link = a:link
-  if link =~# '^vfile:'
-    let link = link[1:]
-  else
-    return 0
-  endif
-  let link_infos = vimwiki#base#resolve_link(link)
-  if link_infos.filename == ''
-    echomsg 'Vimwiki Error: Unable to resolve link!'
-    return 0
-  else
-    exe 'edit ' . fnameescape(link_infos.filename)
-    return 1
-  endif
-endfunction
+if !empty(glob("~/.vim/functions.vim"))
+  source ~/.vim/functions.vim
+endif
 
 " =============================================================================
 " Snippets {{{1
@@ -157,7 +59,6 @@ nnoremap ,html :-1read $HOME/.vim/templates/html<CR>4jwf>a
 " =============================================================================
 " General Config {{{1
 " =============================================================================
-
 
 set encoding=utf-8 nobomb " Use UTF-8 without BOM
 
@@ -282,7 +183,7 @@ set listchars=tab:>·,trail:·,extends:#,nbsp:.
 " =============================================================================
 
 " Use the OS clipboard by default
-" set clipboard=unnamed
+set clipboard=unnamed
 
 " Copy to X11 primary clipboard
 " map <leader>y "*y
