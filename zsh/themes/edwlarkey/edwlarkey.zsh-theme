@@ -34,7 +34,7 @@ autoload -Uz colors && colors
 
 function zle-line-init zle-keymap-select {
     PROMPT='
-%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%30<...<%~%<<%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}
+%{$fg[cyan]%}%n%{$reset_color%} at %{$fg[red]%}%m%{$reset_color%} in %{$fg[green]%}%25<...<%~%<<%{$reset_color%}$(git-prompt)%{$reset_color%}$(virtualenv_info)%{$reset_color%}$(aws_info)%{$reset_color%}
 $(vi_mode)%{$fg[red]%}>_%{$reset_color%} '
     zle reset-prompt
 }

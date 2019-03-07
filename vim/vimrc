@@ -183,13 +183,14 @@ set listchars=tab:>·,trail:·,extends:#,nbsp:.
 " =============================================================================
 
 " Use the OS clipboard by default
-set clipboard=unnamed
+" set clipboard=unnamed
 
-" Copy to X11 primary clipboard
-" map <leader>y "*y
+" Copy to unnamed register
+map <leader>y "*y
 
 " Paste from unnamed register and fix indentation
-nmap <leader>p pV`]=
+nmap <leader>p o<ESC>"*pV`]=
+nmap <leader>P o<ESC>"*p
 
 " Delete to the blackhole register
 " nnoremap <leader>x "_x
@@ -321,9 +322,9 @@ autocmd FileType gitcommit set commentstring=#\ %s
 " Completion
 set completeopt=longest,menuone,preview
 set omnifunc=syntaxcomplete#Complete
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 
 
 " If you prefer the Omni-Completion tip window to close when a selection is
