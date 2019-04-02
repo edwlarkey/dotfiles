@@ -22,9 +22,8 @@ Plug 'tpope/vim-fugitive'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 Plug 'w0rp/ale'
-Plug 'maralla/completor.vim',
-Plug 'vimwiki/vimwiki', { 'branch': 'dev' }
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -56,6 +55,7 @@ endif
 " Read an empty HTML template and move cursor to title
 nnoremap ,html :-1read $HOME/.vim/templates/html<CR>4jwf>a
 
+
 " =============================================================================
 " General Config {{{1
 " =============================================================================
@@ -70,7 +70,7 @@ filetype plugin indent on
 
 set backspace=indent,eol,start                                               " Backspace over everything in insert mode
 set tags=./tags,tags;                                                        " Tags
-set spellfile+=~/txt/spell/en.utf-8.add                                      " Spelling file
+set spellfile+=~/Dropbox/spell/en.utf-8.add                                  " Spelling file
 set hidden                                                                   " Allow unsaved background buffers and remember marks/undo for them
 set autoread                                                                 " Auto-reload buffers when files are changed on disk
 set nojoinspaces                                                             " Use only 1 space after ' . ' when joining lines instead of 2
@@ -306,13 +306,13 @@ autocmd FileType gitcommit,mail,md,markdown,mkd,jira,tex,vimwiki set spell
 autocmd QuickFixCmdPost *grep* cwindow
 
 "Markdown files textwidth
-au BufRead,BufNewFile *.md setlocal textwidth=79
-au BufRead,BufNewFile *.md setlocal textwidth=79
-au BufRead,BufNewFile *.md,*.markdown setlocal foldlevel=1
-autocmd FileType markdown set foldmethod=syntax
+augroup markdown
+  au BufRead,BufNewFile *.md setlocal textwidth=79
+  au FileType markdown setlocal textwidth=79
+  au FileType markdown setlocal conceallevel=2
+augroup END
 
 " LaTeX
-au BufRead,BufNewFile *.tex setlocal textwidth=79
 au BufRead,BufNewFile *.tex setlocal textwidth=79
 " autocmd FileType tex setlocal makeprg=pdflatex\ '%'
 
@@ -339,6 +339,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " ALE
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_completion_enabled = 1
 
 let g:ale_fixers = {
   \   'python': [
@@ -349,10 +350,9 @@ let g:ale_fixers = {
   \   ],
   \}
 
-" Completor
-" let g:completor_blacklist = ['tagbar', 'qf', 'netrw', 'unite']
-let g:completor_python_binary = '/usr/local/bin/python3'
-let g:completor_gocode_binary = '/Users/edw/git/go/bin/gocode'
+let g:ale_linters = {
+      \'go': ['bingo']
+      \}
 
 " netrw
 " open from current directory
@@ -427,6 +427,25 @@ nmap <silent> <C-w><C-h> :TmuxNavigateLeft<cr>
 nmap <silent> <C-w><C-j> :TmuxNavigateDown<cr>
 nmap <silent> <C-w><C-k> :TmuxNavigateUp<cr>
 nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
+
+" =============================================================================
+" Wiki and calendar {{{1
+" =============================================================================
+nnoremap <leader>w :e $HOME/txt/index.md<cr>
+nnoremap <leader>w<leader>j :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2019.txt<CR>
+
+autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
+
+augroup textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set spell
+  autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
+  autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
+  autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
+augroup END
+
+" Markdown
+let g:vim_markdown_folding_disabled = 1
 
 " Check for local settings for env specific settings. e.g. Work specific
 " config
