@@ -433,6 +433,10 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 " =============================================================================
 nnoremap <leader>w :e $HOME/txt/index.md<cr>
 nnoremap <leader>w<leader>j :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2019.txt<CR>
+" Next markdown link
+nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
+" Previous markdown link
+nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
 
 autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
 

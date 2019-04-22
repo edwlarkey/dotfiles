@@ -97,3 +97,12 @@ function! VimwikiLinkHandler(link)
     return 1
   endif
 endfunction
+
+function! SearchMarkdownLink(flag, count)
+  let linkpattern = '\v\[([^\]]+)\]\(\zs([^\)]+)\ze\)'
+  let i = 0
+  while i < a:count
+    call search(linkpattern, a:flag)
+    let i += 1
+  endwhile
+endfunction
