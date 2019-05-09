@@ -1,16 +1,17 @@
 {
   "coc.preferences.diagnostic.displayByAle": true,
+  "coc.source.omni.enable": true,
+  "coc.source.omni.filetypes": ["terraform", "tf"],
   "languageserver": {
-    "golang": {
-      "command": "bingo",
-      "args": ["--diagnostics-style=instant"],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    },
     "dockerfile": {
       "command": "docker-langserver",
       "filetypes": ["dockerfile"],
       "args": ["--stdio"]
+    },
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     },
     "bash": {
       "command": "bash-language-server",
