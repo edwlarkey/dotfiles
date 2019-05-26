@@ -1,13 +1,18 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 
-#bspwm is default
-
-WM=${2:-bspwm}
+#xfce is default
+WM=${2:-xfce}
 
 case $WM in
   awesome ) exec awesome;;
   i3      ) exec i3;;
+  xfce    ) 
+    export XDG_SESSION_TYPE=X11
+    plank &
+    redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
+    xmodmap dotfiles/xmodmap
+    exec startxfce4;;
   bspwm   )
     xrandr --output HDMI-0 --auto --primary
     xrandr --output DVI-I-1 --auto --right-of HDMI-0
