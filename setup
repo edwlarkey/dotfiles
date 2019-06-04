@@ -76,6 +76,8 @@ link_files () {
     ln -nfs "$HOME/dotfiles/termite" "$HOME/.config/termite"
     success 'termite config linked'
     ln -nfs "$HOME/dotfiles/xinitrc" "$HOME/.xinitrc"
+    success 'alacritty config linked'
+    ln -nfs "$HOME/dotfiles/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
     success 'xinitrc config linked'
     ln -nfs "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
     success 'dunst config linked'
