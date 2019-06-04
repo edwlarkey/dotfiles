@@ -68,27 +68,10 @@ link_files () {
     ln -nfs "$HOME/dotfiles/zsh/zshrc" "$HOME/.zshrc"
     ln -nfs "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
     success 'zsh linked'
-    ln -nfs "$HOME/dotfiles/awesome" "$HOME/.config/awesome"
-    success 'awesome config linked'
-    ln -nfs "$HOME/dotfiles/bspwm" "$HOME/.config/bspwm"
-    ln -nfs "$HOME/dotfiles/sxhkd" "$HOME/.config/sxhkd"
-    success 'bspwm config linked'
-    ln -nfs "$HOME/dotfiles/termite" "$HOME/.config/termite"
-    success 'termite config linked'
     ln -nfs "$HOME/dotfiles/xinitrc" "$HOME/.xinitrc"
     success 'alacritty config linked'
     ln -nfs "$HOME/dotfiles/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
     success 'xinitrc config linked'
-    ln -nfs "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
-    success 'dunst config linked'
-    ln -nfs "$HOME/dotfiles/khal" "$HOME/.config/khal"
-    success 'khal config linked'
-    ln -nfs "$HOME/dotfiles/khard" "$HOME/.config/khard"
-    success 'khard config linked'
-    ln -nfs "$HOME/dotfiles/newsbeuter/" "$HOME/.newsbeuter"
-    success 'newsbeuter config linked'
-    ln -nfs "$HOME/dotfiles/qutebrowser" "$HOME/.config/qutebrowser"
-    success 'qutebrowser config linked'
 }
 
 make_dirs () {
