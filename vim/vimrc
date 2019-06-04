@@ -455,6 +455,6 @@ let g:vim_markdown_folding_disabled = 1
 " Check for local settings for env specific settings. e.g. Work specific
 " config
 "
-if !empty(glob("~/.vimrc.local"))
-  source ~/.vimrc.local
+if !empty(glob("~/.local.vimrc"))
+  source ~/.local.vimrc
 endif
