@@ -18,8 +18,8 @@ window:
   # Specified in number of columns/lines, not pixels.
   # If both are `0`, this setting is ignored.
   dimensions:
-    columns: 0
-    lines: 0
+    columns: 120
+    lines: 40
 
   # Window padding (changes require restart)
   #
@@ -44,7 +44,7 @@ window:
   decorations: full
 
   # When true, alacritty starts maximized.
-  start_maximized: true
+  start_maximized: false
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
