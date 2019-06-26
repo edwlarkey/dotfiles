@@ -121,8 +121,8 @@ do
             ;;
         "Other")
             info "Setting up for Other"
-            IFS= read -r -p "What is your github user name? " git_user_name
-            IFS= read -r -p "What is your github user email? " git_user_email
+            IFS= read -r -p "What is your git user name? " git_user_name
+            IFS= read -r -p "What is your git user email? " git_user_email
             git_user_signkey=""
             git_commit_gpgsign="false"
             break
