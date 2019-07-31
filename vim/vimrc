@@ -42,7 +42,8 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
 """""""""""""""""""""""""""""""""""""""
-Plug 'edwlarkey/vim-textcal'
+" Plug 'edwlarkey/vim-textcal'
+Plug '~/git/edwlarkey/vim-textcal'
 
 call plug#end()
 
@@ -432,8 +433,12 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 " =============================================================================
 " Wiki and calendar {{{1
 " =============================================================================
+let g:text_dir = '$HOME/txt/'
+let g:journal_dir = g:text_dir . 'journal/'
 nnoremap <leader>w :e $HOME/txt/index.md<cr>
-nnoremap <leader>w<leader>j :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2019.txt<CR>
+nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2019.txt<CR>
+nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
+nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
 " Next markdown link
 nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
 " Previous markdown link

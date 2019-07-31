@@ -106,3 +106,14 @@ function! SearchMarkdownLink(flag, count)
     let i += 1
   endwhile
 endfunction
+
+function! OpenJournalDate(day = "today")
+  let l:now = localtime()
+  let l:day = (60 * 60 * 24)
+  if a:day == "yesterday"
+    let l:date = strftime("%Y-%m-%d", l:now - l:day)
+  else "today is default
+    let l:date = strftime("%Y-%m-%d", l:now)
+  endif
+  exec 'edit ' . g:journal_dir . l:date . '.md'
+endfunction
