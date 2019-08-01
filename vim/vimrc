@@ -8,6 +8,7 @@ autocmd!
 set nocompatible    " Use Vim settings, rather than Vi settings
 
 filetype off        "required
+let g:ale_completion_enabled = 1
 
 " =============================================================================
 " Plugins {{{1
@@ -23,7 +24,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -37,7 +38,7 @@ Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -341,19 +342,19 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " ALE
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
 
 let g:ale_fixers = {
   \   'python': [
   \       'add_blank_lines_for_python_control_statements',
-  \       'autopep8',
   \       'isort',
   \       'yapf',
   \   ],
   \}
 
 let g:ale_linters = {
-      \'go': ['bingo']
+      \'go': ['bingo'],
+      \'python': ['pyls'],
       \}
 
 " netrw
