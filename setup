@@ -78,6 +78,7 @@ make_dirs () {
     info 'Creating directories'
     mkdir -p "$HOME/.config"
     mkdir -p "$HOME/.config/git"
+    mkdir -p "$HOME/.config/alacritty"
     mkdir -p "$HOME/.vim-backup"
     mkdir -p "$HOME/.vim-undo"
     mkdir -p "$HOME/.vim-swap"

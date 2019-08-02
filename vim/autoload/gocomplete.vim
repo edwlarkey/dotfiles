@@ -1,1 +1,1 @@
-/Users/edward.larkey/.vim/plugged/gocode/vim/autoload/gocomplete.vim
+/Users/edwlarkey/.vim/plugged/gocode/vim/autoload/gocomplete.vim
