@@ -36,8 +36,7 @@ Plug 'ambv/black', { 'for': 'python' }
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'stamblerre/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'fatih/vim-go'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 """""""""""""""""""""""""""""""""""""""
@@ -353,7 +352,7 @@ let g:ale_fixers = {
   \}
 
 let g:ale_linters = {
-      \'go': ['bingo'],
+      \'go': ['gopls'],
       \'python': ['pyls'],
       \'sh': ['language_server'],
       \}
@@ -374,19 +373,6 @@ let g:toggler_keywords = [
   \ ['\[ \]', '\[x\]'],
   \ ['x', '/'],
   \]
-
-" Vimwiki
-let g:vimwiki_list = [
-      \ {'path': '~/txt/vimwiki',
-      \ 'path_html': '~/vimwiki_html/',
-      \ 'auto_tags': 1,
-      \ 'custom_wiki2html': 'vimwiki-godown',
-      \ 'custom_wiki2html_args': '',
-      \ 'syntax': 'markdown', 'ext': '.md'}
-      \ ]
-" let g:vimwiki_global_ext = 0
-let g:vimwiki_hl_headers = 0
-
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"
