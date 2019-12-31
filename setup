@@ -115,8 +115,8 @@ do
         "Work")
             info "Setting up for Work"
             git_user_name="Edward Larkey"
-            git_user_email="edward.larkey@hudl.com"
-            git_user_signkey="C9B5BD06E15C39DC"
+            git_user_email="elarkey@hackerone.com"
+            git_user_signkey="BD81B601"
             git_commit_gpgsign="true"
             break
             ;;
