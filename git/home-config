@@ -1,0 +1,9 @@
+[user]
+	name = Edward Larkey
+	email = edwlarkey@mac.com
+	signkey = 25FE9E4C
+[commit]
+	gpgsign = true
+	template = /home/edwlarkey/dotfiles/git/git-commit-template
+[core]
+	editor = vim

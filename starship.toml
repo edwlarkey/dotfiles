@@ -1,0 +1,56 @@
+[aws]
+symbol = "aws "
+
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+
+[conda]
+disabled =  true
+
+[directory]
+truncate_to_repo = false
+style = "bright-yellow"
+
+[git_branch]
+symbol = ""
+style = "red"
+
+[git_status]
+modified_count.enabled = true
+staged_count.enabled = true
+stashed_count.enabled = true
+deleted_count.enabled = true
+untracked_count.enabled = true
+renamed_count.enabled = true
+
+[golang]
+symbol = "go "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "

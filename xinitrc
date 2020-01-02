@@ -1,18 +1,22 @@
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 
-#xfce is default
-WM=${2:-xfce}
+#kde is default
+WM=${2:-kde}
 
 case $WM in
   awesome ) exec awesome;;
   i3      ) exec i3;;
-  xfce    ) 
+  xfce    )
     export XDG_SESSION_TYPE=X11
     plank &
     redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
     xmodmap dotfiles/xmodmap
     exec startxfce4;;
+  kde    )
+    redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
+    xmodmap dotfiles/xmodmap
+    exec startplasma-x11;;
   bspwm   )
     xrandr --output HDMI-0 --auto --primary
     xrandr --output DVI-I-1 --auto --right-of HDMI-0

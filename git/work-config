@@ -1,0 +1,9 @@
+[user]
+	name = Edward Larkey
+	email = elarkey@hackerone.com
+	signkey = BD81B601
+[commit]
+	gpgsign = true
+	template = /home/edwlarkey/dotfiles/git/git-commit-template
+[core]
+	editor = vim
