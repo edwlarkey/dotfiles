@@ -25,4 +25,4 @@ they are sourced last.
 
 # Colors
 
-`touch ~/dark` and reload vim and tmux config to switch to a dark theme
+`touch ~/light` and reload vim and tmux config to switch to a light theme
