@@ -30,6 +30,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
 Plug 'morhetz/gruvbox'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
 Plug 'ambv/black', { 'for': 'python' }
@@ -121,7 +122,6 @@ set scrolloff=5     " Keep more buffer context when scrolling
 set cmdheight=1     " Set command line height (default)
 set title           " Show the filename in the window titlebar
 set termguicolors
-set background=dark " Dark background
 set noerrorbells    " Disable error bells
 set vb t_vb=        " Disable bells
 set number          " Show line numbers
@@ -151,11 +151,13 @@ set statusline+=\ %P                            " percent through file
 "" Colorscheme and colorcolumn
 ""
 
-try
+if !empty(glob("~/dark"))
+  set background=dark
   colorscheme gruvbox
-catch
-  colorscheme default
-endtry
+else
+  set background=light
+  colorscheme onehalflight
+endif
 
 " dont display color column if it doesn't support it
 if v:version > 703
@@ -424,9 +426,10 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 let g:text_dir = '$HOME/txt/'
 let g:journal_dir = g:text_dir . 'journal/'
 nnoremap <leader>w :e $HOME/txt/index.md<cr>
-nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2019.txt<CR>
+nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2020.txt<CR>
 nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
 nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
+nnoremap <leader>w<leader>l :call AddLink()<CR>
 " Next markdown link
 nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
 " Previous markdown link

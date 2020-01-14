@@ -12,7 +12,7 @@ disabled =  true
 
 [directory]
 truncate_to_repo = false
-style = "bright-yellow"
+style = "black"
 
 [git_branch]
 symbol = ""

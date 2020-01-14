@@ -9,25 +9,41 @@ if [[ $? -eq 0 ]]; then
 else
   case "$1" in
     org)
+      name=org
+
       # New session
-      tmux new -s org -d
+      tmux new -s "$name" -d
 
       # Create new windows
-      tmux rename-window -t org "wiki"
-      tmux new-window -t org -a -n "calendar" -c "$HOME"
-      tmux new-window -t org -a -n "email" -c "$HOME"
+      tmux rename-window -t "$name" "wiki"
+      tmux new-window -t "$name" -a -n "calendar" -c "$HOME"
 
       # Start programs
-      tmux send-keys -t org:wiki 'vorg' C-m
-      tmux send-keys -t org:calendar 'textcal open' C-m
+      tmux send-keys -t "$name:wiki" 'vim ~/txt/index.md' C-m
 
       # Select my starting window
-      tmux select-window -t org:wiki
+      tmux select-window -t "$name:wiki"
 
       # Attach
-      tmux attach -t org
+      tmux attach -t "$name"
       ;;
-    SRE)
+    infra)
+      name=infra
+      # New session
+      tmux new -s "$name" -d
+
+      # Create new windows
+      tmux rename-window -t "$name" "vpn"
+      tmux new-window -t "$name" -a -c "$HOME"
+
+      # Start programs
+      tmux send-keys -t "$name:vpn" 'cd ~/vpn/bastion' C-m
+
+      # Select my starting window
+      tmux select-window -t "$name:2"
+
+      # Attach
+      tmux attach -t "$name"
       ;;
     *)
       ;;

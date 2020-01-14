@@ -33,6 +33,7 @@ starship:  ## Link starship config
 	ln -nfs $(DOTFILES)/starship.toml ${HOME}/.config/starship.toml
 
 tmux:  ## Link tmux config
+	ln -nfs $(DOTFILES)/tmux ${HOME}/.tmux
 	ln -nfs $(DOTFILES)/tmux/tmux.conf ${HOME}/.tmux.conf
 
 .PHONY: vim

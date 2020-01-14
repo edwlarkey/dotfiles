@@ -117,3 +117,23 @@ function! OpenJournalDate(day = "today")
   endif
   exec 'edit ' . g:journal_dir . l:date . '.md'
 endfunction
+
+" Prompt user to enter URL and optional TARGET.
+" Inserts an html link: a line after the cursor like
+"   <a href="URL" target="TARGET">Page title</a>
+" where 'Page title' is determined from the html source read from URL.
+" Requires wget (or similar) tool to get source.
+function! AddLink()
+  let url = input('URL to add? ')
+  if empty(url)
+    return
+  endif
+  let html = system('curl -s ' . shellescape(url))
+  let regex = '\c.*head.*<title[^>]*>\_s*\zs.\{-}\ze\_s*<\/title>'
+  let title = substitute(matchstr(html, regex), "\n", ' ', 'g')
+  if empty(title)
+    let title = 'Unknown'
+  endif
+  put ='[' . title . ']('. url . ')'
+endfunction
+

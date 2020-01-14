@@ -22,3 +22,7 @@ that are specific to different servers separate.
 Misc changes to zsh and vim are kept in `~/.local.zsh` and `~/.local.vimrc` and
 they are sourced last.
 
+
+# Colors
+
+`touch ~/dark` and reload vim and tmux config to switch to a dark theme
