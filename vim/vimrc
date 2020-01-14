@@ -151,12 +151,12 @@ set statusline+=\ %P                            " percent through file
 "" Colorscheme and colorcolumn
 ""
 
-if !empty(glob("~/dark"))
-  set background=dark
-  colorscheme gruvbox
-else
+if !empty(glob("~/light"))
   set background=light
   colorscheme onehalflight
+else
+  set background=dark
+  colorscheme gruvbox
 endif
 
 " dont display color column if it doesn't support it
