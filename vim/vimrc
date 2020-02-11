@@ -43,8 +43,7 @@ Plug 'fatih/vim-go'
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
 """""""""""""""""""""""""""""""""""""""
-" Plug 'edwlarkey/vim-textcal'
-Plug '~/git/edwlarkey/vim-textcal'
+Plug 'edwlarkey/vim-textcal'
 
 call plug#end()
 
