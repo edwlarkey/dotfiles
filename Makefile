@@ -6,6 +6,7 @@ all: dirs bin zsh mutt tmux alacritty x vim  ## Set up config for everything exc
 	git submodule update --init --recursive
 
 alacritty:  ## Link alacritty config
+	mkdir -p ${HOME}/.config/alacritty
 	ln -nfs $(DOTFILES)/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
 
 bin:  ## Link bin directory
