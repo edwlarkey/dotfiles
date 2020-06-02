@@ -1,0 +1,423 @@
+[colors]
+background = #282828
+background_transparent = #00282828
+foreground = #ebdbb2
+
+bg2 = #3c3836
+bg3 = #fe8019
+bg4 = #D91E36
+bg5 = #fabd2f
+bg6 = #F44E3F
+fg2 = #282828
+
+red    = #cc241d
+green  = #98971a
+yellow = #d79921
+blue   = #458588
+purple = #b16286
+aqua   = #689d6a
+orange = #d65d0e
+
+[global/wm]
+margin-bottom = 0
+margin-top = 0
+
+[settings]
+label-focused-underline= ${colors.background}
+
+throttle-output = 5
+throttle-output-for = 10
+
+; Time in milliseconds that the input handler will wait between processing events
+throttle-input-for = 30label-focused-underline= ${colors.red}
+
+; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
+screenchange-reload = true
+
+; Enables pseudo-transparency for the bar
+; If set to true the bar can be transparent without a compositor.
+pseudo-transparency = true
+
+
+[bar/top]
+monitor = DP-1
+monitor-fallback = HDMI-1
+override-redirect = true
+wm-restack = bspwm
+bottom = false
+fixed-center = true
+width = 100%
+height = 40
+background = ${colors.background_transparent}
+foreground = ${colors.foreground}
+radius = 0.0
+line-size = 0
+line-color = #f00
+offset-y = 4
+
+; Number of spaces to add at the beginning/end of the bar
+padding = 2
+
+; Number of spaces to add before/after each module
+module-margin = 0
+
+; Fonts are defined using <font-name>;<vertical-offset>
+font-0 = xos4 Terminus:style=Regular:pixelsize=16;2
+font-1 = "Hack Nerd Font Mono:size=30;5"
+
+; Modules are added to one of the available blocks
+modules-right = pulseaudio date sysmenu
+modules-left = launcher bspwm
+
+;separator =
+; This value is used to add extra spacing between elements
+; @deprecated: This parameter will be removed in an upcoming version
+spacing = 0
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
+
+; Position of the system tray window
+tray-position = none
+tray-maxsize = 15
+tray-background = ${colors.background}
+tray-offset-x = 0
+tray-offset-y = 0
+; Pad the sides of each tray icon
+tray-padding = 0
+
+[bar/top-right]
+monitor = HDMI-1
+override-redirect = false
+bottom = false
+fixed-center = true
+width = 100%
+height = 40
+background = ${colors.background_transparent}
+foreground = ${colors.foreground}
+radius = 0.0
+line-size = 0
+line-color = #f00
+offset-y = 4
+
+; Number of spaces to add at the beginning/end of the bar
+padding = 2
+
+; Number of spaces to add before/after each module
+module-margin = 0
+
+; Fonts are defined using <font-name>;<vertical-offset>
+font-0 = xos4 Terminus:style=Regular:pixelsize=16;2
+font-1 = "Hack Nerd Font Mono:size=30;5"
+
+; Modules are added to one of the available blocks
+modules-right = pulseaudio date sysmenu
+modules-left = launcher bspwm
+
+;separator =
+; This value is used to add extra spacing between elements
+; @deprecated: This parameter will be removed in an upcoming version
+spacing = 0
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
+
+; Position of the system tray window
+tray-position = none
+tray-maxsize = 15
+tray-background = ${colors.background}
+tray-offset-x = 0
+tray-offset-y = 0
+; Pad the sides of each tray icon
+tray-padding = 0
+
+[bar/bottom]
+override-redirect = true
+wm-restack = bspwm
+bottom = true
+fixed-center = true
+width = 100%
+height = 40
+background = ${colors.background}
+foreground = ${colors.foreground}
+radius = 0.0
+line-size = 0
+line-color = #f00
+offset-y = 4
+
+; Number of spaces to add at the beginning/end of the bar
+padding = 2
+
+; Number of spaces to add before/after each module
+module-margin = 2
+
+; Fonts are defined using <font-name>;<vertical-offset>
+font-0 = xos4 Terminus:style=Regular:pixelsize=16;2
+font-1 = "Hack Nerd Font Mono:size=36;5"
+
+; Modules are added to one of the available blocks
+modules-right = 
+modules-left = cpu memory temperature
+
+separator = |
+; This value is used to add extra spacing between elements
+; @deprecated: This parameter will be removed in an upcoming version
+spacing = 0
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
+
+; Position of the system tray window
+tray-position = right
+tray-maxsize = 15
+tray-background = ${colors.background}
+tray-offset-x = 0
+tray-offset-y = 0
+; Pad the sides of each tray icon
+tray-padding = 0
+
+[module/bspwm]
+type = internal/bspwm
+
+label-focused-background = ${colors.red}
+label-empty-background = ${colors.bg2}
+label-occupied-background = ${colors.aqua}
+
+label-focused = %name%
+label-focused-padding = 2
+label-focused-foreground = ${colors.background}
+label-occupied = %index%
+label-occupied-padding = 2
+label-occupied-foreground = ${colors.background}
+
+label-empty = %index%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+
+[module/date]
+type = internal/date
+interval = 5
+time = %Y-%m-%d  %H:%M
+label = %time%
+label-background = ${colors.aqua}
+label-foreground = ${colors.background}
+label-padding = 2
+
+[module/launcher]
+type = custom/text
+content = 
+
+content-background =  ${colors.background}
+content-foreground = ${colors.blue}
+content-padding = 1
+
+; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c $COMMAND"
+click-left = ~/.config/polybar/scripts/launcher
+click-middle = ~/.config/polybar/scripts/launcher-full
+click-right = ~/.config/polybar/scripts/launcher-alt
+
+; "scroll-(up|down)" will be executed using "/usr/bin/env sh -c $COMMAND"
+;;scroll-up = ~/.config/polybar/scripts/launcher-full
+scroll-down = ~/.config/polybar/scripts/launcher-full
+
+[module/sysmenu]
+type = custom/text
+content = %{T2}%{T-}
+
+; "content" has the same properties as "format-NAME"
+;;content-background = #000
+content-foreground = ${colors.blue}
+content-background = ${colors.background}
+content-padding = 2
+
+; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c $COMMAND"
+click-left = ~/.config/polybar/scripts/powermenu
+;;click-middle = ~/.config/polybar/scripts/powermenu
+click-right = ~/.config/polybar/scripts/powermenu-alt
+
+; "scroll-(up|down)" will be executed using "/usr/bin/env sh -c $COMMAND"
+;;scroll-up = ~/.config/polybar/scripts/powermenu
+;;scroll-down = ~/.config/polybar/scripts/powermenu
+;
+[module/menu]
+type = custom/menu
+
+; If true, <label-toggle> will be to the left of the menu items (default).
+; If false, it will be on the right of all the items.
+expand-right = true
+
+; "menu-LEVEL-N" has the same properties as "label-NAME" with
+; the additional "exec" property
+;
+; Available exec commands:
+;   menu-open-LEVEL
+;   menu-close
+; Other commands will be executed using "/usr/bin/env sh -c $COMMAND"
+menu-0-0 =Menu
+menu-0-0-exec = ~/.config/polybar/scripts/launcher &
+menu-0-1 =Files
+menu-0-1-exec = thunar &
+menu-0-2 =Terminal
+menu-0-2-exec = alacritty &
+menu-0-3 =Firefox
+menu-0-3-exec = firefox &
+
+; Available tags:
+;   <label-toggle> (default) - gets replaced with <label-(open|close)>
+;   <menu> (default)
+; Note that if you use <label-toggle> you must also include
+; the definition for <label-open>
+
+;;format = <label-toggle> <menu>
+;;format-prefix = ${menu.icon-menu}
+format-spacing = 1 
+
+label-open =%{T2}%{T-}
+label-close = %{T2}%{T-}
+
+
+; Optional item separator
+; Default: none
+label-separator = |
+
+label-open-foreground = ${colors.blue}
+label-close-foreground = ${colors.green}
+label-separator-foreground = ${colors.foreground}
+
+[module/cpu]
+type = internal/cpu
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 5
+
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+;;format = <label> <ramp-coreload>
+format = <label>
+format-prefix = 
+
+; Available tokens:
+;   %percentage% (default) - total cpu load averaged over all cores
+;   %percentage-sum% - Cumulative load on all cores
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label = " %percentage%%"
+
+; Spacing between individual per-core ramps
+;;ramp-coreload-spacing = 1
+;;ramp-coreload-0 = 
+;;ramp-coreload-1 = 
+;;ramp-coreload-2 = 
+;;ramp-coreload-3 = 
+;;ramp-coreload-4 = 
+
+ramp-load-0 = 
+ramp-load-1 = 
+ramp-load-2 = 
+ramp-load-3 = 
+ramp-load-4 = 
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 5
+
+; Available tags:
+;   <label> (default)
+;   <bar-used>
+;   <bar-free>
+;   <ramp-used>
+;   <ramp-free>
+;   <bar-swap-used>
+;   <bar-swap-free>
+;   <ramp-swap-used>
+;   <ramp-swap-free>
+format = <label>
+format-prefix = 
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+;   %percentage_swap_used%
+;   %percentage_swap_free%
+;   %mb_swap_total%
+;   %mb_swap_free%
+;   %mb_swap_used%
+;   %gb_swap_total%
+;   %gb_swap_free%
+;   %gb_swap_used%
+
+label = " %mb_used%"
+
+; Only applies if <bar-used> is used
+;;bar-used-indicator =
+;;bar-used-width = 50
+;;bar-used-foreground-0 = #55aa55
+;;bar-used-foreground-1 = #557755
+;;bar-used-foreground-2 = #f5a70a
+;;bar-used-foreground-3 = #ff5555
+;;bar-used-fill = ▐
+;;bar-used-empty = ▐
+;;bar-used-empty-foreground = #444444
+
+; Only applies if <ramp-used> is used
+;;ramp-used-0 = 
+;;ramp-used-1 = 
+;;ramp-used-2 = 
+;;ramp-used-3 = 
+;;ramp-used-4 = 
+
+; Only applies if <ramp-free> is used
+;;ramp-free-0 = 
+;;ramp-free-1 = 
+;;ramp-free-2 = 
+;;ramp-free-3 = 
+;;ramp-free-4 = 
+
+[module/temperature]
+type = internal/temperature
+interval = 5
+
+thermal-zone = 0
+warn-temperature = 60
+
+format =<label>
+label = %temperature-c%
+
+format-warn =<label-warn>
+label-warn = TEMP %temperature-c%
+label-warn-foreground = ${colors.red}
+
+;-----------------------------------------------------------------
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume>
+
+label-volume ="VOL %percentage%%"
+label-volume-padding = 2
+label-volume-background = ${colors.background}
+label-muted ="VOL muted"
+label-muted-foreground = ${colors.foreground}
+label-muted-background = ${colors.background}
+label-muted-padding = 2
+
+;----------------------------------------------------------
+[module/alsa]
+type = internal/alsa
+
+format-volume = <label-volume>
+
+label-volume ="VOL %percentage%%"
+label-muted ="VOL muted"
+label-muted-foreground = ${colors.foreground}
+lable-muted-background = ${colors.background}
+# vim: ft=dosini

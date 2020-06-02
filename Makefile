@@ -33,6 +33,7 @@ mutt:  ## Link mutt config
 starship:  ## Link starship config
 	ln -nfs $(DOTFILES)/starship.toml ${HOME}/.config/starship.toml
 
+.PHONY: tmux
 tmux:  ## Link tmux config
 	ln -nfs $(DOTFILES)/tmux ${HOME}/.tmux
 	ln -nfs $(DOTFILES)/tmux/tmux.conf ${HOME}/.tmux.conf

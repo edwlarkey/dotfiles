@@ -33,25 +33,18 @@ setup_gitconfig () {
       rm "$HOME/.local.gitconfig"
     fi
 
-    git config --file "$HOME/.config/git/config" user.name "$git_user_name"
-    user "git name: $git_user_name"
-    git config --file "$HOME/.config/git/config" user.email "$git_user_email"
-    user "git email: $git_user_email"
-    git config --file "$HOME/.config/git/config" user.signkey "$git_user_signkey"
-    user "git signkey: $git_user_signkey"
-    git config --file "$HOME/.config/git/config" commit.gpgsign "$git_commit_gpgsign"
-    user "git gpgsign: $git_commit_gpgsign"
-
+    mkdir -p $HOME/.config/git
+    mkdir -p $HOME/git
+    ln -nfs "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
     git config --global core.editor vim
-    git config  --file "$HOME/.config/git/config" commit.template "$HOME/dotfiles/git/git-commit-template"
+    git config --file "$HOME/.config/git/config" commit.template "$HOME/dotfiles/git/git-commit-template"
+    ln -nfs "$HOME/dotfiles/git/$git_location-config" "$HOME/.config/git/config"
 
     success 'Git setup complete'
 }
 
 link_files () {
     info 'Linking files'
-    ln -nfs "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
-    success 'git linked'
     ln -nfs "$HOME/dotfiles/vim" "$HOME/.vim"
     ln -nfs "$HOME/dotfiles/vim/vimrc" "$HOME/.vimrc"
     success 'vim linked'
@@ -69,9 +62,21 @@ link_files () {
     ln -nfs "$HOME/dotfiles/zsh/zshenv" "$HOME/.zshenv"
     success 'zsh linked'
     ln -nfs "$HOME/dotfiles/xinitrc" "$HOME/.xinitrc"
-    success 'alacritty config linked'
-    ln -nfs "$HOME/dotfiles/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
     success 'xinitrc config linked'
+    ln -nfs "$HOME/dotfiles/alacritty.yml" "$HOME/.config/alacritty/alacritty.yml"
+    success 'alacritty config linked'
+    ln -nfs "$HOME/dotfiles/starship.toml" "$HOME/.config/starship.toml"
+    success 'starship config linked'
+    ln -nfs "$HOME/dotfiles/bspwm" "$HOME/.config/bspwm"
+    success 'bspwm config linked'
+    ln -nfs "$HOME/dotfiles/sxhkd" "$HOME/.config/sxhkd"
+    success 'sxhkd config linked'
+    ln -nfs "$HOME/dotfiles/polybar" "$HOME/.config/polybar"
+    success 'polybar config linked'
+    ln -nfs "$HOME/dotfiles/rofi" "$HOME/.config/rofi"
+    success 'rofi config linked'
+    ln -nfs "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
+    success 'dunst config linked'
 }
 
 make_dirs () {
@@ -106,26 +111,12 @@ do
     case $opt in
         "Home")
             info "Setting up for Home"
-            git_user_name="Edward Larkey"
-            git_user_email="edwlarkey@mac.com"
-            git_user_signkey="25FE9E4C"
-            git_commit_gpgsign="true"
+            git_location=home
             break
             ;;
         "Work")
             info "Setting up for Work"
-            git_user_name="Edward Larkey"
-            git_user_email="elarkey@hackerone.com"
-            git_user_signkey="BD81B601"
-            git_commit_gpgsign="true"
-            break
-            ;;
-        "Other")
-            info "Setting up for Other"
-            IFS= read -r -p "What is your git user name? " git_user_name
-            IFS= read -r -p "What is your git user email? " git_user_email
-            git_user_signkey=""
-            git_commit_gpgsign="false"
+            git_location=work
             break
             ;;
         "Quit")

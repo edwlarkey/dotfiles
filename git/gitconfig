@@ -8,6 +8,6 @@
 [push]
   default = current
 [gpg]
-  program = gpg
+	program = /usr/bin/gpg
 
 ; vim: filetype=gitconfig

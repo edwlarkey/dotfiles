@@ -2,7 +2,7 @@
 
 
 #kde is default
-WM=${2:-kde}
+WM=${2:-bspwm}
 
 case $WM in
   awesome ) exec awesome;;
@@ -18,13 +18,11 @@ case $WM in
     xmodmap dotfiles/xmodmap
     exec startplasma-x11;;
   bspwm   )
-    xrandr --output HDMI-0 --auto --primary
-    xrandr --output DVI-I-1 --auto --right-of HDMI-0
-    sxhkd &
-    # dunst &
-    dzen &
-    chromium &
-    # hipchat &
+    xrandr --output DP-1 --auto --primary
+    xrandr --output HDMI-1 --auto --right-of DP-1
+    xrandr --dpi 144
+    redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
+    xsetroot -cursor_name left_ptr &
     setxkbmap -option caps:ctrl
     xinput set-ptr-feedback 10 800 800 400
     exec bspwm;;

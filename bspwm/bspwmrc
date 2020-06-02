@@ -1,0 +1,38 @@
+#! /bin/sh
+
+sxhkd &
+$HOME/.fehbg &
+$HOME/.config/polybar/launch.sh
+
+if [[ $(bspc query -M |wc -l) == '2' ]]; then
+  bspc monitor DP-1 -d I II III IV V VI
+  bspc monitor HDMI-1 -d VII VIII IX X
+else
+  bspc monitor -d I II III IV V VI VII VIII IX X
+fi
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config top_padding         40
+bspc config bottom_padding      40
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# Mouse
+# bspc config pointer_modifier mod1
+bspc config pointer_action1 move
+bspc config pointer_action2 resize_corner
+
+bspc rule -a Steam state=floating
+bspc rule -a vlc state=floating
+bspc rule -a KeePassXC desktop='^5'
+# bspc rule -a firefox desktop='^2'
+
+## Autostart
+autokey-gtk &
+dunst &
+$HOME/Documents/start.sh &
+nextcloud &

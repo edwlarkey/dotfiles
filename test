@@ -1,0 +1,101 @@
+[?25l[J[J[J[J[J[J[?25h[?1049h[22;0;0t[>4;2m[?1h=[?2004h[1;50r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[50;1H"~/dotfiles/.git/COMMIT_EDITMSG" 2225L, 75485C[1;1HSubject
+
+Body
+
+# Fixes:
+# Resolves:
+# Closes:
+# Reviewed-By:
+# See-Also:
+# GitHub-Issue:
+
+# Types:
+# * [Feature]
+# * [Fix]
+# * [Docs]
+# * [Style]
+# * [Refactor]
+# * [Test]
+# * [Chore]
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#[7Cmodified:   Makefile
+#[7Cmodified:   alacritty.yml
+#[7Cnew file:   bspwm/bspwmrc
+#[7Cnew file:   dunst/dunstrc
+#[7Cmodified:   git/home-config
+#[7Cnew file:   polybar/config
+#[7Cnew file:   polybar/launch.sh
+#[7Cnew file:   polybar/scripts/launcher
+#[7Cnew file:   polybar/scripts/launcher-alt
+#[7Cnew file:   polybar/scripts/launcher-full
+#[7Cnew file:   rofi/config
+#[7Cmodified:   setup
+#[7Cnew file:   sxhkd/sxhkdrc
+#[7Cmodified:   vim/autoload/plug.vim
+#[7Cmodified:   vim/autoload/plug.vim.old
+#[7Cmodified:   xinitrc
+#[7Cmodified:   zsh/zshrc
+#
+# Untracked files:
+#[7Ctest
+#
+# ------------------------ >8 ------------------------[1;1H[?25h
+
+
+[3;1H
+[27m[23m[29m[m[H[2J[?25l[1;1HSubject
+
+Body
+
+# Fixes:
+# Resolves:
+# Closes:
+# Reviewed-By:
+# See-Also:
+# GitHub-Issue:
+
+# Types:
+# * [Feature]
+# * [Fix]
+# * [Docs]
+# * [Style]
+# * [Refactor]
+# * [Test]
+# * [Chore]
+
+# Please enter the commit message for your changes. Lines starting[22;1H# with '#' will be ignored, and an empty message aborts the committ[23;1H.
+#
+# On branch master
+# Your branch is up to date with 'origin/master'.
+#
+# Changes to be committed:
+#[7Cmodified:   Makefile
+#[7Cmodified:   alacritty.yml
+#[7Cnew file:   bspwm/bspwmrc
+#[7Cnew file:   dunst/dunstrc
+#[7Cmodified:   git/home-config
+#[7Cnew file:   polybar/config
+#[7Cnew file:   polybar/launch.sh
+#[7Cnew file:   polybar/scripts/launcher
+#[7Cnew file:   polybar/scripts/launcher-alt
+#[7Cnew file:   polybar/scripts/launcher-full
+#[7Cnew file:   rofi/config
+#[7Cmodified:   setup
+#[7Cnew file:   sxhkd/sxhkdrc
+#[7Cmodified:   vim/autoload/plug.vim
+#[7Cmodified:   vim/autoload/plug.vim.old
+#[7Cmodified:   xinitrc
+#[7Cmodified:   zsh/zshrc
+#
+# Untracked files:
+#[7Ctest
+#[4;1H[?25h[50;1H[?2004l[?1l>[>4;m[?1049l[23;0;0tVim: Caught deadly signal TERM
+Vim: Finished.
+[50;1H[23;2t[23;1t
