@@ -1,5 +1,15 @@
 #! /bin/sh
 
+xrandr \
+ --dpi 163 \
+ --output DP-1 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
+ --output HDMI-1 --mode 2560x1080 --rate 60 --pos 3840x0 \
+ --output DVI-D-1 --off \
+ --output DVI-D-2 --off
+xsetroot -cursor_name left_ptr &
+setxkbmap -option caps:ctrl
+xinput set-ptr-feedback 10 800 800 400
+
 sxhkd &
 $HOME/.fehbg &
 $HOME/.config/polybar/launch.sh
@@ -29,10 +39,28 @@ bspc config pointer_action2 resize_corner
 bspc rule -a Steam state=floating
 bspc rule -a vlc state=floating
 bspc rule -a KeePassXC desktop='^5'
-# bspc rule -a firefox desktop='^2'
+bspc rule -a firefox desktop='^2' follow=on
 
 ## Autostart
+redshift -l 41.20:-95.99 -t 6000:4500 &
 autokey-gtk &
 dunst &
 $HOME/Documents/start.sh &
 nextcloud &
+
+#Notifications
+pid_redshift=$(pidof redshift)
+pid_sxhkd=$(pidof sxhkd)
+
+if [ "$pid_redshift" ]; then
+  notify-send "redshift has been (re)started."
+else
+  notify-send "redshift failed to start." -u critical
+fi
+
+if [ "$pid_sxhkd" ]; then
+  notify-send "sxhkd has been (re)started."
+else
+  notify-send "sxhkd failed to start." -u critical
+fi
+notify-send "bspwm has been (re)started."

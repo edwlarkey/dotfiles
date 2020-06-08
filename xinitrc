@@ -18,9 +18,15 @@ case $WM in
     xmodmap dotfiles/xmodmap
     exec startplasma-x11;;
   bspwm   )
-    xrandr --output DP-1 --auto --primary
-    xrandr --output HDMI-1 --auto --right-of DP-1
-    xrandr --dpi 144
+    # xrandr --output DP-1 --auto --primary
+    # xrandr --output HDMI-1 --auto --right-of DP-1
+    # xrandr --dpi 163
+    xrandr \
+     --dpi 163 \
+     --output DP-1 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
+     --output HDMI-1 --mode 2560x1080 --rate 60 --pos 3840x0 \
+     --output DVI-D-1 --off \
+     --output DVI-D-2 --off
     redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
     xsetroot -cursor_name left_ptr &
     setxkbmap -option caps:ctrl

@@ -53,10 +53,10 @@ foreground = ${colors.foreground}
 radius = 0.0
 line-size = 0
 line-color = #f00
-offset-y = 4
+offset-y = 0
 
 ; Number of spaces to add at the beginning/end of the bar
-padding = 2
+padding = 0
 
 ; Number of spaces to add before/after each module
 module-margin = 0
@@ -97,10 +97,10 @@ foreground = ${colors.foreground}
 radius = 0.0
 line-size = 0
 line-color = #f00
-offset-y = 4
+offset-y = 0
 
 ; Number of spaces to add at the beginning/end of the bar
-padding = 2
+padding = 0
 
 ; Number of spaces to add before/after each module
 module-margin = 0
@@ -141,10 +141,10 @@ foreground = ${colors.foreground}
 radius = 0.0
 line-size = 0
 line-color = #f00
-offset-y = 4
+offset-y = 0
 
 ; Number of spaces to add at the beginning/end of the bar
-padding = 2
+padding = 0
 
 ; Number of spaces to add before/after each module
 module-margin = 2
