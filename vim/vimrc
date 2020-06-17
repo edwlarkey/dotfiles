@@ -341,21 +341,27 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " =============================================================================
 
 " ALE
+let g:ale_fix_on_save = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 set omnifunc=ale#completion#OmniFunc
 
 let g:ale_fixers = {
   \   'python': [
+  \       'black',
   \       'add_blank_lines_for_python_control_statements',
   \       'isort',
   \       'yapf',
+  \   ],
+  \   'terraform': [
+  \       'terraform',
   \   ],
   \}
 
 let g:ale_linters = {
       \'go': ['gopls'],
-      \'python': ['pyls'],
+      \'python': ['black', 'pyls'],
       \'sh': ['language_server'],
+      \'terraform': ['terraform'],
       \}
 
 " netrw
@@ -377,6 +383,7 @@ let g:toggler_keywords = [
 
 " vim-go plugin settings
 let g:go_fmt_command = "goimports"
+let g:go_rename_command = "gopls"
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
@@ -422,10 +429,10 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 " =============================================================================
 " Wiki and calendar {{{1
 " =============================================================================
-let g:text_dir = '$HOME/txt/'
+let g:text_dir = '/Volumes/edwlarkeytxt/'
 let g:journal_dir = g:text_dir . 'journal/'
-nnoremap <leader>w :e $HOME/txt/index.md<cr>
-nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2020.txt<CR>
+nnoremap <leader>w :e /Volumes/edwlarkey/txt/index.md<cr>
+nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> /Volumes/edwlarkey/txt/calendar/2020.txt<CR>
 nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
 nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
 nnoremap <leader>w<leader>l :call AddLink()<CR>
@@ -443,6 +450,7 @@ augroup textcal
   autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
   autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
 augroup END
+
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
