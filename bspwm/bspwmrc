@@ -1,11 +1,5 @@
 #! /bin/sh
 
-xrandr \
- --dpi 163 \
- --output DP-1 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
- --output HDMI-1 --mode 2560x1080 --rate 60 --pos 3840x0 \
- --output DVI-D-1 --off \
- --output DVI-D-2 --off
 xsetroot -cursor_name left_ptr &
 setxkbmap -option caps:ctrl
 xinput set-ptr-feedback 10 800 800 400
@@ -15,9 +9,21 @@ $HOME/.fehbg &
 $HOME/.config/polybar/launch.sh
 
 if [[ $(bspc query -M |wc -l) == '2' ]]; then
+  xrandr \
+   --dpi 163 \
+   --output DP-1 --mode 3840x2160 --rate 60 --pos 0x0 --primary \
+   --output HDMI-1 --mode 2560x1080 --rate 60 --pos 3840x0 \
+   --output DVI-D-1 --off \
+   --output DVI-D-2 --off
   bspc monitor DP-1 -d I II III IV V VI
   bspc monitor HDMI-1 -d VII VIII IX X
 else
+  xrandr \
+   --dpi 92 \
+   --output HDMI-1 --mode 2560x1080 --rate 60 --pos 0x0 --primary \
+   --output DP-1 --off \
+   --output DVI-D-1 --off \
+   --output DVI-D-2 --off
   bspc monitor -d I II III IV V VI VII VIII IX X
 fi
 
@@ -47,6 +53,7 @@ autokey-gtk &
 dunst &
 $HOME/Documents/start.sh &
 nextcloud &
+syncthing-gtk &
 
 #Notifications
 pid_redshift=$(pidof redshift)
