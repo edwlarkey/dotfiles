@@ -429,10 +429,10 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 " =============================================================================
 " Wiki and calendar {{{1
 " =============================================================================
-let g:text_dir = '/Volumes/edwlarkeytxt/'
+let g:text_dir = '$HOME/txt/'
 let g:journal_dir = g:text_dir . 'journal/'
-nnoremap <leader>w :e /Volumes/edwlarkey/txt/index.md<cr>
-nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> /Volumes/edwlarkey/txt/calendar/2020.txt<CR>
+nnoremap <leader>w :e $HOME/txt/index.md<cr>
+nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2020.txt<CR>
 nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
 nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
 nnoremap <leader>w<leader>l :call AddLink()<CR>
