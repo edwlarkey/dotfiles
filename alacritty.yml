@@ -182,7 +182,7 @@ schemes:
       cyan: '0x0997b3'
       white: '0xfafafa'
 
-colors: *onehalf_light
+colors: *gruvbox_dark
 
 # Visual Bell
 #

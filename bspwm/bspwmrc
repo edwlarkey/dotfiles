@@ -30,8 +30,8 @@ fi
 bspc config border_width         2
 bspc config window_gap          12
 
-bspc config top_padding         40
-bspc config bottom_padding      40
+bspc config top_padding         55
+bspc config bottom_padding      55
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
@@ -45,9 +45,15 @@ bspc config pointer_action2 resize_corner
 bspc rule -a Steam state=floating
 bspc rule -a vlc state=floating
 bspc rule -a KeePassXC desktop='^5'
+bspc rule -a "Syncthing GTK" desktop='^5'
+bspc rule -a Nextcloud desktop='^5'
+bspc rule -a Autokey-gtk desktop='^5'
+bspc rule -a autokey-gtk desktop='^5'
 bspc rule -a firefox desktop='^2' follow=on
 
 ## Autostart
+killall redshift
+redshift -x
 redshift -l 41.20:-95.99 -t 6000:4500 &
 autokey-gtk &
 dunst &

@@ -12,8 +12,12 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 if [[ $(bspc query -M |wc -l) == '2' ]]; then
   polybar top &
   polybar top-right &
+  polybar top2-right &
   polybar bottom &
+  polybar bottom-right &
 else
   polybar top &
+  polybar top-right &
   polybar bottom &
+  polybar bottom-right &
 fi

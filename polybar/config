@@ -46,14 +46,16 @@ override-redirect = true
 wm-restack = bspwm
 bottom = false
 fixed-center = true
-width = 100%
-height = 40
+width = 15%
+height = 50
 background = ${colors.background_transparent}
 foreground = ${colors.foreground}
 radius = 0.0
 line-size = 0
 line-color = #f00
 offset-y = 0
+dpi-x = 0
+dpi-y = 0
 
 ; Number of spaces to add at the beginning/end of the bar
 padding = 0
@@ -62,11 +64,11 @@ padding = 0
 module-margin = 0
 
 ; Fonts are defined using <font-name>;<vertical-offset>
-font-0 = xos4 Terminus:style=Regular:pixelsize=16;2
-font-1 = "Hack Nerd Font Mono:size=30;5"
+font-0 = "Hack Nerd Font Mono:style=Regular:pixelsize=16;2
+font-1 = "Hack Nerd Font Mono:size=30;10"
 
 ; Modules are added to one of the available blocks
-modules-right = pulseaudio date sysmenu
+modules-right = 
 modules-left = launcher bspwm
 
 ;separator =
@@ -78,40 +80,15 @@ dim-value = 1.0
 
 ; Position of the system tray window
 tray-position = none
-tray-maxsize = 15
-tray-background = ${colors.background}
-tray-offset-x = 0
-tray-offset-y = 0
-; Pad the sides of each tray icon
-tray-padding = 0
 
 [bar/top-right]
-monitor = HDMI-1
-override-redirect = false
-bottom = false
-fixed-center = true
-width = 100%
-height = 40
-background = ${colors.background_transparent}
-foreground = ${colors.foreground}
-radius = 0.0
-line-size = 0
-line-color = #f00
-offset-y = 0
-
-; Number of spaces to add at the beginning/end of the bar
+inherit = bar/top
+width = 15%
+offset-x = 85%
 padding = 0
-
-; Number of spaces to add before/after each module
-module-margin = 0
-
-; Fonts are defined using <font-name>;<vertical-offset>
-font-0 = xos4 Terminus:style=Regular:pixelsize=16;2
-font-1 = "Hack Nerd Font Mono:size=30;5"
-
 ; Modules are added to one of the available blocks
 modules-right = pulseaudio date sysmenu
-modules-left = launcher bspwm
+modules-left = 
 
 ;separator =
 ; This value is used to add extra spacing between elements
@@ -122,42 +99,56 @@ dim-value = 1.0
 
 ; Position of the system tray window
 tray-position = none
-tray-maxsize = 15
-tray-background = ${colors.background}
-tray-offset-x = 0
-tray-offset-y = 0
-; Pad the sides of each tray icon
-tray-padding = 0
+
+[bar/top2-right]
+inherit = bar/top
+monitor = HDMI-1
+width = 15%
+padding = 0
+; Modules are added to one of the available blocks
+modules-right = launcher bspwm
+modules-left = 
+
+;separator =
+; This value is used to add extra spacing between elements
+; @deprecated: This parameter will be removed in an upcoming version
+spacing = 0
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
+
+; Position of the system tray window
+tray-position = none
 
 [bar/bottom]
+width = 12%
+height = 50
+fixed-center = true
+
+dpi-x = 0
+dpi-y = 0
 override-redirect = true
 wm-restack = bspwm
 bottom = true
-fixed-center = true
-width = 100%
-height = 40
 background = ${colors.background}
 foreground = ${colors.foreground}
-radius = 0.0
 line-size = 0
 line-color = #f00
-offset-y = 0
 
 ; Number of spaces to add at the beginning/end of the bar
 padding = 0
 
 ; Number of spaces to add before/after each module
-module-margin = 2
+module-margin = 0
 
 ; Fonts are defined using <font-name>;<vertical-offset>
-font-0 = xos4 Terminus:style=Regular:pixelsize=16;2
-font-1 = "Hack Nerd Font Mono:size=36;5"
+font-0 = "Hack Nerd Font Mono:style=Regular:pixelsize=16;5"
+font-1 = "Hack Nerd Font Mono:size=30;0"
 
 ; Modules are added to one of the available blocks
 modules-right = 
 modules-left = cpu memory temperature
 
-separator = |
+separator = " "
 ; This value is used to add extra spacing between elements
 ; @deprecated: This parameter will be removed in an upcoming version
 spacing = 0
@@ -165,29 +156,54 @@ spacing = 0
 dim-value = 1.0
 
 ; Position of the system tray window
+tray-position = none
+
+[bar/bottom-right]
+
+inherit = bar/bottom
+
+width = 3%
+height = 50
+offset-x = 97.4%:-10
+fixed-center = true
+background = ${colors.background_transparent}
+
+modules-right = 
+modules-left = empty
+
 tray-position = right
-tray-maxsize = 15
-tray-background = ${colors.background}
+tray-maxsize = 30
+tray-background = ${colors.bg2}
 tray-offset-x = 0
 tray-offset-y = 0
 ; Pad the sides of each tray icon
 tray-padding = 0
 
+[module/empty]
+type = custom/text
+content = ""
+
 [module/bspwm]
 type = internal/bspwm
+
+ws-icon-0 = I;
+ws-icon-1 = II;
+ws-icon-2 = III;
+ws-icon-default = 
+format = "<label-state>"
 
 label-focused-background = ${colors.red}
 label-empty-background = ${colors.bg2}
 label-occupied-background = ${colors.aqua}
 
-label-focused = %name%
+label-focused = %icon%
 label-focused-padding = 2
 label-focused-foreground = ${colors.background}
-label-occupied = %index%
+label-occupied = %icon%
 label-occupied-padding = 2
 label-occupied-foreground = ${colors.background}
 
-label-empty = %index%
+label-empty = %icon%
 label-empty-foreground = ${colors.foreground}
 label-empty-padding = 2
 
@@ -225,7 +241,7 @@ content = %{T2}%{T-}
 ;;content-background = #000
 content-foreground = ${colors.blue}
 content-background = ${colors.background}
-content-padding = 2
+content-padding = 3
 
 ; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c $COMMAND"
 click-left = ~/.config/polybar/scripts/powermenu
@@ -295,7 +311,7 @@ interval = 5
 ;   <ramp-coreload>
 ;;format = <label> <ramp-coreload>
 format = <label>
-format-prefix = 
+format-prefix = 
 
 ; Available tokens:
 ;   %percentage% (default) - total cpu load averaged over all cores
@@ -303,20 +319,7 @@ format-prefix = 
 ;   %percentage-cores% - load percentage for each core
 ;   %percentage-core[1-9]% - load percentage for specific core
 label = " %percentage%%"
-
-; Spacing between individual per-core ramps
-;;ramp-coreload-spacing = 1
-;;ramp-coreload-0 = 
-;;ramp-coreload-1 = 
-;;ramp-coreload-2 = 
-;;ramp-coreload-3 = 
-;;ramp-coreload-4 = 
-
-ramp-load-0 = 
-ramp-load-1 = 
-ramp-load-2 = 
-ramp-load-3 = 
-ramp-load-4 = 
+label-background = ${colors.background}
 
 [module/memory]
 type = internal/memory
@@ -336,7 +339,7 @@ interval = 5
 ;   <ramp-swap-used>
 ;   <ramp-swap-free>
 format = <label>
-format-prefix = 
+format-prefix = 
 ; Available tokens:
 ;   %percentage_used% (default)
 ;   %percentage_free%
@@ -357,31 +360,6 @@ format-prefix = 
 
 label = " %mb_used%"
 
-; Only applies if <bar-used> is used
-;;bar-used-indicator =
-;;bar-used-width = 50
-;;bar-used-foreground-0 = #55aa55
-;;bar-used-foreground-1 = #557755
-;;bar-used-foreground-2 = #f5a70a
-;;bar-used-foreground-3 = #ff5555
-;;bar-used-fill = ▐
-;;bar-used-empty = ▐
-;;bar-used-empty-foreground = #444444
-
-; Only applies if <ramp-used> is used
-;;ramp-used-0 = 
-;;ramp-used-1 = 
-;;ramp-used-2 = 
-;;ramp-used-3 = 
-;;ramp-used-4 = 
-
-; Only applies if <ramp-free> is used
-;;ramp-free-0 = 
-;;ramp-free-1 = 
-;;ramp-free-2 = 
-;;ramp-free-3 = 
-;;ramp-free-4 = 
-
 [module/temperature]
 type = internal/temperature
 interval = 5
@@ -390,7 +368,7 @@ thermal-zone = 0
 warn-temperature = 60
 
 format =<label>
-label = %temperature-c%
+label =  %temperature-c% 
 
 format-warn =<label-warn>
 label-warn = TEMP %temperature-c%
@@ -400,15 +378,36 @@ label-warn-foreground = ${colors.red}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume>
-
-label-volume ="VOL %percentage%%"
-label-volume-padding = 2
+format-volume = <label-volume><bar-volume>
+label-volume = "  "
+label-volume-foreground = ${colors.foreground}
 label-volume-background = ${colors.background}
-label-muted ="VOL muted"
+label-volume-padding = 2
+
+label-muted =  
 label-muted-foreground = ${colors.foreground}
 label-muted-background = ${colors.background}
 label-muted-padding = 2
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.purple}
+bar-volume-foreground-1 = ${colors.blue}
+bar-volume-foreground-2 = ${colors.aqua}
+bar-volume-foreground-3 = ${colors.green}
+bar-volume-foreground-4 = #fb8720
+bar-volume-foreground-5 = #fb5a20
+bar-volume-foreground-6 = #fb2020
+bar-volume-gradient = false
+bar-volume-indicator = "%{T3}%{T-}"
+bar-volume-indicator-font = 2
+bar-volume-indicator-background = ${colors.background}
+bar-volume-fill = ━
+bar-volume-fill-font = 2
+bar-volume-fill-background = ${colors.background}
+bar-volume-empty = ━
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.bg2}
+bar-volume-empty-background = ${colors.background}
 
 ;----------------------------------------------------------
 [module/alsa]
