@@ -16,8 +16,8 @@ if [[ $(bspc query -M |wc -l) == '2' ]]; then
   polybar bottom &
   polybar bottom-right &
 else
-  polybar top &
-  polybar top-right &
-  polybar bottom &
-  polybar bottom-right &
+  polybar top-hdmi &
+  polybar top-hdmi-right &
+  polybar bottom-hdmi &
+  polybar bottom-hdmi-right &
 fi
