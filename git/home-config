@@ -4,6 +4,6 @@
 	signingkey = 0xB14371C225FE9E4C
 [commit]
 	gpgsign = true
-	template = /home/edwlarkey/dotfiles/git/git-commit-template
+	template = ~/dotfiles/git/git-commit-template
 [core]
 	editor = vim
