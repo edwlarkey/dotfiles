@@ -106,7 +106,6 @@ tray-position = none
 [bar/top-hdmi-right]
 inherit = bar/top-right
 monitor = HDMI-1
-width = 15%
 height = 40
 font-1 = "Hack Nerd Font Mono:size=30;4"
 
