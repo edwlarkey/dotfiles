@@ -14,7 +14,7 @@ super + @space
 	/home/edwlarkey/.config/polybar/scripts/launcher-alt
 
 alt + @space
-	/home/edwlarkey/.config/polybar/scripts/launcher-alt
+	/home/edwlarkey/.config/polybar/scripts/launcher-full
 
 # make sxhkd reload its configuration files:
 super + Escape
