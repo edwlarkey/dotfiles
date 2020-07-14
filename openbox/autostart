@@ -1,0 +1,8 @@
+$HOME/.fehbg &
+tint2 &
+redshift -x
+redshift -l 41.20:-95.99 -t 6000:4500 &
+autokey-gtk &
+$HOME/Documents/start.sh &
+nextcloud &
+syncthing-gtk &

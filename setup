@@ -37,7 +37,7 @@ setup_gitconfig () {
     mkdir -p $HOME/git
     ln -nfs "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
     git config --global core.editor vim
-    git config --file "$HOME/.config/git/config" commit.template "$HOME/dotfiles/git/git-commit-template"
+    git config --file "$HOME/.config/git/config" commit.template "~/dotfiles/git/git-commit-template"
     ln -nfs "$HOME/dotfiles/git/$git_location-config" "$HOME/.config/git/config"
 
     success 'Git setup complete'
@@ -77,6 +77,10 @@ link_files () {
     success 'rofi config linked'
     ln -nfs "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
     success 'dunst config linked'
+    ln -nfs "$HOME/dotfiles/openbox" "$HOME/.config/openbox"
+    success 'openbox config linked'
+    ln -nfs "$HOME/dotfiles/tint2" "$HOME/.config/tint2"
+    success 'tint2 config linked'
 }
 
 make_dirs () {
