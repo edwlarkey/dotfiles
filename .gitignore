@@ -48,6 +48,10 @@ newsbeuter/cache.db.lock
 newsbeuter/history.cmdline
 newsbeuter/history.search
 
+# obmenu-generator
+obmenu-generator/cache.db
+obmenu-generator/icons/
+
 # ignore some binaries
 bin/doctl
 bin/rtop

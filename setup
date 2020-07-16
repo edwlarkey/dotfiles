@@ -79,6 +79,8 @@ link_files () {
     success 'dunst config linked'
     ln -nfs "$HOME/dotfiles/openbox" "$HOME/.config/openbox"
     success 'openbox config linked'
+    ln -nfs "$HOME/dotfiles/obmenu-generator" "$HOME/.config/obmenu-generator"
+    success 'obmenu-generator config linked'
     ln -nfs "$HOME/dotfiles/tint2" "$HOME/.config/tint2"
     success 'tint2 config linked'
 }
