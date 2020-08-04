@@ -1,8 +1,9 @@
 $HOME/.fehbg &
 tint2 &
+plank &
+picom &
 redshift -x
 redshift -l 41.20:-95.99 -t 6000:4500 &
 autokey-gtk &
-$HOME/Documents/start.sh &
-nextcloud &
 syncthing-gtk &
+$HOME/Documents/start.sh &

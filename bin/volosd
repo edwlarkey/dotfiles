@@ -1,0 +1,76 @@
+#!/bin/bash
+
+#####################
+# Config
+SINK="alsa_output.pci-0000_06_00.1.hdmi-stereo-extra5"
+
+
+####################
+# Code
+action=$1; shift
+
+# Unmute the volume and increase/decrease it
+# Arg 1: volume change to set (1+ or 1-)
+set_volume() {
+    pactl set-sink-mute "$SINK" false ; pactl set-sink-volume "$SINK" "$1"
+}
+
+# Get the current volume %
+# No args
+get_volume() {
+    volume=$(pactl list sinks | grep -A 8 "$SINK" | grep "^\s*Volume:" | tail -n 1 | sed 's/.*\s\([0-9]*\)%.*/\1/')
+}
+
+# Toggle Master volume mute on/off
+# No args
+mute_volume() {
+    pactl set-sink-mute "$SINK" true
+    status=$(pactl list sinks | grep -A 8 "$SINK" | grep Mute | tail -n 1 | cut -d : -f 2)
+}
+
+# Use xosd to show a volume guage on the screen
+# Arg 1: Current volume as percent of full volume
+# Arg 2: (optional) Text to show above bar
+show_volume() {
+    killall -9 -q osd_cat &>/dev/null
+
+	osd_cat   -f"-*-*-*-*-*-*-100-*-*-*-*-*-*-*"  --shadow=1     --color=green     --pos=middle     --align=center     --delay=2 --text "$1"    --barmode=percentage --percentage=$1 
+
+}
+
+case "$action" in
+    show)
+        get_volume
+	show_volume $volume 
+        ;;
+
+    incr)
+        delta="+5%"
+        set_volume $delta
+        get_volume
+        show_volume $volume 
+        ;;
+
+    decr)
+        delta="-5%"
+        set_volume $delta
+        get_volume
+        show_volume $volume 
+        ;;
+
+    mute)
+        mute_volume
+        case "$status" in
+            off)
+                show_volume 0 "Muted"
+                ;;
+            on)
+                get_volume
+                show_volume $volume
+                ;;
+        esac
+        ;;
+    *)
+        echo "Usage: $0 {incr|decr|mute|show}"
+        ;;
+esac

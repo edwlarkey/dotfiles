@@ -272,6 +272,32 @@
     <keybind key="C-A-h">
       <action name="DesktopLeft"/>
     </keybind>
+    <!-- <keybind key="XF86AudioRaiseVolume"> -->
+    <!--   <action name="Execute"> -->
+    <!--     <command>sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 +5%"</command> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+
+    <!-- <keybind key="XF86AudioLowerVolume"> -->
+    <!--   <action name="Execute"> -->
+    <!--     <command>sh -c "pactl set-sink-mute 0 false ; pactl set-sink-volume 0 -5%"</command> -->
+    <!--   </action> -->
+    <!-- </keybind> -->
+    <keybind key="XF86AudioRaiseVolume">
+     <action name="Execute">
+       <command>~/bin/volosd incr</command>
+     </action>
+    </keybind>
+     <keybind key="XF86AudioLowerVolume">
+       <action name="Execute">
+         <command>~/bin/volosd decr</command>
+       </action>
+     </keybind>
+     <keybind key="XF86AudioMute">
+       <action name="Execute">
+         <command>~/bin/volosd mute</command>
+       </action>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -727,5 +753,21 @@
 
   # end of the example
 -->
+
+    <application name="Alacritty*">
+      <desktop>2</desktop>
+      <maximized>yes</maximized>
+      <focus>yes</focus>
+    </application>
+    <application class="firefox*">
+      <desktop>1</desktop>
+      <maximized>no</maximized>
+      <focus>yes</focus>
+    </application>
+    <application class="calibre*">
+      <desktop>4</desktop>
+      <maximized>no</maximized>
+      <focus>yes</focus>
+    </application>
   </applications>
 </openbox_config>
