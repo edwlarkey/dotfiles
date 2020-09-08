@@ -7,3 +7,4 @@ redshift -l 41.20:-95.99 -t 6000:4500 &
 autokey-gtk &
 syncthing-gtk &
 $HOME/Documents/start.sh &
+conky &

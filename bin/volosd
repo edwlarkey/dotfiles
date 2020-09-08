@@ -2,7 +2,7 @@
 
 #####################
 # Config
-SINK="alsa_output.pci-0000_06_00.1.hdmi-stereo-extra5"
+SINK="alsa_output.pci-0000_06_00.1.hdmi-stereo-extra4"
 
 
 ####################
