@@ -33,7 +33,6 @@ Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'hashivim/vim-terraform'
 Plug 'juliosueiras/vim-terraform-completion'
-Plug 'ambv/black', { 'for': 'python' }
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -394,6 +393,8 @@ let g:go_highlight_build_constraints = 1
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap gie <Plug>(go-iferr)
+autocmd FileType go imap gie <ESC><Plug>(go-iferr)2kA
 
 " fzf
 nmap <Leader>l :Buffers<CR>
