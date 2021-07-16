@@ -51,6 +51,7 @@ link_files () {
     ln -nfs "$HOME/dotfiles/bin" "$HOME/bin"
     success 'bin linked'
     ln -nfs "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
+    ln -nfs "$HOME/dotfiles/tmux" "$HOME/.tmux"
     success 'tmux linked'
     ln -nfs "$HOME/dotfiles/mutt" "$HOME/.mutt"
     success 'mutt linked'

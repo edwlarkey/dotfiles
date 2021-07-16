@@ -20,28 +20,22 @@ style = "cyan"
 
 [git_status]
 style = "red"
-modified_count.enabled = true
-modified_count.style = "red"
+modified.enabled = true
 modified.style = "red"
 modified.vaule = "~"
-stashed_count.enabled = true
-stashed_count.style = "red"
+stashed.enabled = true
 stashed.style = "red"
 stashed.vaule = "$"
-staged_count.enabled = true
-staged_count.style = "green"
+staged.enabled = true
 staged.style = "green"
 staged.vaule = "+"
-deleted_count.enabled = true
-deleted_count.style = "red"
+deleted.enabled = true
 deleted.style = "red"
 deleted.vaule = "✘"
-untracked_count.enabled = true
-untracked_count.style = "red"
+untracked.enabled = true
 untracked.style = "red"
 untracked.vaule = "?"
-renamed_count.enabled = true
-renamed_count.style = "red"
+renamed.enabled = true
 renamed.style = "red"
 renamed.vaule = "»"
 
@@ -53,6 +47,13 @@ symbol = " "
 
 [java]
 symbol = " "
+
+[kubernetes]
+format = 'on [☸️ $context \($namespace\)](green) '
+disabled = false
+
+[kubernetes.context_aliases]
+"production" = "***PRODUCTION***"
 
 [memory_usage]
 symbol = " "

@@ -4,6 +4,18 @@
 
 # Functions
 
+function light() {
+  touch "$HOME/light"
+  tmux source-file "$HOME/.tmux/tmux.conf"
+  gsed -i 's/\*gruvbox_dark/\*onehalf_light/' "$HOME/.config/alacritty/alacritty.yml"
+}
+
+function dark() {
+  rm -f "$HOME/light"
+  tmux source-file "$HOME/.tmux/tmux.conf"
+  gsed -i 's/\*onehalf_light/\*gruvbox_dark/' "$HOME/.config/alacritty/alacritty.yml"
+}
+
 take () {
     mkdir $1
     cd $1
@@ -23,7 +35,6 @@ function aws-switch() {
 function in() {
   echo -e "$text\n\n" >> "$HOME/txt/vimwiki/inbox.md"
 }
-
 
 function ril() {
   title=$(curl -sL "$*" |perl -l -0777 -ne 'print $1 if /<title.*?>\s*(.*?)\s*<\/title/si' |recode html)
