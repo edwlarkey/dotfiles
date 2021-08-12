@@ -36,7 +36,7 @@ Plug 'juliosueiras/vim-terraform-completion'
 Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
 Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'buoto/gotests-vim'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
@@ -341,6 +341,9 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " ALE
 let g:ale_fix_on_save = 1
+let g:ale_set_balloons = 1
+" let g:ale_cursor_detail = 1
+" let g:ale_close_preview_on_insert = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 set completeopt=menu,menuone,preview,noselect,noinsert
 " set omnifunc=ale#completion#OmniFunc
@@ -388,19 +391,20 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_auto_type_info = 1
+let g:go_doc_balloon = 1
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap gie <Plug>(go-iferr)
 autocmd FileType go imap gie <ESC><Plug>(go-iferr)2kA
-autocmd FileType go nmap <leader>g <Plug>(go-decls)
+autocmd FileType go nmap <leader>r <Plug>(go-def)
 
 " fzf
 nmap <Leader>l :Buffers<CR>
 nmap <Leader>f :GFiles<CR>
 nmap <Leader>g :GFiles?<CR>
 nmap <Leader>d :Files<CR>
-nmap <Leader>r :Tags<CR
 nmap <Leader>k :call Wiki()<CR>
 
 " vim-autoformat
