@@ -8,7 +8,7 @@ autocmd!
 set nocompatible    " Use Vim settings, rather than Vi settings
 
 filetype off        "required
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 
 " =============================================================================
 " Plugins {{{1
@@ -38,6 +38,9 @@ Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'buoto/gotests-vim'
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 " Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 """""""""""""""""""""""""""""""""""""""
@@ -46,6 +49,9 @@ Plug 'buoto/gotests-vim'
 Plug 'edwlarkey/vim-textcal'
 
 call plug#end()
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
 
 if !empty(glob("~/.vim/functions.vim"))
   source ~/.vim/functions.vim
