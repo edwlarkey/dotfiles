@@ -19,7 +19,7 @@ window:
   # If both are `0`, this setting is ignored.
   dimensions:
     columns: 120
-    lines: 40
+    lines: 27
 
   # Allow terminal applications to change Alacritty's window title.
   dynamic_title: true
