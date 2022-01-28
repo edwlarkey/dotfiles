@@ -68,22 +68,12 @@ link_files () {
     success 'alacritty config linked'
     ln -nfs "$HOME/dotfiles/starship.toml" "$HOME/.config/starship.toml"
     success 'starship config linked'
-    ln -nfs "$HOME/dotfiles/bspwm" "$HOME/.config/bspwm"
-    success 'bspwm config linked'
-    ln -nfs "$HOME/dotfiles/sxhkd" "$HOME/.config/sxhkd"
-    success 'sxhkd config linked'
-    ln -nfs "$HOME/dotfiles/polybar" "$HOME/.config/polybar"
-    success 'polybar config linked'
-    ln -nfs "$HOME/dotfiles/rofi" "$HOME/.config/rofi"
-    success 'rofi config linked'
-    ln -nfs "$HOME/dotfiles/dunst" "$HOME/.config/dunst"
-    success 'dunst config linked'
-    ln -nfs "$HOME/dotfiles/openbox" "$HOME/.config/openbox"
-    success 'openbox config linked'
-    ln -nfs "$HOME/dotfiles/obmenu-generator" "$HOME/.config/obmenu-generator"
-    success 'obmenu-generator config linked'
-    ln -nfs "$HOME/dotfiles/tint2" "$HOME/.config/tint2"
-    success 'tint2 config linked'
+    ln -nfs "$HOME/dotfiles/sway" "$HOME/.config/sway"
+    success 'sway config linked'
+    ln -nfs "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
+    success 'waybar config linked'
+    ln -nfs "$HOME/dotfiles/wofi" "$HOME/.config/wofi"
+    success 'wofi config linked'
 }
 
 make_dirs () {
