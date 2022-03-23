@@ -223,4 +223,10 @@ if (( $+commands[fzf] )) ; then
     git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
   }
 
+  #kubernetes contexts switcher
+  kcs() {
+      local context="$(kubectl config get-contexts | fzf --multi --ansi -i -1 --height=50% --reverse -0 --header-lines=1 --inline-info --border | awk '{print $1}')"
+      eval kubectl config set current-context "${context}"
+  }
+
 fi

@@ -49,7 +49,7 @@ symbol = " "
 symbol = " "
 
 [kubernetes]
-format = 'on [☸️ $context \($namespace\)](green) '
+format = '[$context \($namespace\)](green) '
 disabled = false
 
 [kubernetes.context_aliases]
