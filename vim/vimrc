@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug '/usr/local/opt/fzf'
@@ -29,16 +28,14 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
+" Plug 'vim/colorschemes'
+Plug 'romainl/Apprentice'
 Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'hashivim/vim-terraform'
-Plug 'juliosueiras/vim-terraform-completion'
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'fatih/vim-go'
-Plug 'buoto/gotests-vim'
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'zhimsel/vim-stay'
+" Plug 'yegappan/lsp'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -124,8 +121,9 @@ set termguicolors
 set noerrorbells    " Disable error bells
 set vb t_vb=        " Disable bells
 set number          " Show line numbers
-set relativenumber  " Relative numbering
+" set relativenumber  " Relative numbering
 syntax on
+set viewoptions=cursor,folds,slash,unix
 
 ""
 "" Statusline
@@ -341,6 +339,9 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " ALE
 let g:ale_fix_on_save = 1
+let g:ale_set_balloons = 1
+" let g:ale_cursor_detail = 1
+" let g:ale_close_preview_on_insert = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 set completeopt=menu,menuone,preview,noselect,noinsert
 " set omnifunc=ale#completion#OmniFunc
@@ -348,9 +349,7 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 
 let g:ale_fixers = {
   \   'python': [
-  \   ],
-  \   'terraform': [
-  \       'terraform',
+  \       'black',
   \   ],
   \}
 
@@ -360,6 +359,29 @@ let g:ale_linters = {
       \'sh': ['language_server'],
       \'terraform': ['terraform'],
       \}
+
+
+let g:ale_python_pyls_config = {
+\   'pyls': {
+\     'plugins': {
+\       'pycodestyle': {
+\         'enabled': v:true,
+\         'ignore': ['E501'],
+\       },
+\       'black': {
+\         'enabled': v:true,
+\       },
+\       'pyflakes': {
+\         'enabled': v:true,
+\       },
+\       'pydocstyle': {
+\         'enabled': v:true,
+\       },
+\     },
+\   },
+\}
+
+let g:ale_fix_on_save_ignore = ['autopep8']
 
 " netrw
 " open from current directory
@@ -388,20 +410,26 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+let g:go_auto_type_info = 1
+let g:go_doc_balloon = 1
+let g:go_doc_popup_window = 1
+let g:go_metalinter_command = "golangci-lint"
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>e <Plug>(go-decls)
+autocmd FileType go nmap <leader>w <Plug>(go-decls-dir)
+autocmd FileType go nmap <leader>r <Plug>(go-def)
 autocmd FileType go nmap gie <Plug>(go-iferr)
 autocmd FileType go imap gie <ESC><Plug>(go-iferr)2kA
-autocmd FileType go nmap <leader>g <Plug>(go-decls)
+autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
 
 " fzf
 nmap <Leader>l :Buffers<CR>
 nmap <Leader>f :GFiles<CR>
 nmap <Leader>g :GFiles?<CR>
 nmap <Leader>d :Files<CR>
-nmap <Leader>r :Tags<CR
-nmap <Leader>k :call Wiki()<CR>
+" nmap <Leader>k :call Wiki()<CR>
 
 " vim-autoformat
 noremap <F3> :Autoformat<CR>
@@ -429,28 +457,41 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 " =============================================================================
 " Wiki and calendar {{{1
 " =============================================================================
-let g:text_dir = '$HOME/txt/'
-let g:journal_dir = g:text_dir . 'journal/'
-nnoremap <leader>w :e $HOME/txt/index.md<cr>
-nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
-nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
-nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
-nnoremap <leader>w<leader>l :call AddLink()<CR>
-" Next markdown link
-nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
-" Previous markdown link
-nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
+" let g:text_dir = '$HOME/txt/'
+" let g:journal_dir = g:text_dir . 'journal/'
+" nnoremap <leader>w :e $HOME/txt/index.md<cr>
+" nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
+" nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
+" nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
+" nnoremap <leader>w<leader>l :call AddLink()<CR>
+" " Next markdown link
+" nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
+" " Previous markdown link
+" nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
 
-autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
+" autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
 
-augroup textcal
-  autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
-  autocmd BufRead,BufNewFile */txt/calendar/* set spell
-  autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
-  autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
-  autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
-augroup END
+" augroup textcal
+"   autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
+"   autocmd BufRead,BufNewFile */txt/calendar/* set spell
+"   autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
+"   autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
+"   autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
+" augroup END
 
+" let lspServers = [
+"     \     {
+"     \       'filetype': ['go', 'gomod'],
+"     \       'path': '/Users/edwardlarkey/git/go/bin/gopls',
+"     \       'args': []
+"     \     },
+"     \     {
+"     \       'filetype': ['python'],
+"     \       'path': '/usr/local/bin/pyls',
+"     \       'args': []
+"     \     },
+"     \   ]
+" call LspAddServer(lspServers)
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
