@@ -23,6 +23,7 @@ vim/bundle/**
 vim/plugged/**
 vim/black
 ~vim/bundle/vundle
+vim/view
 
 vim/plugged
 

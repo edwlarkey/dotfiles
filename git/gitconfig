@@ -1,7 +1,6 @@
 [core]
   editor = vim
 [init]
-  templatedir = ~/dotfiles/git/git_template
   defaultBranch = main
 [alias]
   lg = log --graph --oneline --decorate --all
@@ -10,9 +9,8 @@
   default = current
 [gpg]
   program = gpg
-
-; vim: filetype=gitconfig
 [pull]
   rebase = true
 [merge]
   conflictStyle = zdiff3
+; vim: filetype=gitconfig

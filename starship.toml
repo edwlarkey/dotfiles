@@ -1,6 +1,9 @@
 [aws]
-symbol = "aws "
-disabled = true
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = "bold blue"
+symbol = "🅰 "
+[aws.profile_aliases]
+AdministratorAccess = 'Admin'
 
 [battery]
 full_symbol = ""
@@ -19,33 +22,23 @@ symbol = ""
 style = "cyan"
 
 [git_status]
-style = "red"
-modified.enabled = true
-modified.style = "red"
-modified.vaule = "~"
-stashed.enabled = true
-stashed.style = "red"
-stashed.vaule = "$"
-staged.enabled = true
-staged.style = "green"
-staged.vaule = "+"
-deleted.enabled = true
-deleted.style = "red"
-deleted.vaule = "✘"
-untracked.enabled = true
-untracked.style = "red"
-untracked.vaule = "?"
-renamed.enabled = true
-renamed.style = "red"
-renamed.vaule = "»"
+up_to_date = "✓"
+untracked = "?"
+# stashed = "$"
+modified = "~"
+staged = '[++\($count\)](green)'
+renamed = "»"
+deleted = "✘"
 
 [golang]
 symbol = "go "
 
 [hg_branch]
+disabled = true
 symbol = " "
 
 [java]
+disabled = true
 symbol = " "
 
 [kubernetes]
@@ -54,24 +47,30 @@ disabled = false
 
 [kubernetes.context_aliases]
 "production" = "***PRODUCTION***"
+"production-v4" = "***PRODUCTION-V4***"
 
 [memory_usage]
 symbol = " "
 
 [nodejs]
+disabled = true
 symbol = " "
 
 [package]
+disabled = true
 symbol = " "
 
 [php]
+disabled = true
 symbol = " "
 
 [python]
 symbol = " "
 
 [ruby]
+disabled = true
 symbol = " "
 
 [rust]
+disabled = true
 symbol = " "

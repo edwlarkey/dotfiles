@@ -17,7 +17,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug '/usr/local/opt/fzf'
@@ -29,12 +28,14 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
 Plug 'airblade/vim-gitgutter'
+" Plug 'vim/colorschemes'
+Plug 'romainl/Apprentice'
 Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'jmcantrell/vim-virtualenv', { 'for': 'python' }
-Plug 'freitass/todo.txt-vim', { 'for': 'txt' }
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'zhimsel/vim-stay'
+" Plug 'yegappan/lsp'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -120,8 +121,9 @@ set termguicolors
 set noerrorbells    " Disable error bells
 set vb t_vb=        " Disable bells
 set number          " Show line numbers
-set relativenumber  " Relative numbering
+" set relativenumber  " Relative numbering
 syntax on
+set viewoptions=cursor,folds,slash,unix
 
 ""
 "" Statusline
@@ -347,9 +349,7 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 
 let g:ale_fixers = {
   \   'python': [
-  \   ],
-  \   'terraform': [
-  \       'terraform',
+  \       'black',
   \   ],
   \}
 
@@ -359,6 +359,29 @@ let g:ale_linters = {
       \'sh': ['language_server'],
       \'terraform': ['terraform'],
       \}
+
+
+let g:ale_python_pyls_config = {
+\   'pyls': {
+\     'plugins': {
+\       'pycodestyle': {
+\         'enabled': v:true,
+\         'ignore': ['E501'],
+\       },
+\       'black': {
+\         'enabled': v:true,
+\       },
+\       'pyflakes': {
+\         'enabled': v:true,
+\       },
+\       'pydocstyle': {
+\         'enabled': v:true,
+\       },
+\     },
+\   },
+\}
+
+let g:ale_fix_on_save_ignore = ['autopep8']
 
 " netrw
 " open from current directory
@@ -390,6 +413,7 @@ let g:go_highlight_build_constraints = 1
 let g:go_auto_type_info = 1
 let g:go_doc_balloon = 1
 let g:go_doc_popup_window = 1
+let g:go_metalinter_command = "golangci-lint"
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
@@ -398,6 +422,7 @@ autocmd FileType go nmap <leader>w <Plug>(go-decls-dir)
 autocmd FileType go nmap <leader>r <Plug>(go-def)
 autocmd FileType go nmap gie <Plug>(go-iferr)
 autocmd FileType go imap gie <ESC><Plug>(go-iferr)2kA
+autocmd FileType go nmap <silent> <Leader>i <Plug>(go-doc)
 
 " fzf
 nmap <Leader>l :Buffers<CR>
@@ -454,6 +479,19 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 "   autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
 " augroup END
 
+" let lspServers = [
+"     \     {
+"     \       'filetype': ['go', 'gomod'],
+"     \       'path': '/Users/edwardlarkey/git/go/bin/gopls',
+"     \       'args': []
+"     \     },
+"     \     {
+"     \       'filetype': ['python'],
+"     \       'path': '/usr/local/bin/pyls',
+"     \       'args': []
+"     \     },
+"     \   ]
+" call LspAddServer(lspServers)
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
