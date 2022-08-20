@@ -35,7 +35,7 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'zhimsel/vim-stay'
-" Plug 'yegappan/lsp'
+Plug 'pechorin/any-jump.vim'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -350,6 +350,9 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 let g:ale_fixers = {
   \   'python': [
   \       'black',
+  \   ],
+  \   'json': [
+  \       'prettier',
   \   ],
   \}
 

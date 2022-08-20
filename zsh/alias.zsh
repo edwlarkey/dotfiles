@@ -49,19 +49,20 @@ function track() {
 ## Convenience and Safety
 if [[ ${OSTYPE} == linux* ]]; then
   alias rm='rm -I'
-fi
-
-if [[ ${OSTYPE} == darwin* ]]; then
-  alias rm='rm -i'
-fi
-
-if [[ ${OSTYPE} == linux* ]]; then
   alias chmod='chmod --preserve-root -v'
   alias chown='chown --preserve-root -v'
 fi
 
-## Docker
-alias dc='docker-compose'
+if [[ ${OSTYPE} == darwin* ]]; then
+  alias rm='rm -i'
+
+  alias utc="sudo systemsetup -settimezone GMT"
+  alias cst="sudo systemsetup -settimezone America/Chicago"
+
+  # Show/hide hidden files in Finder
+  alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+  alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+fi
 
 ## mutt
 alias email='mutt -F ~/.mutt/work'
@@ -74,16 +75,6 @@ alias gac="git add . && git commit -v"
 
 ## Calendar
 alias c="textcal open"
-
-# alias life="cd ~/Dropbox/txt"
-
-# Show/hide hidden files in Finder
-alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-
-# generate tags
-alias new_work_tags="ctags -R -f ~/.worktags --fields=+l --file-scope=no ~/.tag_files/work"
-alias ctags="ctags -R -f ./tags --fields=+l"
 
 #
 # ls Colours

@@ -168,12 +168,7 @@ bindkey '^h' backward-delete-char
 # Prompt
 # Original
 # source "${ZSHDIR}/themes/edwlarkey/edwlarkey.zsh-theme"
-# Shelby
-# autoload -Uz add-zsh-hook
-# prompt_shelby_load() { /home/edwlarkey/bin/shelby }
-# add-zsh-hook precmd prompt_shelby_load
-# prompt_symbol='❯'
-# PROMPT="%(?.%F{green}.%F{red})${prompt_symbol}%f "
+#
 # Starship
 eval "$(starship init zsh)"
 
