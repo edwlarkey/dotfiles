@@ -36,6 +36,7 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'zhimsel/vim-stay'
 Plug 'pechorin/any-jump.vim'
+Plug 'junegunn/vim-peekaboo'
 
 """""""""""""""""""""""""""""""""""""""
 " Syntax Plugins
@@ -336,6 +337,8 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " =============================================================================
 " Plugin Settings and Mappings {{{1
 " =============================================================================
+
+xnoremap gs :sort<ENTER>
 
 " ALE
 let g:ale_fix_on_save = 1
