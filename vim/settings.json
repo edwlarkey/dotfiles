@@ -1,0 +1,30 @@
+{
+  "$schema": "https://mattn.github.io/vim-lsp-settings/local-schema.json",
+  "json-languageserver": {
+    "workspace_config": {
+      "json": {
+        "completion": true,
+        "hover": true,
+        "validate": true
+      }
+    }
+  },
+  "pylsp-all": {
+    "workspace_config": {
+      "pyls": {
+        "plugins": {
+          "pycodestyle": { "enabled": false, "ignore": ["E501", "W503"] },
+          "pyflakes": { "enabled": false }
+        },
+        "jedi_completion": {
+          "enabled": true,
+          "eager": true,
+          "cache_for": ["aws_cdk"],
+          "include_function_objects": true,
+          "include_class_objects": true,
+          "include_params": true
+        }
+      }
+    }
+  }
+}

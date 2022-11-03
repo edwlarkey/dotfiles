@@ -8,7 +8,7 @@ autocmd!
 set nocompatible    " Use Vim settings, rather than Vi settings
 
 filetype off        "required
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 
 " =============================================================================
 " Plugins {{{1
@@ -21,9 +21,16 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'rhysd/vim-lsp-ale'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -33,7 +40,6 @@ Plug 'romainl/Apprentice'
 Plug 'morhetz/gruvbox'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'zhimsel/vim-stay'
 Plug 'pechorin/any-jump.vim'
 Plug 'junegunn/vim-peekaboo'
@@ -340,6 +346,58 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 xnoremap gs :sort<ENTER>
 
+" vim-lsp
+
+let g:lsp_settings_global_settings_dir = expand("~/.vim/")
+let g:lsp_document_code_action_signs_enabled = 0
+" Turn these off for vim-lsp
+let g:go_code_completion_enabled = 0
+let g:go_diagnostics_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+
+if isdirectory(expand('~/.log'))
+  " Uncomment this if troubleshooting LSP.
+  " let g:lsp_log_verbose = 1
+  let g:lsp_log_file = expand('~/.log/vim-lsp.log')
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> ca <Plug>(lsp-code-action-float)
+
+  " nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+  " vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+  " nnoremap <buffer> <leader>cl :LspCodeLens<CR>
+  " autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+  " autocmd! BufWritePre *.ts,*.tsx call execute('LspDocumentFormatSync --server=efm-langserver')
+
+  nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+  nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
 " ALE
 let g:ale_fix_on_save = 1
 let g:ale_floating_preview = 1
@@ -358,7 +416,7 @@ highlight ALEVirtualTextWarning ctermfg=DarkYellow
 " let g:ale_cursor_detail = 1
 " let g:ale_close_preview_on_insert = 1
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-set completeopt=menu,menuone,preview,noselect,noinsert
+" set completeopt=menu,menuone,preview,noselect,noinsert
 " set omnifunc=ale#completion#OmniFunc
 " let g:ale_completion_autoimport = 1
 
@@ -373,46 +431,12 @@ let g:ale_fixers = {
   \}
 
 let g:ale_linters = {
-      \'go': ['gopls'],
-      \'python': ['pylsp'],
-      \'sh': ['language_server'],
-      \'terraform': ['terraform'],
-      \'json': ['vscodejson'],
+      \'go': ['vim-lsp'],
+      \'python': ['vim-lsp'],
+      \'sh': ['vim-lsp'],
+      \'json': ['vim-lsp'],
       \}
 
-let g:ale_python_pylsp_config = {
-\   'pylsp': {
-\     'plugins': {
-\       'jedi_completion': {
-\         'enabled': v:true,
-\         'eager': v:true,
-\         'cache_for': ['aws_cdk'],
-\         'include_function_objects': v:true,
-\         'include_class_objects': v:true,
-\         'include_params': v:true,
-\       },
-\       'jedi_hover': {
-\         'enabled': v:true,
-\       },
-\       'jedi_signature_help': {
-\         'enabled': v:true,
-\       },
-\       'jedi_symbols': {
-\         'enabled': v:true,
-\       },
-\       'pycodestyle': {
-\         'enabled': v:true,
-\         'ignore': ['E501','W503'],
-\       },
-\       'pyflakes': {
-\         'enabled': v:true,
-\       },
-\       'pydocstyle': {
-\         'enabled': v:false,
-\       },
-\     },
-\   },
-\}
 
 let g:ale_fix_on_save_ignore = ['autopep8']
 
@@ -434,6 +458,8 @@ let g:toggler_keywords = [
   \]
 
 " vim-go plugin settings
+
+" Regular vim-go settings
 let g:go_fmt_command = "goimports"
 let g:go_rename_command = "gopls"
 let g:go_highlight_types = 1
@@ -462,7 +488,7 @@ nmap <Leader>l :Buffers<CR>
 nmap <Leader>f :GFiles<CR>
 nmap <Leader>g :GFiles?<CR>
 nmap <Leader>d :Files<CR>
-" nmap <Leader>k :call Wiki()<CR>
+nmap <Leader>k :call Wiki()<CR>
 
 " vim-autoformat
 noremap <F3> :Autoformat<CR>
@@ -470,9 +496,6 @@ noremap <F3> :Autoformat<CR>
 " Gruvbox
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
-
-" Black
-let g:black_linelength = 79
 
 " tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -490,27 +513,27 @@ nmap <silent> <C-w><C-l> :TmuxNavigateRight<cr>
 " =============================================================================
 " Wiki and calendar {{{1
 " =============================================================================
-" let g:text_dir = '$HOME/txt/'
-" let g:journal_dir = g:text_dir . 'journal/'
-" nnoremap <leader>w :e $HOME/txt/index.md<cr>
-" nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
-" nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
-" nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
-" nnoremap <leader>w<leader>l :call AddLink()<CR>
-" " Next markdown link
-" nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
-" " Previous markdown link
-" nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
+let g:text_dir = '$HOME/txt/'
+let g:journal_dir = g:text_dir . 'journal/'
+nnoremap <leader>w :e $HOME/txt/index.md<cr>
+nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
+nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
+nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
+nnoremap <leader>w<leader>l :call AddLink()<CR>
+" Next markdown link
+nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
+" Previous markdown link
+nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
 
-" autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
+autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
 
-" augroup textcal
-"   autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
-"   autocmd BufRead,BufNewFile */txt/calendar/* set spell
-"   autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
-"   autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
-"   autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
-" augroup END
+augroup textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set spell
+  autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
+  autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
+  autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
+augroup END
 
 " let lspServers = [
 "     \     {
