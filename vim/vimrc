@@ -37,6 +37,7 @@ if has('nvim')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
+  " Plug 'rafamadriz/friendly-snippets'
 else
   Plug 'dense-analysis/ale'
   Plug 'prabirshrestha/asyncomplete.vim'
@@ -110,10 +111,8 @@ set wildignore=*.bak,*.pyc,*.class
 "" Backup, swap, undo
 ""
 set backup
-if !has('nvim')
-  set backupdir=~/.vim-backup//
-  set directory=~/.vim-swap//
-endif
+set backupdir=~/.vim-backup//
+set directory=~/.vim-swap//
 set undofile
 if !has('nvim')
   set undodir=~/.vim-undo//
@@ -371,6 +370,7 @@ else
   " vim-lsp
   let g:lsp_settings_global_settings_dir = expand("~/.vim/")
   let g:lsp_document_code_action_signs_enabled = 0
+  let g:lsp_semantic_enabled = 1
   " Turn these off for vim-lsp
   let g:go_code_completion_enabled = 0
   let g:go_diagnostics_enabled = 0
@@ -383,12 +383,6 @@ else
       \ 'priority': 10,
       \ 'completor': function('asyncomplete#sources#file#completor')
       \ }))
-
-  if isdirectory(expand('~/.log'))
-    " Uncomment this if troubleshooting LSP.
-    " let g:lsp_log_verbose = 1
-    let g:lsp_log_file = expand('~/.log/vim-lsp.log')
-  endif
 
   function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -418,6 +412,8 @@ else
       " call s:on_lsp_buffer_enabled only for languages that has the server registered.
       autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
   augroup END
+
+  highlight LspSemanticTypeDeprecated ctermfg=DarkMagenta
 
   " ALE
   let g:ale_fix_on_save = 1

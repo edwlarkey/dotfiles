@@ -20,7 +20,7 @@ cmp.setup({
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -71,6 +71,23 @@ require('lspconfig')['gopls'].setup {
 }
 require('lspconfig')['sumneko_lua'].setup {
   capabilities = capabilities
+}
+require('lspconfig')['jsonls'].setup {
+  capabilities = capabilities,
+  settings = {
+    json = {
+      format = {
+        enabled = true
+      },
+      schemas = {
+        {
+          description = 'Robin-deploy json config files',
+          fileMatch = {'services/*/*.json'},
+          url = 'https://gist.githubusercontent.com/edwlarkey/05dbe2b75bab01e52edb60b26f248315/raw/657da2b57726c840def7379fc8f80423fd067eaf/data.schema.json'
+        },
+      }
+    },
+  }
 }
 require('lspconfig')['pylsp'].setup {
   capabilities = capabilities,
