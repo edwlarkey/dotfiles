@@ -36,7 +36,7 @@ setup_gitconfig () {
     mkdir -p $HOME/.config/git
     mkdir -p $HOME/git
     ln -nfs "$HOME/dotfiles/git/gitconfig" "$HOME/.gitconfig"
-    git config --global core.editor vim
+    git config --global core.editor nvim
     git config --file "$HOME/.config/git/config" commit.template "~/dotfiles/git/git-commit-template"
     ln -nfs "$HOME/dotfiles/git/$git_location-config" "$HOME/.config/git/config"
 

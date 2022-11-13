@@ -1,5 +1,5 @@
 [core]
-  editor = vim
+	editor = vim
 [init]
   defaultBranch = main
 [alias]
