@@ -33,3 +33,9 @@ elseif scheme == "gruvbox" then
   vim.g.guvbox_material_better_performance = 1
   vim.cmd[[colorscheme gruvbox-material]]
 end
+
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl= hl, numhl = hl })
+end

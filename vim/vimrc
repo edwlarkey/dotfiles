@@ -36,12 +36,13 @@ if has('nvim')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
-  " Plug 'rafamadriz/friendly-snippets'
   Plug 'chentoast/marks.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'echasnovski/mini.nvim'
   Plug 'jakewvincent/mkdnflow.nvim'
   Plug 'git@git.sr.ht:~edwlarkey/markdown-index.nvim'
+  Plug 'petertriho/nvim-scrollbar'
+  Plug 'lewis6991/gitsigns.nvim'
   Plug 'sainnhe/gruvbox-material'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   Plug 'sainnhe/everforest'
@@ -53,11 +54,11 @@ else
   Plug 'prabirshrestha/asyncomplete-file.vim'
   Plug 'rhysd/vim-lsp-ale'
   Plug 'morhetz/gruvbox'
+  Plug 'airblade/vim-gitgutter'
 endif
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
-Plug 'airblade/vim-gitgutter'
 " Plug 'vim/colorschemes'
 Plug 'romainl/Apprentice'
 Plug 'sonph/onehalf', {'rtp': 'vim/'}

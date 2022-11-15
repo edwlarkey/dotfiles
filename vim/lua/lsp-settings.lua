@@ -77,7 +77,14 @@ require('lspconfig')['gopls'].setup {
   capabilities = capabilities
 }
 require('lspconfig')['sumneko_lua'].setup {
-  capabilities = capabilities
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      }
+    }
+  }
 }
 require('lspconfig')['jsonls'].setup {
   capabilities = capabilities,
@@ -121,3 +128,4 @@ require('lspconfig')['pylsp'].setup {
     }
   }
 }
+
