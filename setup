@@ -48,6 +48,7 @@ link_files () {
     ln -nfs "$HOME/dotfiles/vim/vimrc" "$HOME/.vimrc"
     success 'vim linked'
     ln -nfs "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+    mkdir -p "$HOME/.local.share/nvim/session"
     success 'nvim linked'
     ln -nfs "$HOME/dotfiles/bin" "$HOME/bin"
     success 'bin linked'

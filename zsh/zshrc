@@ -119,7 +119,9 @@ fi
 TMPPREFIX="${TMPDIR%/}/zsh"
 
 # TERM
-export TERM=xterm-256color
+if [[ "$OSTYPE" == darwin* ]]; then
+  export TERM=xterm-256color
+fi
 
 #
 # Source aliases
