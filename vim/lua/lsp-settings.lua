@@ -24,10 +24,7 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'vsnip' }, -- For vsnip users.
-    -- { name = 'luasnip' }, -- For luasnip users.
-    -- { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
+    { name = 'vsnip' },
   }, {
     { name = 'buffer' },
   })
@@ -46,6 +43,15 @@ cmp.setup.filetype('markdown', {
   sources = cmp.config.sources({
     { name = 'path' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
+    { name = 'buffer' },
+  })
+})
+
+cmp.setup.filetype('norg', {
+  sources = cmp.config.sources({
+    { name = 'path' }, -- You can specify the `cmp_git` source if you were installed it.
+  }, {
+    { name = 'neorg' },
     { name = 'buffer' },
   })
 })

@@ -4,7 +4,7 @@ require('mini.sessions').setup()
 vim.api.nvim_create_user_command(
     'NewSession',
     function(opts)
-        MiniSessions.write(opts.args)
+      MiniSessions.write(opts.args)
     end,
     { nargs = 1 }
 )

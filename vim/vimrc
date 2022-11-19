@@ -28,6 +28,7 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'plasticboy/vim-markdown'
 Plug 'dense-analysis/ale'
 if has('nvim')
+  " LSP
   Plug 'neovim/nvim-lspconfig'
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
@@ -36,16 +37,22 @@ if has('nvim')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
-  Plug 'chentoast/marks.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  " Misc
+  Plug 'nvim-lua/plenary.nvim'
   Plug 'echasnovski/mini.nvim'
-  Plug 'jakewvincent/mkdnflow.nvim'
-  Plug 'git@git.sr.ht:~edwlarkey/markdown-index.nvim'
-  Plug 'petertriho/nvim-scrollbar'
-  Plug 'lewis6991/gitsigns.nvim'
+  " Syntax and Appearance
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'git@git.sr.ht:~p00f/nvim-ts-rainbow'
   Plug 'sainnhe/gruvbox-material'
   Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   Plug 'sainnhe/everforest'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'petertriho/nvim-scrollbar'
+  Plug 'lewis6991/gitsigns.nvim'
+  " Markdown & Wiki
+  Plug 'jakewvincent/mkdnflow.nvim'
+  Plug 'git@git.sr.ht:~edwlarkey/markdown-index.nvim'
+  Plug 'nvim-neorg/neorg', {'do': ':Neorg sync-parsers'}
 else
   Plug 'prabirshrestha/asyncomplete.vim'
   Plug 'prabirshrestha/vim-lsp'
@@ -76,9 +83,9 @@ call plug#end()
 
 if has('nvim')
   lua require("appearance-settings")
-  lua require("lsp-settings")
-  lua require("marks-settings")
   lua require("wiki-settings")
+  lua require("lsp-settings")
+  lua require("plugin-settings")
   lua require("treesitter-settings")
   lua require("mini-settings")
 endif
@@ -486,8 +493,8 @@ endif
 
 " netrw
 " open from current directory
-nnoremap <leader>n :call VexToggle(getcwd())<CR>
-let g:netrw_liststyle= 3
+" nnoremap <leader>n :call VexToggle(getcwd())<CR>
+" let g:netrw_liststyle= 3
 " open from current file
 " nnoremap <leader>n :call VexToggle("")<CR>
 
