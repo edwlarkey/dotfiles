@@ -1,4 +1,3 @@
--- Set up nvim-cmp.
 local cmp = require'cmp'
 
 cmp.setup({
@@ -10,10 +9,6 @@ cmp.setup({
       -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
       -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -27,7 +22,7 @@ cmp.setup({
     { name = 'vsnip' },
   }, {
     { name = 'buffer' },
-  })
+  }),
 })
 
 -- Set configuration for specific filetype.
@@ -73,65 +68,4 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
--- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-require('lspconfig')['bashls'].setup {
-  capabilities = capabilities
-}
-require('lspconfig')['gopls'].setup {
-  capabilities = capabilities
-}
-require('lspconfig')['sumneko_lua'].setup {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' }
-      }
-    }
-  }
-}
-require('lspconfig')['jsonls'].setup {
-  capabilities = capabilities,
-  settings = {
-    json = {
-      format = {
-        enabled = true
-      },
-      schemas = {
-        {
-          description = 'Robin-deploy json config files',
-          fileMatch = {'services/*/*.json'},
-          url = 'https://gist.githubusercontent.com/edwlarkey/05dbe2b75bab01e52edb60b26f248315/raw/657da2b57726c840def7379fc8f80423fd067eaf/data.schema.json'
-        },
-      }
-    },
-  }
-}
-require('lspconfig')['pylsp'].setup {
-  capabilities = capabilities,
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = {'E501', 'W503'},
-          maxLineLength = 100,
-          enabled = false
-        },
-        pyflakes = {
-          enabled = false
-        }
-      },
-      jedi_completion = {
-        enabled = true,
-        eager = true,
-        cache_for = {'aws_cdk'},
-        include_function_objects = true,
-        include_class_objects = true,
-        include_params = true
-      }
-    }
-  }
-}
 
