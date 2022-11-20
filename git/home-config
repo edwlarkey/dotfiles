@@ -3,7 +3,7 @@
 	email = edwlarkey@mac.com
 	signingkey = 0xB14371C225FE9E4C
 [commit]
-	gpgsign = true
+	gpgsign = false
 	template = ~/dotfiles/git/git-commit-template
 [core]
 	editor = vim
