@@ -11,7 +11,7 @@ require('neorg').setup {
     ["core.norg.dirman"] = {
       config = {
         workspaces = {
-          notes = "~/tmp/neorg",
+          notes = "~/txt",
         }
       }
     },

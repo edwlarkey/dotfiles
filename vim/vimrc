@@ -91,6 +91,7 @@ if has('nvim')
   lua require("user.plugin")
   lua require("user.treesitter")
   lua require("user.mini")
+  lua require("user.cheatsheet")
 endif
 
 if !empty(glob("~/.vim/functions.vim"))
