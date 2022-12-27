@@ -9,6 +9,14 @@ vim.api.nvim_create_user_command(
     { nargs = 1 }
 )
 
+vim.api.nvim_create_user_command(
+    'DeleteSession',
+    function()
+      MiniSessions.select("delete")
+    end,
+    { nargs = 0 }
+)
+
 local starter = require('mini.starter')
 starter.setup({
   evaluate_single = false,

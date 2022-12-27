@@ -8,6 +8,8 @@ require("indent_blankline").setup {
   },
 }
 
+vim.g.vsnip_snippet_dir = '~/.config/nvim/snippets'
+
 require('gitsigns').setup({
   signs = {
     add = {

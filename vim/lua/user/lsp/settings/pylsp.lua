@@ -8,7 +8,7 @@ return {
           enabled = false
         },
         pyflakes = {
-          enabled = false
+          enabled = true
         }
       },
       jedi_completion = {

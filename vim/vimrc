@@ -24,9 +24,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'plasticboy/vim-markdown'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 if has('nvim')
+  " Misc
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'echasnovski/mini.nvim'
+  " Go
+  " Plug 'crispgm/nvim-go'
   " LSP
   Plug 'neovim/nvim-lspconfig'
   Plug 'williamboman/mason.nvim'
@@ -40,9 +45,6 @@ if has('nvim')
   Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
-  " Misc
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'echasnovski/mini.nvim'
   " Syntax and Appearance
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'git@git.sr.ht:~p00f/nvim-ts-rainbow'
@@ -85,13 +87,7 @@ Plug 'edwlarkey/vim-textcal'
 call plug#end()
 
 if has('nvim')
-  lua require("user.appearance")
-  lua require("user.wiki")
-  lua require("user.lsp")
-  lua require("user.plugin")
-  lua require("user.treesitter")
-  lua require("user.mini")
-  lua require("user.cheatsheet")
+  lua require("user.init")
 endif
 
 if !empty(glob("~/.vim/functions.vim"))
