@@ -6,6 +6,7 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter-refactor",
     "mfussenegger/nvim-treehopper",
+    { url = "git@git.sr.ht:~p00f/nvim-ts-rainbow" },
   },
 }
 

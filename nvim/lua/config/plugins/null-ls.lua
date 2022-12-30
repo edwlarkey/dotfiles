@@ -9,16 +9,17 @@ function M.setup(options)
     debug = false,
     sources = {
       formatting.isort,
-      formatting.prettier.with {
+      formatting.prettier.with({
         extra_filetypes = { "toml" },
         extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-      },
-      formatting.black.with { extra_args = { "--fast" } },
-      formatting.stylua.with {
+      }),
+      formatting.black.with({ extra_args = { "--fast" } }),
+      formatting.stylua.with({
         extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-      },
+      }),
     },
     on_attach = options.on_attach,
+    root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", ".git"),
   })
 end
 
