@@ -1,7 +1,7 @@
 return {
   { "nvim-lua/plenary.nvim" },
   { "tpope/vim-repeat" },
-  { "fatih/vim-go", ft = "go" },
+  -- { "fatih/vim-go", ft = "go" },
   { "williamboman/mason-lspconfig.nvim" },
   { "mbbill/undotree" },
   { "christoomey/vim-tmux-navigator" },

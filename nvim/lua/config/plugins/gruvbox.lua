@@ -21,6 +21,6 @@ return {
       transparent_mode = false,
     })
     -- Setting this in appearance file to auto switch between light and dark
-    -- vim.cmd([[colorscheme gruvbox]])
+    vim.cmd([[colorscheme gruvbox]])
   end,
 }

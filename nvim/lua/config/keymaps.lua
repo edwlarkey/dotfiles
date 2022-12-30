@@ -95,13 +95,13 @@ M.setup = {
         },
         { "<leader>la", vim.lsp.buf.code_action },
         {
-          "<leader>lj",
+          "[d",
           function()
             vim.diagnostic.goto_next({ buffer = 0 })
           end,
         },
         {
-          "<leader>lk",
+          "]d",
           function()
             vim.diagnostic.goto_prev({ buffer = 0 })
           end,
