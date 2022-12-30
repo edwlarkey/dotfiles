@@ -2,14 +2,6 @@
 "
 " Snippets were taken from many places over the years.
 "
-" Clear autocmds
-autocmd!
-
-set nocompatible    " Use Vim settings, rather than Vi settings
-
-filetype off        "required
-let g:ale_completion_enabled = 0
-
 if !empty(glob("~/.vim/functions.vim"))
   source ~/.vim/functions.vim
 endif
@@ -186,10 +178,3 @@ augroup END
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
-
-" Check for local settings for env specific settings. e.g. Work specific
-" config
-"
-if !empty(glob("~/.local.vimrc"))
-  source ~/.local.vimrc
-endif

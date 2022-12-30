@@ -8,6 +8,9 @@ local function file_exists(name)
   end
 end
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+
 --
 -- Backup, swap, undo
 --

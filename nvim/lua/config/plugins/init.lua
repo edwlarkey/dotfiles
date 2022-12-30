@@ -8,8 +8,6 @@ return {
   { "edwlarkey/vim-toggler" },
   { "junegunn/vim-peekaboo" },
   { "zhimsel/vim-stay", lazy = false },
-  -- Syntax and Appearance
-  { "sainnhe/everforest" },
   -- Markdown & Wiki
   { "edwlarkey/vim-textcal", ft = "textcal" },
   { "plasticboy/vim-markdown", ft = "markdown" },
