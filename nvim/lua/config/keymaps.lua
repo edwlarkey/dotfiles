@@ -28,6 +28,32 @@ M.setup = {
         { "<leader><tab>", ':call Preserve("retab")<CR>' },
         { "<F9>", ":call FormatHTML()<CR>" },
         { "_=", ':call Preserve("normal gg=G")<CR>' },
+        { "<leader>tf", require("config.plugins.lsp.formatting").toggle },
+        {
+          "<leader>b",
+          function()
+            require("fzf-lua").buffers()
+          end,
+        },
+        {
+          "<leader>f",
+          function()
+            require("fzf-lua").git_files()
+          end,
+        },
+        {
+          "<leader>g",
+          function()
+            require("fzf-lua").git_status()
+          end,
+        },
+        {
+          "<leader>d",
+          function()
+            require("fzf-lua").files()
+          end,
+        },
+        -- { "<leader>k", ":call Wiki()<CR>"},
       },
       [{ "n", "v" }] = {
         { "<leader>y", '"*y' }, -- copy to OS clipboard
@@ -56,7 +82,7 @@ M.setup = {
         { "K", vim.lsp.buf.hover },
         { "gI", vim.lsp.buf.implementation },
         { "gr", vim.lsp.buf.references },
-        { "gl", vim.diagnostic.open_float() },
+        { "gl", vim.diagnostic.open_float },
         { "<leader>D", vim.lsp.buf.type_definition },
         { "<leader>lr", vim.lsp.buf.rename },
         { "<leader>la", vim.lsp.buf.code_action },
@@ -66,11 +92,21 @@ M.setup = {
             vim.lsp.buf.format({ async = true })
           end,
         },
-        { "<leader>la", vim.lsp.buf.code_action() },
-        { "<leader>lj", vim.diagnostic.goto_next({ buffer = 0 }) },
-        { "<leader>lk", vim.diagnostic.goto_prev({ buffer = 0 }) },
-        { "<leader>ls", vim.lsp.buf.signature_help() },
-        { "<leader>lq", vim.diagnostic.setloclist() },
+        { "<leader>la", vim.lsp.buf.code_action },
+        {
+          "<leader>lj",
+          function()
+            vim.diagnostic.goto_next({ buffer = 0 })
+          end,
+        },
+        {
+          "<leader>lk",
+          function()
+            vim.diagnostic.goto_prev({ buffer = 0 })
+          end,
+        },
+        { "<leader>ls", vim.lsp.buf.signature_help },
+        { "<leader>lq", vim.diagnostic.setloclist },
       },
     }, { remap = false, silent = true, buffer = bufnr })
   end,
@@ -78,13 +114,13 @@ M.setup = {
 
 M.cmp = {
   insert = function()
-    local cmp = require('cmp')
+    local cmp = require("cmp")
     return cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<TAB>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-e>"] = cmp.mapping.abort(),
+      ["<TAB>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     })
   end,
 }
