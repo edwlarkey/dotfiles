@@ -3,9 +3,9 @@ vim.g.maplocalleader = ","
 
 require("config.lazy")
 require("config.options")
+require("config.commands")
 require("config.appearance")
 require("config.keymaps").setup.regular()
--- require("config.lsp")
 require("config.cheatsheet")
 
-vim.cmd [[source ~/.config/nvim/oldinit.vim]]
+vim.cmd([[source ~/.config/nvim/oldinit.vim]])

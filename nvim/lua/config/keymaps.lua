@@ -29,6 +29,7 @@ M.setup = {
         { "<F9>", ":call FormatHTML()<CR>" },
         { "_=", ':call Preserve("normal gg=G")<CR>' },
         { "<leader>tf", require("config.plugins.lsp.formatting").toggle },
+        { "gs", ":sort<CR>" },
         {
           "<leader>b",
           function()
