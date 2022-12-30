@@ -1,6 +1,5 @@
 return {
   "nvim-neorg/neorg",
-  enabled = false,
   config = {
     load = {
       ["core.defaults"] = {},
