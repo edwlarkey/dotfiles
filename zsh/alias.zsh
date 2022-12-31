@@ -157,14 +157,6 @@ if (( $+commands[fzf] )) ; then
     fi
   }
 
-  # fd - cd to selected directory
-  fd() {
-    local dir
-    dir=$(find ${1:-.} -path '*/\.*' -prune \
-      -o -type d -print 2> /dev/null | fzf +m) &&
-    cd "$dir"
-  }
-
   # cf - fuzzy cd from anywhere
   # ex: cf word1 word2 ... (even part of a file name)
   # zsh autoload function

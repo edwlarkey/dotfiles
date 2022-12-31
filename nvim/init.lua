@@ -1,6 +1,6 @@
 require("config.options")
-require("config.commands")
 require("config.lazy")
+require("config.commands")
 require("config.keymaps").setup.regular()
 require("config.cheatsheet")
 

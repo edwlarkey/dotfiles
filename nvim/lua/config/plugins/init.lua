@@ -1,12 +1,17 @@
 return {
   { "nvim-lua/plenary.nvim" },
+  { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   -- { "fatih/vim-go", ft = "go" },
   { "williamboman/mason-lspconfig.nvim" },
   { "mbbill/undotree" },
-  { "christoomey/vim-tmux-navigator" },
+  {
+    "christoomey/vim-tmux-navigator",
+    config = function()
+      vim.g.tmux_navigator_no_mappings = true
+    end,
+  },
   { "edwlarkey/vim-toggler" },
-  { "junegunn/vim-peekaboo" },
   { "zhimsel/vim-stay", lazy = false },
   -- Markdown & Wiki
   { "edwlarkey/vim-textcal", ft = "textcal" },

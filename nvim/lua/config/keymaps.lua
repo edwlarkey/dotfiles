@@ -54,7 +54,27 @@ M.setup = {
             require("fzf-lua").files()
           end,
         },
+        {
+          "<leader>k",
+          function()
+            require("fzf-lua").files({ cwd = "~/txt", cmd = "fd --type f --exclude .stversions" })
+          end,
+        },
+        {
+          "<leader>v",
+          function()
+            require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
+          end,
+        },
         -- { "<leader>k", ":call Wiki()<CR>"},
+        { "<C-w>h", ":TmuxNavigateLeft<CR>" },
+        { "<C-w>j", ":TmuxNavigateDown<CR>" },
+        { "<C-w>k", ":TmuxNavigateUp<CR>" },
+        { "<C-w>l", ":TmuxNavigateRight<CR>" },
+        { "<C-w><C-h>", ":TmuxNavigateLeft<CR>" },
+        { "<C-w><C-j>", ":TmuxNavigateDown<CR>" },
+        { "<C-w><C-k>", ":TmuxNavigateUp<CR>" },
+        { "<C-w><C-l>", ":TmuxNavigateRight<CR>" },
       },
       [{ "n", "v" }] = {
         { "<leader>y", '"*y' }, -- copy to OS clipboard

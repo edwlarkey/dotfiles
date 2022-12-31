@@ -43,4 +43,34 @@ au BufRead,BufNewFile *.tex setlocal textwidth=79
 
 " Comments
 autocmd FileType gitcommit set commentstring=#\ %s
+
+augroup textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set spell
+  autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
+  autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
+  autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
+augroup END
+
+let g:toggler_keywords = [
+  \ ['TODO', 'DOING', 'DONE'],
+  \ ['True', 'False'],
+  \ ['YES', 'NO'],
+  \ ['\[ \]', '\[x\]'],
+  \ ['x', '/'],
+  \]
+
+" =============================================================================
+" Wiki and calendar {{{1
+" =============================================================================
+let g:text_dir = '$HOME/txt/'
+let g:journal_dir = g:text_dir . 'journal/'
+nnoremap <leader>w :e $HOME/txt/index.md<cr>
+nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
+nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
+nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
+nnoremap <leader>w<leader>l :call AddLink()<CR>
+
+" Markdown
+let g:vim_markdown_folding_disabled = 1
 ]])
