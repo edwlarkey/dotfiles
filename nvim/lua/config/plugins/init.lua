@@ -18,6 +18,7 @@ return {
   { "plasticboy/vim-markdown" },
   {
     "jakewvincent/mkdnflow.nvim",
+    ft = "markdown",
     config = {
       wrap = true,
       links = {

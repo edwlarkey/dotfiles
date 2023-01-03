@@ -27,6 +27,7 @@ function M.config()
       "lua",
       "python",
       "yaml",
+      "vim",
     },
     sync_install = false,
     auto_install = true,
