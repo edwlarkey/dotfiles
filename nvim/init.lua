@@ -4,4 +4,4 @@ require("config.commands")
 require("config.keymaps").setup.regular()
 require("config.cheatsheet")
 
-vim.cmd([[source ~/.config/nvim/oldinit.vim]])
+-- vim.cmd([[source ~/.config/nvim/oldinit.vim]])

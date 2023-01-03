@@ -15,8 +15,16 @@ return {
   { "zhimsel/vim-stay", lazy = false },
   -- Markdown & Wiki
   { "edwlarkey/vim-textcal", ft = "textcal" },
-  { "plasticboy/vim-markdown", ft = "markdown" },
-  { "jakewvincent/mkdnflow.nvim", ft = "markdown", config = true },
+  { "plasticboy/vim-markdown" },
+  {
+    "jakewvincent/mkdnflow.nvim",
+    config = {
+      wrap = true,
+      links = {
+        conceal = true,
+      },
+    },
+  },
   { url = "git@git.sr.ht:~edwlarkey/markdown-index.nvim", ft = "markdown" },
   { "lervag/vimtex", ft = "tex" },
 }
