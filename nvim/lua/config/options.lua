@@ -8,9 +8,6 @@ local function file_exists(name)
   end
 end
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
 --
 -- Backup, swap, undo
 --
@@ -45,7 +42,7 @@ vim.opt.colorcolumn = "80,120"
 --
 -- Statusline
 --
-vim.opt.statusline:append("%t") -- filename
+vim.opt.statusline:append("%t ") -- filename
 vim.opt.statusline:append("[%{strlen(&fenc)?&fenc:'none'}") -- encoding
 vim.opt.statusline:append("%{&ff}]") -- file format
 vim.opt.statusline:append("%y") -- filetype
@@ -53,9 +50,9 @@ vim.opt.statusline:append("%h") -- help file flag
 vim.opt.statusline:append("%m") -- modified flag
 vim.opt.statusline:append("%r") -- read only flag
 vim.opt.statusline:append("%=") -- left/right separator
-vim.opt.statusline:append("line:%l/%L") -- cursor line/total lines
-vim.opt.statusline:append("col:%c") -- cursor column
-vim.opt.statusline:append(" %P") -- percent through file
+vim.opt.statusline:append("line:%l/%L ") -- cursor line/total lines
+vim.opt.statusline:append("col:%c ") -- cursor column
+vim.opt.statusline:append("%P") -- percent through file
 
 --
 -- Whitespace
