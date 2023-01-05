@@ -83,3 +83,15 @@ if file_exists(os.getenv("HOME") .. "/light") then
 else
   vim.o.background = "dark"
 end
+
+vim.g.clipboard = {
+  name = "tmuxclipboard",
+  copy = {
+    ["+"] = "tmux load-buffer -w -",
+    ["*"] = "tmux load-buffer -w -",
+  },
+  paste = {
+    ["+"] = "tmux save-buffer -",
+    ["*"] = "tmux save-buffer -",
+  },
+}
