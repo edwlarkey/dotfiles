@@ -11,12 +11,21 @@ local M = {
 
 function M.config()
   require("mason")
-  require("config.plugins.lsp.diagnostics").setup()
+  require("edwlarkey.plugins.lsp.diagnostics").setup()
 
   local function on_attach(client, bufnr)
     -- require("nvim-navic").attach(client, bufnr)
-    require("config.plugins.lsp.formatting").setup(client, bufnr)
-    require("config.keymaps").setup.lsp(bufnr)
+    require("edwlarkey.plugins.lsp.formatting").setup(client, bufnr)
+    require("edwlarkey.keymaps").setup.lsp(bufnr)
+    if client.server_capabilities["codeLensProvider"] then
+      vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+        group = vim.api.nvim_create_augroup("codelens", { clear = false }),
+        buffer = bufnr,
+        callback = function()
+          pcall(vim.lsp.codelens.refresh)
+        end,
+      })
+    end
   end
 
   local servers = {
@@ -45,7 +54,18 @@ function M.config()
         },
       },
     },
-    gopls = {},
+    gopls = {
+      settings = {
+        gopls = {
+          experimentalPostfixCompletions = true,
+          analyses = {
+            unusedparams = true,
+            shadow = true,
+          },
+          staticcheck = true,
+        },
+      },
+    },
     pylsp = {
       settings = {
         pylsp = {
@@ -125,7 +145,7 @@ function M.config()
     require("lspconfig")[server].setup(opts)
   end
 
-  require("config.plugins.null-ls").setup(options)
+  require("edwlarkey.plugins.null-ls").setup(options)
 end
 
 return M

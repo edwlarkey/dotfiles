@@ -1,10 +1,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-require("config.lazy")
-require("config.options")
-require("config.commands")
-require("config.keymaps").setup.regular()
-require("config.cheatsheet")
+require("edwlarkey.lazy")
+require("edwlarkey.options")
+require("edwlarkey.commands")
+require("edwlarkey.keymaps").setup.regular()
+require("edwlarkey.cheatsheet")
 
 -- vim.cmd([[source ~/.config/nvim/oldinit.vim]])

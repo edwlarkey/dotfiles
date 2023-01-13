@@ -26,7 +26,7 @@ function M.config()
         vim.fn["vsnip#anonymous"](args.body)
       end,
     },
-    mapping = require("config.keymaps").cmp.insert(),
+    mapping = require("edwlarkey.keymaps").cmp.insert(),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "vsnip" },

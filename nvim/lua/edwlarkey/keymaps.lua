@@ -28,7 +28,7 @@ M.setup = {
         { "<leader><tab>", ':call Preserve("retab")<CR>' },
         { "<F9>", ":call FormatHTML()<CR>" },
         { "_=", ':call Preserve("normal gg=G")<CR>' },
-        { "<leader>tf", require("config.plugins.lsp.formatting").toggle },
+        { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle },
         { "gs", ":sort<CR>" },
         {
           "<leader>b",
@@ -107,13 +107,15 @@ M.setup = {
         { "<leader>D", vim.lsp.buf.type_definition },
         { "<leader>lr", vim.lsp.buf.rename },
         { "<leader>la", vim.lsp.buf.code_action },
+        { "<leader>ls", vim.lsp.buf.signature_help },
         {
           "<leader>lf",
           function()
             vim.lsp.buf.format({ async = true })
           end,
         },
-        { "<leader>la", vim.lsp.buf.code_action },
+        { "<leader>cl", vim.lsp.codelens.run },
+        { "<leader>cr", vim.lsp.codelens.refresh },
         {
           "[d",
           function()
@@ -126,7 +128,6 @@ M.setup = {
             vim.diagnostic.goto_prev({ buffer = 0 })
           end,
         },
-        { "<leader>ls", vim.lsp.buf.signature_help },
         { "<leader>lq", vim.diagnostic.setloclist },
       },
     }, { remap = false, silent = true, buffer = bufnr })

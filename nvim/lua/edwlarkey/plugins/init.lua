@@ -3,6 +3,7 @@ return {
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   -- { "fatih/vim-go", ft = "go" },
+  { "vim-test/vim-test" },
   { "williamboman/mason-lspconfig.nvim" },
   { "mbbill/undotree" },
   {
