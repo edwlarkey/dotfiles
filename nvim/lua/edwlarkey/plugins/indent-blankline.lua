@@ -2,7 +2,7 @@ local M = {
   "lukas-reineke/indent-blankline.nvim",
   lazy = false,
   -- event = "BufReadPre",
-  config = {
+  opts = {
     show_current_context = true,
     show_current_context_start = true,
     show_trailing_blankline_indent = false,

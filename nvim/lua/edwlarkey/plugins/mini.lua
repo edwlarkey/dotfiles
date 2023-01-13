@@ -65,20 +65,20 @@ end
 
 function mini.config()
   mini.cursorword()
-  mini.sessions()
+  -- mini.sessions()
   mini.comment()
   -- mini.surround()
   -- mini.starter()
 end
 
 function mini.init()
-  vim.api.nvim_create_user_command("NewSession", function(opts)
-    MiniSessions.write(opts.args)
-  end, { nargs = 1 })
-
-  vim.api.nvim_create_user_command("DeleteSession", function()
-    MiniSessions.select("delete")
-  end, { nargs = 0 })
+  -- vim.api.nvim_create_user_command("NewSession", function(opts)
+  --   MiniSessions.write(opts.args)
+  -- end, { nargs = 1 })
+  --
+  -- vim.api.nvim_create_user_command("DeleteSession", function()
+  --   MiniSessions.select("delete")
+  -- end, { nargs = 0 })
 end
 
 return specs

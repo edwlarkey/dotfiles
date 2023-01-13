@@ -66,6 +66,24 @@ M.setup = {
             require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
           end,
         },
+        {
+          "<leader>sl",
+          function()
+            require("nvim-possession").list()
+          end,
+        },
+        {
+          "<leader>sn",
+          function()
+            require("nvim-possession").new()
+          end,
+        },
+        {
+          "<leader>su",
+          function()
+            require("nvim-possession").update()
+          end,
+        },
         -- { "<leader>k", ":call Wiki()<CR>"},
         { "<C-w>h", ":TmuxNavigateLeft<CR>" },
         { "<C-w>j", ":TmuxNavigateDown<CR>" },

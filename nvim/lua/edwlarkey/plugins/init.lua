@@ -20,7 +20,7 @@ return {
   {
     "jakewvincent/mkdnflow.nvim",
     ft = "markdown",
-    config = {
+    opts = {
       wrap = true,
       links = {
         conceal = true,

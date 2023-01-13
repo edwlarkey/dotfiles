@@ -28,6 +28,7 @@ function M.config()
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
       lualine_x = {
+        { "require'nvim-possession'.status()" },
         {
           require("lazy.status").updates,
           cond = require("lazy.status").has_updates,
