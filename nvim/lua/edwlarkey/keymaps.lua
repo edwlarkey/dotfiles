@@ -67,24 +67,25 @@ M.setup = {
           end,
         },
         {
-          "<leader>sl",
+          "<leader>so",
           function()
-            require("nvim-possession").list()
+            require("resession").load()
           end,
         },
         {
-          "<leader>sn",
+          "<leader>ss",
           function()
-            require("nvim-possession").new()
+            require("resession").save()
           end,
         },
         {
-          "<leader>su",
+          "<leader>sd",
           function()
-            require("nvim-possession").update()
+            require("resession").delete()
           end,
         },
-        -- { "<leader>k", ":call Wiki()<CR>"},
+        { "<leader>or", ":OverseerRun<CR>" },
+        { "<leader>ot", ":OverseerToggle<CR>" },
         { "<C-w>h", ":TmuxNavigateLeft<CR>" },
         { "<C-w>j", ":TmuxNavigateDown<CR>" },
         { "<C-w>k", ":TmuxNavigateUp<CR>" },
@@ -135,18 +136,78 @@ M.setup = {
         { "<leader>cl", vim.lsp.codelens.run },
         { "<leader>cr", vim.lsp.codelens.refresh },
         {
-          "[d",
+          "]d",
           function()
             vim.diagnostic.goto_next({ buffer = 0 })
           end,
         },
         {
-          "]d",
+          "[d",
           function()
             vim.diagnostic.goto_prev({ buffer = 0 })
           end,
         },
         { "<leader>lq", vim.diagnostic.setloclist },
+      },
+    }, { remap = false, silent = true, buffer = bufnr })
+    map({
+      [{ "v" }] = {
+        { "<leader>la", vim.lsp.buf.code_action },
+      },
+    }, { remap = false, silent = true, buffer = bufnr })
+  end,
+  gitsigns = function(bufnr)
+    local gs = require("gitsigns")
+    map({
+      [{ "n" }] = {
+        {
+          "]g",
+          function()
+            vim.schedule(function()
+              gs.next_hunk()
+            end)
+            return "<Ignore>"
+          end,
+        },
+        {
+          "[g",
+          function()
+            vim.schedule(function()
+              gs.prev_hunk()
+            end)
+            return "<Ignore>"
+          end,
+        },
+        {
+          "<leader>hb",
+          function()
+            require("gitsigns").blame_line()
+          end,
+        },
+        {
+          "<leader>hB",
+          function()
+            gs.blame_line({ full = true })
+          end,
+        },
+        {
+          "<leader>hD",
+          function()
+            gs.diffthis("~")
+          end,
+        },
+        {
+          "<leader>hd",
+          function()
+            gs.diffthis()
+          end,
+        },
+        {
+          "<leader>hp",
+          function()
+            gs.preview_hunk()
+          end,
+        },
       },
     }, { remap = false, silent = true, buffer = bufnr })
   end,

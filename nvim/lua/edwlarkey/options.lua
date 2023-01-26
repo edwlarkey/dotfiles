@@ -75,10 +75,11 @@ vim.opt.wrap = false -- Don't wrap lines
 vim.opt.list = true
 vim.opt.listchars = "tab:>·,trail:·,extends:#,nbsp:."
 
+vim.opt.termguicolors = true
 if file_exists(os.getenv("HOME") .. "/light") then
-  vim.o.background = "light"
+  vim.opt.background = "light"
 else
-  vim.o.background = "dark"
+  vim.opt.background = "dark"
 end
 
 vim.g.clipboard = {

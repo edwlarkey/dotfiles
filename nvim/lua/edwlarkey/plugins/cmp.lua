@@ -42,6 +42,19 @@ function M.config()
       { name = "cmdline" },
     }),
   })
+  cmp.setup.filetype("norg", {
+    sources = cmp.config.sources({
+      { name = "path" },
+      { name = "neorg" },
+      { name = "buffer" },
+    }),
+  })
+  cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "buffer" },
+    },
+  })
 end
 
 return M

@@ -1,10 +1,21 @@
 return {
   { "nvim-lua/plenary.nvim" },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+    end,
+  },
+  {
+    "stevearc/resession.nvim",
+    opts = {
+      extensions = {
+        overseer = {},
+      },
+    },
+  },
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
-  -- { "fatih/vim-go", ft = "go" },
-  { "vim-test/vim-test" },
-  { "williamboman/mason-lspconfig.nvim" },
   { "mbbill/undotree" },
   {
     "christoomey/vim-tmux-navigator",

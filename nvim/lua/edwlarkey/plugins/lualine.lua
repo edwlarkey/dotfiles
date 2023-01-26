@@ -25,8 +25,20 @@ function M.config()
     },
     sections = {
       lualine_a = { "mode" },
-      lualine_b = { "branch", "diff", "diagnostics" },
-      lualine_c = { "filename" },
+      lualine_b = {
+        "branch",
+        "diff",
+        {
+          "diagnostics",
+          symbols = {
+            error = "",
+            warn = "",
+            info = "",
+            hint = "",
+          },
+        },
+      },
+      lualine_c = { { "filename", path = 1, symbols = { modified = "  ", readonly = "", unnamed = "" } } },
       lualine_x = {
         { "require'nvim-possession'.status()" },
         {

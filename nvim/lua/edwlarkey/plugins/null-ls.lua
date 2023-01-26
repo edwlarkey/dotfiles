@@ -8,10 +8,11 @@ function M.setup(options)
   null_ls.setup({
     debug = false,
     sources = {
-      formatting.isort,
+      null_ls.builtins.code_actions.gitsigns,
+      -- formatting.isort,
       formatting.prettier.with({
         extra_filetypes = { "toml" },
-        extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
+        extra_args = { "--no-semi" },
       }),
       formatting.black.with({ extra_args = { "--fast" } }),
       formatting.stylua.with({
