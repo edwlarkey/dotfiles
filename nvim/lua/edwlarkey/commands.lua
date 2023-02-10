@@ -49,6 +49,29 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+local neorg_group = vim.api.nvim_create_augroup("neorg_group", { clear = true })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = {
+    "norg",
+  },
+  group = neorg_group,
+  callback = function()
+    vim.wo.spell = true
+    vim.o.textwidth = 79
+    vim.o.conceallevel = 2
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = {
+    "*.tex",
+  },
+  callback = function()
+    vim.o.textwidth = 79
+  end,
+})
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = {
     "make",
@@ -81,25 +104,16 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
--- "Markdown files textwidth
--- augroup markdown
---   au BufRead,BufNewFile *.md setlocal textwidth=79
---   au FileType markdown setlocal textwidth=79
---   au FileType markdown setlocal conceallevel=2
--- augroup END
---
--- " LaTeX
--- au BufRead,BufNewFile *.tex setlocal textwidth=79
--- " autocmd FileType tex setlocal makeprg=pdflatex\ '%'
---
--- " Comments
--- autocmd FileType gitcommit set commentstring=#\ %s
+vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+  pattern = {
+    "*",
+  },
+  callback = function()
+    vim.highlight.on_yank({ timeout = 500 })
+  end,
+})
 
 vim.cmd([[
-" LaTeX
-au BufRead,BufNewFile *.tex setlocal textwidth=79
-" autocmd FileType tex setlocal makeprg=pdflatex\ '%'
-
 " Comments
 autocmd FileType gitcommit set commentstring=#\ %s
 
@@ -122,14 +136,33 @@ let g:toggler_keywords = [
 " =============================================================================
 " Wiki and calendar {{{1
 " =============================================================================
-let g:text_dir = '$HOME/txt/'
-let g:journal_dir = g:text_dir . 'journal/'
-nnoremap <leader>w :e $HOME/txt/index.md<cr>
-nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
-nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
-nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
-nnoremap <leader>w<leader>l :call AddLink()<CR>
+" nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
+" nnoremap <leader>w<leader>l :call AddLink()<CR>
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
+
+function! Preserve(command)
+  " Preparation save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  execute a:command
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+
+
+function! MarkdownNeorg()
+  call Preserve("%s/^#####/*****/e")
+  call Preserve("%s/^####/****/e")
+  call Preserve("%s/^###/***/e")
+  call Preserve("%s/^##/**/e")
+  call Preserve("%s/^#/*/e")
+  call Preserve("%s/(/{/e")
+  call Preserve("%s/)/}/e")
+  call Preserve("%s/\.md//e")
+endfunction
 ]])

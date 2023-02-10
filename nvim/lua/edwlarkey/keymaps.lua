@@ -29,7 +29,17 @@ M.setup = {
         { "<F9>", ":call FormatHTML()<CR>" },
         { "_=", ':call Preserve("normal gg=G")<CR>' },
         { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle },
+        { "<leader>ww", ":Neorg workspace notes<CR>" },
+        { "<leader>w<leader>j", ":Neorg journal today<CR>" },
+        { "<leader>w<leader>y", ":Neorg journal yesterday<CR>" },
+        { "<leader>wn", ":Neorg<CR>" },
         { "gs", ":sort<CR>" },
+        {
+          ":<C-p>",
+          function()
+            require("fzf-lua").command_history()
+          end,
+        },
         {
           "<leader>b",
           function()
@@ -37,15 +47,21 @@ M.setup = {
           end,
         },
         {
-          "<leader>f",
+          "<leader>ff",
           function()
             require("fzf-lua").git_files()
           end,
         },
         {
-          "<leader>g",
+          "<leader>fb",
           function()
-            require("fzf-lua").git_status()
+            require("fzf-lua").builtin()
+          end,
+        },
+        {
+          "<leader>fr",
+          function()
+            require("fzf-lua").grep()
           end,
         },
         {
