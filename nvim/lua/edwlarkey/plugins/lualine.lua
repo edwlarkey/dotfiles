@@ -1,6 +1,5 @@
 local M = {
   "nvim-lualine/lualine.nvim",
-  -- event = "VeryLazy",
   enabled = false,
 }
 

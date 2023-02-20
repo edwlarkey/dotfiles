@@ -76,7 +76,7 @@ function M.config()
               enabled = false,
             },
             pyflakes = {
-              enabled = true,
+              enabled = false,
             },
           },
           jedi_completion = {
@@ -90,9 +90,10 @@ function M.config()
         },
       },
     },
+    ruff_lsp = {},
     -- pyright = {},
     yamlls = {},
-    sumneko_lua = {
+    lua_ls = {
       single_file_support = true,
       settings = {
         Lua = {

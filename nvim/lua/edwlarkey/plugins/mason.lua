@@ -10,7 +10,7 @@ M.tools = {
 }
 
 M.servers = {
-  "sumneko_lua",
+  "lua_ls",
   "pylsp",
   "gopls",
   "bashls",

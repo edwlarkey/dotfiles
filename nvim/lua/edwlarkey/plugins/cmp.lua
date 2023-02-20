@@ -6,8 +6,8 @@ local M = {
     "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-path",
-    "hrsh7th/cmp-vsnip",
-    "hrsh7th/vim-vsnip",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
   },
 }
 
@@ -23,16 +23,15 @@ function M.config()
     },
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+        require("luasnip").lsp_expand(args.body)
       end,
     },
     mapping = require("edwlarkey.keymaps").cmp.insert(),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
-      { name = "vsnip" },
+      { name = "luasnip" },
       { name = "buffer" },
       { name = "path" },
-      -- { name = "neorg" },
     }),
   })
   cmp.setup.cmdline(":", {

@@ -1,14 +1,19 @@
 local M = {}
 
-local function map(mappings, opts)
-  for mode, mapping_table in pairs(mappings) do
-    for _, mapping in pairs(mapping_table) do
-      local key = mapping[1]
-      local cmd = mapping[2]
-      opts = vim.tbl_deep_extend("force", mapping[3] or {}, opts or {})
-      vim.keymap.set(mode, key, cmd, opts)
+local function map(keymaps, keymap_opts, extra_opts)
+  local lazy_keymaps = {}
+  extra_opts = extra_opts or {}
+  for modes, maps in pairs(keymaps) do
+    for _, m in pairs(maps) do
+      local opts = vim.tbl_extend("force", keymap_opts or {}, m[3] or {})
+      if extra_opts.lazy then
+        table.insert(lazy_keymaps, vim.tbl_extend("force", { m[1], m[2], mode = modes }, opts))
+      else
+        vim.keymap.set(modes, m[1], m[2], opts)
+      end
     end
   end
+  return lazy_keymaps
 end
 
 M.setup = {
@@ -28,77 +33,88 @@ M.setup = {
         { "<leader><tab>", ':call Preserve("retab")<CR>' },
         { "<F9>", ":call FormatHTML()<CR>" },
         { "_=", ':call Preserve("normal gg=G")<CR>' },
-        { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle },
-        { "<leader>ww", ":Neorg workspace notes<CR>" },
-        { "<leader>w<leader>j", ":Neorg journal today<CR>" },
-        { "<leader>w<leader>y", ":Neorg journal yesterday<CR>" },
-        { "<leader>wn", ":Neorg<CR>" },
-        { "gs", ":sort<CR>" },
+        { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle, { desc = "Toggle Autoformat" } },
+        { "<leader>ww", ":Neorg workspace notes<CR>", { desc = "Open Wiki" } },
+        { "<leader>wj", ":Neorg journal today<CR>", { desc = "Open Today's Journal" } },
+        { "<leader>wy", ":Neorg journal yesterday<CR>", { desc = "Open Yesterday's Journal" } },
+        { "<leader>wn", ":Neorg<CR>", { desc = "Open Neorg menu" } },
+        { "gs", ":sort<CR>", { desc = "Sort" } },
         {
           ":<C-p>",
           function()
             require("fzf-lua").command_history()
           end,
+          { desc = "FZF Command History" },
         },
         {
           "<leader>b",
           function()
             require("fzf-lua").buffers()
           end,
+          { desc = "FZF Buffers" },
         },
         {
           "<leader>ff",
           function()
             require("fzf-lua").git_files()
           end,
+          { desc = "FZF Git Files" },
         },
         {
           "<leader>fb",
           function()
             require("fzf-lua").builtin()
           end,
+          { desc = "FZF Menu" },
         },
         {
           "<leader>fr",
           function()
             require("fzf-lua").grep()
           end,
+          { desc = "FZF RipGrep" },
         },
         {
           "<leader>d",
           function()
             require("fzf-lua").files()
           end,
+          { desc = "FZF Files" },
         },
         {
           "<leader>k",
           function()
             require("fzf-lua").files({ cwd = "~/txt", cmd = "fd --type f --exclude .stversions" })
           end,
+          { desc = "" },
         },
         {
           "<leader>v",
           function()
             require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
           end,
+          { desc = "FZF Dotfiles" },
         },
         {
           "<leader>so",
           function()
             require("resession").load()
           end,
+          { desc = "Session Open" },
         },
         {
           "<leader>ss",
           function()
             require("resession").save()
           end,
+          { desc = "Session Save" },
         },
         {
           "<leader>sd",
           function()
             require("resession").delete()
           end,
+          { desc = "Session Delete" },
         },
         { "<leader>or", ":OverseerRun<CR>" },
         { "<leader>ot", ":OverseerToggle<CR>" },
@@ -112,7 +128,7 @@ M.setup = {
         { "<C-w><C-l>", ":TmuxNavigateRight<CR>" },
       },
       [{ "n", "v" }] = {
-        { "<leader>y", '"*y' }, -- copy to OS clipboard
+        { "<leader>y", '"*y', { desc = "Copy to OS Clipboard" } },
       },
       [{ "n", "v", "i" }] = {
         -- C-h and C-l keys change buffers in all modes
@@ -134,15 +150,15 @@ M.setup = {
     map({
       [{ "n" }] = {
         { "gD", vim.lsp.buf.declaration },
-        { "gd", vim.lsp.buf.definition },
-        { "K", vim.lsp.buf.hover },
+        { "gd", vim.lsp.buf.definition, { desc = "(LSP) Get definition" } },
+        { "K", vim.lsp.buf.hover, { desc = "(LSP) Get definition" } },
         { "gI", vim.lsp.buf.implementation },
         { "gr", vim.lsp.buf.references },
         { "gl", vim.diagnostic.open_float },
-        { "<leader>D", vim.lsp.buf.type_definition },
-        { "<leader>lr", vim.lsp.buf.rename },
-        { "<leader>la", vim.lsp.buf.code_action },
-        { "<leader>ls", vim.lsp.buf.signature_help },
+        { "<leader>D", vim.lsp.buf.type_definition, { desc = "(LSP) Type definition" } },
+        { "<leader>lr", vim.lsp.buf.rename, { desc = "(LSP) Rename" } },
+        { "<leader>la", vim.lsp.buf.code_action, { desc = "(LSP) Code Action" } },
+        { "<leader>ls", vim.lsp.buf.signature_help, { desc = "(LSP) Signature Help" } },
         {
           "<leader>lf",
           function()
@@ -156,12 +172,14 @@ M.setup = {
           function()
             vim.diagnostic.goto_next({ buffer = 0 })
           end,
+          { desc = "Next Diagnostic" },
         },
         {
           "[d",
           function()
             vim.diagnostic.goto_prev({ buffer = 0 })
           end,
+          { desc = "Previous Diagnostic" },
         },
         { "<leader>lq", vim.diagnostic.setloclist },
       },
@@ -242,4 +260,45 @@ M.cmp = {
   end,
 }
 
+M.whichkey = {
+  register = function()
+    local wk = require("which-key")
+
+    -- wk.register({
+    --   f = {
+    --     name = "file", -- optional group name
+    --     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
+    --     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap = false, buffer = 123 }, -- additional options for creating the keymap
+    --     n = { "New File" }, -- just a label. don't create any mapping
+    --     e = "Edit File", -- same as above
+    --     ["1"] = "which_key_ignore", -- special label to hide it in the popup
+    --     b = {
+    --       function()
+    --         print("bar")
+    --       end,
+    --       "Foobar",
+    --     }, -- you can also pass functions!
+    --   },
+    -- }, { prefix = "<leader>" })
+    --
+    -- { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle },
+    -- { "<leader>ww", ":Neorg workspace notes<CR>" },
+    -- { "<leader>w<leader>j", ":Neorg journal today<CR>" },
+    -- { "<leader>w<leader>y", ":Neorg journal yesterday<CR>" },
+    -- { "<leader>wn", ":Neorg<CR>" },
+    wk.register({
+      ["<leader>"] = {
+        w = {
+          name = "Wiki",
+        },
+        t = {
+          name = "Toggle",
+        },
+        f = {
+          name = "FZF",
+        },
+      },
+    })
+  end,
+}
 return M

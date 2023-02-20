@@ -47,7 +47,7 @@ return {
                 end
 
                 -- Prints the file link
-                table.insert(output, string.format("- %s", entry[4]) .. string.format("[%s]", entry[5]))
+                table.insert(output, string.format("   - %s", entry[4]) .. string.format("[%s]", entry[5]))
               end
 
               return output
