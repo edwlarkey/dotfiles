@@ -128,9 +128,9 @@ fi
 #
 [ -e "${HOME}/.zsh/alias.zsh" ] && source "${HOME}/.zsh/alias.zsh"
 
-if type setxkbmap >/dev/null 2>&1; then
-  setxkbmap -option ctrl:nocaps
-fi
+# if type setxkbmap >/dev/null 2>&1; then
+#   setxkbmap -option ctrl:nocaps
+# fi
 
 # Custom completion scripts
 fpath=(~/.zsh/completion $fpath)
