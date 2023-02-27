@@ -7,6 +7,7 @@ M.tools = {
   "shellcheck",
   "black",
   "isort",
+  "ruff",
 }
 
 M.servers = {

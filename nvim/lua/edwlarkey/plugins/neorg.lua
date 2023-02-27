@@ -63,6 +63,7 @@ return {
             autochdir = true,
           },
         },
+        ["core.norg.dirman.summary"] = {},
         ["core.norg.esupports.metagen"] = {
           config = {
             type = "auto",

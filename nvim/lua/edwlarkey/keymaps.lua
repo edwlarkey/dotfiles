@@ -165,8 +165,8 @@ M.setup = {
             vim.lsp.buf.format({ async = true })
           end,
         },
-        { "<leader>cl", vim.lsp.codelens.run },
-        { "<leader>cr", vim.lsp.codelens.refresh },
+        { "<leader>cl", vim.lsp.codelens.run, { desc = "(LSP) Run Codelens" } },
+        { "<leader>cr", vim.lsp.codelens.refresh, { desc = "(LSP) Refresh Codelens" } },
         {
           "]d",
           function()
