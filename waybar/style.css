@@ -144,7 +144,7 @@
 #workspaces button {
   font-weight: bold; /* Somewhy the bar-wide setting is ignored*/
   padding-left: 5px;
-  padding-right: 5px;
+  padding-right: 13px;
   color: @light;
   background: @workspaces;
 }
@@ -234,16 +234,16 @@
 }
 
 #custom-firefox, #custom-terminal, #custom-fm {
-    padding:            0px 5px 0px 5px;
-    font-size:          28px;
+    padding:            0px 12px 0px 10px;
+    /* font-size:          28px; */
 }
 
 #custom-firefox {
-    font-size:          34px;
+    font-size:          22px;
 }
 #custom-terminal {
-    font-size:          38px;
+    font-size:          25px;
 }
 #custom-fm {
-    font-size:          38px;
+    font-size:          27px;
 }
