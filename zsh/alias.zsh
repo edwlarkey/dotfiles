@@ -212,4 +212,14 @@ if (( $+commands[fzf] )) ; then
       eval kubectl config set current-context "${context}"
   }
 
+  cds() {
+    local file
+
+    file="$(fd . --type directory ~/git/robin/sysops | fzf)"
+    if [[ -n $file ]]
+    then
+      cd -- $file
+    fi
+  }
+
 fi

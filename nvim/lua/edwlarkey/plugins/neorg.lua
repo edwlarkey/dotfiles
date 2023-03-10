@@ -116,7 +116,7 @@ return {
         ["core.norg.concealer"] = {
           config = {
             folds = false,
-            icon_preset = "basic",
+            icon_preset = "diamond",
             icons = {
               todo = {
                 enabled = true,

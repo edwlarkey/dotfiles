@@ -1,6 +1,8 @@
 local M = {}
 
 function M.setup()
+  require("lsp_lines").setup()
+
   local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
@@ -9,7 +11,8 @@ function M.setup()
   }
 
   vim.diagnostic.config({
-    virtual_text = true,
+    virtual_text = false,
+    virtual_lines = true,
     signs = {
       active = signs,
     },

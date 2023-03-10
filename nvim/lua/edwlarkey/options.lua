@@ -28,6 +28,7 @@ vim.opt.smartcase = true
 --
 -- Appearance
 --
+vim.opt.updatetime = 150
 vim.opt.scrolloff = 5
 vim.opt.cmdheight = 1
 vim.opt.title = true
@@ -42,7 +43,7 @@ vim.opt.colorcolumn = "80,120"
 --
 -- Statusline
 --
-vim.opt.statusline:append("%t ") -- filename
+vim.opt.statusline:append("%f ") -- filename
 vim.opt.statusline:append("[%{strlen(&fenc)?&fenc:'none'}") -- encoding
 vim.opt.statusline:append("%{&ff}]") -- file format
 vim.opt.statusline:append("%y") -- filetype

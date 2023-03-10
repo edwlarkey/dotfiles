@@ -164,6 +164,14 @@ M.setup = {
           function()
             vim.lsp.buf.format({ async = true })
           end,
+          { desc = "(LSP) Format file" },
+        },
+        {
+          "<leader>ld",
+          function()
+            require("lsp_lines").toggle()
+          end,
+          { desc = "(LSP) Disable virtual error lines" },
         },
         { "<leader>cl", vim.lsp.codelens.run, { desc = "(LSP) Run Codelens" } },
         { "<leader>cr", vim.lsp.codelens.refresh, { desc = "(LSP) Refresh Codelens" } },
