@@ -8,7 +8,6 @@ return {
       load = {
         ["core.defaults"] = {},
         ["core.keybinds"] = {},
-        ["core.integrations.nvim-cmp"] = {},
         ["core.norg.journal"] = {
           config = {
             workspace = "notes",
@@ -113,6 +112,7 @@ return {
             engine = "nvim-cmp",
           },
         },
+        ["core.integrations.nvim-cmp"] = {},
         ["core.norg.concealer"] = {
           config = {
             folds = false,

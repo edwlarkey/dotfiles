@@ -75,8 +75,9 @@ function M.config()
         gopls = {
           experimentalPostfixCompletions = true,
           analyses = {
-            unusedparams = true,
-            shadow = true,
+            unusedparams = false,
+            shadow = false,
+            nilness = true,
           },
           staticcheck = true,
         },

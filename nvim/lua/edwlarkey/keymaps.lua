@@ -38,6 +38,7 @@ M.setup = {
         { "<leader>wj", ":Neorg journal today<CR>", { desc = "Open Today's Journal" } },
         { "<leader>wy", ":Neorg journal yesterday<CR>", { desc = "Open Yesterday's Journal" } },
         { "<leader>wn", ":Neorg<CR>", { desc = "Open Neorg menu" } },
+        { "<F2>", ":make test<CR>", { desc = "Run tests" } },
         { "gs", ":sort<CR>", { desc = "Sort" } },
         {
           ":<C-p>",
@@ -45,13 +46,6 @@ M.setup = {
             require("fzf-lua").command_history()
           end,
           { desc = "FZF Command History" },
-        },
-        {
-          "<leader>b",
-          function()
-            require("fzf-lua").buffers()
-          end,
-          { desc = "FZF Buffers" },
         },
         {
           "<leader>ff",
@@ -63,6 +57,13 @@ M.setup = {
         {
           "<leader>fb",
           function()
+            require("fzf-lua").buffers()
+          end,
+          { desc = "FZF Buffers" },
+        },
+        {
+          "<leader>fm",
+          function()
             require("fzf-lua").builtin()
           end,
           { desc = "FZF Menu" },
@@ -70,9 +71,16 @@ M.setup = {
         {
           "<leader>fr",
           function()
-            require("fzf-lua").grep()
+            require("fzf-lua").live_grep()
           end,
           { desc = "FZF RipGrep" },
+        },
+        {
+          "<leader>fa",
+          function()
+            require("fzf-lua").live_grep_resume()
+          end,
+          { desc = "FZF RipGrep Same Again" },
         },
         {
           "<leader>d",

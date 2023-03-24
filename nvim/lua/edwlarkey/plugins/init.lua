@@ -1,11 +1,11 @@
 return {
   { "nvim-lua/plenary.nvim" },
-  {
-    "rcarriga/nvim-notify",
-    config = function()
-      vim.notify = require("notify")
-    end,
-  },
+  -- {
+  --   "rcarriga/nvim-notify",
+  --   config = function()
+  --     vim.notify = require("notify")
+  --   end,
+  -- },
   {
     "stevearc/resession.nvim",
     opts = {
