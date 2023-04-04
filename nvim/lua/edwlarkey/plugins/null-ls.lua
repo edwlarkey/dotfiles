@@ -2,6 +2,9 @@ local M = {
   "jose-elias-alvarez/null-ls.nvim",
 }
 
+-- edwlarkey
+-- tryan
+
 function M.setup(options)
   local null_ls = require("null-ls")
   null_ls.setup({
@@ -9,9 +12,17 @@ function M.setup(options)
     sources = {
       null_ls.builtins.code_actions.gitsigns,
       null_ls.builtins.code_actions.gomodifytags,
+      -- null_ls.builtins.code_actions.cspell.with({
+      --   extra_args = { "--config", "~/dotfiles/cspell.json" },
+      -- }),
       null_ls.builtins.formatting.goimports,
       null_ls.builtins.formatting.gofmt,
-      -- null_ls.builtins.diagnostics.cspell,
+      -- null_ls.builtins.diagnostics.cspell.with({
+      --   diagnostics_postprocess = function(diagnostic)
+      --     diagnostic.severity = vim.diagnostic.severity.HINT
+      --   end,
+      --   extra_args = { "--config", "~/dotfiles/cspell.json" },
+      -- }),
       null_ls.builtins.formatting.prettier.with({
         extra_filetypes = { "toml" },
         extra_args = { "--no-semi" },

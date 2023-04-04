@@ -38,8 +38,10 @@ M.setup = {
         { "<leader>wj", ":Neorg journal today<CR>", { desc = "Open Today's Journal" } },
         { "<leader>wy", ":Neorg journal yesterday<CR>", { desc = "Open Yesterday's Journal" } },
         { "<leader>wn", ":Neorg<CR>", { desc = "Open Neorg menu" } },
+        { "<leader>ao", ":AerialToggle<CR>", { desc = "Toggle Aerial" } },
+        { "[a", ":AerialPrev<CR>", { desc = "Aerial Prev" } },
+        { "]a", ":AerialNext<CR>", { desc = "Aerial Next" } },
         { "<F2>", ":make test<CR>", { desc = "Run tests" } },
-        { "gs", ":sort<CR>", { desc = "Sort" } },
         {
           ":<C-p>",
           function()
@@ -72,6 +74,13 @@ M.setup = {
           "<leader>fr",
           function()
             require("fzf-lua").live_grep()
+          end,
+          { desc = "FZF RipGrep" },
+        },
+        {
+          "<leader>fo",
+          function()
+            require("fzf-lua").oldfiles()
           end,
           { desc = "FZF RipGrep" },
         },
@@ -151,6 +160,9 @@ M.setup = {
       [{ "i" }] = {
         { "gidt", '<C-R>=strftime("%Y-%m-%d %H:%M")<CR>' }, -- gidt to insert timestamp
         { "gid", '<C-R>=strftime("%Y-%m-%d")<CR>' }, -- gid to insert date
+      },
+      [{ "v" }] = {
+        { "gs", ":sort<CR>", { desc = "Sort" } },
       },
     }, { silent = true })
   end,

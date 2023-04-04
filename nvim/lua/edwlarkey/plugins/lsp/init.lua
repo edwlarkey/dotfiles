@@ -7,6 +7,7 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    "folke/neodev.nvim",
   },
 }
 
@@ -108,8 +109,31 @@ function M.config()
       },
     },
     ruff_lsp = {},
-    -- pyright = {},
-    yamlls = {},
+    -- pyright = {
+    --   settings = {
+    --     python = {
+    --       analysis = {
+    --         typeCheckingMode = "off",
+    --         autoSearchPaths = true,
+    --         useLibraryCodeForTypes = true,
+    --         diagnosticMode = "workspace",
+    --       },
+    --     },
+    --   },
+    -- },
+    yamlls = {
+      settings = {
+        yaml = {
+          orderedKeys = false,
+          -- format = {
+          --   enable = true,
+          -- },
+          schemas = {
+            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          },
+        },
+      },
+    },
     lua_ls = {
       single_file_support = true,
       settings = {

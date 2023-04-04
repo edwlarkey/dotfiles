@@ -115,15 +115,7 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 
 vim.cmd([[
 " Comments
-autocmd FileType gitcommit set commentstring=#\ %s
-
-augroup textcal
-  autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
-  autocmd BufRead,BufNewFile */txt/calendar/* set spell
-  autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
-  autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
-  autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
-augroup END
+" autocmd FileType gitcommit set commentstring=#\ %s
 
 let g:toggler_keywords = [
   \ ['TODO', 'DOING', 'DONE'],
