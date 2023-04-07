@@ -52,6 +52,6 @@ return {
       },
     },
   },
-  { url = "git@git.sr.ht:~edwlarkey/markdown-index.nvim", ft = "markdown" },
+  -- { url = "git@git.sr.ht:~edwlarkey/markdown-index.nvim", ft = "markdown" },
   { "lervag/vimtex", ft = "tex" },
 }

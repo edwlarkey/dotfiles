@@ -2,9 +2,6 @@ local M = {
   "jose-elias-alvarez/null-ls.nvim",
 }
 
--- edwlarkey
--- tryan
-
 function M.setup(options)
   local null_ls = require("null-ls")
   null_ls.setup({
