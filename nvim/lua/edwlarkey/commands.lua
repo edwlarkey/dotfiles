@@ -114,22 +114,14 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 vim.cmd([[
-" Comments
-" autocmd FileType gitcommit set commentstring=#\ %s
 
-let g:toggler_keywords = [
-  \ ['TODO', 'DOING', 'DONE'],
-  \ ['True', 'False'],
-  \ ['YES', 'NO'],
-  \ ['\[ \]', '\[x\]'],
-  \ ['x', '/'],
-  \]
-
-" =============================================================================
-" Wiki and calendar {{{1
-" =============================================================================
-" nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calendar/2021.txt<CR>
-" nnoremap <leader>w<leader>l :call AddLink()<CR>
+augroup textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
+  autocmd BufRead,BufNewFile */txt/calendar/* set spell
+  autocmd BufRead,BufNewFile */txt/calendar/* set hlsearch
+  autocmd BufRead,BufNewFile */txt/calendar/* exe '/'.strftime("%Y-%m-%d")
+  autocmd Filetype textcal setlocal ts=16 sw=16 expandtab
+augroup END
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1

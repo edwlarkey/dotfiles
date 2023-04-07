@@ -40,7 +40,7 @@ return {
   { "edwlarkey/vim-toggler" },
   { "zhimsel/vim-stay", lazy = false },
   -- Markdown & Wiki
-  { "edwlarkey/vim-textcal", ft = "textcal" },
+  -- { "edwlarkey/vim-textcal", ft = "textcal" },
   { "plasticboy/vim-markdown" },
   {
     "jakewvincent/mkdnflow.nvim",
