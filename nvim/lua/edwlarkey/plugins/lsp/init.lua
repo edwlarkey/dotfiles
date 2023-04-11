@@ -28,7 +28,15 @@ function M.config()
         end,
       })
     end
-    --
+    if client.name == "gopls" and not client.server_capabilities.semanticTokensProvider then
+      local semantic = client.config.capabilities.textDocument.semanticTokens
+      client.server_capabilities.semanticTokensProvider = {
+        full = true,
+        legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
+        range = true,
+      }
+    end
+
     -- vim.api.nvim_create_autocmd("CursorHold", {
     --   buffer = bufnr,
     --   callback = function()
@@ -74,6 +82,7 @@ function M.config()
     gopls = {
       settings = {
         gopls = {
+          semanticTokens = true,
           experimentalPostfixCompletions = true,
           analyses = {
             unusedparams = false,
@@ -81,6 +90,15 @@ function M.config()
             nilness = true,
           },
           staticcheck = true,
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
         },
       },
     },
@@ -122,15 +140,19 @@ function M.config()
     --   },
     -- },
     yamlls = {
+      on_new_config = function(new_config)
+        new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+        vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+      end,
       settings = {
         yaml = {
           orderedKeys = false,
           -- format = {
           --   enable = true,
           -- },
-          schemas = {
-            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-          },
+          -- schemas = {
+          --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          -- },
         },
       },
     },

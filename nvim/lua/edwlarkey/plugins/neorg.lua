@@ -1,8 +1,8 @@
 return {
   "nvim-neorg/neorg",
   build = ":Neorg sync-parsers",
-  ft = "norg",
-  cmd = "Neorg",
+  -- ft = "norg",
+  -- cmd = "Neorg",
   config = function()
     require("neorg").setup({
       load = {

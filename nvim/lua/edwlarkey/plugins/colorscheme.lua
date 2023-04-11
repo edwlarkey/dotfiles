@@ -16,14 +16,16 @@ return {
           folds = true,
         },
         strikethrough = true,
-        invert_selection = false,
+        invert_selection = true,
         invert_signs = false,
         invert_tabline = false,
         invert_intend_guides = false,
         inverse = true,
         contrast = "soft",
         palette_overrides = {},
-        overrides = {},
+        overrides = {
+          ["@lsp.type.parameter"] = { link = "GruvboxOrange" },
+        },
         dim_inactive = false,
         transparent_mode = false,
       })
@@ -32,7 +34,7 @@ return {
   },
   {
     "folke/tokyonight.nvim",
-    enabled = false,
+    -- enabled = false,
     lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()

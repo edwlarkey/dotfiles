@@ -2,8 +2,8 @@ local M = {
   "hrsh7th/nvim-cmp",
   event = { "InsertEnter", "CmdlineEnter" },
   dependencies = {
+    "hrsh7th/cmp-nvim-lsp-signature-help",
     "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-emoji",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-path",
     "L3MON4D3/LuaSnip",
@@ -29,6 +29,7 @@ function M.config()
     mapping = require("edwlarkey.keymaps").cmp.insert(),
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
+      { name = "nvim_lsp_signature_help" },
       { name = "luasnip" },
       { name = "buffer" },
       { name = "path" },
