@@ -76,6 +76,8 @@ link_files () {
     success 'waybar config linked'
     ln -nfs "$HOME/dotfiles/wofi" "$HOME/.config/wofi"
     success 'wofi config linked'
+    ln -nfs "$HOME/dotfiles/karabiner" "$HOME/.config/karabiner"
+    success 'karabiner config linked'
 }
 
 make_dirs () {
@@ -129,4 +131,4 @@ make_dirs
 setup_gitconfig
 link_files
 pull_submodules
-install_vim_plugins
+# install_vim_plugins
