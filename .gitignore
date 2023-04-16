@@ -49,9 +49,8 @@ newsbeuter/cache.db.lock
 newsbeuter/history.cmdline
 newsbeuter/history.search
 
-# obmenu-generator
-obmenu-generator/cache.db
-obmenu-generator/icons/
+# karabiner
+karabiner/automatic_backups
 
 # ignore some binaries
 bin/doctl
