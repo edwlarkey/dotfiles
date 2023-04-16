@@ -5,5 +5,5 @@
 	gpgsign = false
 	template = ~/dotfiles/git/git-commit-template
 [core]
-	editor = vim
+	editor = nvim
         hooksPath = ~/dotfiles/git/hooks
