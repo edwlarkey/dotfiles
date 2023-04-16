@@ -51,6 +51,7 @@ newsbeuter/history.search
 
 # karabiner
 karabiner/automatic_backups
+karabiner/assets
 
 # ignore some binaries
 bin/doctl
