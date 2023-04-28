@@ -22,6 +22,13 @@ return {
       require("scrollbar.handlers.gitsigns").setup()
     end,
   },
+  {
+    "ethanholz/nvim-lastplace",
+    opts = {
+      lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+      lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+    },
+  },
   -- {
   --   "stevearc/aerial.nvim",
   --   cmd = "AerialToggle",
@@ -46,7 +53,6 @@ return {
     "christoomey/vim-tmux-navigator",
   },
   { "edwlarkey/vim-toggler" },
-  { "zhimsel/vim-stay", lazy = false },
   -- Markdown & Wiki
   -- { "edwlarkey/vim-textcal", ft = "textcal" },
   { "plasticboy/vim-markdown" },

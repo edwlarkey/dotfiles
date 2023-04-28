@@ -8,7 +8,7 @@ return {
       load = {
         ["core.defaults"] = {},
         ["core.keybinds"] = {},
-        ["core.norg.journal"] = {
+        ["core.journal"] = {
           config = {
             workspace = "notes",
             strategy = "flat",
@@ -53,7 +53,7 @@ return {
             end,
           },
         },
-        ["core.norg.dirman"] = {
+        ["core.dirman"] = {
           config = {
             workspaces = {
               notes = "~/txt",
@@ -63,7 +63,7 @@ return {
           },
         },
         ["core.summary"] = {},
-        ["core.norg.esupports.metagen"] = {
+        ["core.esupports.metagen"] = {
           config = {
             type = "auto",
             template = {
@@ -107,13 +107,14 @@ return {
             },
           },
         },
-        ["core.norg.completion"] = {
+        ["core.completion"] = {
           config = {
             engine = "nvim-cmp",
+            name = "[Norg]",
           },
         },
         ["core.integrations.nvim-cmp"] = {},
-        ["core.norg.concealer"] = {
+        ["core.concealer"] = {
           config = {
             folds = false,
             icon_preset = "diamond",
