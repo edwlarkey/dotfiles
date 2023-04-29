@@ -21,12 +21,17 @@ function M.format()
   end
 end
 
+function M.has_formatter(ft)
+  local sources = require("null-ls.sources")
+  local available = sources.get_available(ft, "NULL_LS_FORMATTING")
+  return #available > 0
+end
+
 function M.setup(client, buf)
   local ft = vim.api.nvim_buf_get_option(buf, "filetype")
-  local nls = require("edwlarkey.plugins.null-ls")
 
   local enable = false
-  if nls.has_formatter(ft) then
+  if M.has_formatter(ft) then
     enable = client.name == "null-ls"
   else
     enable = not (client.name == "null-ls")
