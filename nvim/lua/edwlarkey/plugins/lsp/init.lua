@@ -63,6 +63,38 @@ function M.config()
     -- })
   end
 
+  local null_ls = require("null-ls")
+  -- local h = require("null-ls.helpers")
+  null_ls.setup({
+    debug = true,
+    sources = {
+      null_ls.builtins.code_actions.gitsigns,
+      null_ls.builtins.code_actions.gomodifytags,
+      -- null_ls.builtins.code_actions.cspell.with({
+      --   extra_args = { "--config", "~/dotfiles/cspell.json" },
+      -- }),
+      null_ls.builtins.formatting.goimports,
+      null_ls.builtins.formatting.gofmt,
+      -- null_ls.builtins.diagnostics.cspell.with({
+      --   diagnostics_postprocess = function(diagnostic)
+      --     diagnostic.severity = vim.diagnostic.severity.HINT
+      --   end,
+      --   extra_args = { "--config", "~/dotfiles/cspell.json" },
+      -- }),
+      null_ls.builtins.formatting.prettier.with({
+        extra_filetypes = { "toml" },
+        extra_args = { "--no-semi" },
+      }),
+      null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
+      null_ls.builtins.formatting.ruff,
+      null_ls.builtins.formatting.stylua.with({
+        extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+      }),
+    },
+    on_attach = on_attach,
+    root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", ".git"),
+  })
+
   local tools = {
     "stylua",
     "shellcheck",
@@ -279,37 +311,6 @@ function M.config()
   --   opts = vim.tbl_deep_extend("force", {}, options, opts or {})
   --   require("lspconfig")[server].setup(opts)
   -- end
-
-  local null_ls = require("null-ls")
-  null_ls.setup({
-    debug = false,
-    sources = {
-      null_ls.builtins.code_actions.gitsigns,
-      null_ls.builtins.code_actions.gomodifytags,
-      -- null_ls.builtins.code_actions.cspell.with({
-      --   extra_args = { "--config", "~/dotfiles/cspell.json" },
-      -- }),
-      null_ls.builtins.formatting.goimports,
-      null_ls.builtins.formatting.gofmt,
-      -- null_ls.builtins.diagnostics.cspell.with({
-      --   diagnostics_postprocess = function(diagnostic)
-      --     diagnostic.severity = vim.diagnostic.severity.HINT
-      --   end,
-      --   extra_args = { "--config", "~/dotfiles/cspell.json" },
-      -- }),
-      null_ls.builtins.formatting.prettier.with({
-        extra_filetypes = { "toml" },
-        extra_args = { "--no-semi" },
-      }),
-      null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
-      null_ls.builtins.formatting.ruff,
-      null_ls.builtins.formatting.stylua.with({
-        extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-      }),
-    },
-    on_attach = on_attach,
-    root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", ".git"),
-  })
 end
 
 return M
