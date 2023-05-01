@@ -113,75 +113,82 @@ function M.config()
         new_config.settings.json.schemas = new_config.settings.json.schemas or {}
         vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
       end,
-      json = {
-        format = {
-          enable = true,
-        },
-        validate = { enable = true },
-        schemas = {
-          {
-            description = "Robin-deploy json config files",
-            fileMatch = { "services/*/*.json" },
-            url = "/Users/edwardlarkey/git/robin/sysops/robin-deploy/services/data.schema.json",
+      settings = {
+        json = {
+          format = {
+            enable = true,
+          },
+          validate = { enable = true },
+          schemas = {
+            {
+              description = "Robin-deploy json config files",
+              fileMatch = { "services/*/*.json" },
+              url = "/Users/edwardlarkey/git/robin/sysops/robin-deploy/services/data.schema.json",
+            },
           },
         },
       },
     },
     gopls = {
-      gopls = {
-        semanticTokens = true,
-        experimentalPostfixCompletions = true,
-        analyses = {
-          unusedparams = false,
-          shadow = false,
-          nilness = true,
-        },
-        codelenses = {
-          gc_details = false,
-          generate = true,
-          regenerate_cgo = true,
-          run_govulncheck = true,
-          test = true,
-          tidy = true,
-          upgrade_dependency = true,
-          vendor = true,
-        },
-        staticcheck = true,
-        hints = {
-          assignVariableTypes = true,
-          compositeLiteralFields = true,
-          compositeLiteralTypes = true,
-          constantValues = true,
-          functionTypeParameters = true,
-          parameterNames = true,
-          rangeVariableTypes = true,
+      settings = {
+        gopls = {
+          semanticTokens = true,
+          experimentalPostfixCompletions = true,
+          analyses = {
+            unusedparams = false,
+            shadow = false,
+            nilness = true,
+          },
+          codelenses = {
+            gc_details = false,
+            generate = true,
+            regenerate_cgo = true,
+            run_govulncheck = true,
+            test = true,
+            tidy = true,
+            upgrade_dependency = true,
+            vendor = true,
+          },
+          staticcheck = true,
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
         },
       },
     },
     pylsp = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            ignore = { "E501", "W503" },
-            maxLineLength = 100,
-            enabled = false,
+      settings = {
+        pylsp = {
+          plugins = {
+            pycodestyle = {
+              ignore = { "E501", "W503" },
+              maxLineLength = 100,
+              enabled = false,
+            },
+            pyflakes = {
+              enabled = false,
+            },
           },
-          pyflakes = {
-            enabled = false,
+          jedi_completion = {
+            enabled = true,
+            eager = true,
+            cache_for = { "aws_cdk" },
+            include_function_objects = true,
+            include_class_objects = true,
+            include_params = true,
           },
-        },
-        jedi_completion = {
-          enabled = true,
-          eager = true,
-          cache_for = { "aws_cdk" },
-          include_function_objects = true,
-          include_class_objects = true,
-          include_params = true,
         },
       },
     },
     ruff_lsp = {},
     -- pyright = {
+    -- settings = {
     --     python = {
     --       analysis = {
     --         typeCheckingMode = "off",
@@ -191,55 +198,60 @@ function M.config()
     --       },
     --     },
     -- },
+    -- },
     yamlls = {
       on_new_config = function(new_config)
         new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
         vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
       end,
-      yaml = {
-        orderedKeys = false,
-        -- format = {
-        --   enable = true,
-        -- },
-        -- schemas = {
-        --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        -- },
+      settings = {
+        yaml = {
+          orderedKeys = false,
+          -- format = {
+          --   enable = true,
+          -- },
+          -- schemas = {
+          --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          -- },
+        },
       },
     },
     lua_ls = {
       single_file_support = true,
-      Lua = {
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-          checkThirdParty = false,
-        },
-        telemetry = {
-          enable = false,
-        },
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-          -- path = runtime_path,
-        },
-        completion = {
-          workspaceWord = true,
-          callSnippet = "Both",
-        },
-        misc = {
-          parameters = {
-            "--log-level=trace",
+      settings = {
+        Lua = {
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = vim.api.nvim_get_runtime_file("", true),
+            checkThirdParty = false,
           },
-        },
-        diagnostics = {
-          globals = { "vim" },
-        },
-        format = {
-          enable = true,
-          defaultConfig = {
-            indent_style = "space",
-            indent_size = "2",
-            continuation_indent_size = "2",
+          telemetry = {
+            enable = false,
+          },
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+            -- path = runtime_path,
+          },
+          completion = {
+            workspaceWord = true,
+            callSnippet = "Both",
+          },
+          misc = {
+            parameters = {
+              "--log-level=trace",
+            },
+          },
+          diagnostics = {
+            globals = { "vim" },
+          },
+          format = {
+            enable = true,
+            defaultConfig = {
+              indent_style = "space",
+              indent_size = "2",
+              continuation_indent_size = "2",
+            },
           },
         },
       },
@@ -259,18 +271,18 @@ function M.config()
     lineFoldingOnly = true,
   }
 
-  require("mason-lspconfig").setup_handlers({
-    function(server_name)
-      require("lspconfig")[server_name].setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = servers[server_name],
-        flags = {
-          debounce_text_changes = 150,
-        },
-      })
-    end,
-  })
+  -- require("mason-lspconfig").setup_handlers({
+  --   function(server_name)
+  --     require("lspconfig")[server_name].setup({
+  --       capabilities = capabilities,
+  --       on_attach = on_attach,
+  --       settings = servers[server_name],
+  --       flags = {
+  --         debounce_text_changes = 150,
+  --       },
+  --     })
+  --   end,
+  -- })
 
   --
   -- To use this method of configuring the lsp servers instead of mason-lspconfig
@@ -299,18 +311,18 @@ function M.config()
   -- },
   --
   --
-  -- local options = {
-  --   on_attach = on_attach,
-  --   capabilities = capabilities,
-  --   flags = {
-  --     debounce_text_changes = 150,
-  --   },
-  -- }
-  --
-  -- for server, opts in pairs(servers) do
-  --   opts = vim.tbl_deep_extend("force", {}, options, opts or {})
-  --   require("lspconfig")[server].setup(opts)
-  -- end
+  local options = {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+    },
+  }
+
+  for server, opts in pairs(servers) do
+    opts = vim.tbl_deep_extend("force", {}, options, opts or {})
+    require("lspconfig")[server].setup(opts)
+  end
 end
 
 return M
