@@ -3,7 +3,7 @@ local M = {
   event = "BufReadPre",
   dependencies = {
     "jose-elias-alvarez/null-ls.nvim",
-    "williamboman/mason.nvim",
+    { "williamboman/mason.nvim", config = true },
     "williamboman/mason-lspconfig.nvim",
     "hrsh7th/cmp-nvim-lsp",
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -11,8 +11,17 @@ local M = {
   },
 }
 
+function M.mason_check(tools)
+  local mr = require("mason-registry")
+  for _, tool in ipairs(tools) do
+    local p = mr.get_package(tool)
+    if not p:is_installed() then
+      p:install()
+    end
+  end
+end
+
 function M.config()
-  require("mason")
   require("neodev").setup()
   require("edwlarkey.plugins.lsp.diagnostics").setup()
 
@@ -53,6 +62,14 @@ function M.config()
     --   end,
     -- })
   end
+
+  local tools = {
+    "stylua",
+    "shellcheck",
+    "black",
+    "isort",
+    "ruff",
+  }
 
   local servers = {
     bashls = {},
@@ -199,6 +216,12 @@ function M.config()
     },
   }
 
+  M.mason_check(tools)
+  require("mason-lspconfig").setup({
+    ensure_installed = vim.tbl_keys(servers),
+    automatic_installation = true,
+  })
+
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
   capabilities.textDocument.foldingRange = {
@@ -206,18 +229,31 @@ function M.config()
     lineFoldingOnly = true,
   }
 
-  local options = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  }
+  -- local options = {
+  --   on_attach = on_attach,
+  --   capabilities = capabilities,
+  --   flags = {
+  --     debounce_text_changes = 150,
+  --   },
+  -- }
 
-  for server, opts in pairs(servers) do
-    opts = vim.tbl_deep_extend("force", {}, options, opts or {})
-    require("lspconfig")[server].setup(opts)
-  end
+  require("mason-lspconfig").setup_handlers({
+    function(server_name)
+      require("lspconfig")[server_name].setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = servers[server_name],
+        flags = {
+          debounce_text_changes = 150,
+        },
+      })
+    end,
+  })
+
+  -- for server, opts in pairs(servers) do
+  --   opts = vim.tbl_deep_extend("force", {}, options, opts or {})
+  --   require("lspconfig")[server].setup(opts)
+  -- end
 
   local null_ls = require("null-ls")
   null_ls.setup({
@@ -246,7 +282,7 @@ function M.config()
         extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
       }),
     },
-    on_attach = options.on_attach,
+    on_attach = on_attach,
     root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", ".git"),
   })
 end
