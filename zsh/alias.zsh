@@ -125,7 +125,11 @@ if (( $+commands[fzf] )) ; then
         cd $(autojump $@)
         return
     fi
-    cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
+    if [[ ${OSTYPE} == darwin* ]]; then
+      cd "$(autojump -s | gsed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
+    else
+      cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
+    fi
   }
 
   # vf - fuzzy open with vim from anywhere

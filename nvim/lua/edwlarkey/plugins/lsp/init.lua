@@ -98,31 +98,32 @@ return {
             },
           },
         },
-        pylsp = {
-          settings = {
-            pylsp = {
-              plugins = {
-                pycodestyle = {
-                  ignore = { "E501", "W503" },
-                  maxLineLength = 100,
-                  enabled = false,
-                },
-                pyflakes = {
-                  enabled = false,
-                },
-              },
-              jedi_completion = {
-                enabled = true,
-                eager = true,
-                cache_for = { "aws_cdk" },
-                include_function_objects = true,
-                include_class_objects = true,
-                include_params = true,
-              },
-            },
-          },
-        },
+        -- pylsp = {
+        --   settings = {
+        --     pylsp = {
+        --       plugins = {
+        --         pycodestyle = {
+        --           ignore = { "E501", "W503" },
+        --           maxLineLength = 100,
+        --           enabled = false,
+        --         },
+        --         pyflakes = {
+        --           enabled = false,
+        --         },
+        --       },
+        --       jedi_completion = {
+        --         enabled = true,
+        --         eager = true,
+        --         cache_for = { "aws_cdk" },
+        --         include_function_objects = true,
+        --         include_class_objects = true,
+        --         include_params = true,
+        --       },
+        --     },
+        --   },
+        -- },
         ruff_lsp = {},
+        jedi_language_server = {},
         -- pyright = {
         -- settings = {
         --     python = {
@@ -243,6 +244,8 @@ return {
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
+
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
       local servers = opts.servers
       local capabilities = vim.tbl_deep_extend(

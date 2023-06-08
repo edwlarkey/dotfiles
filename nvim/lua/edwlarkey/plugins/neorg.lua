@@ -120,8 +120,6 @@ return {
             icon_preset = "diamond",
             icons = {
               todo = {
-                enabled = true,
-
                 undone = {
                   enabled = true,
                   icon = " ",
