@@ -87,13 +87,13 @@ return {
               },
               staticcheck = true,
               hints = {
+                rangeVariableTypes = true,
+                parameterNames = true,
+                constantValues = true,
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
                 compositeLiteralTypes = true,
-                constantValues = true,
                 functionTypeParameters = true,
-                parameterNames = true,
-                rangeVariableTypes = true,
               },
             },
           },
@@ -165,6 +165,9 @@ return {
               telemetry = {
                 enable = false,
               },
+              hint = {
+                enable = true,
+              },
               runtime = {
                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                 version = "LuaJIT",
@@ -235,6 +238,9 @@ return {
               legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
               range = true,
             }
+          end
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint(buffer, true)
           end
         end,
       })

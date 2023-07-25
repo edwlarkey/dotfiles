@@ -61,7 +61,6 @@ vim.opt.statusline:append("%P") -- percent through file
 --
 vim.opt.joinspaces = false
 vim.opt.startofline = false
-vim.opt.pastetoggle = "<F2>" -- no autodindent with F2
 
 -- Indentation
 vim.opt.expandtab = true -- Tab in insert mode will produce spaces

@@ -42,6 +42,7 @@ bin/healthechecker
 bin/jira
 bin/macallan
 bin/setparam
+bin/nvim
 
 # newsbeuter
 newsbeuter/cache.db

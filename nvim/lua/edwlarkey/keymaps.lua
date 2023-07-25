@@ -172,10 +172,10 @@ M.setup = {
         { "gD", vim.lsp.buf.declaration },
         { "gd", vim.lsp.buf.definition, { desc = "(LSP) Get definition" } },
         { "K", vim.lsp.buf.hover, { desc = "(LSP) Get definition" } },
-        { "gI", vim.lsp.buf.implementation },
-        { "gr", vim.lsp.buf.references },
-        { "gl", vim.diagnostic.open_float },
-        { "<leader>D", vim.lsp.buf.type_definition, { desc = "(LSP) Type definition" } },
+        { "gl", vim.diagnostic.open_float, { desc = "(LSP) Open Float" } },
+        { "<leader>li", vim.lsp.buf.implementation, { desc = "(LSP) Implementations" } },
+        { "<leader>lR", vim.lsp.buf.references, { desc = "(LSP) References" } },
+        { "<leader>lD", vim.lsp.buf.type_definition, { desc = "(LSP) Type definition" } },
         { "<leader>lr", vim.lsp.buf.rename, { desc = "(LSP) Rename" } },
         { "<leader>la", vim.lsp.buf.code_action, { desc = "(LSP) Code Action" } },
         { "<leader>ls", vim.lsp.buf.signature_help, { desc = "(LSP) Signature Help" } },
@@ -209,7 +209,7 @@ M.setup = {
           end,
           { desc = "Previous Diagnostic" },
         },
-        { "<leader>lq", vim.diagnostic.setloclist },
+        { "<leader>lq", vim.diagnostic.setloclist, { desc = "(LSP) Set Loc List" } },
       },
     }, { remap = false, silent = true, buffer = bufnr })
     map({
