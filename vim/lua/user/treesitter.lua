@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all"
   ensure_installed = { "go", "python" },
 
@@ -17,5 +17,5 @@ require'nvim-treesitter.configs'.setup {
   rainbow = {
     enable = true,
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-  }
-}
+  },
+})

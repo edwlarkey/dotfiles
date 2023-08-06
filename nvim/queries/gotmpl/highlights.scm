@@ -1,9 +1,12 @@
+; inherits gotmpl
+; extends
+
 ; Identifiers
 
 [
-    (field)
-    (field_identifier)
-] @property
+  (field)
+  (field_identifier)
+] @variable.other.member
 
 (variable) @variable
 
@@ -14,7 +17,7 @@
 
 (method_call
   method: (selector_expression
-    field: (field_identifier) @method))
+    field: (field_identifier) @function))
 
 ; Operators
 
@@ -40,20 +43,14 @@
 
 ; Keywords
 
-[
-    "else"
-    "else if"
-    "if"
-    "with"
-] @conditional
-
-[
-    "range"
-    "end"
-    "template"
-    "define"
-    "block"
-] @keyword
+"else" @keyword
+"if" @keyword
+"range" @keyword
+"with" @keyword
+"end" @keyword
+"template" @keyword
+"define" @keyword
+"block" @keyword
 
 ; Literals
 
@@ -69,16 +66,14 @@
   (int_literal)
   (float_literal)
   (imaginary_literal)
-] @number
+] @constant.numeric.integer
 
 [
-    (true)
-    (false)
-] @boolean
+  (true)
+  (false)
+] @constant.builtin.boolean
 
-[
-  (nil)
-] @constant.builtin
+(nil) @constant.builtin
 
 (comment) @comment
 (ERROR) @error

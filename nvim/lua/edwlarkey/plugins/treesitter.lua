@@ -8,6 +8,11 @@ local M = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "mfussenegger/nvim-treehopper",
     "HiPhish/nvim-ts-rainbow2",
+    "windwp/nvim-ts-autotag",
+    {
+      "nvim-treesitter/playground",
+      cmd = "TSPlaygroundToggle",
+    },
   },
 }
 
@@ -106,6 +111,16 @@ function M.config()
         rainbow.strategy.global,
       },
     },
+    playground = {
+      enable = true,
+    },
+    autotag = {
+      enable = true,
+      enable_rename = true,
+      enable_close = true,
+      enable_close_on_slash = true,
+      filetypes = { "html", "xml", "gotmpl" },
+    },
     refactor = {
       smart_rename = {
         enable = true,
@@ -118,11 +133,12 @@ function M.config()
   local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
   parser_config.gotmpl = {
     install_info = {
-      url = "https://github.com/ngalaiko/tree-sitter-go-template",
+      -- url = "https://github.com/ngalaiko/tree-sitter-go-template",
+      url = "https://github.com/dannylongeuay/tree-sitter-go-template",
       files = { "src/parser.c" },
     },
     filetype = "gotmpl",
-    used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
+    used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "tmpl" },
   }
 end
 
