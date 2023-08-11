@@ -33,7 +33,7 @@ M.setup = {
         { "<leader><tab>", ':call Preserve("retab")<CR>' },
         { "<F9>", ":call FormatHTML()<CR>" },
         { "_=", ':call Preserve("normal gg=G")<CR>' },
-        { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle, { desc = "Toggle Autoformat" } },
+        { "<leader>tf", ":FormatToggle", { desc = "Toggle Autoformat" } },
         { "<leader>ww", ":Neorg workspace notes<CR>", { desc = "Open Wiki" } },
         { "<leader>wj", ":Neorg journal today<CR>", { desc = "Open Today's Journal" } },
         { "<leader>wy", ":Neorg journal yesterday<CR>", { desc = "Open Yesterday's Journal" } },

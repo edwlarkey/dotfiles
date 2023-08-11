@@ -103,7 +103,7 @@ return {
 
               -- The version field determines which Norg version was used when
               -- the file was created.
-              { "version", require("neorg.config").version },
+              { "version", require("neorg.core.config").version },
             },
           },
         },
