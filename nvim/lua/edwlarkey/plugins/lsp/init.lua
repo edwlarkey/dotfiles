@@ -8,7 +8,6 @@ return {
       { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "creativenull/efmls-configs-nvim",
       "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
@@ -198,11 +197,30 @@ return {
           },
         },
       },
-      funcs = {
-        on_attach = function(args)
+      -- you can do any additional lsp server setup here
+      -- return true if you don't want this server to be setup with lspconfig
+      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
+      setup = {
+        -- example to setup with typescript.nvim
+        -- tsserver = function(_, opts)
+        --   require("typescript").setup({ server = opts })
+        --   return true
+        -- end,
+        -- Specify * to use this function as a fallback for any server
+        -- ["*"] = function(server, opts) end,
+      },
+    },
+    ---@param opts PluginLspOpts
+    config = function(_, opts)
+      require("lsp_lines").setup()
+      -- setup autoformat
+      require("edwlarkey.plugins.lsp.formatting").autoformat = opts.autoformat
+      -- setup formatting and keymaps
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
           local buffer = args.buf
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require("edwlarkey.plugins.lsp.formatting").configure_format_on_save()
+          require("edwlarkey.plugins.lsp.formatting").setup(client, buffer)
           require("edwlarkey.keymaps").setup.lsp(buffer)
           if client.server_capabilities["codeLensProvider"] then
             vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
@@ -225,28 +243,6 @@ return {
             vim.lsp.inlay_hint(buffer, true)
           end
         end,
-      },
-      -- you can do any additional lsp server setup here
-      -- return true if you don't want this server to be setup with lspconfig
-      ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-      setup = {
-        -- example to setup with typescript.nvim
-        -- tsserver = function(_, opts)
-        --   require("typescript").setup({ server = opts })
-        --   return true
-        -- end,
-        -- Specify * to use this function as a fallback for any server
-        -- ["*"] = function(server, opts) end,
-      },
-    },
-    ---@param opts PluginLspOpts
-    config = function(_, opts)
-      require("lsp_lines").setup()
-      -- setup autoformat
-      -- require("edwlarkey.plugins.lsp.formatting").autoformat = opts.autoformat
-      -- setup formatting and keymaps
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = opts.funcs.on_attach,
       })
 
       -- diagnostics
@@ -283,34 +279,6 @@ return {
         require("lspconfig")[server].setup(server_opts)
       end
 
-      local efmls = require("efmls-configs")
-      efmls.init({
-        on_attach = opts.funcs.on_attach,
-        capabilities = capabilities,
-        init_options = { documentFormatting = true, codeAction = true },
-      })
-
-      -- Require `efmls-configs-nvim`'s config here
-
-      local shellcheck = require("efmls-configs.linters.shellcheck")
-      local black = require("efmls-configs.formatters.black")
-      local stylua = require("efmls-configs.formatters.stylua")
-      local prettier = require("efmls-configs.formatters.prettier")
-      local shfmt = require("efmls-configs.formatters.shfmt")
-      local gofmt = require("efmls-configs.formatters.gofmt")
-      local goimports = require("efmls-configs.formatters.goimports")
-
-      efmls.setup({
-        lua = { formatter = stylua },
-        python = { formatter = black },
-        yaml = { formatter = prettier },
-        html = { formatter = prettier },
-        css = { formatter = prettier },
-        sh = { formatter = shfmt, linter = shellcheck },
-        markdown = { formatter = prettier },
-        go = { formatter = gofmt },
-      })
-
       -- get all the servers that are available thourgh mason-lspconfig
       local have_mason, mlsp = pcall(require, "mason-lspconfig")
       local all_mslp_servers = {}
@@ -338,6 +306,31 @@ return {
     end,
   },
 
+  -- formatters
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local null_ls = require("null-ls")
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        sources = {
+          null_ls.builtins.code_actions.gitsigns,
+          null_ls.builtins.code_actions.gomodifytags,
+          null_ls.builtins.formatting.goimports,
+          null_ls.builtins.formatting.gofmt,
+          null_ls.builtins.formatting.prettier.with({ extra_filetypes = { "toml" }, extra_args = { "--no-semi" } }),
+          null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
+          null_ls.builtins.formatting.ruff,
+          null_ls.builtins.formatting.stylua.with({
+            extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+          }),
+        },
+      }
+    end,
+  },
+
   -- cmdline tools
   {
     "williamboman/mason.nvim",
@@ -350,7 +343,6 @@ return {
         "black",
         "isort",
         "ruff",
-        "efm",
       },
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
