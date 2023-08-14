@@ -240,7 +240,7 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
-    config = function()
+    config = function(opts)
       vim.o.completeopt = "menuone,noselect"
       vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
 

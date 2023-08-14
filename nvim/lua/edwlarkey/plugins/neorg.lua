@@ -1,6 +1,9 @@
 return {
   "nvim-neorg/neorg",
   build = ":Neorg sync-parsers",
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter",
+  },
   -- ft = "norg",
   -- cmd = "Neorg",
   config = function()

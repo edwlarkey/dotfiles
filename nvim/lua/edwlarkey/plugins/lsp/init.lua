@@ -34,10 +34,15 @@ return {
           prefix = "",
         },
       },
+      inlay_hints = {
+        enabled = true,
+      },
       -- add any global capabilities here
       capabilities = {},
       -- Automatically format on save
       autoformat = true,
+      -- Useful for debugging
+      format_notify = false,
       -- LSP Server Settings
       servers = {
         bashls = {},
@@ -212,38 +217,27 @@ return {
     },
     ---@param opts PluginLspOpts
     config = function(_, opts)
+      local Util = require("edwlarkey.util")
       require("lsp_lines").setup()
+
       -- setup autoformat
-      require("edwlarkey.plugins.lsp.formatting").autoformat = opts.autoformat
+      require("edwlarkey.plugins.lsp.formatting").setup(opts)
       -- setup formatting and keymaps
-      vim.api.nvim_create_autocmd("LspAttach", {
-        callback = function(args)
-          local buffer = args.buf
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          require("edwlarkey.plugins.lsp.formatting").setup(client, buffer)
-          require("edwlarkey.keymaps").setup.lsp(buffer)
-          if client.server_capabilities["codeLensProvider"] then
-            vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-              group = vim.api.nvim_create_augroup("codelens", { clear = false }),
-              buffer = buffer,
-              callback = function()
-                pcall(vim.lsp.codelens.refresh)
-              end,
-            })
-          end
-          if client.name == "gopls" and not client.server_capabilities.semanticTokensProvider then
-            local semantic = client.config.capabilities.textDocument.semanticTokens
-            client.server_capabilities.semanticTokensProvider = {
-              full = true,
-              legend = { tokenModifiers = semantic.tokenModifiers, tokenTypes = semantic.tokenTypes },
-              range = true,
-            }
-          end
-          if client.server_capabilities.inlayHintProvider then
-            vim.lsp.inlay_hint(buffer, true)
-          end
-        end,
-      })
+      Util.on_attach(function(client, buffer)
+        require("edwlarkey.keymaps").setup.lsp(buffer)
+      end)
+
+      local register_capability = vim.lsp.handlers["client/registerCapability"]
+
+      vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
+        local ret = register_capability(err, res, ctx)
+        local client_id = ctx.client_id
+        ---@type lsp.Client
+        local client = vim.lsp.get_client_by_id(client_id)
+        local buffer = vim.api.nvim_get_current_buf()
+        require("edwlarkey.keymaps").setup.lsp(buffer)
+        return ret
+      end
 
       -- diagnostics
       for name, icon in pairs(opts.icons) do
@@ -251,14 +245,56 @@ return {
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
 
+      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+
+      if opts.inlay_hints.enabled and inlay_hint then
+        Util.on_attach(function(client, buffer)
+          if client.supports_method("textDocument/inlayHint") then
+            inlay_hint(buffer, true)
+          end
+        end)
+      end
+
+      -- workaround for gopls not supporting semanticTokensProvider
+      -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
+      Util.on_attach(function(client, _)
+        if client.name == "gopls" then
+          if not client.server_capabilities.semanticTokensProvider then
+            local semantic = client.config.capabilities.textDocument.semanticTokens
+            client.server_capabilities.semanticTokensProvider = {
+              full = true,
+              legend = {
+                tokenTypes = semantic.tokenTypes,
+                tokenModifiers = semantic.tokenModifiers,
+              },
+              range = true,
+            }
+          end
+        end
+      end)
+      -- end workaround`
+
+      if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
+        opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
+          or function(diagnostic)
+            local icons = opts.icons
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
+              end
+            end
+          end
+      end
+
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
       local servers = opts.servers
+      local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
       local capabilities = vim.tbl_deep_extend(
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        require("cmp_nvim_lsp").default_capabilities(),
+        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
         opts.capabilities or {}
       )
 
@@ -300,8 +336,7 @@ return {
       end
 
       if have_mason then
-        mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup_handlers({ setup })
+        mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup } })
       end
     end,
   },
@@ -312,18 +347,16 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
     opts = function()
-      local null_ls = require("null-ls")
+      local nls = require("null-ls")
       return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
-          null_ls.builtins.code_actions.gitsigns,
-          null_ls.builtins.code_actions.gomodifytags,
-          null_ls.builtins.formatting.goimports,
-          null_ls.builtins.formatting.gofmt,
-          null_ls.builtins.formatting.prettier.with({ extra_filetypes = { "toml" }, extra_args = { "--no-semi" } }),
-          null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
-          null_ls.builtins.formatting.ruff,
-          null_ls.builtins.formatting.stylua.with({
+          nls.builtins.code_actions.gitsigns,
+          nls.builtins.code_actions.gomodifytags,
+          nls.builtins.formatting.prettier.with({ extra_filetypes = { "toml" }, extra_args = { "--no-semi" } }),
+          nls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
+          nls.builtins.formatting.ruff,
+          nls.builtins.formatting.stylua.with({
             extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
           }),
         },

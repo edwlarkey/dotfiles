@@ -1,4 +1,4 @@
-local M = {
+return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = "BufReadPost",
@@ -7,25 +7,14 @@ local M = {
     "nvim-treesitter/nvim-treesitter-refactor",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "mfussenegger/nvim-treehopper",
-    "HiPhish/nvim-ts-rainbow2",
     "windwp/nvim-ts-autotag",
     {
       "nvim-treesitter/playground",
       cmd = "TSPlaygroundToggle",
     },
   },
-}
 
-function M.init()
-  vim.cmd([[
-    omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-    xnoremap <silent> m :lua require('tsht').nodes()<CR>
-  ]])
-end
-
-function M.config()
-  local rainbow = require("ts-rainbow")
-  require("nvim-treesitter.configs").setup({
+  opts = {
     ensure_installed = {
       "bash",
       "go",
@@ -101,16 +90,6 @@ function M.config()
         },
       },
     },
-    rainbow = {
-      enable = true,
-      query = {
-        "rainbow-parens",
-        html = "rainbow-tags",
-      },
-      strategy = {
-        rainbow.strategy.global,
-      },
-    },
     playground = {
       enable = true,
     },
@@ -129,17 +108,31 @@ function M.config()
         },
       },
     },
-  })
-  local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-  parser_config.gotmpl = {
-    install_info = {
-      -- url = "https://github.com/ngalaiko/tree-sitter-go-template",
-      url = "https://github.com/dannylongeuay/tree-sitter-go-template",
-      files = { "src/parser.c" },
-    },
-    filetype = "gotmpl",
-    used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "tmpl" },
-  }
-end
+  },
 
-return M
+  config = function(_, opts)
+    if type(opts.ensure_installed) == "table" then
+      ---@type table<string, boolean>
+      local added = {}
+      opts.ensure_installed = vim.tbl_filter(function(lang)
+        if added[lang] then
+          return false
+        end
+        added[lang] = true
+        return true
+      end, opts.ensure_installed)
+    end
+    require("nvim-treesitter.configs").setup(opts)
+
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    parser_config.gotmpl = {
+      install_info = {
+        -- url = "https://github.com/ngalaiko/tree-sitter-go-template",
+        url = "https://github.com/dannylongeuay/tree-sitter-go-template",
+        files = { "src/parser.c" },
+      },
+      filetype = "gotmpl",
+      used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "tmpl" },
+    }
+  end,
+}
