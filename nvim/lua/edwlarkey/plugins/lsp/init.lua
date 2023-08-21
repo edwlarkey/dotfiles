@@ -22,7 +22,7 @@ return {
       diagnostics = {
         virtual_text = false,
         virtual_lines = true,
-        update_in_insert = true,
+        update_in_insert = false,
         underline = true,
         severity_sort = true,
         float = {
@@ -35,7 +35,7 @@ return {
         },
       },
       inlay_hints = {
-        enabled = true,
+        enabled = false,
       },
       -- add any global capabilities here
       capabilities = {},

@@ -41,7 +41,8 @@ M.setup = {
         { "<leader>ao", ":AerialToggle<CR>", { desc = "Toggle Aerial" } },
         { "[a", ":AerialPrev<CR>", { desc = "Aerial Prev" } },
         { "]a", ":AerialNext<CR>", { desc = "Aerial Next" } },
-        { "<F2>", ":make test<CR>", { desc = "Run tests" } },
+        { "<F2>", ":make test<CR>", { desc = "Run make test" } },
+        { "<F3>", ":make build<CR>", { desc = "Run make build" } },
         {
           ":<C-p>",
           function()

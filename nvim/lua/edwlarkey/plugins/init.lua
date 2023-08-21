@@ -31,6 +31,18 @@ return {
       vim.cmd([[colorscheme gruvbox]])
     end,
   },
+  {
+    "Verf/deepwhite.nvim",
+    branch = "main",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("deepwhite").setup({
+        low_blue_light = true,
+      })
+      -- vim.cmd([[colorscheme deepwhite]])
+    end,
+  },
   { "nvim-lua/plenary.nvim" },
   {
     "ibhagwan/fzf-lua",
