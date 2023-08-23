@@ -8,5 +8,5 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("edwlarkey.plugins", {
-  checker = { enabled = true, notify = false },
+  checker = { enabled = false, notify = false },
 })

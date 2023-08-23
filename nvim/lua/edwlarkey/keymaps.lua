@@ -38,9 +38,6 @@ M.setup = {
         { "<leader>wj", ":Neorg journal today<CR>", { desc = "Open Today's Journal" } },
         { "<leader>wy", ":Neorg journal yesterday<CR>", { desc = "Open Yesterday's Journal" } },
         { "<leader>wn", ":Neorg<CR>", { desc = "Open Neorg menu" } },
-        { "<leader>ao", ":AerialToggle<CR>", { desc = "Toggle Aerial" } },
-        { "[a", ":AerialPrev<CR>", { desc = "Aerial Prev" } },
-        { "]a", ":AerialNext<CR>", { desc = "Aerial Next" } },
         { "<F2>", ":make test<CR>", { desc = "Run make test" } },
         { "<F3>", ":make build<CR>", { desc = "Run make build" } },
         {
@@ -285,48 +282,6 @@ M.cmp = {
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.abort(),
       ["<TAB>"] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    })
-  end,
-}
-
-M.whichkey = {
-  register = function()
-    local wk = require("which-key")
-
-    -- wk.register({
-    --   f = {
-    --     name = "file", -- optional group name
-    --     f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- create a binding with label
-    --     r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File", noremap = false, buffer = 123 }, -- additional options for creating the keymap
-    --     n = { "New File" }, -- just a label. don't create any mapping
-    --     e = "Edit File", -- same as above
-    --     ["1"] = "which_key_ignore", -- special label to hide it in the popup
-    --     b = {
-    --       function()
-    --         print("bar")
-    --       end,
-    --       "Foobar",
-    --     }, -- you can also pass functions!
-    --   },
-    -- }, { prefix = "<leader>" })
-    --
-    -- { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle },
-    -- { "<leader>ww", ":Neorg workspace notes<CR>" },
-    -- { "<leader>w<leader>j", ":Neorg journal today<CR>" },
-    -- { "<leader>w<leader>y", ":Neorg journal yesterday<CR>" },
-    -- { "<leader>wn", ":Neorg<CR>" },
-    wk.register({
-      ["<leader>"] = {
-        w = {
-          name = "Wiki",
-        },
-        t = {
-          name = "Toggle",
-        },
-        f = {
-          name = "FZF",
-        },
-      },
     })
   end,
 }

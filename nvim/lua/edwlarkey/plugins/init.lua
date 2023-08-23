@@ -62,6 +62,27 @@ return {
       require("mini.statusline").setup()
       require("mini.bracketed").setup()
       require("mini.colors").setup()
+      require("mini.surround").setup({
+        mappings = {
+          add = "ys",
+          delete = "ds",
+          find = "",
+          find_left = "",
+          highlight = "",
+          replace = "cs",
+          update_n_lines = "",
+
+          -- Add this only if you don't want to use extended mappings
+          suffix_last = "",
+          suffix_next = "",
+        },
+        search_method = "cover_or_next",
+      })
+      -- Remap adding surrounding to Visual mode selection
+      vim.keymap.del("x", "ys")
+      vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
+      -- Make special mapping for "add surrounding for line"
+      vim.keymap.set("n", "yss", "ys_", { remap = true })
       require("mini.comment").setup({
         hooks = {
           pre = function()
@@ -84,6 +105,52 @@ return {
       -- require("mini.sessions").setup()
       -- require("mini.jump").setup({})
       -- require("mini.pairs").setup({})
+      local miniclue = require("mini.clue")
+      miniclue.setup({
+        triggers = {
+          -- Leader triggers
+          { mode = "n", keys = "<Leader>" },
+          { mode = "x", keys = "<Leader>" },
+
+          -- Built-in completion
+          { mode = "i", keys = "<C-x>" },
+
+          -- `g` key
+          { mode = "n", keys = "g" },
+          { mode = "x", keys = "g" },
+
+          -- Marks
+          { mode = "n", keys = "'" },
+          { mode = "n", keys = "`" },
+          { mode = "x", keys = "'" },
+          { mode = "x", keys = "`" },
+
+          -- Registers
+          { mode = "n", keys = '"' },
+          { mode = "x", keys = '"' },
+          { mode = "i", keys = "<C-r>" },
+          { mode = "c", keys = "<C-r>" },
+
+          -- Window commands
+          { mode = "n", keys = "<C-w>" },
+
+          -- `z` key
+          { mode = "n", keys = "z" },
+          { mode = "x", keys = "z" },
+        },
+
+        clues = {
+          -- Enhance this by adding descriptions for <Leader> mapping groups
+          miniclue.gen_clues.builtin_completion(),
+          miniclue.gen_clues.g(),
+          miniclue.gen_clues.marks(),
+          miniclue.gen_clues.registers(),
+          miniclue.gen_clues.windows(),
+          miniclue.gen_clues.z(),
+          { mode = "n", keys = "<Leader>l", desc = "+LSP" },
+          { mode = "n", keys = "<Leader>f", desc = "+FZF" },
+        },
+      })
     end,
   },
 
@@ -134,6 +201,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    enabled = false,
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -190,7 +258,7 @@ return {
       lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
     },
   },
-  { "tpope/vim-surround" },
+  -- { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "mbbill/undotree" },
   { "edwlarkey/vim-toggler" },
