@@ -7,13 +7,15 @@
 function light() {
   touch "$HOME/light"
   tmux source-file "$HOME/.tmux/tmux.conf"
-  gsed -i 's/\*gruvbox_dark/\*onehalf_light/' "$HOME/.config/alacritty/alacritty.yml"
+  # gsed -i 's/\*gruvbox_dark/\*onehalf_light/' "$HOME/.config/alacritty/alacritty.yml"
+  ln -nfs "$HOME/.config/alacritty/onehalf-light.yml" "$HOME/.config/alacritty/colors.yml"
 }
 
 function dark() {
   rm -f "$HOME/light"
   tmux source-file "$HOME/.tmux/tmux.conf"
-  gsed -i 's/\*onehalf_light/\*gruvbox_dark/' "$HOME/.config/alacritty/alacritty.yml"
+  # gsed -i 's/\*onehalf_light/\*gruvbox_dark/' "$HOME/.config/alacritty/alacritty.yml"
+  ln -nfs "$HOME/.config/alacritty/gruvbox-dark.yml" "$HOME/.config/alacritty/colors.yml"
 }
 
 take () {

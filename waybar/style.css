@@ -1,249 +1,108 @@
-
-@keyframes blink-warning {
-    70% {
-        color: @light;
-    }
-
-    to {
-        color: @light;
-        background-color: @warning;
-    }
-}
-
-@keyframes blink-critical {
-    70% {
-      color: @light;
-    }
-
-    to {
-        color: @light;
-        background-color: @critical;
-    }
-}
-
-
-/* -----------------------------------------------------------------------------
- * Styles
- * -------------------------------------------------------------------------- */
-
-/* COLORS */
-
-/* Nord */
-@define-color bg #353C4A;
-@define-color light #eceff4;
-@define-color dark #2e3440;
-@define-color warning #ebcb8b;
-@define-color critical #bf616a;
-@define-color ok #a3be8c;
-@define-color mode #4c566a;
-@define-color workspaces @bg;
-@define-color workspacesfocused #434C5E;
-@define-color tray @workspacesfocused;
-@define-color sound #46536A;
-@define-color network #5D7096;
-@define-color memory #546484;
-@define-color cpu #596A8D;
-@define-color temp #4D5C78;
-@define-color layout #5e81ac;
-@define-color battery #88c0d0;
-@define-color date #2e3440;
-@define-color time #3A4253;
-@define-color backlight #3F495D;
-
-/* Reset all styles */
 * {
-    border: none;
-    border-radius: 0;
-    min-height: 0;
-    margin: 0;
-    padding: 0;
-}
-
-/* The whole bar */
-#waybar {
-    background: @bg;
-    color: @light;
-    font-family: Hack;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Each module */
-#battery,
-#clock,
-#cpu,
-#custom-layout,
-#memory,
-#mode,
-#network,
-#pulseaudio,
-#temperature,
-#custom-alsa,
-#tray,
-#backlight {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-
-/* Each module that should blink */
-#mode,
-#memory,
-#temperature,
-#battery {
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-/* Each critical module */
-#memory.critical,
-#cpu.critical,
-#temperature.critical,
-#battery.critical {
-    color: @critical;
-}
-
-/* Each critical that should blink */
-#mode,
-#memory.critical,
-#temperature.critical,
-#battery.critical.discharging {
-    animation-name: blink-critical;
-    animation-duration: 2s;
-}
-
-/* Each warning */
-#network.disconnected,
-#memory.warning,
-#cpu.warning,
-#temperature.warning,
-#battery.warning {
-    color: @warning;
-}
-
-/* Each warning that should blink */
-#battery.warning.discharging {
-    animation-name: blink-warning;
-    animation-duration: 3s;
-}
-
-/* And now modules themselves in their respective order */
-
-#mode { /* Shown current Sway mode (resize etc.) */
-  color: @light;
-  background: @mode;
-}
-
-/* Workspaces stuff */
-
-#workspaces {
-    margin-right: 10px;
-}
-
-
-#workspaces button {
-  font-weight: bold; /* Somewhy the bar-wide setting is ignored*/
-  padding-left: 5px;
-  padding-right: 13px;
-  color: @light;
-  background: @workspaces;
-}
-
-#workspaces button.focused {
-    background: @workspacesfocused;
-}
-
-#workspaces button.urgent {
-  border-color: #c9545d;
-  color: #c9545d;
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: "Hack", "Font Awesome 5 Free Regular";
+  font-size: 18px;
 }
 
 #window {
-  margin-right: 40px;
-  margin-left: 40px;
+  color: #fbf1c7;
 }
 
-#custom-alsa {
-  background: @sound;
+window#waybar {
+  background-color: #32302f;
+  /* Optional layout, uncomment the lines below */
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
 }
 
-#network {
-    background: @network;
+window#waybar.empty {
+  background-color: #32302f;
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
 }
 
-#memory {
-    background: @memory;
+window#waybar.empty .modules-center {
+  background-color: #32302f;
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
 }
 
-#cpu {
-    background: @cpu;
+window#waybar.solo {
+  background-color: #32302f;
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
 }
 
-#temperature {
-    background: @temp;
+window#waybar.hidden {
+  opacity: 0.2;
 }
 
-#custom-layout {
-    background: @layout;
+/* window#waybar.alacritty { */
+/*   background-color: #3f3f3f; */
+/* } */
+/**/
+/* window#waybar.firefox { */
+/*   border: none; */
+/* } */
+
+button {
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each button name */
+  border: none;
+  border-radius: 0;
 }
 
-#battery {
-    background: @battery;
+button:hover {
+  background: inherit; /* Do NOT remove */
 }
 
-#backlight {
-  background: @backlight;
+#workspaces button {
+  padding: 0 10px;
+  background-color: transparent;
+  color: #eddbb2;
 }
 
-#clock.date {
-    background: @date;
+#workspaces button.focused {
+  color: #fbf1c7;
 }
 
-#clock.time {
-    background: @time;
+#workspaces button.urgent {
+  color: #cc241d;
 }
 
-#pulseaudio { /* Unsused but kept for those who needs it */
-    background: @sound;
+#mode {
+  color: #98971a;
 }
 
-#pulseaudio.muted {
-    color: @critical;
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
 }
 
-#tray {
-  background: @tray;
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
 }
 
-#custom-power {
-  background: @tray;
-  font-size: 32px;
+/* Modules rounded corners */
+.modules-left {
+  background: #32302f;
+  color: #eddbb2;
+  border-radius: 0px 0px 5px 5px;
+  padding: 0 4px;
 }
 
-#custom-vpn {
-    padding: 0px 5px 0px 15px;
-    background: @network;
+.modules-center {
+  background-color: #32302f;
+  color: #eddbb2;
+  border-radius: 0px 0px 5px 5px;
+  padding: 0 10px;
+  margin: 0 4px;
 }
-
-#custom-vpn.custom-connected {
-    color: @ok;
-}
-
-#custom-vpn.custom-disconnected {
-    color: @critical;
-}
-
-#custom-firefox, #custom-terminal, #custom-fm {
-    padding:            0px 12px 0px 10px;
-    /* font-size:          28px; */
-}
-
-#custom-firefox {
-    font-size:          22px;
-}
-#custom-terminal {
-    font-size:          25px;
-}
-#custom-fm {
-    font-size:          27px;
+.modules-right {
+  background: #32302f;
+  color: #eddbb2;
+  border-radius: 0px 0px 5px 5px;
+  padding: 0 4px; /* Alternate layout: 0 10px; */
 }

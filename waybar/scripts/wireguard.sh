@@ -10,5 +10,5 @@ if [ -n "$CONNECTED" ]; then
   #printf '{"text": "%s ' "${ip_array[@]}" '" "alt": "connected"}'
   echo -n '{"text":' "\"${ip_array[*]}\"," '"class": "custom-connected", "alt": "connected"}'
 else
-  echo -n '{"text": "Not Connected", "class": "custom-disconnected", "alt": "disconnected"}'
+  echo -n '{"text": "", "class": "custom-disconnected", "alt": "disconnected"}'
 fi

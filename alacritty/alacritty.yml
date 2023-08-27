@@ -101,256 +101,258 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
+import:
+  - ~/.config/alacritty/colors.yml
+# #
+# # Dark
+# #
+# schemes:
+#   gruvbox_dark: &gruvbox_dark # Default colors
+#     primary:
+#       background: "0x272727"
+#       # background: "0x32302f"
+#       foreground: "0xafafaf"
 #
-# Dark
+#     # Normal colors
+#     normal:
+#       black: "0x282828"
+#       red: "0xcc241d"
+#       green: "0x98971a"
+#       yellow: "0xd79921"
+#       blue: "0x458588"
+#       magenta: "0xb16286"
+#       cyan: "0x689d6a"
+#       white: "0xa89984"
 #
-schemes:
-  gruvbox_dark: &gruvbox_dark # Default colors
-    primary:
-      background: "0x272727"
-      # background: "0x32302f"
-      foreground: "0xafafaf"
-
-    # Normal colors
-    normal:
-      black: "0x282828"
-      red: "0xcc241d"
-      green: "0x98971a"
-      yellow: "0xd79921"
-      blue: "0x458588"
-      magenta: "0xb16286"
-      cyan: "0x689d6a"
-      white: "0xa89984"
-
-    # Bright colors
-    bright:
-      black: "0x928374"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xebdbb2"
-
-  gruvbox_dark_soft: &gruvbox_dark_soft
-    primary:
-      background: "0x32302f"
-      foreground: "0xd5c4a1"
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: "0x32302f"
-      cursor: "0xd5c4a1"
-
-    # Normal colors
-    normal:
-      black: "0x32302f"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xd5c4a1"
-
-    # Bright colors
-    bright:
-      black: "0x665c54"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xfbf1c7"
-
-    indexed_colors:
-      - { index: 16, color: "0xfe8019" }
-      - { index: 17, color: "0xd65d0e" }
-      - { index: 18, color: "0x3c3836" }
-      - { index: 19, color: "0x504945" }
-      - { index: 20, color: "0xbdae93" }
-      - { index: 21, color: "0xebdbb2" }
-
-  gruvbox_dark_medium: &gruvbox_dark_medium
-    primary:
-      background: "0x282828"
-      foreground: "0xd5c4a1"
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: "0x282828"
-      cursor: "0xd5c4a1"
-
-    # Normal colors
-    normal:
-      black: "0x282828"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xd5c4a1"
-
-    # Bright colors
-    bright:
-      black: "0x665c54"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xfbf1c7"
-
-    indexed_colors:
-      - { index: 16, color: "0xfe8019" }
-      - { index: 17, color: "0xd65d0e" }
-      - { index: 18, color: "0x3c3836" }
-      - { index: 19, color: "0x504945" }
-      - { index: 20, color: "0xbdae93" }
-      - { index: 21, color: "0xebdbb2" }
-
-  gruvbox_dark_hard: &gruvbox_dark_hard
-    primary:
-      background: "0x1d2021"
-      foreground: "0xd5c4a1"
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: "0x1d2021"
-      cursor: "0xd5c4a1"
-
-    # Normal colors
-    normal:
-      black: "0x1d2021"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xd5c4a1"
-
-    # Bright colors
-    bright:
-      black: "0x665c54"
-      red: "0xfb4934"
-      green: "0xb8bb26"
-      yellow: "0xfabd2f"
-      blue: "0x83a598"
-      magenta: "0xd3869b"
-      cyan: "0x8ec07c"
-      white: "0xfbf1c7"
-
-    indexed_colors:
-      - { index: 16, color: "0xfe8019" }
-      - { index: 17, color: "0xd65d0e" }
-      - { index: 18, color: "0x3c3836" }
-      - { index: 19, color: "0x504945" }
-      - { index: 20, color: "0xbdae93" }
-      - { index: 21, color: "0xebdbb2" }
-
-  eighties: &eighties
-    primary:
-      background: "0x2d2d2d"
-      foreground: "0xd3d0c8"
-
-    # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: "0x2d2d2d"
-      cursor: "0xd3d0c8"
-
-    # Normal colors
-    normal:
-      black: "0x2d2d2d"
-      red: "0xf2777a"
-      green: "0x99cc99"
-      yellow: "0xffcc66"
-      blue: "0x6699cc"
-      magenta: "0xcc99cc"
-      cyan: "0x66cccc"
-      white: "0xd3d0c8"
-
-    # Bright colors
-    bright:
-      black: "0x747369"
-      red: "0xf2777a"
-      green: "0x99cc99"
-      yellow: "0xffcc66"
-      blue: "0x6699cc"
-      magenta: "0xcc99cc"
-      cyan: "0x66cccc"
-      white: "0xf2f0ec"
-
-    indexed_colors:
-      - { index: 16, color: "0xf99157" }
-      - { index: 17, color: "0xd27b53" }
-      - { index: 18, color: "0x393939" }
-      - { index: 19, color: "0x515151" }
-      - { index: 20, color: "0xa09f93" }
-      - { index: 21, color: "0xe8e6df" }
-
-  onehalf_light: &onehalf_light
-    primary:
-      background: "0xfafafa"
-      foreground: "0x383a42"
-
-    normal:
-      black: "0x383a42"
-      red: "0xe45649"
-      green: "0x50a14f"
-      yellow: "0xc18401"
-      blue: "0x0184bc"
-      magenta: "0xa626a4"
-      cyan: "0x0997b3"
-      white: "0xfafafa"
-
-    bright:
-      black: "0x383a42"
-      red: "0xe45649"
-      green: "0x50a14f"
-      yellow: "0xc18401"
-      blue: "0x0184bc"
-      magenta: "0xa626a4"
-      cyan: "0x0997b3"
-      white: "0xfafafa"
-
-  # TokyoNight Alacritty Colors
-  tokyo_night: &tokyo_night # Default colors
-    primary:
-      background: "0x222436"
-      foreground: "0xc8d3f5"
-
-    # Normal colors
-    normal:
-      black: "0x1b1d2b"
-      red: "0xff757f"
-      green: "0xc3e88d"
-      yellow: "0xffc777"
-      blue: "0x82aaff"
-      magenta: "0xc099ff"
-      cyan: "0x86e1fc"
-      white: "0x828bb8"
-
-    # Bright colors
-    bright:
-      black: "0x444a73"
-      red: "0xff757f"
-      green: "0xc3e88d"
-      yellow: "0xffc777"
-      blue: "0x82aaff"
-      magenta: "0xc099ff"
-      cyan: "0x86e1fc"
-      white: "0xc8d3f5"
-
-    indexed_colors:
-      - { index: 16, color: "0xff966c" }
-      - { index: 17, color: "0xc53b53" }
-
-colors: *gruvbox_dark
+#     # Bright colors
+#     bright:
+#       black: "0x928374"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xebdbb2"
+#
+#   gruvbox_dark_soft: &gruvbox_dark_soft
+#     primary:
+#       background: "0x32302f"
+#       foreground: "0xd5c4a1"
+#
+#     # Colors the cursor will use if `custom_cursor_colors` is true
+#     cursor:
+#       text: "0x32302f"
+#       cursor: "0xd5c4a1"
+#
+#     # Normal colors
+#     normal:
+#       black: "0x32302f"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xd5c4a1"
+#
+#     # Bright colors
+#     bright:
+#       black: "0x665c54"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xfbf1c7"
+#
+#     indexed_colors:
+#       - { index: 16, color: "0xfe8019" }
+#       - { index: 17, color: "0xd65d0e" }
+#       - { index: 18, color: "0x3c3836" }
+#       - { index: 19, color: "0x504945" }
+#       - { index: 20, color: "0xbdae93" }
+#       - { index: 21, color: "0xebdbb2" }
+#
+#   gruvbox_dark_medium: &gruvbox_dark_medium
+#     primary:
+#       background: "0x282828"
+#       foreground: "0xd5c4a1"
+#
+#     # Colors the cursor will use if `custom_cursor_colors` is true
+#     cursor:
+#       text: "0x282828"
+#       cursor: "0xd5c4a1"
+#
+#     # Normal colors
+#     normal:
+#       black: "0x282828"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xd5c4a1"
+#
+#     # Bright colors
+#     bright:
+#       black: "0x665c54"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xfbf1c7"
+#
+#     indexed_colors:
+#       - { index: 16, color: "0xfe8019" }
+#       - { index: 17, color: "0xd65d0e" }
+#       - { index: 18, color: "0x3c3836" }
+#       - { index: 19, color: "0x504945" }
+#       - { index: 20, color: "0xbdae93" }
+#       - { index: 21, color: "0xebdbb2" }
+#
+#   gruvbox_dark_hard: &gruvbox_dark_hard
+#     primary:
+#       background: "0x1d2021"
+#       foreground: "0xd5c4a1"
+#
+#     # Colors the cursor will use if `custom_cursor_colors` is true
+#     cursor:
+#       text: "0x1d2021"
+#       cursor: "0xd5c4a1"
+#
+#     # Normal colors
+#     normal:
+#       black: "0x1d2021"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xd5c4a1"
+#
+#     # Bright colors
+#     bright:
+#       black: "0x665c54"
+#       red: "0xfb4934"
+#       green: "0xb8bb26"
+#       yellow: "0xfabd2f"
+#       blue: "0x83a598"
+#       magenta: "0xd3869b"
+#       cyan: "0x8ec07c"
+#       white: "0xfbf1c7"
+#
+#     indexed_colors:
+#       - { index: 16, color: "0xfe8019" }
+#       - { index: 17, color: "0xd65d0e" }
+#       - { index: 18, color: "0x3c3836" }
+#       - { index: 19, color: "0x504945" }
+#       - { index: 20, color: "0xbdae93" }
+#       - { index: 21, color: "0xebdbb2" }
+#
+#   eighties: &eighties
+#     primary:
+#       background: "0x2d2d2d"
+#       foreground: "0xd3d0c8"
+#
+#     # Colors the cursor will use if `custom_cursor_colors` is true
+#     cursor:
+#       text: "0x2d2d2d"
+#       cursor: "0xd3d0c8"
+#
+#     # Normal colors
+#     normal:
+#       black: "0x2d2d2d"
+#       red: "0xf2777a"
+#       green: "0x99cc99"
+#       yellow: "0xffcc66"
+#       blue: "0x6699cc"
+#       magenta: "0xcc99cc"
+#       cyan: "0x66cccc"
+#       white: "0xd3d0c8"
+#
+#     # Bright colors
+#     bright:
+#       black: "0x747369"
+#       red: "0xf2777a"
+#       green: "0x99cc99"
+#       yellow: "0xffcc66"
+#       blue: "0x6699cc"
+#       magenta: "0xcc99cc"
+#       cyan: "0x66cccc"
+#       white: "0xf2f0ec"
+#
+#     indexed_colors:
+#       - { index: 16, color: "0xf99157" }
+#       - { index: 17, color: "0xd27b53" }
+#       - { index: 18, color: "0x393939" }
+#       - { index: 19, color: "0x515151" }
+#       - { index: 20, color: "0xa09f93" }
+#       - { index: 21, color: "0xe8e6df" }
+#
+#   onehalf_light: &onehalf_light
+#     primary:
+#       background: "0xfafafa"
+#       foreground: "0x383a42"
+#
+#     normal:
+#       black: "0x383a42"
+#       red: "0xe45649"
+#       green: "0x50a14f"
+#       yellow: "0xc18401"
+#       blue: "0x0184bc"
+#       magenta: "0xa626a4"
+#       cyan: "0x0997b3"
+#       white: "0xfafafa"
+#
+#     bright:
+#       black: "0x383a42"
+#       red: "0xe45649"
+#       green: "0x50a14f"
+#       yellow: "0xc18401"
+#       blue: "0x0184bc"
+#       magenta: "0xa626a4"
+#       cyan: "0x0997b3"
+#       white: "0xfafafa"
+#
+#   # TokyoNight Alacritty Colors
+#   tokyo_night: &tokyo_night # Default colors
+#     primary:
+#       background: "0x222436"
+#       foreground: "0xc8d3f5"
+#
+#     # Normal colors
+#     normal:
+#       black: "0x1b1d2b"
+#       red: "0xff757f"
+#       green: "0xc3e88d"
+#       yellow: "0xffc777"
+#       blue: "0x82aaff"
+#       magenta: "0xc099ff"
+#       cyan: "0x86e1fc"
+#       white: "0x828bb8"
+#
+#     # Bright colors
+#     bright:
+#       black: "0x444a73"
+#       red: "0xff757f"
+#       green: "0xc3e88d"
+#       yellow: "0xffc777"
+#       blue: "0x82aaff"
+#       magenta: "0xc099ff"
+#       cyan: "0x86e1fc"
+#       white: "0xc8d3f5"
+#
+#     indexed_colors:
+#       - { index: 16, color: "0xff966c" }
+#       - { index: 17, color: "0xc53b53" }
+#
+# colors: *gruvbox_dark
 
 # Visual Bell
 #
