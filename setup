@@ -68,10 +68,14 @@ link_files () {
     success 'xinitrc config linked'
     ln -nfs "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
     success 'alacritty config linked'
+    ln -nfs "$HOME/dotfiles/wezterm" "$HOME/.config/wezterm"
+    success 'wezterm config linked'
     ln -nfs "$HOME/dotfiles/starship.toml" "$HOME/.config/starship.toml"
     success 'starship config linked'
     ln -nfs "$HOME/dotfiles/sway" "$HOME/.config/sway"
     success 'sway config linked'
+    ln -nfs "$HOME/dotfiles/hypr" "$HOME/.config/hypr"
+    success 'hyprland config linked'
     ln -nfs "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
     success 'waybar config linked'
     ln -nfs "$HOME/dotfiles/wofi" "$HOME/.config/wofi"
@@ -84,7 +88,6 @@ make_dirs () {
     info 'Creating directories'
     mkdir -p "$HOME/.config"
     mkdir -p "$HOME/.config/git"
-    mkdir -p "$HOME/.config/alacritty"
     mkdir -p "$HOME/.vim-backup"
     mkdir -p "$HOME/.vim-undo"
     mkdir -p "$HOME/.vim-swap"
