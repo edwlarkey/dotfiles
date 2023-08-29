@@ -1,8 +1,5 @@
 {
-  // "layer": "top", // Waybar at top layer
-  // "position": "bottom", // Waybar position (top|bottom|left|right)
-  // "height": 30, // Waybar height (to be removed for auto height)
-  // "width": 1280, // Waybar width
+  "layer": "top", // Waybar at top layer
   "spacing": 10, // Gaps between modules (4px)
   // "margin": "0 8 0 8", // 4 4 0 4; 0 8 0 8
   // Choose the order of the modules
@@ -21,7 +18,6 @@
     "temperature",
     "backlight",
     "battery",
-    "battery#bat2",
     "tray",
     "clock",
     "custom/power",
@@ -37,7 +33,7 @@
         //"2": "",
         //"7": "",
         "urgent": "",
-        "focused": "",
+        "active": "",
         "default": ""
     }
   },
@@ -111,8 +107,8 @@
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{icon} {time}",
-    "format-good": "",
-    "format-full": "",
+    "format-good": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
     "format-icons": [
       "",
       "",

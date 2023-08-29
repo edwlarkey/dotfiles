@@ -1,7 +1,7 @@
 [aws]
 format = 'on [$symbol($profile )(\($region\) )]($style)'
 style = "bold blue"
-symbol = "🅰 "
+symbol = ""
 [aws.profile_aliases]
 AdministratorAccess = 'Admin'
 
