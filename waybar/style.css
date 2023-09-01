@@ -178,6 +178,11 @@ button:hover {
     color: @base00;
 
 }
+#battery.charging {
+    background: @base0A;
+    color: @base00;
+
+}
 #clock.date {
     background: @base04;
     color: @base00;

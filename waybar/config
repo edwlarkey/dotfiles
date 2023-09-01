@@ -99,12 +99,13 @@
   "battery": {
     "min-length": 6,
     "states": {
-      "good": 95,
+      "full": 90,
+      "good": 90,
       "warning": 30,
       "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
+    "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
     "format-alt": "{icon} {time}",
     "format-good": "{icon} {capacity}%",
@@ -116,9 +117,6 @@
       "",
       ""
     ]
-  },
-  "battery#bat2": {
-    "bat": "BAT2"
   },
   "pulseaudio": {
     "min-length": 6,
