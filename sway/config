@@ -2,15 +2,15 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-set $mod Mod1
+# Logo key. Use Mod1 for Alt, Mod4 for Super
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term wezterm
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -28,16 +28,17 @@ output * bg /home/edwlarkey/Sync/docs/Photos/2560x1440.png fill
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 output DP-1 scale 1.5 position 0,0
+output eDP-1 scale 1.5 position 0,0
 
 # Appearance
 client.focused      #1c1c1c #9b885c #1c1c1c #7c794e
 client.unfocused    #1c1c1c #b9bab5 #1c1c1c #7c794e
 
-gaps top 10
-gaps bottom 10
-gaps left 10
-gaps right 0
-gaps inner 10
+gaps top 2
+gaps bottom 2
+gaps left 2
+gaps right 2
+gaps inner 2
 default_border pixel
 
 ### Idle configuration
@@ -54,7 +55,11 @@ exec swayidle -w \
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Autostart
+exec kanshi
 exec gammastep-indicator
+exec libinput-gestures-setup start
+exec mako
+exec iwgtk -i
 
 ### Input configuration
 #
@@ -73,12 +78,18 @@ input "type:keyboard" {
     xkb_options grp:alt_shift_toggle
     xkb_options ctrl:nocaps
     repeat_delay 200
-    repeat_rate 30
+    repeat_rate 40
 }
 
 input "1133:16534:Logitech_ERGO_M575" {
     scroll_method on_button_down
     scroll_button button9
+}
+
+input type:touchpad {
+    natural_scroll enabled
+    tap enabled
+    middle_emulation enabled
 }
 
 #
@@ -235,8 +246,11 @@ bindsym $mod+r mode "resize"
 # Media Keys
 #
 
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && notify-send -t 2000 "Decreased brightness to" "$(brightnessctl get)"
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5% && notify-send -t 2000 "Increased brightness to" "$(brightnessctl get)"
 
 #
 # Status Bar:

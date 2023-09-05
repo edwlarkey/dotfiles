@@ -5,9 +5,9 @@
   // Choose the order of the modules
   "modules-left": [
     "wlr/workspaces",
+    "sway/workspaces",
   ],
   "modules-center": [
-    "hyprland/window",
   ],
   "modules-right": [
     "custom/vpn",
@@ -34,6 +34,20 @@
         //"7": "",
         "urgent": "",
         "active": "",
+        "default": ""
+    }
+  },
+  "sway/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "on-click": "activate",
+    "format": "{name}:{icon}",
+    "format-icons": {
+        //"1": "",
+        //"2": "",
+        //"7": "",
+        "urgent": "",
+        "focused": "",
         "default": ""
     }
   },

@@ -21,6 +21,10 @@ alacritty:  ## Link alacritty config
 wezterm:  ## Link wezterm config
 	ln -nfs $(DOTFILES)/wezterm ${HOME}/.config/wezterm
 
+.PHONY: qutebrowser
+qutebrowser:  ## Link qutebrowser config
+	ln -nfs $(DOTFILES)/qutebrowser ${HOME}/.config/qutebrowser
+
 .PHONY: bin
 bin:  ## Link bin directory
 	ln -nfs $(DOTFILES)/bin ${HOME}/bin
