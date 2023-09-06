@@ -21,6 +21,13 @@ c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 c.qt.force_platform = "wayland"
 c.qt.highdpi = True
 c.tabs.position = "left"
+c.colors.webpage.preferred_color_scheme = "light"
+c.completion.shrink = True
+c.completion.use_best_match = True
+c.downloads.position = "bottom"
+c.downloads.remove_finished = 10000
+c.statusbar.widgets = ["progress", "keypress", "url", "history"]
+c.scrolling.bar = "always"
 
 config.set("fonts.statusbar", "14pt default_family")
 config.set("fonts.completion.entry", "12pt default_family")
@@ -81,4 +88,4 @@ config.set(
     "file:///home/edwlarkey/.local/share/qutebrowser/userscripts/*",
 )
 
-config.source("gruvbox.py")
+# config.source("gruvbox.py")
