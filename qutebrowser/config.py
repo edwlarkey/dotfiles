@@ -22,6 +22,9 @@ c.qt.force_platform = "wayland"
 c.qt.highdpi = True
 c.tabs.position = "left"
 
+config.set("fonts.statusbar", "14pt default_family")
+config.set("fonts.completion.entry", "12pt default_family")
+
 config.set("downloads.location.directory", "~/Downloads")
 config.set("downloads.location.prompt", True)
 
@@ -35,6 +38,7 @@ config.set(
         "wqa": "quit --save",
         "bn": "tab-next",
         "bp": "tab-prev",
+        "bd": "tab-close",
     },
 )
 
@@ -58,8 +62,10 @@ config.set(
     "https://*.slack.com/*",
 )
 
+config.set("content.local_content_can_access_remote_urls", True)
 config.set("content.images", True, "chrome-devtools://*")
 config.set("content.images", True, "devtools://*")
+config.set("content.images", True, "file://*")
 config.set("content.javascript.enabled", True, "chrome-devtools://*")
 config.set("content.javascript.enabled", True, "devtools://*")
 config.set("content.javascript.enabled", True, "chrome://*/*")
