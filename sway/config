@@ -243,6 +243,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+r mode "resize"
 
 #
@@ -254,6 +255,16 @@ bindsym --locked XF86AudioLowerVolume exec wpctl set-volume -l 1.5 @DEFAULT_AUDI
 bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && notify-send -t 2000 "Decreased brightness to" "$(brightnessctl get)"
 bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5% && notify-send -t 2000 "Increased brightness to" "$(brightnessctl get)"
+
+bindsym XF86Favorites exec qutebrowser
+
+# Extra thinkpad x1 carbon gen 6 keys
+# XF86Favorites F12
+# XF86Keyboard F11
+# XF86Bluetooth F10
+# XF86Tools F9
+# XF86WLAN F8
+# XF86Display F7
 
 #
 # Status Bar:
@@ -291,6 +302,8 @@ assign [class="Thunderbird"] 7
 assign [class="Steam"] 5
 assign [app_id="lutris"] 5
 
+# Tag xwayland windows as such
+for_window [shell="xwayland"] title_format "[X] %title"
 
 # Dolphin settings:
 # operation (copy/move/already exists/etc) window size

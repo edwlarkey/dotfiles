@@ -18,7 +18,7 @@ config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 config.load_autoconfig(False)
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
-c.qt.force_platform = "wayland"
+# c.qt.force_platform = "wayland"
 c.qt.highdpi = True
 c.tabs.position = "left"
 c.colors.webpage.preferred_color_scheme = "light"
@@ -28,6 +28,20 @@ c.downloads.position = "bottom"
 c.downloads.remove_finished = 10000
 c.statusbar.widgets = ["progress", "keypress", "url", "history"]
 c.scrolling.bar = "always"
+c.content.default_encoding = "utf-8"
+c.content.pdfjs = True
+c.editor.command = [
+    "tmux",
+    "new-window",
+    "trap 'tmux wait-for -S qutebrowser-{file}' 0 && nvim -c 'normal {line}G{column0}l' {file}",
+    ";",
+    "wait-for",
+    "qutebrowser-{file}",
+]
+c.input.insert_mode.auto_load = True
+c.tabs.select_on_remove = "prev"
+
+c.completion.web_history.max_items = 10000
 
 config.set("fonts.statusbar", "14pt default_family")
 config.set("fonts.completion.entry", "12pt default_family")
@@ -49,11 +63,28 @@ config.set(
     },
 )
 
+config.bind("<Ctrl+n>", "completion-item-focus --history next", mode="command")
+config.bind("<Ctrl+p>", "completion-item-focus --history prev", mode="command")
+
 config.bind("u", "back")
 config.bind("<Ctrl-r>", "forward")
+config.bind("x", "forward")
+config.bind("z", "back")
 
 config.bind("<Ctrl-l>", "tab-next")
 config.bind("<Ctrl-h>", "tab-prev")
+
+config.bind("<Ctrl-t>", "config-cycle -t tabs.position top left")
+config.bind("t/", "cmd-set-text -s :tab-select")
+
+config.bind("<Ctrl-Shift-r>", "restart")
+config.bind("<Ctrl-Shift-c>", "config-source")
+
+qute_pass = "qute-pass -d 'wofi --dmenu' --username-target secret --username-pattern 'username: (.+)'"
+config.bind(",p", f"spawn --userscript {qute_pass}", mode="insert")
+config.bind(",P", f"spawn --userscript {qute_pass} .", mode="insert")
+config.bind(",u", f"spawn --userscript {qute_pass} --username-only", mode="insert")
+config.bind(",U", f"spawn --userscript {qute_pass} --password-only", mode="insert")
 
 config.set("content.cookies.accept", "all", "chrome-devtools://*")
 config.set("content.cookies.accept", "all", "devtools://*")

@@ -8,6 +8,7 @@
     "sway/workspaces",
   ],
   "modules-center": [
+    "sway/window"
   ],
   "modules-right": [
     "custom/vpn",
@@ -51,13 +52,12 @@
         "default": ""
     }
   },
-  "hyprland/window": {
+  "sway/window": {
     "format": "{}",
     "rewrite": {
-        "(.*) — Mozilla Firefox": "$1",
+        "(.*) — Firefox": "$1",
         "(.*) - zsh": "> [$1]"
     },
-    "separate-outputs": true
   },
   "tray": {
     "icon-size": 12,
