@@ -70,6 +70,8 @@ config.bind("u", "back")
 config.bind("<Ctrl-r>", "forward")
 config.bind("x", "forward")
 config.bind("z", "back")
+config.bind("..", "forward")
+config.bind(",,", "back")
 
 config.bind("<Ctrl-l>", "tab-next")
 config.bind("<Ctrl-h>", "tab-prev")

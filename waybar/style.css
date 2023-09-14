@@ -126,7 +126,6 @@ button:hover {
   margin-right: 0;
 }
 
-/* Modules rounded corners */
 .modules-left {
   background: @base02;
   color: @base06;
@@ -146,6 +145,22 @@ button:hover {
 }
 
 /* Modules */
+
+#volume,
+#cpu,
+#memory,
+#temperature {
+  background-color: @base03;
+  padding: 0 4px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#backlight {
+  background-color: @base0C;
+  color: @base00;
+  padding: 0 4px;
+}
 
 #memory.critical,
 #cpu.critical,

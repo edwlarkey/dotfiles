@@ -319,6 +319,10 @@ for_window [title="Copying .*— Dolphin"] floating enable, border normal, resiz
 for_window [title="Progress Dialog — Dolphin"] floating enable, border normal, resize set width $dolphin_operation_window_width_small, resize set height $dolphin_operation_window_height_small
 for_window [title="Extracting Files .*— Dolphin"] floating enable, border normal, resize set width $dolphin_operation_window_width_small, resize set height $dolphin_operation_window_height_small
 
+# Thunar
+for_window [app_id="thunar" title="^Copying.*"] floating enable
+for_window [app_id="thunar" title="^File.*"] floating enable
+
 # Steam
 for_window [class="^Steam$" title="^Friends List$"] floating enable
 for_window [class="^Steam$" title="Steam - News"] floating enable
