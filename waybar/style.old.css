@@ -1,0 +1,212 @@
+@define-color base00 #282828;
+@define-color base01 #3c3836;
+@define-color base02 #504945;
+@define-color base03 #665c54;
+@define-color base04 #bdae93;
+@define-color base05 #d5c4a1;
+@define-color base06 #ebdbb2;
+@define-color base07 #fbf1c7;
+@define-color base08 #fb4934;
+@define-color base09 #fe8019;
+@define-color base0A #fabd2f;
+@define-color base0B #b8bb26;
+@define-color base0C #8ec07c;
+@define-color base0D #83a598;
+@define-color base0E #d3869b;
+@define-color base0F #d65d0e;
+
+@keyframes blink-warning {
+    70% {
+      background-color: @base02;
+      color: @base09;
+    }
+
+    to {
+        color: @base00;
+        background-color: @base09;
+    }
+}
+
+@keyframes blink-critical {
+    70% {
+      background-color: @base02;
+      color: @base08;
+    }
+
+    to {
+        color: @base00;
+        background-color: @base08;
+    }
+}
+
+* {
+  /* `otf-font-awesome` is required to be installed for icons */
+  font-family: "Hack Nerd Font Mono", "Font Awesome 5 Free Regular";
+  font-size: 14px;
+}
+
+#window {
+  color: #fbf1c7;
+}
+
+window#waybar {
+  background-color: @base02;
+  /* Optional layout, uncomment the lines below */
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
+}
+
+window#waybar.empty {
+  background-color: #32302f;
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
+}
+
+window#waybar.empty .modules-center {
+  background-color: #32302f;
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
+}
+
+window#waybar.solo {
+  background-color: #32302f;
+  /* background-color: transparent; */
+  /* border-radius: 5px 5px 5px 5px; */
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* window#waybar.alacritty { */
+/*   background-color: #3f3f3f; */
+/* } */
+/**/
+/* window#waybar.firefox { */
+/*   border: none; */
+/* } */
+
+button {
+  /* Use box-shadow instead of border so the text isn't offset */
+  box-shadow: inset 0 -3px transparent;
+  /* Avoid rounded borders under each button name */
+  border: none;
+  border-radius: 0;
+}
+
+button:hover {
+  background: inherit; /* Do NOT remove */
+}
+
+#workspaces button {
+  padding: 0 10px;
+  background-color: transparent;
+  color: @base06;
+}
+
+#workspaces button.focused {
+  color: @base06;
+}
+
+#workspaces button.urgent {
+  color: @base08;
+}
+
+#mode {
+  color: @base0B;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
+
+.modules-left {
+  background: @base02;
+  color: @base06;
+  padding: 0 4px;
+}
+
+.modules-center {
+  background: @base02;
+  color: @base06;
+  padding: 0 10px;
+  margin: 0 4px;
+}
+.modules-right {
+  background: @base02;
+  color: @base06;
+  padding: 0 4px; /* Alternate layout: 0 10px; */
+}
+
+/* Modules */
+
+#volume,
+#cpu,
+#memory,
+#temperature {
+  background-color: @base03;
+  padding: 0 4px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#backlight {
+  background-color: @base0C;
+  color: @base00;
+  padding: 0 4px;
+}
+
+#memory.critical,
+#cpu.critical,
+#temperature.critical,
+#battery.critical {
+    background-color: @base02;
+    color: @base08;
+}
+
+/* Each critical that should blink */
+#mode,
+#memory.critical,
+#temperature.critical,
+#battery.critical.discharging {
+    animation-name: blink-critical;
+    animation-duration: 2s;
+}
+
+#network.disconnected,
+#memory.warning,
+#cpu.warning,
+#temperature.warning,
+#battery.warning {
+    background-color: @base09;
+    color: @base00;
+}
+
+#battery.discharging {
+    background: @base0D;
+    color: @base00;
+
+}
+#battery.charging {
+    background: @base0A;
+    color: @base00;
+
+}
+#clock.date {
+    background: @base04;
+    color: @base00;
+
+}
+#clock {
+    background: @base04;
+    color: @base00;
+    padding-left: 4px;
+    padding-right: 4px;
+
+}

@@ -1,6 +1,6 @@
 {
   "layer": "top", // Waybar at top layer
-  "spacing": 4, // Gaps between modules (4px)
+  // "spacing": 4, // Gaps between modules (4px)
   // "margin": "0 8 0 8", // 4 4 0 4; 0 8 0 8
   // Choose the order of the modules
   "modules-left": [
@@ -30,12 +30,12 @@
     "on-click": "activate",
     "format": "{name}:{icon}",
     "format-icons": {
-        //"1": "",
-        //"2": "",
-        //"7": "",
-        "urgent": "",
-        "active": "",
-        "default": ""
+      //"1": "",
+      //"2": "",
+      //"7": "",
+      "urgent": "",
+      "active": "",
+      "default": ""
     }
   },
   "sway/workspaces": {
@@ -44,19 +44,19 @@
     "on-click": "activate",
     "format": "{name}:{icon}",
     "format-icons": {
-        //"1": "",
-        //"2": "",
-        //"7": "",
-        "urgent": "",
-        "focused": "",
-        "default": ""
+      //"1": "",
+      //"2": "",
+      //"7": "",
+      "urgent": "",
+      "focused": "",
+      "default": ""
     }
   },
   "sway/window": {
     "format": "{}",
     "rewrite": {
-        "(.*) — Firefox": "$1",
-        "(.*) - zsh": "> [$1]"
+      "(.*) — Firefox": "$1",
+      "(.*) - zsh": "> [$1]"
     },
   },
   "tray": {
@@ -70,8 +70,8 @@
     "format-alt": "{: %H:%M}",
   },
   "clock#utc": {
-      "format": "{:%H:%M UTC}",
-      "timezone": "Etc/UTC"
+    "format": "{:%H:%M UTC}",
+    "timezone": "Etc/UTC"
   },
   "cpu": {
     "min-length": 6,
@@ -155,25 +155,25 @@
     "on-click": "pavucontrol"
   },
   "custom/vpn": {
-      "format": "{icon} {}",
-      "return-type": "json",
-      "interval": 10,
-      "format-icons": {
-          "connected": "󱚫",
-          "default": "󰿇"
-      },
-      "exec": "$HOME/.config/waybar/scripts/wireguard.sh 2> /dev/null"
+    "format": "{icon} {}",
+    "return-type": "json",
+    "interval": 10,
+    "format-icons": {
+      "connected": "󱚫",
+      "default": "󰿇"
+    },
+    "exec": "$HOME/.config/waybar/scripts/wireguard.sh 2> /dev/null"
   },
   "network": {
-      "format-wifi": "{essid} ({signalStrength}%) ",
-      "format-ethernet": "{ifname}: {ipaddr}/{cidr}",
-      "format-linked": "{ifname} (No IP)",
-      "format-disconnected": "Disconnected ⚠",
-      "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr}",
+    "format-linked": "{ifname} (No IP)",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
   },
   "custom/power": {
-      "format": "⏻ ",
-      "tooltip": false,
-      "on-click": "exec $HOME/dotfiles/waybar/scripts/power.sh"
+    "format": "⏻ ",
+    "tooltip": false,
+    "on-click": "exec $HOME/dotfiles/waybar/scripts/power.sh"
   }
 }

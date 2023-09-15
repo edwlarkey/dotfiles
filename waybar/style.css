@@ -1,212 +1,200 @@
-@define-color base00 #282828;
-@define-color base01 #3c3836;
-@define-color base02 #504945;
-@define-color base03 #665c54;
-@define-color base04 #bdae93;
-@define-color base05 #d5c4a1;
-@define-color base06 #ebdbb2;
-@define-color base07 #fbf1c7;
-@define-color base08 #fb4934;
-@define-color base09 #fe8019;
-@define-color base0A #fabd2f;
-@define-color base0B #b8bb26;
-@define-color base0C #8ec07c;
-@define-color base0D #83a598;
-@define-color base0E #d3869b;
-@define-color base0F #d65d0e;
+@define-color bg0-h   #1d2021;
+@define-color bg0     #282828;
+@define-color bg0-s   #32302f;
+@define-color bg1     #3c3836;
+@define-color bg2     #504945;
+@define-color bg3     #665c54;
+@define-color bg4     #7c6f64;
 
-@keyframes blink-warning {
-    70% {
-      background-color: @base02;
-      color: @base09;
-    }
+@define-color fg0     #fbf1c7;
+@define-color fg1     #ebdbb2;
+@define-color fg2     #d5c4a1;
+@define-color fg3     #bdae93;
+@define-color fg4     #a89984;
+@define-color fg      #ebdbb2;
 
-    to {
-        color: @base00;
-        background-color: @base09;
-    }
-}
+@define-color red-h    #fb4934;
+@define-color green-h  #b8bb26;
+@define-color yellow-h #fabd2f;
+@define-color blue-h   #83a598;
+@define-color purple-h #d3869b;
+@define-color aqua-h   #8ec07c;
+@define-color orange-h #fe8019;
 
-@keyframes blink-critical {
-    70% {
-      background-color: @base02;
-      color: @base08;
-    }
-
-    to {
-        color: @base00;
-        background-color: @base08;
-    }
-}
+@define-color red     #cc241d;  
+@define-color green   #98971a;
+@define-color yellow  #d79921;
+@define-color blue    #458588;
+@define-color purple  #b16286;
+@define-color aqua    #689d6a;
+@define-color orange  #d65d0e;
+@define-color gray    #a89984;
 
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
-  font-family: "Hack Nerd Font Mono", "Font Awesome 5 Free Regular";
+  border: none;
+  border-radius: 0;
+  font-family: "Hack Nerd Font Mono", "Openmoji", "Font Awesome 5 Free Regular";
   font-size: 14px;
-}
-
-#window {
-  color: #fbf1c7;
+  min-height: 0;
 }
 
 window#waybar {
-  background-color: @base02;
-  /* Optional layout, uncomment the lines below */
-  /* background-color: transparent; */
-  /* border-radius: 5px 5px 5px 5px; */
+  /* background: transparent; */
+  background: @bg0;
 }
 
-window#waybar.empty {
-  background-color: #32302f;
-  /* background-color: transparent; */
-  /* border-radius: 5px 5px 5px 5px; */
+/*gaps*/
+window > box {
+  margin-left: 0.45em;
+  margin-right: 0.45em;
+  margin-bottom: 0em;
+  background: transparent;
+  color: @fg0;
+  border-style: solid;
 }
 
-window#waybar.empty .modules-center {
-  background-color: #32302f;
-  /* background-color: transparent; */
-  /* border-radius: 5px 5px 5px 5px; */
+tooltip {
+  background: @bg0;
+  opacity: 0.8;
+  border-width: 0.2em;
+  border-style: solid;
+  border-color: @bg1;
+  border-radius: 0em;
 }
 
-window#waybar.solo {
-  background-color: #32302f;
-  /* background-color: transparent; */
-  /* border-radius: 5px 5px 5px 5px; */
+tooltip label {
+  color: @fg0;
 }
 
-window#waybar.hidden {
-  opacity: 0.2;
-}
-
-/* window#waybar.alacritty { */
-/*   background-color: #3f3f3f; */
-/* } */
-/**/
-/* window#waybar.firefox { */
-/*   border: none; */
-/* } */
-
-button {
-  /* Use box-shadow instead of border so the text isn't offset */
-  box-shadow: inset 0 -3px transparent;
-  /* Avoid rounded borders under each button name */
-  border: none;
-  border-radius: 0;
-}
-
-button:hover {
-  background: inherit; /* Do NOT remove */
+#workspaces {
+  background: @bg0;
+  color: @fg0;
 }
 
 #workspaces button {
-  padding: 0 10px;
-  background-color: transparent;
-  color: @base06;
+  padding: 0.4em;
+  color: @fg4;
+}
+
+#workspaces button.active {
+  color: @bg0;
+  background: @blue;
 }
 
 #workspaces button.focused {
-  color: @base06;
+  color: @blue-h;
+  background: @bg0;
 }
 
 #workspaces button.urgent {
-  color: @base08;
+  color: @bg0-h;
+  background: @green;
 }
 
-#mode {
-  color: @base0B;
+#workspaces button:hover {
+  background: @bg1;
+  color: @fg1;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-  margin-left: 0;
-}
-
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-  margin-right: 0;
-}
-
-.modules-left {
-  background: @base02;
-  color: @base06;
-  padding: 0 4px;
-}
-
-.modules-center {
-  background: @base02;
-  color: @base06;
-  padding: 0 10px;
-  margin: 0 4px;
-}
-.modules-right {
-  background: @base02;
-  color: @base06;
-  padding: 0 4px; /* Alternate layout: 0 10px; */
-}
-
-/* Modules */
-
-#volume,
+#custom-light_dark,
 #cpu,
 #memory,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#tray,
+#backlight,
 #temperature {
-  background-color: @base03;
-  padding: 0 4px;
-  margin-left: 0px;
-  margin-right: 0px;
+  background: @bg0;
+  color: @fg1;
+  padding: 0em 0.75em;
+  margin: 0.25em 0em;
+}
+
+#custom-launch_wofi {
+  background: @bg0;
+  color: @blue;
+  padding: 0em 0.5em 0em 0.75em;
+  margin: 0.25em 0em;
+}
+
+#custom-power {
+  background: @bg0;
+  color: @fg0;
+  padding: 0em 1em 0em 0.75em;
+  margin: 0.25em 0em;
+}
+
+#window {
+  background: @bg0;
+  color: @fg03;
+  padding: 0em 0.5em 0em 0.75em;
+  margin: 0.25em 0em;
+}
+
+#window.empty {
+  background: transparent;
+  padding: 0em;
+  margin: 0.25em 0em;
+}
+
+#pulseaudio {
+  color: @bg0;
+  background: @orange;
+}
+
+#custom-power_btn {
+  background: @bg0;
+  color: @fg0;
+}
+
+#custom-light_dark {
+  color: @bg0;
+  background: @aqua;
+}
+
+#network {
+  color: @bg0;
+  background: @gray;
+}
+
+#cpu,
+#memory {
+  color: @fg4;
+  background: @bg3;
+}
+
+#temperature,
+#battery {
+  color: @bg0;
+  background: @green;
+}
+
+#temperature.critical {
+  background: @red;
+  color: @bg0;
+}
+
+#battery.warning {
+  background: @yellow;
+  color: @bg0;
+}
+
+#battery.critical {
+  background: @red;
+  color: @bg0;
 }
 
 #backlight {
-  background-color: @base0C;
-  color: @base00;
-  padding: 0 4px;
+  background: @aqua;
+  color: @bg0;
 }
 
-#memory.critical,
-#cpu.critical,
-#temperature.critical,
-#battery.critical {
-    background-color: @base02;
-    color: @base08;
+#tray {
+  background: @bg0;
 }
 
-/* Each critical that should blink */
-#mode,
-#memory.critical,
-#temperature.critical,
-#battery.critical.discharging {
-    animation-name: blink-critical;
-    animation-duration: 2s;
-}
-
-#network.disconnected,
-#memory.warning,
-#cpu.warning,
-#temperature.warning,
-#battery.warning {
-    background-color: @base09;
-    color: @base00;
-}
-
-#battery.discharging {
-    background: @base0D;
-    color: @base00;
-
-}
-#battery.charging {
-    background: @base0A;
-    color: @base00;
-
-}
-#clock.date {
-    background: @base04;
-    color: @base00;
-
-}
 #clock {
-    background: @base04;
-    color: @base00;
-    padding-left: 4px;
-    padding-right: 4px;
-
+  background: @blue;
 }
