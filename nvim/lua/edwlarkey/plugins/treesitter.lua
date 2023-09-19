@@ -8,10 +8,10 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "mfussenegger/nvim-treehopper",
     "windwp/nvim-ts-autotag",
-    {
-      "nvim-treesitter/playground",
-      cmd = "TSPlaygroundToggle",
-    },
+    -- {
+    --   "nvim-treesitter/playground",
+    --   cmd = "TSPlaygroundToggle",
+    -- },
   },
 
   opts = {

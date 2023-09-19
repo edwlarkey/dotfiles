@@ -84,39 +84,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-local goaugroup = vim.api.nvim_create_augroup("goformat", { clear = true })
-
--- format and organize imports on save
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = goaugroup,
-  pattern = '*.go',
-  callback = function()
-    vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-  end
-})
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-  group = goaugroup,
-  pattern = {
-    "*.go",
-  },
-  callback = function()
-    vim.opt.tabstop = 4
-    vim.opt.shiftwidth = 4
-    vim.opt.expandtab = false
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = goaugroup,
-  pattern = {
-    "go",
-  },
-  callback = function()
-    vim.opt.listchars = "tab:  "
-  end,
-})
-
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = {
     "*",
@@ -127,6 +94,18 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 vim.cmd([[
+
+" https://vim.fandom.com/wiki/Automatically_open_the_quickfix_window_on_:make
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 augroup textcal
   autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal
