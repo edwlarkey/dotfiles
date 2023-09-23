@@ -20,6 +20,7 @@ c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
 # c.qt.force_platform = "wayland"
 c.qt.highdpi = True
+c.auto_save.session = True
 c.tabs.position = "left"
 c.colors.webpage.preferred_color_scheme = "light"
 c.completion.shrink = True
@@ -42,6 +43,7 @@ c.input.insert_mode.auto_load = True
 c.tabs.select_on_remove = "prev"
 
 c.completion.web_history.max_items = 10000
+
 
 config.set("fonts.statusbar", "14pt default_family")
 config.set("fonts.completion.entry", "12pt default_family")
