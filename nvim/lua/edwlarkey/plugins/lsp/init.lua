@@ -70,6 +70,7 @@ return {
             },
           },
         },
+        golangci_lint_ls = {},
         gopls = {
           settings = {
             gopls = {

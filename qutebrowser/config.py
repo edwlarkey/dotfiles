@@ -11,6 +11,7 @@
 #   qute://help/settings.html
 
 # Change the argument to True to still load settings configured via autoconfig.yml
+from platform import system
 from qutebrowser.config.configfiles import ConfigAPI  # noqa: F401
 from qutebrowser.config.config import ConfigContainer  # noqa: F401
 
@@ -21,6 +22,7 @@ c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 # c.qt.force_platform = "wayland"
 c.qt.highdpi = True
 c.auto_save.session = True
+c.session.lazy_restore = True
 c.tabs.position = "left"
 c.colors.webpage.preferred_color_scheme = "light"
 c.completion.shrink = True
@@ -47,6 +49,10 @@ c.completion.web_history.max_items = 10000
 
 config.set("fonts.statusbar", "14pt default_family")
 config.set("fonts.completion.entry", "12pt default_family")
+
+if system() == "Darwin":
+    config.set("fonts.tabs.selected", "16pt default_family")
+    config.set("fonts.tabs.unselected", "16pt default_family")
 
 config.set("downloads.location.directory", "~/Downloads")
 config.set("downloads.location.prompt", True)

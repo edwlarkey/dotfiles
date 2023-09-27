@@ -24,6 +24,7 @@ wezterm:  ## Link wezterm config
 .PHONY: qutebrowser
 qutebrowser:  ## Link qutebrowser config
 	ln -nfs $(DOTFILES)/qutebrowser ${HOME}/.config/qutebrowser
+	ln -nfs $(DOTFILES)/qutebrowser ${HOME}/.qutebrowser
 
 .PHONY: bin
 bin:  ## Link bin directory
