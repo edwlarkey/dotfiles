@@ -68,6 +68,9 @@ config.set(
         "bn": "tab-next",
         "bp": "tab-prev",
         "bd": "tab-close",
+        "bm": "open -t qute://bookmarks/",
+        "proc": "open -t ;; process",
+        "mess": "open -t qute://log/",
     },
 )
 
