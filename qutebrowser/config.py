@@ -42,7 +42,8 @@ c.editor.command = [
     "qutebrowser-{file}",
 ]
 c.input.insert_mode.auto_load = True
-c.tabs.select_on_remove = "prev"
+c.tabs.select_on_remove = "next"
+c.tabs.title.format_pinned = "{index}: {audio}{current_title}"
 
 c.completion.web_history.max_items = 10000
 
@@ -112,6 +113,12 @@ config.set(
     "Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36",
     "https://*.slack.com/*",
 )
+
+# Google meet
+config.set("content.notifications.enabled", False, "*://meet.google.com")
+config.set("content.media.audio_video_capture", True, "*://meet.google.com")
+config.set("content.media.audio_capture", True, "*://meet.google.com")
+config.set("content.media.video_capture", True, "*://meet.google.com")
 
 config.set("content.local_content_can_access_remote_urls", True)
 config.set("content.images", True, "chrome-devtools://*")
