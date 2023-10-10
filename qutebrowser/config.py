@@ -19,8 +19,12 @@ config = config  # type: ConfigAPI # noqa: F821 pylint: disable=E0602,C0103
 config.load_autoconfig(False)
 c = c  # type: ConfigContainer # noqa: F821 pylint: disable=E0602,C0103
 
+leader = "\\"
+localleader = " "
+
 # c.qt.force_platform = "wayland"
 c.qt.highdpi = True
+c.auto_save.interval = 15000  # milliseconds
 c.auto_save.session = True
 c.session.lazy_restore = True
 c.tabs.position = "left"
@@ -46,6 +50,8 @@ c.tabs.select_on_remove = "next"
 c.tabs.title.format_pinned = "{index}: {audio}{current_title}"
 
 c.completion.web_history.max_items = 10000
+
+c.content.javascript.clipboard = "access"
 
 
 config.set("fonts.statusbar", "14pt default_family")
@@ -84,6 +90,7 @@ config.bind("x", "forward")
 config.bind("z", "back")
 config.bind("..", "forward")
 config.bind(",,", "back")
+config.bind(f"{leader}m", "open -t qute://bookmarks/")
 
 config.bind("<Ctrl-l>", "tab-next")
 config.bind("<Ctrl-h>", "tab-prev")
@@ -95,10 +102,14 @@ config.bind("<Ctrl-Shift-r>", "restart")
 config.bind("<Ctrl-Shift-c>", "config-source")
 
 qute_pass = "qute-pass -d 'wofi --dmenu' --username-target secret --username-pattern 'username: (.+)'"
-config.bind(",p", f"spawn --userscript {qute_pass}", mode="insert")
-config.bind(",P", f"spawn --userscript {qute_pass} .", mode="insert")
-config.bind(",u", f"spawn --userscript {qute_pass} --username-only", mode="insert")
-config.bind(",U", f"spawn --userscript {qute_pass} --password-only", mode="insert")
+config.bind(f"{leader}p", f"spawn --userscript {qute_pass}", mode="insert")
+config.bind(f"{leader}P", f"spawn --userscript {qute_pass} .", mode="insert")
+config.bind(
+    f"{leader}u", f"spawn --userscript {qute_pass} --username-only", mode="insert"
+)
+config.bind(
+    f"{leader}U", f"spawn --userscript {qute_pass} --password-only", mode="insert"
+)
 
 config.set("content.cookies.accept", "all", "chrome-devtools://*")
 config.set("content.cookies.accept", "all", "devtools://*")
@@ -110,15 +121,16 @@ config.set(
 )
 config.set(
     "content.headers.user_agent",
-    "Mozilla/5.0 ({os_info}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Safari/605.1.15",
     "https://*.slack.com/*",
 )
 
 # Google meet
-config.set("content.notifications.enabled", False, "*://meet.google.com")
-config.set("content.media.audio_video_capture", True, "*://meet.google.com")
-config.set("content.media.audio_capture", True, "*://meet.google.com")
-config.set("content.media.video_capture", True, "*://meet.google.com")
+config.set("content.notifications.enabled", True, "https://meet.google.com")
+config.set("content.media.audio_video_capture", True, "https://meet.google.com")
+config.set("content.media.audio_capture", True, "https://meet.google.com")
+config.set("content.media.video_capture", True, "https://meet.google.com")
+config.set("content.desktop_capture", True, "https://meet.google.com")
 
 config.set("content.local_content_can_access_remote_urls", True)
 config.set("content.images", True, "chrome-devtools://*")
