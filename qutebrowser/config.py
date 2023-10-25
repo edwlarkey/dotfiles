@@ -24,10 +24,12 @@ localleader = " "
 
 # c.qt.force_platform = "wayland"
 c.qt.highdpi = True
+c.qt.chromium.process_model = "process-per-site"
 c.auto_save.interval = 15000  # milliseconds
 c.auto_save.session = True
 c.session.lazy_restore = True
 c.tabs.position = "left"
+c.tabs.mousewheel_switching = False
 c.colors.webpage.preferred_color_scheme = "light"
 c.completion.shrink = True
 c.completion.use_best_match = True
