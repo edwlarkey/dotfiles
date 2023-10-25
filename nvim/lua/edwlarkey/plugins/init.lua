@@ -94,6 +94,12 @@ return {
       require("mini.statusline").setup()
       require("mini.bracketed").setup()
       require("mini.colors").setup()
+      require("mini.indentscope").setup({
+        draw = {
+          delay = 200,
+          animation = require("mini.indentscope").gen_animation.none(),
+        },
+      })
       require("mini.surround").setup({
         mappings = {
           add = "ys",
@@ -217,65 +223,51 @@ return {
       })
     end,
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    lazy = false,
-    -- event = "BufReadPre",
-    main = "ibl",
-    opts = {
-      show_current_context = true,
-      show_current_context_start = true,
-      show_trailing_blankline_indent = false,
-      use_treesitter = true,
-      filetype_exclude = {
-        "help",
-      },
-    },
-  },
-  {
-    "folke/which-key.nvim",
-    enabled = false,
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-      require("which-key").setup({
-        layout = {
-          height = { min = 3, max = 25 }, -- min and max height of the columns
-          width = { min = 20, max = 50 }, -- min and max width of the columns
-          spacing = 3, -- spacing between columns
-          align = "center", -- align columns left, center or right
-        },
-        triggers_blacklist = { -- list of mode / prefixes that should never be hooked by WhichKey
-          i = { "g" },
-        },
-      })
-
-      require("edwlarkey.keymaps").whichkey.register()
-    end,
-  },
-  {
-    "stevearc/overseer.nvim",
-    dependencies = { "ibhagwan/fzf-lua", "stevearc/dressing.nvim" },
-    opts = {
-      component_aliases = {
-        default = {
-          { "display_duration", detail_level = 2 },
-          "on_output_summarize",
-          "on_exit_set_status",
-          "on_complete_notify",
-          "on_complete_dispose",
-        },
-      },
-    },
-  },
-  {
-    "stevearc/resession.nvim",
-    opts = {
-      extensions = {
-        overseer = {},
-      },
-    },
-  },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  -- {
+  --   "folke/which-key.nvim",
+  --   enabled = false,
+  --   config = function()
+  --     vim.o.timeout = true
+  --     vim.o.timeoutlen = 300
+  --     require("which-key").setup({
+  --       layout = {
+  --         height = { min = 3, max = 25 }, -- min and max height of the columns
+  --         width = { min = 20, max = 50 }, -- min and max width of the columns
+  --         spacing = 3, -- spacing between columns
+  --         align = "center", -- align columns left, center or right
+  --       },
+  --       triggers_blacklist = { -- list of mode / prefixes that should never be hooked by WhichKey
+  --         i = { "g" },
+  --       },
+  --     })
+  --
+  --     require("edwlarkey.keymaps").whichkey.register()
+  --   end,
+  -- },
+  -- {
+  --   "stevearc/overseer.nvim",
+  --   dependencies = { "ibhagwan/fzf-lua", "stevearc/dressing.nvim" },
+  --   opts = {
+  --     component_aliases = {
+  --       default = {
+  --         { "display_duration", detail_level = 2 },
+  --         "on_output_summarize",
+  --         "on_exit_set_status",
+  --         "on_complete_notify",
+  --         "on_complete_dispose",
+  --       },
+  --     },
+  --   },
+  -- },
+  -- {
+  --   "stevearc/resession.nvim",
+  --   opts = {
+  --     extensions = {
+  --       overseer = {},
+  --     },
+  --   },
+  -- },
   {
     "petertriho/nvim-scrollbar",
     event = "BufReadPost",
