@@ -83,6 +83,9 @@ config.set(
     },
 )
 
+config.bind("I", "mode-enter passthrough", mode="normal")
+config.bind("<Escape>", "mode-leave", mode="passthrough")
+
 config.bind("<Ctrl+n>", "completion-item-focus --history next", mode="command")
 config.bind("<Ctrl+p>", "completion-item-focus --history prev", mode="command")
 
@@ -134,6 +137,8 @@ config.set("content.media.audio_capture", True, "https://meet.google.com")
 config.set("content.media.video_capture", True, "https://meet.google.com")
 config.set("content.desktop_capture", True, "https://meet.google.com")
 
+config.set("input.mode_override", "passthrough", "monitoring.staging-v4.rbndev.com")
+
 config.set("content.local_content_can_access_remote_urls", True)
 config.set("content.images", True, "chrome-devtools://*")
 config.set("content.images", True, "devtools://*")
@@ -153,4 +158,4 @@ config.set(
     "file:///home/edwlarkey/.local/share/qutebrowser/userscripts/*",
 )
 
-# config.source("gruvbox.py")
+config.source("gruvbox.py")

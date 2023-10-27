@@ -20,26 +20,26 @@ M.setup = {
   regular = function()
     map({
       [{ "n" }] = {
-        { "<leader>p", 'o<ESC>"*pV`]=' }, -- paste from OS clipboard and fix indentation
-        { "<leader>P", 'o<ESC>"*p' }, -- paste from OS clipboard
-        { "q:", ":q" }, -- stop command window
-        { "j", "gj" }, -- go to next line on screen
-        { "k", "gk" }, -- go to next line on screen
-        { "gidt", 'a<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>' }, -- gidt to insert timestamp
-        { "gid", 'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>' }, -- gid to insert date
-        { "<leader>mv", 'ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``' }, -- Move item to bottom and append timestamp
+        { "<leader>p",     'o<ESC>"*pV`]=' },                                            -- paste from OS clipboard and fix indentation
+        { "<leader>P",     'o<ESC>"*p' },                                                -- paste from OS clipboard
+        { "q:",            ":q" },                                                       -- stop command window
+        { "j",             "gj" },                                                       -- go to next line on screen
+        { "k",             "gk" },                                                       -- go to next line on screen
+        { "gidt",          'a<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>' },               -- gidt to insert timestamp
+        { "gid",           'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>' },                     -- gid to insert date
+        { "<leader>mv",    'ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``' }, -- Move item to bottom and append timestamp
         -- retab and format
-        { "_$", ':call Preserve("%s/\\s\\+$//e")<CR>' },
+        { "_$",            ':call Preserve("%s/\\s\\+$//e")<CR>' },
         { "<leader><tab>", ':call Preserve("retab")<CR>' },
-        { "<F9>", ":call FormatHTML()<CR>" },
-        { "_=", ':call Preserve("normal gg=G")<CR>' },
-        { "<leader>tf", require("edwlarkey.plugins.lsp.formatting").toggle, { desc = "Toggle Autoformat" } },
-        { "<leader>ww", ":Neorg workspace notes<CR>", { desc = "Open Wiki" } },
-        { "<leader>wj", ":Neorg journal today<CR>", { desc = "Open Today's Journal" } },
-        { "<leader>wy", ":Neorg journal yesterday<CR>", { desc = "Open Yesterday's Journal" } },
-        { "<leader>wn", ":Neorg<CR>", { desc = "Open Neorg menu" } },
-        { "<F2>", ":make test<CR>", { desc = "Run make test" } },
-        { "<F3>", ":make build<CR>", { desc = "Run make build" } },
+        { "<F9>",          ":call FormatHTML()<CR>" },
+        { "_=",            ':call Preserve("normal gg=G")<CR>' },
+        { "<leader>ww",    ":Neorg workspace notes<CR>",                                 { desc = "Open Wiki" } },
+        { "<leader>wj",    ":Neorg journal today<CR>",                                   { desc = "Open Today's Journal" } },
+        { "<leader>wy",    ":Neorg journal yesterday<CR>",                               { desc =
+        "Open Yesterday's Journal" } },
+        { "<leader>wn",    ":Neorg<CR>",                                                 { desc = "Open Neorg menu" } },
+        { "<F2>",          ":make test<CR>",                                             { desc = "Run make test" } },
+        { "<F3>",          ":make build<CR>",                                            { desc = "Run make build" } },
         {
           "<leader>so",
           function()
@@ -63,10 +63,10 @@ M.setup = {
         },
         { "<leader>or", ":OverseerRun<CR>" },
         { "<leader>ot", ":OverseerToggle<CR>" },
-        { "<C-w>h", ":TmuxNavigateLeft<CR>" },
-        { "<C-w>j", ":TmuxNavigateDown<CR>" },
-        { "<C-w>k", ":TmuxNavigateUp<CR>" },
-        { "<C-w>l", ":TmuxNavigateRight<CR>" },
+        { "<C-w>h",     ":TmuxNavigateLeft<CR>" },
+        { "<C-w>j",     ":TmuxNavigateDown<CR>" },
+        { "<C-w>k",     ":TmuxNavigateUp<CR>" },
+        { "<C-w>l",     ":TmuxNavigateRight<CR>" },
         { "<C-w><C-h>", ":TmuxNavigateLeft<CR>" },
         { "<C-w><C-j>", ":TmuxNavigateDown<CR>" },
         { "<C-w><C-k>", ":TmuxNavigateUp<CR>" },
@@ -77,17 +77,17 @@ M.setup = {
       },
       [{ "n", "v", "i" }] = {
         -- C-h and C-l keys change buffers in all modes
-        { "<C-h>", "<Esc>:bp<CR>" },
-        { "<C-l>", "<Esc>:bn<CR>" },
+        { "<C-h>",   "<Esc>:bp<CR>" },
+        { "<C-l>",   "<Esc>:bn<CR>" },
         -- Disable arrow keys
-        { "<up>", "<nop>" },
-        { "<down>", "<nop>" },
-        { "<left>", "<nop>" },
+        { "<up>",    "<nop>" },
+        { "<down>",  "<nop>" },
+        { "<left>",  "<nop>" },
         { "<right>", "<nop>" },
       },
       [{ "i" }] = {
         { "gidt", '<C-R>=strftime("%Y-%m-%d %H:%M")<CR>' }, -- gidt to insert timestamp
-        { "gid", '<C-R>=strftime("%Y-%m-%d")<CR>' }, -- gid to insert date
+        { "gid",  '<C-R>=strftime("%Y-%m-%d")<CR>' },       -- gid to insert date
       },
       [{ "v" }] = {
         { "gs", ":sort<CR>", { desc = "Sort" } },
@@ -97,16 +97,16 @@ M.setup = {
   lsp = function(bufnr)
     map({
       [{ "n" }] = {
-        { "gD", vim.lsp.buf.declaration },
-        { "gd", vim.lsp.buf.definition, { desc = "(LSP) Get definition" } },
-        { "K", vim.lsp.buf.hover, { desc = "(LSP) Get definition" } },
-        { "gl", vim.diagnostic.open_float, { desc = "(LSP) Open Float" } },
-        { "<leader>li", vim.lsp.buf.implementation, { desc = "(LSP) Implementations" } },
-        { "<leader>lR", vim.lsp.buf.references, { desc = "(LSP) References" } },
+        { "gD",         vim.lsp.buf.declaration },
+        { "gd",         vim.lsp.buf.definition,      { desc = "(LSP) Get definition" } },
+        { "K",          vim.lsp.buf.hover,           { desc = "(LSP) Get definition" } },
+        { "gl",         vim.diagnostic.open_float,   { desc = "(LSP) Open Float" } },
+        { "<leader>li", vim.lsp.buf.implementation,  { desc = "(LSP) Implementations" } },
+        { "<leader>lR", vim.lsp.buf.references,      { desc = "(LSP) References" } },
         { "<leader>lD", vim.lsp.buf.type_definition, { desc = "(LSP) Type definition" } },
-        { "<leader>lr", vim.lsp.buf.rename, { desc = "(LSP) Rename" } },
-        { "<leader>la", vim.lsp.buf.code_action, { desc = "(LSP) Code Action" } },
-        { "<leader>ls", vim.lsp.buf.signature_help, { desc = "(LSP) Signature Help" } },
+        { "<leader>lr", vim.lsp.buf.rename,          { desc = "(LSP) Rename" } },
+        { "<leader>la", vim.lsp.buf.code_action,     { desc = "(LSP) Code Action" } },
+        { "<leader>ls", vim.lsp.buf.signature_help,  { desc = "(LSP) Signature Help" } },
         {
           "<leader>lf",
           function()
@@ -121,7 +121,7 @@ M.setup = {
           end,
           { desc = "(LSP) Disable virtual error lines" },
         },
-        { "<leader>cl", vim.lsp.codelens.run, { desc = "(LSP) Run Codelens" } },
+        { "<leader>cl", vim.lsp.codelens.run,     { desc = "(LSP) Run Codelens" } },
         { "<leader>cr", vim.lsp.codelens.refresh, { desc = "(LSP) Refresh Codelens" } },
         {
           "]d",

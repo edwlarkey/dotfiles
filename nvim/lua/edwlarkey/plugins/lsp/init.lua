@@ -222,8 +222,9 @@ return {
       require("lsp_lines").setup()
 
       -- setup autoformat
-      require("edwlarkey.plugins.lsp.formatting").setup(opts)
-      -- setup formatting and keymaps
+      -- require("edwlarkey.plugins.lsp.formatting").setup(opts)
+
+      -- setup keymaps
       Util.on_attach(function(client, buffer)
         require("edwlarkey.keymaps").setup.lsp(buffer)
       end)
@@ -277,14 +278,14 @@ return {
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-          or function(diagnostic)
-            local icons = opts.icons
-            for d, icon in pairs(icons) do
-              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                return icon
+            or function(diagnostic)
+              local icons = opts.icons
+              for d, icon in pairs(icons) do
+                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                  return icon
+                end
               end
             end
-          end
       end
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -343,25 +344,53 @@ return {
   },
 
   -- formatters
+
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    dependencies = { "nvim-lua/plenary.nvim", "mason.nvim" },
-    opts = function()
-      local nls = require("null-ls")
-      return {
-        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-        sources = {
-          nls.builtins.code_actions.gitsigns,
-          nls.builtins.code_actions.gomodifytags,
-          nls.builtins.formatting.prettier.with({ extra_filetypes = { "toml" }, extra_args = { "--no-semi" } }),
-          nls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
-          nls.builtins.formatting.ruff,
-          nls.builtins.formatting.stylua.with({
-            extra_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-          }),
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "black" },
+        markdown = { "prettierd", "prettier" },
+      },
+      formatters = {
+        shfmt = {
+          prepend_args = { "-i", "2", "-ci" },
         },
-      }
+        stylua = {
+          prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+        },
+      },
+    },
+
+    config = function()
+      require("conform").setup({
+        format_on_save = function(bufnr)
+          -- Disable with a global or buffer-local variable
+          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+            return
+          end
+          return { timeout_ms = 500, lsp_fallback = true }
+        end,
+      })
+
+      vim.api.nvim_create_user_command("FormatDisable", function(args)
+        if args.bang then
+          -- FormatDisable! will disable formatting just for this buffer
+          vim.b.disable_autoformat = true
+        else
+          vim.g.disable_autoformat = true
+        end
+      end, {
+        desc = "Disable autoformat-on-save",
+        bang = true,
+      })
+      vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.b.disable_autoformat = false
+        vim.g.disable_autoformat = false
+      end, {
+        desc = "Re-enable autoformat-on-save",
+      })
     end,
   },
 
@@ -374,12 +403,11 @@ return {
       ensure_installed = {
         "stylua",
         "shellcheck",
+        "gopls",
         "black",
-        "isort",
         "ruff",
       },
     },
-    ---@param opts MasonSettings | {ensure_installed: string[]}
     config = function(_, opts)
       require("mason").setup(opts)
       local mr = require("mason-registry")

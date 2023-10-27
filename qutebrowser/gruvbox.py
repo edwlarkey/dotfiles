@@ -49,7 +49,7 @@ c.colors.completion.fg = [fg1, bright_aqua, bright_yellow]
 c.colors.completion.odd.bg = bg0
 
 # Background color of the completion widget for even rows.
-c.colors.completion.even.bg = c.colors.completion.odd.bg
+c.colors.completion.even.bg = bg1
 
 # Foreground color of completion widget category headers.
 c.colors.completion.category.fg = bright_blue
@@ -291,7 +291,7 @@ c.colors.tabs.odd.bg = bg2
 c.colors.tabs.even.fg = c.colors.tabs.odd.fg
 
 # Background color of unselected even tabs.
-c.colors.tabs.even.bg = bg3
+c.colors.tabs.even.bg = bg4
 
 # Foreground color of selected odd tabs.
 c.colors.tabs.selected.odd.fg = fg2
