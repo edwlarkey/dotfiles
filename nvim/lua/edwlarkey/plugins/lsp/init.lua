@@ -419,6 +419,19 @@ return {
       for k, v in pairs(opts.linters) do
         lint.linters[k] = v
       end
+
+      local yl = lint.linters.yamllint
+      table.insert(yl.args, 1, function()
+        local conf = vim.fs.find('.yamllint', {
+          upward = true,
+          stop = vim.fs.dirname(vim.uv.os_homedir()),
+          path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        })
+        if #conf > 0 then
+          return string.format('--config-file=%s', conf[1])
+        end
+      end)
+
       local timer = assert(vim.loop.new_timer())
       local DEBOUNCE_MS = 500
       local aug = vim.api.nvim_create_augroup("Lint", { clear = true })
