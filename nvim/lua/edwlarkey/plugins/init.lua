@@ -1,7 +1,7 @@
 return {
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false, -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require("gruvbox").setup({
@@ -13,6 +13,7 @@ return {
           comments = true,
           operators = false,
           folds = true,
+          emphasis = true,
         },
         strikethrough = true,
         invert_selection = true,
@@ -288,7 +289,7 @@ return {
   { "mbbill/undotree" },
   { "edwlarkey/vim-toggler" },
   -- Markdown & Wiki & Tex
-  { "lervag/vimtex", ft = "tex" },
+  { "lervag/vimtex",          ft = "tex" },
   { "plasticboy/vim-markdown" },
   {
     "jakewvincent/mkdnflow.nvim",
@@ -310,9 +311,9 @@ return {
   {
     "rgroli/other.nvim",
     keys = {
-      { ":A", "<cmd>Other<cr>", { noremap = true, silent = true } },
+      { ":A",  "<cmd>Other<cr>",       { noremap = true, silent = true } },
       { ":AV", "<cmd>OtherVSplit<cr>", { noremap = true, silent = true } },
-      { ":AS", "<cmd>OtherSplit<cr>", { noremap = true, silent = true } },
+      { ":AS", "<cmd>OtherSplit<cr>",  { noremap = true, silent = true } },
     },
     config = function()
       require("other-nvim").setup({
@@ -333,6 +334,33 @@ return {
     end,
   },
   {
+    "L3MON4D3/LuaSnip",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+    -- stylua: ignore
+    keys = {
+      {
+        "<tab>",
+        function()
+          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = "i",
+      },
+      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
+      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+    },
+  },
+  {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
@@ -347,7 +375,6 @@ return {
     },
     config = function(opts)
       vim.o.completeopt = "menuone,noselect"
-      vim.g.vsnip_snippet_dir = "~/.config/nvim/snippets"
 
       local cmp = require("cmp")
 

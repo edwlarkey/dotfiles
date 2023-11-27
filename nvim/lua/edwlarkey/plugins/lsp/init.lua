@@ -130,18 +130,18 @@ return {
         -- },
         ruff_lsp = {},
         jedi_language_server = {},
-        -- pyright = {
-        -- settings = {
-        --     python = {
-        --       analysis = {
-        --         typeCheckingMode = "off",
-        --         autoSearchPaths = true,
-        --         useLibraryCodeForTypes = true,
-        --         diagnosticMode = "workspace",
-        --       },
-        --     },
-        -- },
-        -- },
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "off",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+              },
+            },
+          },
+        },
         yamlls = {
           on_new_config = function(new_config)
             new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
