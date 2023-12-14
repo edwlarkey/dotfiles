@@ -101,6 +101,7 @@ return {
           animation = require("mini.indentscope").gen_animation.none(),
         },
       })
+      -- Surround
       require("mini.surround").setup({
         mappings = {
           add = "ys",
@@ -122,23 +123,29 @@ return {
       vim.keymap.set("x", "S", [[:<C-u>lua MiniSurround.add('visual')<CR>]], { silent = true })
       -- Make special mapping for "add surrounding for line"
       vim.keymap.set("n", "yss", "ys_", { remap = true })
+      -- End Surround
+
       require("mini.comment").setup({
-        hooks = {
-          pre = function()
-            require("ts_context_commentstring.internal").update_commentstring({})
+        options = {
+          custom_commentstring = function()
+            return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
           end,
         },
       })
-      require("mini.hipatterns").setup({
+
+      local hi_words = require('mini.extra').gen_highlighter.words
+      local hipatterns = require('mini.hipatterns')
+      hipatterns.setup({
         highlighters = {
           -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
           fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
           hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
           todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
           note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+          -- names = hi_words({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
 
-          -- Highlight hex color strings (`#rrggbb`) using that color
-          hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+          -- Highlight hex color strings (`#rrggbb`) using that color #ab77ee
+          hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       })
       -- require("mini.sessions").setup()
