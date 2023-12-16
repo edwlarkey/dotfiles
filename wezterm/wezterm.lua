@@ -31,7 +31,9 @@ end
 config.enable_tab_bar = false
 config.scrollback_lines = 10000
 
-config.font = wezterm.font("Hack Nerd Font Mono")
-config.font_size = 14
+-- config.font = wezterm.font("Hack Nerd Font Mono")
+config.font = wezterm.font("BlexMono Nerd Font")
+-- config.font = wezterm.font("IntoneMono Nerd Font")
+config.font_size = 16
 
 return config
