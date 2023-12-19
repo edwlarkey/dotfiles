@@ -89,7 +89,6 @@ return {
   },
   {
     "echasnovski/mini.nvim",
-    dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
     config = function()
       require("mini.cursorword").setup({ delay = 500 })
       require("mini.statusline").setup()
@@ -125,13 +124,7 @@ return {
       vim.keymap.set("n", "yss", "ys_", { remap = true })
       -- End Surround
 
-      require("mini.comment").setup({
-        options = {
-          custom_commentstring = function()
-            return require('ts_context_commentstring.internal').calculate_commentstring() or vim.bo.commentstring
-          end,
-        },
-      })
+      require("mini.comment").setup()
 
       local hi_words = require('mini.extra').gen_highlighter.words
       local hipatterns = require('mini.hipatterns')
