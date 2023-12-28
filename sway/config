@@ -338,7 +338,7 @@ for_window [class="stalonetray"] floating enable
 
 # Floating
 for_window [app_id="lutris"] floating enable
-for_window [class="vlc"] floating enable
+for_window [class="vlc"] floating enable, border normal
 
 # set floating for window roles
 for_window [window_role="pop-up"] floating enable
