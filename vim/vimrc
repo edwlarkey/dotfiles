@@ -13,11 +13,7 @@ let g:ale_completion_enabled = 0
 " =============================================================================
 " Plugins {{{1
 " =============================================================================
-if has('nvim')
-  call plug#begin()
-else
-  call plug#begin('~/.vim/plugged')
-endif
+call plug#begin('~/.vim/plugged')
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -26,49 +22,15 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-if has('nvim')
-  " Misc
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'echasnovski/mini.nvim'
-  " Go
-  " Plug 'crispgm/nvim-go'
-  " LSP
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
-  Plug 'jose-elias-alvarez/null-ls.nvim'
-  " Completion
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/vim-vsnip'
-  " Syntax and Appearance
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'git@git.sr.ht:~p00f/nvim-ts-rainbow'
-  Plug 'sainnhe/gruvbox-material'
-  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-  Plug 'sainnhe/everforest'
-  Plug 'lukas-reineke/indent-blankline.nvim'
-  Plug 'petertriho/nvim-scrollbar'
-  Plug 'lewis6991/gitsigns.nvim'
-  " Markdown & Wiki
-  Plug 'jakewvincent/mkdnflow.nvim'
-  Plug 'git@git.sr.ht:~edwlarkey/markdown-index.nvim'
-  Plug 'nvim-neorg/neorg', {'do': ':Neorg sync-parsers'}
-else
-  Plug 'dense-analysis/ale'
-  Plug 'prabirshrestha/asyncomplete.vim'
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
-  Plug 'prabirshrestha/asyncomplete-lsp.vim'
-  Plug 'prabirshrestha/asyncomplete-file.vim'
-  Plug 'rhysd/vim-lsp-ale'
-  Plug 'morhetz/gruvbox'
-  Plug 'airblade/vim-gitgutter'
-endif
+Plug 'dense-analysis/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete-file.vim'
+Plug 'rhysd/vim-lsp-ale'
+Plug 'morhetz/gruvbox'
+Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'edwlarkey/vim-toggler'
@@ -85,10 +47,6 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'edwlarkey/vim-textcal'
 
 call plug#end()
-
-if has('nvim')
-  lua require("user.init")
-endif
 
 if !empty(glob("~/.vim/functions.vim"))
   source ~/.vim/functions.vim
@@ -137,9 +95,7 @@ set backup
 set backupdir=~/.vim-backup//
 set directory=~/.vim-swap//
 set undofile
-if !has('nvim')
-  set undodir=~/.vim-undo//
-endif
+set undodir=~/.vim-undo//
 set writebackup
 
 ""
@@ -200,18 +156,16 @@ set statusline+=\ %P                            " percent through file
 "" Colorscheme and colorcolumn
 ""
 
-if !has('nvim')
-  if !empty(glob("~/light"))
-    set background=light
-    colorscheme onehalflight
-  else
-    set background=dark
-      " Gruvbox
-      let g:gruvbox_contrast_light = 'hard'
-      let g:gruvbox_contrast_dark = 'soft'
-      colorscheme gruvbox
-  endif 
-endif
+if !empty(glob("~/light"))
+  set background=light
+  colorscheme onehalflight
+else
+  set background=dark
+    " Gruvbox
+    let g:gruvbox_contrast_light = 'hard'
+    let g:gruvbox_contrast_dark = 'soft'
+    colorscheme gruvbox
+endif 
 
 " dont display color column if it doesn't support it
 if v:version > 703
@@ -396,100 +350,96 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 xnoremap gs :sort<ENTER>
 
-if !has('nvim')
-  " vim-lsp
-  let g:lsp_settings_global_settings_dir = expand("~/.vim/")
-  let g:lsp_document_code_action_signs_enabled = 0
-  let g:lsp_semantic_enabled = 1
-  " Turn these off for vim-lsp
-  let g:go_code_completion_enabled = 0
-  let g:go_diagnostics_enabled = 0
-  let g:go_def_mapping_enabled = 0
-  let g:go_doc_keywordprg_enabled = 0
+" vim-lsp
+let g:lsp_settings_global_settings_dir = expand("~/.vim/")
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_semantic_enabled = 1
+" Turn these off for vim-lsp
+let g:go_code_completion_enabled = 0
+let g:go_diagnostics_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
 
-  au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \ 'name': 'file',
-      \ 'allowlist': ['*'],
-      \ 'priority': 10,
-      \ 'completor': function('asyncomplete#sources#file#completor')
-      \ }))
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'allowlist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
 
-  function! s:on_lsp_buffer_enabled() abort
-    setlocal omnifunc=lsp#complete
-    setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    nmap <buffer> ca <Plug>(lsp-code-action-float)
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> ca <Plug>(lsp-code-action-float)
 
-    " nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
-    " vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
-    " nnoremap <buffer> <leader>cl :LspCodeLens<CR>
-    " autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    " autocmd! BufWritePre *.ts,*.tsx call execute('LspDocumentFormatSync --server=efm-langserver')
+  " nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+  " vnoremap <buffer> gQ :LspDocumentRangeFormat<CR>
+  " nnoremap <buffer> <leader>cl :LspCodeLens<CR>
+  " autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+  " autocmd! BufWritePre *.ts,*.tsx call execute('LspDocumentFormatSync --server=efm-langserver')
 
-    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
-  endfunction
+  nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+  nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+endfunction
 
-  augroup lsp_install
-      au!
-      " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-      autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-  augroup END
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
-  highlight LspSemanticTypeDeprecated ctermfg=DarkMagenta
-endif
+highlight LspSemanticTypeDeprecated ctermfg=DarkMagenta
 
-if !has('nvim')
-  " ALE
-  let g:ale_fix_on_save = 1
-  let g:ale_fixers = {
-    \   'python': [
-    \       'black',
-    \       'autoflake',
-    \   ],
-    \   'json': [
-    \       'prettier',
-    \   ],
-    \}
+" ALE
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+  \   'python': [
+  \       'black',
+  \       'autoflake',
+  \   ],
+  \   'json': [
+  \       'prettier',
+  \   ],
+  \}
 
-  let g:ale_floating_preview = 1
-  let g:ale_set_balloons = 1
-  let g:ale_hover_cursor = 1
-  " let g:ale_virtualtext_cursor = 2
-  let g:ale_sign_error = '✗'
-  let g:ale_sign_warning = '⚠'
-  let g:ale_virtualtext_prefix = "> "
-  let g:ale_python_autoflake_use_global = 1
-  let g:ale_python_pylsp_use_global = 1
-  " highlight ALEWarning ctermfg=DarkYellow
-  " highlight ALEError ctermfg=DarkMagenta
-  highlight ALEVirtualTextError ctermfg=DarkMagenta
-  highlight ALEVirtualTextWarning ctermfg=DarkYellow
-  " let g:ale_cursor_detail = 1
-  " let g:ale_close_preview_on_insert = 1
-  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-  " set completeopt=menu,menuone,preview,noselect,noinsert
-  " set omnifunc=ale#completion#OmniFunc
-  " let g:ale_completion_autoimport = 1
+let g:ale_floating_preview = 1
+let g:ale_set_balloons = 1
+let g:ale_hover_cursor = 1
+" let g:ale_virtualtext_cursor = 2
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚠'
+let g:ale_virtualtext_prefix = "> "
+let g:ale_python_autoflake_use_global = 1
+let g:ale_python_pylsp_use_global = 1
+" highlight ALEWarning ctermfg=DarkYellow
+" highlight ALEError ctermfg=DarkMagenta
+highlight ALEVirtualTextError ctermfg=DarkMagenta
+highlight ALEVirtualTextWarning ctermfg=DarkYellow
+" let g:ale_cursor_detail = 1
+" let g:ale_close_preview_on_insert = 1
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" set completeopt=menu,menuone,preview,noselect,noinsert
+" set omnifunc=ale#completion#OmniFunc
+" let g:ale_completion_autoimport = 1
 
 
-  let g:ale_linters = {
-        \'go': ['vim-lsp'],
-        \'python': ['vim-lsp'],
-        \'sh': ['vim-lsp'],
-        \'json': ['vim-lsp'],
-        \}
+let g:ale_linters = {
+      \'go': ['vim-lsp'],
+      \'python': ['vim-lsp'],
+      \'sh': ['vim-lsp'],
+      \'json': ['vim-lsp'],
+      \}
 
 
-  let g:ale_fix_on_save_ignore = ['autopep8']
-endif
+let g:ale_fix_on_save_ignore = ['autopep8']
 
 " netrw
 " open from current directory
@@ -567,14 +517,12 @@ nnoremap <leader>w<leader>c :e +/<C-R>=strftime("%Y-%m-%d")<CR> $HOME/txt/calend
 nnoremap <leader>w<leader>j :call OpenJournalDate()<CR>
 nnoremap <leader>w<leader>y :call OpenJournalDate("yesterday")<CR>
 nnoremap <leader>w<leader>l :call AddLink()<CR>
-if !has('nvim')
-  " Next markdown link
-  nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
-  " Previous markdown link
-  nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
+" Next markdown link
+nnoremap <tab> :call SearchMarkdownLink('s', 1)<CR>
+" Previous markdown link
+nnoremap <s-tab> :call SearchMarkdownLink('bs', 1)<CR>
 
-  autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
-endif
+autocmd FileType markdown nmap <buffer> <Enter> <Plug>Markdown_EditUrlUnderCursor
 
 augroup textcal
   autocmd BufRead,BufNewFile */txt/calendar/* set filetype=textcal

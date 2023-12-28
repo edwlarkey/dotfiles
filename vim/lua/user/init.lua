@@ -1,7 +1,0 @@
-require("user.appearance")
-require("user.wiki")
-require("user.plugin")
-require("user.lsp")
-require("user.treesitter")
-require("user.mini")
-require("user.cheatsheet")
