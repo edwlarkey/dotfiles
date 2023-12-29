@@ -43,6 +43,9 @@ bin/jira
 bin/macallan
 bin/setparam
 bin/nvim
+bin/docker-compose
+bin/orb
+bin/orbctl
 
 # newsbeuter
 newsbeuter/cache.db
