@@ -65,7 +65,11 @@ return {
             autochdir = true,
           },
         },
-        ["core.summary"] = {},
+        ["core.summary"] = {
+          config = {
+            strategy = "default",
+          }
+        },
         ["core.esupports.metagen"] = {
           config = {
             type = "auto",
@@ -82,10 +86,10 @@ return {
               { "description", "" },
 
               -- The authors field is autopopulated by querying the current user's system username.
-              { "authors", "edwlarkey" },
+              { "authors",     "edwlarkey" },
 
               -- The categories field is always kept empty for the user to fill in.
-              { "categories", "" },
+              { "categories",  "" },
 
               -- The created field is populated with the current date as returned by `os.date`.
               {

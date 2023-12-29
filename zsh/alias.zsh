@@ -128,24 +128,20 @@ if (( $+commands[fzf] )) ; then
         return
     fi
     if [[ ${OSTYPE} == darwin* ]]; then
-      cd "$(autojump -s | gsed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
+      cd "$(autojump -s all | gsed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
     else
-      cd "$(autojump -s | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
+      cd "$(autojump -s all | sed '/_____/Q; s/^[0-9,.:]*\s*//' |  fzf --height 40% --reverse --inline-info)" 
     fi
   }
 
-  # vf - fuzzy open with vim from anywhere
-  # ex: vf word1 word2 ... (even part of a file name)
+  # vf - fuzzy open with files from current directory
   # zsh autoload function
   vf() {
-    local files
-
-    files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 -m)"})
-
-    if [[ -n $files ]]
-    then
-       vim -- $files
-       print -l $files[1]
+    if [ -z "$1" ]; then
+      file="$(fd -t file . |fzf --height 40% --reverse --inline-info)"
+      vim "$file" 
+    else
+      vim "$1"
     fi
   }
 
