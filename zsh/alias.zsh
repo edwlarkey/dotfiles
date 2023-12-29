@@ -138,8 +138,11 @@ if (( $+commands[fzf] )) ; then
   # zsh autoload function
   vf() {
     if [ -z "$1" ]; then
-      file="$(fd -t file . |fzf --height 40% --reverse --inline-info)"
-      vim "$file" 
+      file="$(fd -t file . |fzf --height 65% --reverse --inline-info)"
+      retVal=$?
+      if [ $retVal -eq 0 ]; then
+        vim "$file" 
+      fi
     else
       vim "$1"
     fi
@@ -149,14 +152,7 @@ if (( $+commands[fzf] )) ; then
   # ex: vg search_string
   # zsh autoload function
   vg() {
-    local file
-
-    file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1 " +" $2}')"
-
-    if [[ -n $file ]]
-    then
-       vim $file
-    fi
+    vim +"FzfLua live_grep"
   }
 
   # cf - fuzzy cd from anywhere
