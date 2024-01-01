@@ -20,13 +20,13 @@ M.setup = {
   regular = function()
     map({
       [{ "n" }] = {
-        { "<leader>p",     'o<ESC>"*pV`]=' },                                            -- paste from OS clipboard and fix indentation
-        { "<leader>P",     'o<ESC>"*p' },                                                -- paste from OS clipboard
-        { "q:",            ":q" },                                                       -- stop command window
-        { "j",             "gj" },                                                       -- go to next line on screen
-        { "k",             "gk" },                                                       -- go to next line on screen
-        { "gidt",          'a<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>' },               -- gidt to insert timestamp
-        { "gid",           'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>' },                     -- gid to insert date
+        { "<leader>p",     'o<ESC>"*pV`]=' },                                               -- paste from OS clipboard and fix indentation
+        { "<leader>P",     'o<ESC>"*p' },                                                   -- paste from OS clipboard
+        { "q:",            ":q" },                                                          -- stop command window
+        { "j",             "gj" },                                                          -- go to next line on screen
+        { "k",             "gk" },                                                          -- go to next line on screen
+        { "gidt",          'a<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>' },                  -- gidt to insert timestamp
+        { "gid",           'a<C-R>=strftime("%Y-%m-%d")<CR><Esc>' },                        -- gid to insert date
         { "<leader>mv",    'ddGpA completed:<C-R>=strftime("%Y-%m-%d %H:%M")<CR><Esc>``' }, -- Move item to bottom and append timestamp
         -- retab and format
         { "_$",            ':call Preserve("%s/\\s\\+$//e")<CR>' },
@@ -35,11 +35,14 @@ M.setup = {
         { "_=",            ':call Preserve("normal gg=G")<CR>' },
         { "<leader>ww",    ":Neorg workspace notes<CR>",                                 { desc = "Open Wiki" } },
         { "<leader>wj",    ":Neorg journal today<CR>",                                   { desc = "Open Today's Journal" } },
-        { "<leader>wy",    ":Neorg journal yesterday<CR>",                               { desc =
-        "Open Yesterday's Journal" } },
-        { "<leader>wn",    ":Neorg<CR>",                                                 { desc = "Open Neorg menu" } },
-        { "<F2>",          ":make test<CR>",                                             { desc = "Run make test" } },
-        { "<F3>",          ":make build<CR>",                                            { desc = "Run make build" } },
+        { "<leader>wy", ":Neorg journal yesterday<CR>", {
+          desc =
+          "Open Yesterday's Journal"
+        } },
+        { "<leader>wg", ":Neorg generate-workspace-summary<CR>", { desc = "Generate Summary" } },
+        { "<leader>wn", ":Neorg<CR>",                            { desc = "Open Neorg menu" } },
+        { "<F2>",       ":make test<CR>",                        { desc = "Run make test" } },
+        { "<F3>",       ":make build<CR>",                       { desc = "Run make build" } },
         {
           "<leader>so",
           function()

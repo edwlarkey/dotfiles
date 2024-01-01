@@ -13,7 +13,7 @@ return {
         ["core.keybinds"] = {},
         ["core.journal"] = {
           config = {
-            workspace = "notes",
+            workspace = "journal",
             strategy = "flat",
             toc_format = function(entries)
               -- Convert the entries into a certain format
@@ -60,6 +60,7 @@ return {
           config = {
             workspaces = {
               notes = "~/txt",
+              journal = "~/Sync/journal",
             },
             default_workspace = "notes",
             autochdir = true,
@@ -82,14 +83,20 @@ return {
                 end,
               },
 
-              -- The description field is always kept empty for the user to fill in.
               { "description", "" },
-
-              -- The authors field is autopopulated by querying the current user's system username.
               { "authors",     "edwlarkey" },
-
-              -- The categories field is always kept empty for the user to fill in.
-              { "categories",  "" },
+              { "categories",
+                -- function()
+                --   local dirs = vim.fn.expand("%:p:h:r")
+                --   dirs = string.gsub(dirs, "/home", "")
+                --   dirs = string.gsub(dirs, "/edwlarkey", "")
+                --   dirs = string.gsub(dirs, "/txt", "")
+                --   local cats = string.gsub(dirs, "/", " ")
+                --
+                --   return cats
+                -- end,
+                ""
+              },
 
               -- The created field is populated with the current date as returned by `os.date`.
               {
