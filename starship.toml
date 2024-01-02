@@ -42,12 +42,14 @@ disabled = true
 symbol = " "
 
 [kubernetes]
-format = '[$context \($namespace\)](green) '
+# Custom style doesn't override green here for some reason
+# format = '[$context \($namespace\)](green) '
 disabled = false
-
-[kubernetes.context_aliases]
-"production" = "***PRODUCTION***"
-"production-v4" = "***PRODUCTION-V4***"
+symbol = ""
+style = "green"
+contexts = [
+  { context_pattern = ".*production.*", style = "red", symbol = "󰀩 "},
+]
 
 [memory_usage]
 symbol = " "
