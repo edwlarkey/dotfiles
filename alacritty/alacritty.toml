@@ -1,4 +1,4 @@
-import = ["/Users/edwardlarkey/.config/alacritty/colors.yml"]
+import = ["~/.config/alacritty/colors.toml"]
 live_config_reload = true
 
 [bell]
