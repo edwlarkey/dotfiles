@@ -32,6 +32,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "pkl",
+  callback = function()
+    vim.opt.foldmethod = "manual"
+  end,
+})
+
 local markdown_group = vim.api.nvim_create_augroup("markdown", { clear = true })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {

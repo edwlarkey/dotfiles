@@ -36,6 +36,7 @@ vim/.netrwhist
 bin/fabric
 atlas_backup
 bin/atlas_backup
+bin/autojump
 bin/backup.sh
 bin/bdconnect
 bin/healthechecker

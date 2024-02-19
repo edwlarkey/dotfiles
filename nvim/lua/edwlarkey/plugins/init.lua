@@ -1,7 +1,7 @@
 return {
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+    lazy = false, -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       require("gruvbox").setup({
@@ -94,6 +94,8 @@ return {
       require("mini.statusline").setup()
       require("mini.bracketed").setup()
       require("mini.colors").setup()
+      -- require("mini.notify").setup()
+      require("mini.comment").setup()
       require("mini.indentscope").setup({
         draw = {
           delay = 200,
@@ -124,10 +126,8 @@ return {
       vim.keymap.set("n", "yss", "ys_", { remap = true })
       -- End Surround
 
-      require("mini.comment").setup()
-
-      local hi_words = require('mini.extra').gen_highlighter.words
-      local hipatterns = require('mini.hipatterns')
+      local hi_words = require("mini.extra").gen_highlighter.words
+      local hipatterns = require("mini.hipatterns")
       hipatterns.setup({
         highlighters = {
           -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
@@ -289,7 +289,7 @@ return {
   { "mbbill/undotree" },
   { "edwlarkey/vim-toggler" },
   -- Markdown & Wiki & Tex
-  { "lervag/vimtex",          ft = "tex" },
+  { "lervag/vimtex", ft = "tex" },
   { "plasticboy/vim-markdown" },
   {
     "jakewvincent/mkdnflow.nvim",
@@ -311,9 +311,9 @@ return {
   {
     "rgroli/other.nvim",
     keys = {
-      { ":A",  "<cmd>Other<cr>",       { noremap = true, silent = true } },
+      { ":A", "<cmd>Other<cr>", { noremap = true, silent = true } },
       { ":AV", "<cmd>OtherVSplit<cr>", { noremap = true, silent = true } },
-      { ":AS", "<cmd>OtherSplit<cr>",  { noremap = true, silent = true } },
+      { ":AS", "<cmd>OtherSplit<cr>", { noremap = true, silent = true } },
     },
     config = function()
       require("other-nvim").setup({
@@ -418,6 +418,17 @@ return {
           { name = "buffer" },
         }),
       })
+    end,
+  },
+  {
+    "https://github.com/apple/pkl-neovim",
+    lazy = true,
+    event = "BufReadPre *.pkl",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    build = function()
+      vim.cmd("TSInstall! pkl")
     end,
   },
 }

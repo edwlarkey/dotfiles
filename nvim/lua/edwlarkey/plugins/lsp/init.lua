@@ -347,24 +347,22 @@ return {
 
   {
     "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-        python = { "black", "ruff" },
-        markdown = { "prettierd", "prettier" },
-      },
-      formatters = {
-        shfmt = {
-          prepend_args = { "-i", "2", "-ci" },
-        },
-        stylua = {
-          prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
-        },
-      },
-    },
-
     config = function()
       require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = { "black", "ruff" },
+          markdown = { "prettierd", "prettier" },
+          yaml = { { "prettierd", "prettier" } },
+        },
+        formatters = {
+          shfmt = {
+            prepend_args = { "-i", "2", "-ci" },
+          },
+          stylua = {
+            prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+          },
+        },
         format_on_save = function(bufnr)
           -- Disable with a global or buffer-local variable
           if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
