@@ -116,6 +116,10 @@ font pango:Hack, pango:FontAwesome 12
     # Start your launcher
     bindsym $mod+Space exec $menu
 
+    # Screenshots
+    ## Screenshot region and save to ~/Pictures
+    bindsym $mod+Ctrl+4 exec grim -g "$(slurp)"
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -320,8 +324,9 @@ for_window [title="Progress Dialog — Dolphin"] floating enable, border normal,
 for_window [title="Extracting Files .*— Dolphin"] floating enable, border normal, resize set width $dolphin_operation_window_width_small, resize set height $dolphin_operation_window_height_small
 
 # Thunar
-for_window [app_id="thunar" title="^Copying.*"] floating enable
-for_window [app_id="thunar" title="^File.*"] floating enable
+for_window [app_id="thunar"] floating enable, border normal
+for_window [app_id="thunar" title="^Copying.*"] floating enable, border normal
+for_window [app_id="thunar" title="^File.*"] floating enable, border normal
 
 # Steam
 for_window [class="^Steam$" title="^Friends List$"] floating enable
