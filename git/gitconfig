@@ -3,12 +3,23 @@
 [alias]
   lg = log --graph --oneline --decorate --all
   lg2 = log --graph --abbrev-commit --decorate --date=relative --all
+  dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
+  dft = difftool
 [push]
   default = current
 [gpg]
   program = gpg
 [pull]
   rebase = true
+[diff]
+  algorithm = histogram
+  tool = difftastic
+[difftool]
+  prompt = false
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+  difftool = true
 [merge]
   conflictStyle = zdiff3
 ; vim: filetype=gitconfig
