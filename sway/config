@@ -17,6 +17,8 @@ set $term alacritty
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
 set $menu dmenu_path | wofi | xargs swaymsg exec --
 
+set $lockCommand swaylock -f -c 000000
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -108,7 +110,7 @@ font pango:Hack, pango:FontAwesome 12
     bindsym $mod+Return exec $term
 
     # Start a browser
-    bindsym $mod+b exec qutebrowser
+    # bindsym $mod+b exec qutebrowser
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -119,6 +121,9 @@ font pango:Hack, pango:FontAwesome 12
     # Screenshots
     ## Screenshot region and save to ~/Pictures
     bindsym $mod+Ctrl+4 exec grim -g "$(slurp)"
+    bindsym Print exec grim -g "$(slurp)"
+
+    bindsym $mod+Escape exec $lockCommand
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -140,11 +145,11 @@ font pango:Hack, pango:FontAwesome 12
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
+    # # Or use $mod+[up|down|left|right]
+    # bindsym $mod+Left focus left
+    # bindsym $mod+Down focus down
+    # bindsym $mod+Up focus up
+    # bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
@@ -152,10 +157,10 @@ font pango:Hack, pango:FontAwesome 12
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
     # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+    # bindsym $mod+Shift+Left move left
+    # bindsym $mod+Shift+Down move down
+    # bindsym $mod+Shift+Up move up
+    # bindsym $mod+Shift+Right move right
 #
 # Workspaces:
 #
