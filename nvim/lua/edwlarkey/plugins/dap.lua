@@ -9,6 +9,7 @@ local M = {
         require("dapui").setup()
       end,
     },
+    { "nvim-neotest/nvim-nio" },
     { "leoluz/nvim-dap-go" },
   },
 }

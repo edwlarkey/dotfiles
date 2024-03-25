@@ -129,19 +129,35 @@ return {
         --   },
         -- },
         ruff_lsp = {},
-        jedi_language_server = {},
-        pyright = {
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = "off",
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = "workspace",
-              },
+        basedpyright = {
+          analysis = {
+            typeCheckingMode = "standard", -- off, basic, standard, strict, all
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+            autoImportCompletions = true,
+            diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
+            diagnosticSeverityOverrides = {
+              -- reportUnusedImports = false,
+              -- reportUnusedVariable = false,
+              -- reportUnusedClass = "warning",
+              -- reportUnusedFunction = "warning",
+              reportUndefinedVariable = false, -- ruff handles this with F822
             },
           },
         },
+        -- jedi_language_server = {},
+        -- pyright = {
+        --   settings = {
+        --     python = {
+        --       analysis = {
+        --         typeCheckingMode = "off",
+        --         autoSearchPaths = true,
+        --         useLibraryCodeForTypes = true,
+        --         diagnosticMode = "workspace",
+        --       },
+        --     },
+        --   },
+        -- },
         yamlls = {
           on_new_config = function(new_config)
             new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
@@ -278,14 +294,14 @@ return {
 
       if type(opts.diagnostics.virtual_text) == "table" and opts.diagnostics.virtual_text.prefix == "icons" then
         opts.diagnostics.virtual_text.prefix = vim.fn.has("nvim-0.10.0") == 0 and "●"
-            or function(diagnostic)
-              local icons = opts.icons
-              for d, icon in pairs(icons) do
-                if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
-                  return icon
-                end
+          or function(diagnostic)
+            local icons = opts.icons
+            for d, icon in pairs(icons) do
+              if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+                return icon
               end
             end
+          end
       end
 
       vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
@@ -420,13 +436,13 @@ return {
 
       local yl = lint.linters.yamllint
       table.insert(yl.args, 1, function()
-        local conf = vim.fs.find('.yamllint', {
+        local conf = vim.fs.find(".yamllint", {
           upward = true,
           stop = vim.fs.dirname(vim.uv.os_homedir()),
           path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
         })
         if #conf > 0 then
-          return string.format('--config-file=%s', conf[1])
+          return string.format("--config-file=%s", conf[1])
         end
       end)
 

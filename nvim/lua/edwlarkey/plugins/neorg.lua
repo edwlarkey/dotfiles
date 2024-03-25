@@ -1,7 +1,8 @@
 return {
   "nvim-neorg/neorg",
-  build = ":Neorg sync-parsers",
+  -- build = ":Neorg sync-parsers",
   dependencies = {
+    "vhyrro/luarocks.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
   -- ft = "norg",
@@ -69,7 +70,7 @@ return {
         ["core.summary"] = {
           config = {
             strategy = "default",
-          }
+          },
         },
         ["core.esupports.metagen"] = {
           config = {
@@ -84,8 +85,9 @@ return {
               },
 
               { "description", "" },
-              { "authors",     "edwlarkey" },
-              { "categories",
+              { "authors", "edwlarkey" },
+              {
+                "categories",
                 -- function()
                 --   local dirs = vim.fn.expand("%:p:h:r")
                 --   dirs = string.gsub(dirs, "/home", "")
@@ -95,7 +97,7 @@ return {
                 --
                 --   return cats
                 -- end,
-                ""
+                "",
               },
 
               -- The created field is populated with the current date as returned by `os.date`.
