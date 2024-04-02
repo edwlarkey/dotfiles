@@ -21,7 +21,7 @@ return {
       -- options for vim.diagnostic.config()
       diagnostics = {
         virtual_text = false,
-        virtual_lines = true,
+        virtual_lines = false,
         update_in_insert = false,
         underline = true,
         severity_sort = true,
@@ -130,18 +130,22 @@ return {
         -- },
         ruff_lsp = {},
         basedpyright = {
-          analysis = {
-            typeCheckingMode = "standard", -- off, basic, standard, strict, all
-            autoSearchPaths = true,
-            useLibraryCodeForTypes = true,
-            autoImportCompletions = true,
-            diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
-            diagnosticSeverityOverrides = {
-              -- reportUnusedImports = false,
-              -- reportUnusedVariable = false,
-              -- reportUnusedClass = "warning",
-              -- reportUnusedFunction = "warning",
-              reportUndefinedVariable = false, -- ruff handles this with F822
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "standard", -- off, basic, standard, strict, all
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = true,
+                diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
+                diagnosticSeverityOverrides = {
+                  reportUnknownMemberType = false,
+                  reportUnknownArgumentType = false,
+                  -- reportUnusedClass = "warning",
+                  -- reportUnusedFunction = "warning",
+                  reportUndefinedVariable = false, -- ruff handles this with F822
+                },
+              },
             },
           },
         },

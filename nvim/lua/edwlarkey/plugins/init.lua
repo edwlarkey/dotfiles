@@ -25,6 +25,7 @@ return {
         palette_overrides = {},
         overrides = {
           ["@lsp.type.parameter"] = { link = "GruvboxOrange" },
+          ["@lsp.type.namespace.python"] = { link = "GruvboxOrange" },
         },
         dim_inactive = false,
         transparent_mode = false,
