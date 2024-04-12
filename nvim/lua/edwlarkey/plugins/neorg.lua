@@ -2,7 +2,6 @@ return {
   "nvim-neorg/neorg",
   -- build = ":Neorg sync-parsers",
   dependencies = {
-    "vhyrro/luarocks.nvim",
     "nvim-treesitter/nvim-treesitter",
   },
   -- ft = "norg",
@@ -130,6 +129,12 @@ return {
           },
         },
         ["core.integrations.nvim-cmp"] = {},
+        ["core.export"] = {},
+        ["core.export.markdown"] = {
+          config = {
+            extensions = { "todo-items-basic", "definition-lists" },
+          },
+        },
         ["core.concealer"] = {
           config = {
             folds = false,
