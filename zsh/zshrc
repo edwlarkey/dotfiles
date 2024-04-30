@@ -88,6 +88,7 @@ path=(
   $GOBIN
   /usr/local/opt/coreutils/libexec/gnubin
   /usr/local/{bin,sbin}
+  /opt/homebrew/{bin,sbin}
   $path
 )
 
