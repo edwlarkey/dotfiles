@@ -287,6 +287,7 @@ return {
   },
   -- { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
+  { "tpope/vim-fugitive" },
   { "mbbill/undotree" },
   { "edwlarkey/vim-toggler" },
   -- Markdown & Wiki & Tex
