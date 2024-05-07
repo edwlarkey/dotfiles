@@ -371,7 +371,12 @@ return {
       require("conform").setup({
         formatters_by_ft = {
           lua = { "stylua" },
-          python = { "black", "ruff" },
+          python = {
+            -- To fix lint errors.
+            "ruff_fix",
+            -- To run the Ruff formatter.
+            "ruff_format",
+          },
           markdown = { "prettierd", "prettier" },
           yaml = { { "prettierd", "prettier" } },
         },
@@ -486,7 +491,6 @@ return {
         "stylua",
         "shellcheck",
         "gopls",
-        "black",
         "ruff",
       },
     },

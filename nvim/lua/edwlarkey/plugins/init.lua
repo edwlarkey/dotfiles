@@ -54,6 +54,11 @@ return {
         -- make lsp requests synchronous so they work with null-ls
         async_or_timeout = 3000,
       },
+      git = {
+        branches = {
+          cmd_add = { "git", "switch", "-c" },
+        },
+      },
     },
     config = function()
       vim.keymap.set("n", ":<C-p>", function()
@@ -61,6 +66,9 @@ return {
       end, { desc = "FZF Command History" })
       vim.keymap.set("n", "<leader>ff", function()
         require("fzf-lua").git_files()
+      end, { desc = "FZF Git Files" })
+      vim.keymap.set("n", "<leader>fbr", function()
+        require("fzf-lua").git_branches()
       end, { desc = "FZF Git Files" })
       vim.keymap.set("n", "<leader>fb", function()
         require("fzf-lua").buffers()
