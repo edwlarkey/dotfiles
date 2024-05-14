@@ -302,6 +302,14 @@ return {
   { "lervag/vimtex", ft = "tex" },
   { "plasticboy/vim-markdown" },
   {
+    "MeanderingProgrammer/markdown.nvim",
+    name = "render-markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    config = function()
+      require("render-markdown").setup({})
+    end,
+  },
+  {
     "jakewvincent/mkdnflow.nvim",
     ft = "markdown",
     opts = {
