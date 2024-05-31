@@ -16,14 +16,19 @@ return {
 
   opts = {
     ensure_installed = {
+      -- Required
+      "c",
+      "lua",
+      "vim",
+      "vimdoc",
+      "query",
+      -- Extra languages
       "bash",
       "go",
       "html",
       "json",
-      "lua",
       "python",
       "yaml",
-      "vim",
     },
     sync_install = false,
     auto_install = true,
