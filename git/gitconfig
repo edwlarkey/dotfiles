@@ -22,4 +22,6 @@
   difftool = true
 [merge]
   conflictStyle = zdiff3
+[rerere]
+  enabled = true
 ; vim: filetype=gitconfig
