@@ -104,6 +104,7 @@ return {
             },
           },
         },
+        templ = {},
         -- pylsp = {
         --   settings = {
         --     pylsp = {
