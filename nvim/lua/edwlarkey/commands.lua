@@ -100,6 +100,22 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
+vim.filetype.add({
+  -- extension = {},
+  -- filename = {},
+  pattern = {
+    -- can be comma-separated for a list of paths
+    [".*/%.github/dependabot.yml"] = "dependabot",
+    [".*/%.github/dependabot.yaml"] = "dependabot",
+    [".*/%.github/workflows[%w/]+.*%.yml"] = "gha",
+    [".*/%.github/workflows/[%w/]+.*%.yaml"] = "gha",
+  },
+})
+
+-- use the yaml parser for the custom filetypes
+vim.treesitter.language.register("yaml", "gha")
+vim.treesitter.language.register("yaml", "dependabot")
+
 vim.cmd([[
 
 " https://vim.fandom.com/wiki/Automatically_open_the_quickfix_window_on_:make

@@ -380,6 +380,7 @@ return {
           },
           markdown = { "prettierd", "prettier" },
           yaml = { { "prettierd", "prettier" } },
+          gha = { { "prettierd", "prettier" } },
         },
         formatters = {
           shfmt = {
@@ -426,6 +427,7 @@ return {
       "sh",
       "go",
       "yaml",
+      "gha",
     },
     opts = {
       linters_by_ft = {
@@ -434,6 +436,7 @@ return {
         sh = { "shellcheck" },
         yaml = { "yamllint" },
         go = { "golangcilint" },
+        gha = { "actionlint" },
       },
       linters = {},
     },
