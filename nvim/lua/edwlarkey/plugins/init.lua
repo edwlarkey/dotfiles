@@ -48,7 +48,6 @@ return {
   { "nvim-lua/plenary.nvim" },
   {
     "ibhagwan/fzf-lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       lsp = {
         -- make lsp requests synchronous so they work with null-ls
@@ -103,6 +102,7 @@ return {
       require("mini.statusline").setup()
       require("mini.bracketed").setup()
       require("mini.colors").setup()
+      require("mini.icons").setup()
       -- require("mini.notify").setup()
       require("mini.comment").setup()
       require("mini.indentscope").setup({
@@ -423,6 +423,7 @@ return {
           { name = "nvim_lsp" },
           { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
+          { name = "mkdnflow" },
           { name = "buffer" },
           { name = "path" },
         }),
@@ -432,13 +433,6 @@ return {
         sources = cmp.config.sources({
           { name = "path" },
           { name = "cmdline" },
-        }),
-      })
-      cmp.setup.filetype("norg", {
-        sources = cmp.config.sources({
-          { name = "path" },
-          { name = "neorg" },
-          { name = "buffer" },
         }),
       })
       cmp.setup.cmdline({ "/", "?" }, {
