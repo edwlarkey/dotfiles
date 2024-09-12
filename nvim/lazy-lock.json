@@ -39,7 +39,7 @@
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "41e3abf6bfd9a9a681eb1f788bdeba91c9004b2b" },
   "nvim-ts-autotag": { "branch": "main", "commit": "e239a560f338be31337e7abc3ee42515daf23f5e" },
   "other.nvim": { "branch": "main", "commit": "252cc279eb3d76685ef48aaeced1c3cf9793581f" },
-  "pkl-neovim": { "branch": "main", "commit": "a0ae099c7eb926150ee0a126b1dd78086edbe3fc" },
+  "persistence.nvim": { "branch": "main", "commit": "f6aad7dde7fcf54148ccfc5f622c6d5badd0cc3d" },
   "plenary.nvim": { "branch": "master", "commit": "ec289423a1693aeae6cd0d503bac2856af74edaa" },
   "render-markdown": { "branch": "main", "commit": "8c67dbc267549d2e3b3d721c656b644660a77d3f" },
   "undotree": { "branch": "master", "commit": "56c684a805fe948936cda0d1b19505b84ad7e065" },
