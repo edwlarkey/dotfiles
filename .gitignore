@@ -47,6 +47,7 @@ bin/nvim
 bin/docker-compose
 bin/orb
 bin/orbctl
+bin/docker
 
 # newsbeuter
 newsbeuter/cache.db
