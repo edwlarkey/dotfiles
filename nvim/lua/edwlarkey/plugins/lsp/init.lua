@@ -130,26 +130,29 @@ return {
         --   },
         -- },
         ruff_lsp = {},
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              analysis = {
-                typeCheckingMode = "standard", -- off, basic, standard, strict, all
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                autoImportCompletions = true,
-                diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
-                diagnosticSeverityOverrides = {
-                  reportUnknownMemberType = false,
-                  reportUnknownArgumentType = false,
-                  -- reportUnusedClass = "warning",
-                  -- reportUnusedFunction = "warning",
-                  reportUndefinedVariable = false, -- ruff handles this with F822
-                },
-              },
-            },
-          },
+        pylyzer = {
+          mason = false,
         },
+        -- basedpyright = {
+        --   settings = {
+        --     basedpyright = {
+        --       analysis = {
+        --         typeCheckingMode = "standard", -- off, basic, standard, strict, all
+        --         autoSearchPaths = true,
+        --         useLibraryCodeForTypes = true,
+        --         autoImportCompletions = true,
+        --         diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
+        --         diagnosticSeverityOverrides = {
+        --           reportUnknownMemberType = false,
+        --           reportUnknownArgumentType = false,
+        --           -- reportUnusedClass = "warning",
+        --           -- reportUnusedFunction = "warning",
+        --           reportUndefinedVariable = false, -- ruff handles this with F822
+        --         },
+        --       },
+        --     },
+        --   },
+        -- },
         -- jedi_language_server = {},
         -- pyright = {
         --   settings = {
