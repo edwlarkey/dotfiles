@@ -28,7 +28,7 @@ return {
         float = {
           focusable = true,
           style = "minimal",
-          border = "rounded",
+          border = "single",
           source = "always",
           header = "",
           prefix = "",
@@ -129,30 +129,31 @@ return {
         --     },
         --   },
         -- },
-        ruff_lsp = {},
-        pylyzer = {
-          mason = false,
-        },
-        -- basedpyright = {
-        --   settings = {
-        --     basedpyright = {
-        --       analysis = {
-        --         typeCheckingMode = "standard", -- off, basic, standard, strict, all
-        --         autoSearchPaths = true,
-        --         useLibraryCodeForTypes = true,
-        --         autoImportCompletions = true,
-        --         diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
-        --         diagnosticSeverityOverrides = {
-        --           reportUnknownMemberType = false,
-        --           reportUnknownArgumentType = false,
-        --           -- reportUnusedClass = "warning",
-        --           -- reportUnusedFunction = "warning",
-        --           reportUndefinedVariable = false, -- ruff handles this with F822
-        --         },
-        --       },
-        --     },
-        --   },
+        -- ruff_lsp = {},
+        ruff = {},
+        -- pylyzer = {
+        --   mason = false,
         -- },
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              analysis = {
+                typeCheckingMode = "off", -- off, basic, standard, strict, all
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = true,
+                diagnosticsMode = "openFilesOnly", -- workspace, openFilesOnly
+                diagnosticSeverityOverrides = {
+                  reportUnknownMemberType = false,
+                  reportUnknownArgumentType = false,
+                  -- reportUnusedClass = "warning",
+                  -- reportUnusedFunction = "warning",
+                  reportUndefinedVariable = false, -- ruff handles this with F822
+                },
+              },
+            },
+          },
+        },
         -- jedi_language_server = {},
         -- pyright = {
         --   settings = {
@@ -244,9 +245,6 @@ return {
     config = function(_, opts)
       local Util = require("edwlarkey.util")
       require("lsp_lines").setup()
-
-      -- setup autoformat
-      -- require("edwlarkey.plugins.lsp.formatting").setup(opts)
 
       -- setup keymaps
       Util.on_attach(function(client, buffer)
@@ -340,6 +338,8 @@ return {
         end
         require("lspconfig")[server].setup(server_opts)
       end
+
+      require("edwlarkey.signature")
 
       -- get all the servers that are available thourgh mason-lspconfig
       local have_mason, mlsp = pcall(require, "mason-lspconfig")
