@@ -10,7 +10,6 @@ local M = {
       end,
     },
     { "nvim-neotest/nvim-nio" },
-    { "leoluz/nvim-dap-go" },
   },
 }
 

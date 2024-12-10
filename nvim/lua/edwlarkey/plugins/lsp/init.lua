@@ -76,10 +76,20 @@ return {
             gopls = {
               semanticTokens = true,
               experimentalPostfixCompletions = true,
+              usePlaceholders = true,
+              completeUnimported = true,
+              staticcheck = true,
+              -- analyses = {
+              --   unusedparams = false,
+              --   shadow = false,
+              --   nilness = true,
+              -- },
               analyses = {
-                unusedparams = false,
-                shadow = false,
+                fieldalignment = true,
                 nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+                useany = true,
               },
               codelenses = {
                 gc_details = false,
@@ -91,7 +101,6 @@ return {
                 upgrade_dependency = true,
                 vendor = true,
               },
-              staticcheck = true,
               hints = {
                 rangeVariableTypes = true,
                 parameterNames = true,
