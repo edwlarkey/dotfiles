@@ -66,6 +66,8 @@ link_files () {
     success 'zsh linked'
     ln -nfs "$HOME/dotfiles/xinitrc" "$HOME/.xinitrc"
     success 'xinitrc config linked'
+    ln -nfs "$HOME/dotfiles/ghostty" "$HOME/.config/ghostty"
+    success 'ghostty config linked'
     ln -nfs "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
     success 'alacritty config linked'
     ln -nfs "$HOME/dotfiles/wezterm" "$HOME/.config/wezterm"
