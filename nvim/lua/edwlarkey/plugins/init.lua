@@ -97,6 +97,28 @@ return {
     end,
   },
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    event = "InsertEnter",
+    opts = {
+      suggestion = {
+        enabled = false,
+        auto_trigger = true,
+        keymap = {
+          accept = false, -- handled by nvim-cmp / blink.cmp
+          next = "<M-]>",
+          prev = "<M-[>",
+        },
+      },
+      panel = { enabled = false },
+      filetypes = {
+        markdown = true,
+        help = true,
+      },
+    },
+  },
+  {
     "echasnovski/mini.nvim",
     config = function()
       require("mini.cursorword").setup({ delay = 500 })
@@ -386,59 +408,141 @@ return {
       { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
   },
+  -- {
+  --   "hrsh7th/nvim-cmp",
+  --   event = { "InsertEnter", "CmdlineEnter" },
+  --   dependencies = {
+  --     "hrsh7th/cmp-nvim-lsp-signature-help",
+  --     "hrsh7th/cmp-nvim-lsp-document-symbol",
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-buffer",
+  --     "hrsh7th/cmp-cmdline",
+  --     "hrsh7th/cmp-path",
+  --     "L3MON4D3/LuaSnip",
+  --     "saadparwaiz1/cmp_luasnip",
+  --   },
+  --   config = function(opts)
+  --     vim.o.completeopt = "menuone,noselect"
+  --
+  --     local cmp = require("cmp")
+  --
+  --     cmp.setup({
+  --       completion = {
+  --         completeopt = "menu,menuone,noinsert",
+  --       },
+  --       snippet = {
+  --         expand = function(args)
+  --           require("luasnip").lsp_expand(args.body)
+  --         end,
+  --       },
+  --       mapping = require("edwlarkey.keymaps").cmp.insert(),
+  --       sources = cmp.config.sources({
+  --         { name = "nvim_lsp" },
+  --         { name = "nvim_lsp_signature_help" },
+  --         { name = "luasnip" },
+  --         { name = "mkdnflow" },
+  --         { name = "buffer" },
+  --         { name = "path" },
+  --       }),
+  --     })
+  --     cmp.setup.cmdline(":", {
+  --       mapping = cmp.mapping.preset.cmdline(),
+  --       sources = cmp.config.sources({
+  --         { name = "path" },
+  --         { name = "cmdline" },
+  --       }),
+  --     })
+  --     cmp.setup.cmdline({ "/", "?" }, {
+  --       mapping = cmp.mapping.preset.cmdline(),
+  --       sources = cmp.config.sources({
+  --         { name = "nvim_lsp_document_symbol" },
+  --       }, {
+  --         { name = "buffer" },
+  --       }),
+  --     })
+  --   end,
+  -- },
   {
-    "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
+    "saghen/blink.cmp",
+    lazy = false,
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-nvim-lsp-document-symbol",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-path",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+      "giuxtaposition/blink-cmp-copilot",
     },
-    config = function(opts)
-      vim.o.completeopt = "menuone,noselect"
 
-      local cmp = require("cmp")
+    -- use a release tag to download pre-built binaries
+    version = "v0.*",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      -- 'default' for mappings similar to built-in completion
+      -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
+      -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
+      -- see the "default configuration" section below for full documentation on how to define
+      -- your own keymap.
+      keymap = {
+        preset = "super-tab",
+        ["<C-y>"] = { "select_and_accept" },
+      },
 
-      cmp.setup({
-        completion = {
-          completeopt = "menu,menuone,noinsert",
+      appearance = {
+        -- Sets the fallback highlight groups to nvim-cmp's highlight groups
+        -- Useful for when your theme doesn't support blink.cmp
+        -- will be removed in a future release
+        use_nvim_cmp_as_default = true,
+        -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+      },
+
+      completion = {
+        menu = {
+          draw = {
+            treesitter = { "lsp" },
+          },
         },
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 200,
         },
-        mapping = require("edwlarkey.keymaps").cmp.insert(),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "luasnip" },
-          { name = "mkdnflow" },
-          { name = "buffer" },
-          { name = "path" },
-        }),
-      })
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-          { name = "cmdline" },
-        }),
-      })
-      cmp.setup.cmdline({ "/", "?" }, {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp_document_symbol" },
-        }, {
-          { name = "buffer" },
-        }),
-      })
-    end,
+      },
+
+      snippets = {
+        expand = function(snippet)
+          require("luasnip").lsp_expand(snippet)
+        end,
+        active = function(filter)
+          if filter and filter.direction then
+            return require("luasnip").jumpable(filter.direction)
+          end
+          return require("luasnip").in_snippet()
+        end,
+        jump = function(direction)
+          require("luasnip").jump(direction)
+        end,
+      },
+
+      -- default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, via `opts_extend`
+      sources = {
+        default = { "lsp", "path", "luasnip", "buffer", "copilot" },
+        cmdline = {},
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-cmp-copilot",
+            score_offset = 100,
+            async = true,
+          },
+        },
+      },
+
+      -- experimental signature help support
+      signature = { enabled = true },
+    },
+    -- allows extending the providers array elsewhere in your config
+    -- without having to redefine it
+    opts_extend = { "sources.default" },
   },
   {
     "folke/persistence.nvim",
