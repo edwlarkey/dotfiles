@@ -119,14 +119,34 @@ return {
     },
   },
   {
+    "folke/ts-comments.nvim",
+    opts = {},
+    event = "VeryLazy",
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
+  },
+  {
     "echasnovski/mini.nvim",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
     config = function()
+      local gen_loader = require("mini.snippets").gen_loader
+
       require("mini.cursorword").setup({ delay = 500 })
       require("mini.statusline").setup()
       require("mini.bracketed").setup()
       require("mini.colors").setup()
       require("mini.icons").setup()
       -- require("mini.notify").setup()
+      require("mini.snippets").setup({
+        snippets = {
+          -- gen_loader.from_file("~/.config/nvim/snippets/global.json"),
+
+          -- Load snippets based on current language by reading files from
+          -- "snippets/" subdirectories from 'runtimepath' directories.
+          gen_loader.from_lang(),
+        },
+      })
       require("mini.comment").setup()
       require("mini.indentscope").setup({
         draw = {
@@ -262,50 +282,6 @@ return {
     end,
   },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, cond = not vim.g.vscode },
-  -- {
-  --   "folke/which-key.nvim",
-  --   enabled = false,
-  --   config = function()
-  --     vim.o.timeout = true
-  --     vim.o.timeoutlen = 300
-  --     require("which-key").setup({
-  --       layout = {
-  --         height = { min = 3, max = 25 }, -- min and max height of the columns
-  --         width = { min = 20, max = 50 }, -- min and max width of the columns
-  --         spacing = 3, -- spacing between columns
-  --         align = "center", -- align columns left, center or right
-  --       },
-  --       triggers_blacklist = { -- list of mode / prefixes that should never be hooked by WhichKey
-  --         i = { "g" },
-  --       },
-  --     })
-  --
-  --     require("edwlarkey.keymaps").whichkey.register()
-  --   end,
-  -- },
-  -- {
-  --   "stevearc/overseer.nvim",
-  --   dependencies = { "ibhagwan/fzf-lua", "stevearc/dressing.nvim" },
-  --   opts = {
-  --     component_aliases = {
-  --       default = {
-  --         { "display_duration", detail_level = 2 },
-  --         "on_output_summarize",
-  --         "on_exit_set_status",
-  --         "on_complete_notify",
-  --         "on_complete_dispose",
-  --       },
-  --     },
-  --   },
-  -- },
-  -- {
-  --   "stevearc/resession.nvim",
-  --   opts = {
-  --     extensions = {
-  --       overseer = {},
-  --     },
-  --   },
-  -- },
   {
     "petertriho/nvim-scrollbar",
     cond = not vim.g.vscode,
@@ -381,33 +357,33 @@ return {
       })
     end,
   },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
-    },
-    opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-    },
-    -- stylua: ignore
-    keys = {
-      {
-        "<tab>",
-        function()
-          return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
-        end,
-        expr = true,
-        silent = true,
-        mode = "i",
-      },
-      { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
-      { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
-    },
-  },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   dependencies = {
+  --     "rafamadriz/friendly-snippets",
+  --     config = function()
+  --       require("luasnip.loaders.from_vscode").lazy_load()
+  --     end,
+  --   },
+  --   opts = {
+  --     history = true,
+  --     delete_check_events = "TextChanged",
+  --   },
+  --   -- stylua: ignore
+  --   keys = {
+  --     {
+  --       "<tab>",
+  --       function()
+  --         return require("luasnip").jumpable(1) and "<Plug>luasnip-jump-next" or "<tab>"
+  --       end,
+  --       expr = true,
+  --       silent = true,
+  --       mode = "i",
+  --     },
+  --     { "<tab>",   function() require("luasnip").jump(1) end,  mode = "s" },
+  --     { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
+  --   },
+  -- },
   -- {
   --   "hrsh7th/nvim-cmp",
   --   event = { "InsertEnter", "CmdlineEnter" },
@@ -466,7 +442,6 @@ return {
     "saghen/blink.cmp",
     lazy = false,
     dependencies = {
-      "rafamadriz/friendly-snippets",
       "giuxtaposition/blink-cmp-copilot",
     },
 
@@ -507,25 +482,12 @@ return {
         },
       },
 
-      snippets = {
-        expand = function(snippet)
-          require("luasnip").lsp_expand(snippet)
-        end,
-        active = function(filter)
-          if filter and filter.direction then
-            return require("luasnip").jumpable(filter.direction)
-          end
-          return require("luasnip").in_snippet()
-        end,
-        jump = function(direction)
-          require("luasnip").jump(direction)
-        end,
-      },
+      snippets = { preset = "mini_snippets" },
 
       -- default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
-        default = { "lsp", "path", "luasnip", "buffer", "copilot" },
+        default = { "lsp", "path", "snippets", "buffer", "copilot" },
         cmdline = {},
         providers = {
           copilot = {
