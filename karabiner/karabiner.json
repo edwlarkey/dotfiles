@@ -9,6 +9,24 @@
                 },
                 "rules": [
                     {
+                        "description": "Ctrl Shift V - Paste",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "v",
+                                    "modifiers": { "mandatory": ["control", "shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "v",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "PC-Style Copy/Paste/Cut",
                         "manipulators": [
                             {
@@ -37,6 +55,7 @@
                                             "^com\\.vmware\\.proxyApp\\.",
                                             "^com\\.parallels\\.winapp\\.",
                                             "^com\\.apple\\.Terminal$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^co\\.zeit\\.hyperterm$",
                                             "^co\\.zeit\\.hyper$",
@@ -92,6 +111,7 @@
                                             "^com\\.vmware\\.proxyApp\\.",
                                             "^com\\.parallels\\.winapp\\.",
                                             "^com\\.apple\\.Terminal$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^co\\.zeit\\.hyperterm$",
                                             "^co\\.zeit\\.hyper$",
@@ -147,6 +167,7 @@
                                             "^com\\.vmware\\.proxyApp\\.",
                                             "^com\\.parallels\\.winapp\\.",
                                             "^com\\.apple\\.Terminal$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^co\\.zeit\\.hyperterm$",
                                             "^co\\.zeit\\.hyper$",
@@ -156,6 +177,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
+                                            "^org\\.mozilla\\.firefox$",
                                             "^org\\.pqrs\\.unknownapp.conkeror$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -180,6 +202,7 @@
                     },
                     {
                         "description": "PC-Style Select-All",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -412,6 +435,7 @@
                     },
                     {
                         "description": "Map left_option to soft-meta for Alacritty",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -1788,6 +1812,7 @@
                     },
                     {
                         "description": "Map right_option to soft-meta for Alacritty",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -3164,6 +3189,31 @@
                     }
                 ]
             },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 20992,
+                        "vendor_id": 11720
+                    },
+                    "ignore": false,
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "left_control" }]
+                        }
+                    ]
+                }
+            ],
             "name": "Default profile",
             "selected": true,
             "virtual_hid_keyboard": {
