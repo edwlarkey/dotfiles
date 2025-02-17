@@ -489,7 +489,6 @@ return {
       -- elsewhere in your config, without redefining it, via `opts_extend`
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "copilot" },
-        cmdline = {},
         providers = {
           copilot = {
             name = "copilot",
