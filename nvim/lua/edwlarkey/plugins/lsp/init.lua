@@ -85,7 +85,6 @@ return {
               --   nilness = true,
               -- },
               analyses = {
-                fieldalignment = true,
                 nilness = true,
                 unusedparams = true,
                 unusedwrite = true,
@@ -391,15 +390,15 @@ return {
             "ruff_format",
           },
           markdown = { "prettierd", "prettier" },
-          yaml = { { "prettierd", "prettier" } },
-          gha = { { "prettierd", "prettier" } },
+          yaml = { "prettierd", "prettier" },
+          gha = { "prettierd", "prettier" },
         },
         formatters = {
           shfmt = {
             prepend_args = { "-i", "2", "-ci" },
           },
           stylua = {
-            prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
+            prepend_args = { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" },
           },
         },
         format_on_save = function(bufnr)

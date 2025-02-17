@@ -54,27 +54,6 @@ M.setup = {
         { "<leader>wn", ":Neorg<CR>", { desc = "Open Neorg menu" } },
         { "<F2>", ":make test<CR>", { desc = "Run make test" } },
         { "<F3>", ":make build<CR>", { desc = "Run make build" } },
-        {
-          "<leader>so",
-          function()
-            require("resession").load()
-          end,
-          { desc = "Session Open" },
-        },
-        {
-          "<leader>ss",
-          function()
-            require("resession").save()
-          end,
-          { desc = "Session Save" },
-        },
-        {
-          "<leader>sd",
-          function()
-            require("resession").delete()
-          end,
-          { desc = "Session Delete" },
-        },
         { "<leader>or", ":OverseerRun<CR>" },
         { "<leader>ot", ":OverseerToggle<CR>" },
         { "<C-w>h", ":TmuxNavigateLeft<CR>" },
@@ -111,8 +90,8 @@ M.setup = {
   lsp = function(bufnr)
     map({
       [{ "n" }] = {
-        { "gD", vim.lsp.buf.declaration },
-        { "gd", vim.lsp.buf.definition, { desc = "(LSP) Get definition" } },
+        -- { "gD", vim.lsp.buf.declaration },
+        -- { "gd", vim.lsp.buf.definition, { desc = "(LSP) Get definition" } },
         { "K", vim.lsp.buf.hover, { desc = "(LSP) Get definition" } },
         { "gl", vim.diagnostic.open_float, { desc = "(LSP) Open Float" } },
         { "<leader>li", vim.lsp.buf.implementation, { desc = "(LSP) Implementations" } },

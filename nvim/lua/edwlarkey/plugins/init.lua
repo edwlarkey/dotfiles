@@ -26,6 +26,7 @@ return {
         overrides = {
           ["@lsp.type.parameter"] = { link = "GruvboxOrange" },
           ["@lsp.type.namespace.python"] = { link = "GruvboxOrange" },
+          ["SnacksPickerDir"] = { link = "GruvboxPurple" },
         },
         dim_inactive = false,
         transparent_mode = false,
@@ -61,40 +62,81 @@ return {
       },
     },
     config = function()
-      vim.keymap.set("n", ":<C-p>", function()
-        require("fzf-lua").command_history()
-      end, { desc = "FZF Command History" })
-      vim.keymap.set("n", "<leader>ff", function()
-        require("fzf-lua").git_files()
-      end, { desc = "FZF Git Files" })
-      -- vim.keymap.set("n", "<leader>fbr", function()
-      --   require("fzf-lua").git_branches()
-      -- end, { desc = "FZF Git Branches" })
-      vim.keymap.set("n", "<leader>fb", function()
-        require("fzf-lua").buffers()
-      end, { desc = "FZF Buffers" })
+      -- vim.keymap.set("n", ":<C-p>", function()
+      --   require("fzf-lua").command_history()
+      -- end, { desc = "FZF Command History" })
+      -- vim.keymap.set("n", "<leader>ff", function()
+      --   require("fzf-lua").git_files()
+      -- end, { desc = "FZF Git Files" })
+      -- -- vim.keymap.set("n", "<leader>fbr", function()
+      -- --   require("fzf-lua").git_branches()
+      -- -- end, { desc = "FZF Git Branches" })
+      -- vim.keymap.set("n", "<leader>fb", function()
+      --   require("fzf-lua").buffers()
+      -- end, { desc = "FZF Buffers" })
       vim.keymap.set("n", "<leader>fm", function()
         require("fzf-lua").builtin()
       end, { desc = "FZF Menu" })
-      vim.keymap.set("n", "<leader>fr", function()
-        require("fzf-lua").live_grep()
-      end, { desc = "FZF RipGrep" })
-      vim.keymap.set("n", "<leader>fo", function()
-        require("fzf-lua").oldfiles()
-      end, { desc = "FZF oldfiles" })
-      vim.keymap.set("n", "<leader>fa", function()
-        require("fzf-lua").live_grep_resume()
-      end, { desc = "FZF RipGrep Same Again" })
-      vim.keymap.set("n", "<leader>d", function()
-        require("fzf-lua").files()
-      end, { desc = "FZF Files" })
-      vim.keymap.set("n", "<leader>k", function()
-        require("fzf-lua").files({ cwd = "~/txt", cmd = "fd --type f --exclude .stversions" })
-      end, { desc = "FZF Wiki" })
-      vim.keymap.set("n", "<leader>v", function()
-        require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
-      end, { desc = "FZF Neovim Config" })
+      -- vim.keymap.set("n", "<leader>fr", function()
+      --   require("fzf-lua").live_grep()
+      -- end, { desc = "FZF RipGrep" })
+      -- vim.keymap.set("n", "<leader>fo", function()
+      --   require("fzf-lua").oldfiles()
+      -- end, { desc = "FZF oldfiles" })
+      -- vim.keymap.set("n", "<leader>fa", function()
+      --   require("fzf-lua").live_grep_resume()
+      -- end, { desc = "FZF RipGrep Same Again" })
+      -- vim.keymap.set("n", "<leader>d", function()
+      --   require("fzf-lua").files()
+      -- end, { desc = "FZF Files" })
+      -- vim.keymap.set("n", "<leader>k", function()
+      --   require("fzf-lua").files({ cwd = "~/txt", cmd = "fd --type f --exclude .stversions" })
+      -- end, { desc = "FZF Wiki" })
+      -- vim.keymap.set("n", "<leader>v", function()
+      --   require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
+      -- end, { desc = "FZF Neovim Config" })
     end,
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      -- explorer = { enabled = true },
+      -- indent = { enabled = true },
+      -- input = { enabled = true },
+      picker = { enabled = true },
+      notifier = { enabled = true },
+      -- quickfile = { enabled = true },
+      -- scope = { enabled = true },
+      -- scroll = { enabled = true },
+      -- statuscolumn = { enabled = true },
+      -- words = { enabled = true },
+    },
+    -- stylua: ignore
+    keys = {
+      -- find
+      { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<leader>fc", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
+      { "<leader>d", function() Snacks.picker.files() end, desc = "Find Files" },
+      { "<leader>fg", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
+      { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+      { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
+      -- LSP
+      { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition" },
+      { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+      { "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
+      { "gI", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+      { "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto T[y]pe Definition" },
+      { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+      { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
+    },
   },
   {
     "zbirenbaum/copilot.lua",
