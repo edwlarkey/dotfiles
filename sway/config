@@ -120,8 +120,8 @@ font pango:Hack, pango:FontAwesome 12
 
     # Screenshots
     ## Screenshot region and save to ~/Pictures
-    bindsym $mod+Ctrl+4 exec grim -g "$(slurp)"
     bindsym Print exec grim -g "$(slurp)"
+    bindsym $mod+Print exec grim
 
     bindsym $mod+Escape exec $lockCommand
 
