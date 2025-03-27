@@ -47,6 +47,7 @@ return {
     end,
   },
   { "nvim-lua/plenary.nvim" },
+  { "b0o/schemastore.nvim" },
   {
     "ibhagwan/fzf-lua",
     cond = not vim.g.vscode,
