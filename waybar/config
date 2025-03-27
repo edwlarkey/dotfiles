@@ -3,7 +3,9 @@
   // "spacing": 4, // Gaps between modules (4px)
   // "margin": "0 8 0 8", // 4 4 0 4; 0 8 0 8
   // Choose the order of the modules
+  "height": 30,
   "modules-left": [
+    "custom/start",
     "wlr/workspaces",
     "sway/workspaces",
   ],
@@ -65,9 +67,9 @@
   },
   "clock": {
     // "timezone": "America/Chicago",
-    "format": "{:%a %Y-%m-%d %H:%M}",
+    "format": "{:%Y-%m-%d %H:%M      }",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    "format-alt": "{: %H:%M}",
+    "format-alt": "{:%H:%M      }",
   },
   "clock#utc": {
     "format": "{:%H:%M UTC}",
@@ -75,12 +77,12 @@
   },
   "cpu": {
     "min-length": 6,
-    "format": " {usage}%",
+    "format": "{usage}%      ",
     "tooltip": true
   },
   "memory": {
     "min-length": 6,
-    "format": " {}%"
+    "format": "{}%      "
   },
   "temperature": {
     "min-length": 6,
@@ -88,27 +90,11 @@
     // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
     "critical-threshold": 80,
     // "format-critical": "{temperatureC}°C {icon}",
-    "format": "{icon} {temperatureC}°C",
-    "format-icons": [
-      "",
-      "",
-      ""
-    ]
+    "format": "{temperatureC}°C      ",
   },
   "backlight": {
     "device": "acpi_video1",
-    "format": "{icon} {percent}%",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
-    ]
+    "format": "{percent}%      ",
   },
   "battery": {
     "min-length": 6,
@@ -118,12 +104,12 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-plugged": " {capacity}%",
-    "format-alt": "{icon} {time}",
-    "format-good": "{icon} {capacity}%",
-    "format-full": "{icon} {capacity}%",
+    "format": "{icon} {capacity}%      ",
+    "format-charging": " {capacity}%      ",
+    "format-plugged": " {capacity}%      ",
+    "format-alt": "{icon} {time}      ",
+    "format-good": "{icon} {capacity}%      ",
+    "format-full": "{icon} {capacity}%      ",
     "format-icons": [
       "",
       "",
@@ -135,23 +121,12 @@
   "pulseaudio": {
     "min-length": 6,
     "scroll-step": 1,
-    "format": "{icon} {volume}%",
-    "format-bluetooth": "{volume}% {icon} {format_source}",
-    "format-bluetooth-muted": " {icon} {format_source}",
-    "format-muted": " {volume}%",
-    "format-source": "",
-    "format-source-muted": "",
-    "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": [
-        ""
-      ]
-    },
+    "format": "{icon} {volume}%      ",
+    "format-bluetooth": "{volume}% {icon} {format_source}      ",
+    "format-bluetooth-muted": " {icon} {format_source}      ",
+    "format-muted": " {volume}%      ",
+    "format-source": "      ",
+    "format-source-muted": "      ",
     "on-click": "pavucontrol"
   },
   "custom/vpn": {
@@ -175,5 +150,10 @@
     "format": "⏻ ",
     "tooltip": false,
     "on-click": "exec $HOME/dotfiles/waybar/scripts/power.sh"
-  }
+  },
+ "custom/start": {
+    "format": "       Start",
+    "tooltip": false,
+    "on-click": "exec wofi -m -I --show drun"
+    },
 }

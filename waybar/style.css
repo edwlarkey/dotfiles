@@ -1,200 +1,242 @@
-@define-color bg0-h   #1d2021;
-@define-color bg0     #282828;
-@define-color bg0-s   #32302f;
-@define-color bg1     #3c3836;
-@define-color bg2     #504945;
-@define-color bg3     #665c54;
-@define-color bg4     #7c6f64;
-
-@define-color fg0     #fbf1c7;
-@define-color fg1     #ebdbb2;
-@define-color fg2     #d5c4a1;
-@define-color fg3     #bdae93;
-@define-color fg4     #a89984;
-@define-color fg      #ebdbb2;
-
-@define-color red-h    #fb4934;
-@define-color green-h  #b8bb26;
-@define-color yellow-h #fabd2f;
-@define-color blue-h   #83a598;
-@define-color purple-h #d3869b;
-@define-color aqua-h   #8ec07c;
-@define-color orange-h #fe8019;
-
-@define-color red     #cc241d;  
-@define-color green   #98971a;
-@define-color yellow  #d79921;
-@define-color blue    #458588;
-@define-color purple  #b16286;
-@define-color aqua    #689d6a;
-@define-color orange  #d65d0e;
-@define-color gray    #a89984;
-
 * {
   border: none;
   border-radius: 0;
-  font-family: "Hack Nerd Font Mono", "Openmoji", "Font Awesome 5 Free Regular";
-  font-size: 14px;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
   min-height: 0;
 }
 
 window#waybar {
-  /* background: transparent; */
-  background: @bg0;
+  background: #c0c0c0;
+  color: #000000;
+  box-shadow: 0px 0px 3px 0px #00000;
+  border-bottom: solid 1px #404040;
 }
 
-/*gaps*/
-window > box {
-  margin-left: 0.45em;
-  margin-right: 0.45em;
-  margin-bottom: 0em;
-  background: transparent;
-  color: @fg0;
-  border-style: solid;
-}
-
-tooltip {
-  background: @bg0;
-  opacity: 0.8;
-  border-width: 0.2em;
-  border-style: solid;
-  border-color: @bg1;
-  border-radius: 0em;
-}
-
-tooltip label {
-  color: @fg0;
-}
-
-#workspaces {
-  background: @bg0;
-  color: @fg0;
+#scratchpad {
+  padding: 5px 10px;
+  margin: 5px 3px;
+  background: #c0c0c0;
+  color: #000000;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
 }
 
 #workspaces button {
-  padding: 0.4em;
-  color: @fg4;
-}
+  padding: 5px 10px;
+  margin: 5px 3px;
+  background: #c0c0c0;
+  color: #000000;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
 
-#workspaces button.active {
-  color: @bg0;
-  background: @blue;
-}
-
-#workspaces button.focused {
-  color: @blue-h;
-  background: @bg0;
-}
-
-#workspaces button.urgent {
-  color: @bg0-h;
-  background: @green;
 }
 
 #workspaces button:hover {
-  background: @bg1;
-  color: @fg1;
+  box-shadow: 0px 0px 0px;
+  text-shadow: none;
+  background: #E0E0E0;
 }
 
-#custom-light_dark,
-#cpu,
-#memory,
-#clock,
-#battery,
-#pulseaudio,
-#network,
-#tray,
-#backlight,
-#temperature {
-  background: @bg0;
-  color: @fg1;
-  padding: 0em 0.75em;
-  margin: 0.25em 0em;
+#workspaces button.focused {
+  background: #E0E0E0;
+  color: #000000;
 }
 
-#custom-launch_wofi {
-  background: @bg0;
-  color: @blue;
-  padding: 0em 0.5em 0em 0.75em;
-  margin: 0.25em 0em;
+#custom-start {
+  padding: 5px 5px;
+  margin: 5px 3px;
+  font-weight: bold;
+  background: url('/usr/share/icons/Chicago95-tux/places/scalable/start-here.svg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
 }
 
-#custom-power {
-  background: @bg0;
-  color: @fg0;
-  padding: 0em 1em 0em 0.75em;
-  margin: 0.25em 0em;
+#custom-start:hover {
+  background: url('/usr/share/icons/Chicago95-tux/places/scalable/start-here.svg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0px 0px 0px;
+  text-shadow: none;
+}
+
+#custom-start:active {
+  background: url('/usr/share/icons/Chicago95-tux/places/scalable/start-here.svg');
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0px 0px 0px;
+  text-shadow: none;
+  background-color: #f0f0f0;
 }
 
 #window {
-  background: @bg0;
-  color: @fg03;
-  padding: 0em 0.5em 0em 0.75em;
-  margin: 0.25em 0em;
+  padding: 5px 10px;
+  margin: 5px 3px;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
 }
 
-#window.empty {
-  background: transparent;
-  padding: 0em;
-  margin: 0.25em 0em;
-}
-
-#pulseaudio {
-  color: @bg0;
-  background: @orange;
-}
-
-#custom-power_btn {
-  background: @bg0;
-  color: @fg0;
-}
-
-#custom-light_dark {
-  color: @bg0;
-  background: @aqua;
-}
-
-#network {
-  color: @bg0;
-  background: @gray;
-}
-
-#cpu,
-#memory {
-  color: @fg4;
-  background: @bg3;
-}
-
-#temperature,
 #battery {
-  color: @bg0;
-  background: @green;
-}
-
-#temperature.critical {
-  background: @red;
-  color: @bg0;
-}
-
-#battery.warning {
-  background: @yellow;
-  color: @bg0;
-}
-
-#battery.critical {
-  background: @red;
-  color: @bg0;
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/devices/scalable/battery.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
 }
 
 #backlight {
-  background: @aqua;
-  color: @bg0;
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/status/scalable/sunny.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
 }
 
-#tray {
-  background: @bg0;
+#wireplumber {
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/status/scalable/audio-volume-high.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+}
+
+#pulseaudio {
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/status/scalable/audio-volume-high.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+}
+
+#memory {
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/devices/scalable/computer-laptop.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+}
+
+#cpu {
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/devices/scalable/processor.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+}
+
+#temperature {
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #404040;
+  box-shadow: 1px 1px 1px 0px #000000;
+  background-image: url('/usr/share/icons/Chicago95-tux/status/scalable/weather-few-clouds.svg');
+  background-position: right;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
 }
 
 #clock {
-  background: @blue;
+  padding: 5px 5px;
+  margin: 5px 3px;
+  background-color: #b0b0b0;
+  color: #000000;
+  font-family: "Sans Serif", "Font Awesome 5 Free";
+  font-size: medium;
+  border-left: 0.5px solid #000000;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  box-shadow: -1px -0.5px 0px 0px #000000;
+  background-image: url("/usr/share/icons/Chicago95-tux/apps/scalable/clock.svg");
+  background-position: right;
+  background-size: 13%;
+  background-repeat: no-repeat;
+  background-origin: content-box;
 }
+
+/*#battery button:hover,*/
+
+/*#pulseaudio:hover {
+    background-color: #E0E0E0;
+    box-shadow: 0px 0px 0px;
+}*/
