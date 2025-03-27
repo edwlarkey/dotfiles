@@ -1,7 +1,4 @@
-local capabilities = require("blink.cmp").get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
-
 return {
-  capabilities = capabilities,
   cmd = { "gopls" },
   root_markers = { "go.mod" },
   filetypes = { "go", "gomod" },
