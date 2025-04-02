@@ -588,124 +588,153 @@ return {
     },
   },
   {
-    "nvim-neotest/neotest",
-    dependencies = {
-      "nvim-neotest/nvim-nio",
-      "nvim-lua/plenary.nvim",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      {
-        "fredrikaverpil/neotest-golang",
-        version = "*",
-        dependencies = {
-          "leoluz/nvim-dap-go",
-        },
-      },
-    },
-    opts = function(_, opts)
-      opts.adapters = opts.adapters or {}
-      opts.adapters["neotest-golang"] = {
-        go_test_args = {
-          "-v",
-          -- "-race",
-          "-coverprofile="
-            .. vim.fn.getcwd()
-            .. "/coverage.out",
-        },
-      }
-    end,
+    "stevearc/conform.nvim",
     config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-golang"),
+      require("conform").setup({
+        formatters_by_ft = {
+          lua = { "stylua" },
+          python = {
+            -- To fix lint errors.
+            "ruff_fix",
+            -- To run the Ruff formatter.
+            "ruff_format",
+          },
+          markdown = { "prettierd", "prettier" },
+          yaml = { "prettierd", "prettier" },
+          gha = { "prettierd", "prettier" },
         },
+        formatters = {
+          shfmt = {
+            prepend_args = { "-i", "2", "-ci" },
+          },
+          stylua = {
+            prepend_args = { "--indent-type", "Spaces", "--indent-width", "2", "--column-width", "120" },
+          },
+        },
+        format_on_save = function(bufnr)
+          -- Disable with a global or buffer-local variable
+          if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+            return
+          end
+          return { timeout_ms = 500, lsp_fallback = true }
+        end,
+      })
+
+      vim.api.nvim_create_user_command("FormatDisable", function(args)
+        if args.bang then
+          -- FormatDisable! will disable formatting just for this buffer
+          vim.b.disable_autoformat = true
+        else
+          vim.g.disable_autoformat = true
+        end
+      end, {
+        desc = "Disable autoformat-on-save",
+        bang = true,
+      })
+      vim.api.nvim_create_user_command("FormatEnable", function()
+        vim.b.disable_autoformat = false
+        vim.g.disable_autoformat = false
+      end, {
+        desc = "Re-enable autoformat-on-save",
       })
     end,
-    keys = {
-      {
-        "<leader>ta",
-        function()
-          require("neotest").run.attach()
-        end,
-        desc = "[t]est [a]ttach",
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    ft = {
+      "lua",
+      "python",
+      "sh",
+      "go",
+      "yaml",
+      "gha",
+    },
+    opts = {
+      linters_by_ft = {
+        lua = { "luacheck" },
+        python = { "ruff" },
+        sh = { "shellcheck" },
+        yaml = { "yamllint" },
+        go = { "golangcilint" },
+        gha = { "actionlint" },
       },
-      {
-        "<leader>tf",
-        function()
-          require("neotest").run.run(vim.fn.expand("%"))
+      linters = {},
+    },
+    config = function(_, opts)
+      local lint = require("lint")
+      lint.linters_by_ft = opts.linters_by_ft
+      for k, v in pairs(opts.linters) do
+        lint.linters[k] = v
+      end
+
+      local yl = lint.linters.yamllint
+      table.insert(yl.args, 1, function()
+        local conf = vim.fs.find(".yamllint", {
+          upward = true,
+          stop = vim.fs.dirname(vim.uv.os_homedir()),
+          path = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+        })
+        if #conf > 0 then
+          return string.format("--config-file=%s", conf[1])
+        end
+      end)
+
+      local timer = assert(vim.loop.new_timer())
+      local DEBOUNCE_MS = 500
+      local aug = vim.api.nvim_create_augroup("Lint", { clear = true })
+      -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "TextChanged", "InsertLeave" }, {
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        group = aug,
+        callback = function()
+          local bufnr = vim.api.nvim_get_current_buf()
+          timer:stop()
+          timer:start(
+            DEBOUNCE_MS,
+            0,
+            vim.schedule_wrap(function()
+              if vim.api.nvim_buf_is_valid(bufnr) then
+                vim.api.nvim_buf_call(bufnr, function()
+                  lint.try_lint(nil, { ignore_errors = true })
+                end)
+              end
+            end)
+          )
         end,
-        desc = "[t]est run [f]ile",
-      },
-      {
-        "<leader>tA",
-        function()
-          require("neotest").run.run(vim.uv.cwd())
-        end,
-        desc = "[t]est [A]ll files",
-      },
-      {
-        "<leader>tS",
-        function()
-          require("neotest").run.run({ suite = true })
-        end,
-        desc = "[t]est [S]uite",
-      },
-      {
-        "<leader>tn",
-        function()
-          require("neotest").run.run()
-        end,
-        desc = "[t]est [n]earest",
-      },
-      {
-        "<leader>tl",
-        function()
-          require("neotest").run.run_last()
-        end,
-        desc = "[t]est [l]ast",
-      },
-      {
-        "<leader>ts",
-        function()
-          require("neotest").summary.toggle()
-        end,
-        desc = "[t]est [s]ummary",
-      },
-      {
-        "<leader>to",
-        function()
-          require("neotest").output.open({ enter = true, auto_close = true })
-        end,
-        desc = "[t]est [o]utput",
-      },
-      {
-        "<leader>tO",
-        function()
-          require("neotest").output_panel.toggle()
-        end,
-        desc = "[t]est [O]utput panel",
-      },
-      {
-        "<leader>tt",
-        function()
-          require("neotest").run.stop()
-        end,
-        desc = "[t]est [t]erminate",
-      },
-      {
-        "<leader>td",
-        function()
-          require("neotest").run.run({ suite = false, strategy = "dap" })
-        end,
-        desc = "Debug nearest test",
-      },
-      {
-        "<leader>tD",
-        function()
-          require("neotest").run.run({ vim.fn.expand("%"), strategy = "dap" })
-        end,
-        desc = "Debug current file",
+      })
+      lint.try_lint(nil, { ignore_errors = true })
+    end,
+  },
+
+  -- cmdline tools
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "gopls",
+        "ruff",
       },
     },
+    config = function(_, opts)
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      local function ensure_installed()
+        for _, tool in ipairs(opts.ensure_installed) do
+          local p = mr.get_package(tool)
+          if not p:is_installed() then
+            p:install()
+          end
+        end
+      end
+      if mr.refresh then
+        mr.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
+    end,
   },
 }
