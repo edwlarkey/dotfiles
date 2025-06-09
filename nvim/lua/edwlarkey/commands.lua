@@ -1,11 +1,21 @@
 vim.api.nvim_create_autocmd({ "FileType" }, {
   pattern = {
     "gitcommit",
-    "mail",
     "norg",
   },
   callback = function()
     vim.wo.spell = true
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = {
+    "mail",
+  },
+  callback = function()
+    vim.wo.spell = true
+    vim.o.textwidth = 0
+    vim.o.wrap = true
   end,
 })
 

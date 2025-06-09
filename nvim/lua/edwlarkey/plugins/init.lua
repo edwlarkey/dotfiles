@@ -179,7 +179,7 @@ return {
       local gen_loader = require("mini.snippets").gen_loader
 
       require("mini.cursorword").setup({ delay = 500 })
-      -- require("mini.statusline").setup()
+      require("mini.statusline").setup()
       require("mini.bracketed").setup()
       require("mini.colors").setup()
       require("mini.icons").setup()
