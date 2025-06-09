@@ -55,8 +55,8 @@ link_files () {
     ln -nfs "$HOME/dotfiles/tmux/tmux.conf" "$HOME/.tmux.conf"
     ln -nfs "$HOME/dotfiles/tmux" "$HOME/.tmux"
     success 'tmux linked'
-    ln -nfs "$HOME/dotfiles/mutt" "$HOME/.mutt"
-    success 'mutt linked'
+    ln -nfs "$HOME/dotfiles/aerc" "$HOME/.config/aerc"
+    success 'aerc linked'
     ln -nfs "$HOME/dotfiles/zsh" "$HOME/.zsh"
     ln -nfs "$HOME/dotfiles/zsh/zlogin" "$HOME/.zlogin"
     ln -nfs "$HOME/dotfiles/zsh/zlogout" "$HOME/.zlogout"
@@ -70,16 +70,12 @@ link_files () {
     success 'ghostty config linked'
     ln -nfs "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
     success 'alacritty config linked'
-    ln -nfs "$HOME/dotfiles/wezterm" "$HOME/.config/wezterm"
-    success 'wezterm config linked'
     ln -nfs "$HOME/dotfiles/starship.toml" "$HOME/.config/starship.toml"
     success 'starship config linked'
     ln -nfs "$HOME/dotfiles/sway" "$HOME/.config/sway"
     success 'sway config linked'
-    ln -nfs "$HOME/dotfiles/hypr" "$HOME/.config/hypr"
-    success 'hyprland config linked'
     ln -nfs "$HOME/dotfiles/mako" "$HOME/.config/mako"
-    success 'hyprland config linked'
+    success 'mako config linked'
     ln -nfs "$HOME/dotfiles/waybar" "$HOME/.config/waybar"
     success 'waybar config linked'
     ln -nfs "$HOME/dotfiles/wofi" "$HOME/.config/wofi"
