@@ -299,6 +299,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.pqrs\\.unknownapp.conkeror$"
                                         ],
                                         "type": "frontmost_application_unless"
@@ -354,6 +355,7 @@
                                             "^org\\.gnu\\.Emacs$",
                                             "^org\\.gnu\\.AquamacsEmacs$",
                                             "^org\\.gnu\\.Aquamacs$",
+                                            "^com\\.mitchellh\\.ghostty$",
                                             "^org\\.pqrs\\.unknownapp.conkeror$"
                                         ],
                                         "type": "frontmost_application_unless"
