@@ -51,6 +51,10 @@ contexts = [
   { context_pattern = ".*production.*", style = "red", symbol = "󰀩 "},
 ]
 
+[gcloud]
+format = 'on [$symbol($project)]($style) '
+symbol = '️🇬️ '
+
 [memory_usage]
 symbol = " "
 
