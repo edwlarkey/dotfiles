@@ -48,56 +48,56 @@ return {
   },
   { "nvim-lua/plenary.nvim" },
   { "b0o/schemastore.nvim" },
-  {
-    "ibhagwan/fzf-lua",
-    cond = not vim.g.vscode,
-    opts = {
-      lsp = {
-        -- make lsp requests synchronous so they work with null-ls
-        async_or_timeout = 3000,
-      },
-      git = {
-        branches = {
-          cmd_add = { "git", "switch", "-c" },
-        },
-      },
-    },
-    config = function()
-      -- vim.keymap.set("n", ":<C-p>", function()
-      --   require("fzf-lua").command_history()
-      -- end, { desc = "FZF Command History" })
-      -- vim.keymap.set("n", "<leader>ff", function()
-      --   require("fzf-lua").git_files()
-      -- end, { desc = "FZF Git Files" })
-      -- -- vim.keymap.set("n", "<leader>fbr", function()
-      -- --   require("fzf-lua").git_branches()
-      -- -- end, { desc = "FZF Git Branches" })
-      -- vim.keymap.set("n", "<leader>fb", function()
-      --   require("fzf-lua").buffers()
-      -- end, { desc = "FZF Buffers" })
-      vim.keymap.set("n", "<leader>fm", function()
-        require("fzf-lua").builtin()
-      end, { desc = "FZF Menu" })
-      -- vim.keymap.set("n", "<leader>fr", function()
-      --   require("fzf-lua").live_grep()
-      -- end, { desc = "FZF RipGrep" })
-      -- vim.keymap.set("n", "<leader>fo", function()
-      --   require("fzf-lua").oldfiles()
-      -- end, { desc = "FZF oldfiles" })
-      -- vim.keymap.set("n", "<leader>fa", function()
-      --   require("fzf-lua").live_grep_resume()
-      -- end, { desc = "FZF RipGrep Same Again" })
-      -- vim.keymap.set("n", "<leader>d", function()
-      --   require("fzf-lua").files()
-      -- end, { desc = "FZF Files" })
-      -- vim.keymap.set("n", "<leader>k", function()
-      --   require("fzf-lua").files({ cwd = "~/txt", cmd = "fd --type f --exclude .stversions" })
-      -- end, { desc = "FZF Wiki" })
-      -- vim.keymap.set("n", "<leader>v", function()
-      --   require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
-      -- end, { desc = "FZF Neovim Config" })
-    end,
-  },
+  -- {
+  --   "ibhagwan/fzf-lua",
+  --   cond = not vim.g.vscode,
+  --   opts = {
+  --     lsp = {
+  --       -- make lsp requests synchronous so they work with null-ls
+  --       async_or_timeout = 3000,
+  --     },
+  --     git = {
+  --       branches = {
+  --         cmd_add = { "git", "switch", "-c" },
+  --       },
+  --     },
+  --   },
+  --   config = function()
+  --     -- vim.keymap.set("n", ":<C-p>", function()
+  --     --   require("fzf-lua").command_history()
+  --     -- end, { desc = "FZF Command History" })
+  --     -- vim.keymap.set("n", "<leader>ff", function()
+  --     --   require("fzf-lua").git_files()
+  --     -- end, { desc = "FZF Git Files" })
+  --     -- -- vim.keymap.set("n", "<leader>fbr", function()
+  --     -- --   require("fzf-lua").git_branches()
+  --     -- -- end, { desc = "FZF Git Branches" })
+  --     -- vim.keymap.set("n", "<leader>fb", function()
+  --     --   require("fzf-lua").buffers()
+  --     -- end, { desc = "FZF Buffers" })
+  --     vim.keymap.set("n", "<leader>fm", function()
+  --       require("fzf-lua").builtin()
+  --     end, { desc = "FZF Menu" })
+  --     -- vim.keymap.set("n", "<leader>fr", function()
+  --     --   require("fzf-lua").live_grep()
+  --     -- end, { desc = "FZF RipGrep" })
+  --     -- vim.keymap.set("n", "<leader>fo", function()
+  --     --   require("fzf-lua").oldfiles()
+  --     -- end, { desc = "FZF oldfiles" })
+  --     -- vim.keymap.set("n", "<leader>fa", function()
+  --     --   require("fzf-lua").live_grep_resume()
+  --     -- end, { desc = "FZF RipGrep Same Again" })
+  --     -- vim.keymap.set("n", "<leader>d", function()
+  --     --   require("fzf-lua").files()
+  --     -- end, { desc = "FZF Files" })
+  --     -- vim.keymap.set("n", "<leader>k", function()
+  --     --   require("fzf-lua").files({ cwd = "~/txt", cmd = "fd --type f --exclude .stversions" })
+  --     -- end, { desc = "FZF Wiki" })
+  --     -- vim.keymap.set("n", "<leader>v", function()
+  --     --   require("fzf-lua").files({ cwd = "~/dotfiles/nvim", cmd = "fd --type f" })
+  --     -- end, { desc = "FZF Neovim Config" })
+  --   end,
+  -- },
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -265,8 +265,6 @@ return {
           -- Registers
           { mode = "n", keys = '"' },
           { mode = "x", keys = '"' },
-          { mode = "i", keys = "<C-r>" },
-          { mode = "c", keys = "<C-r>" },
 
           -- Window commands
           { mode = "n", keys = "<C-w>" },
