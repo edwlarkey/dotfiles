@@ -1,13 +1,14 @@
 vim.g.mapleader = " "
 vim.pack.add({
   { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/nvim-lua/plenary.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/ellisonleao/gruvbox.nvim" },
   { src = "https://github.com/Verf/deepwhite.nvim" },
   { src = "https://github.com/folke/snacks.nvim", lazy = false },
   { src = "https://github.com/rafamadriz/friendly-snippets" },
-  { src = "https://github.com/echasnovski/mini.nvim" },
+  { src = "https://github.com/nvim-mini/mini.nvim" },
   { src = "https://github.com/b0o/schemastore.nvim" },
   { src = "https://github.com/folke/ts-comments.nvim" },
   { src = "https://github.com/ethanholz/nvim-lastplace" },
@@ -17,7 +18,8 @@ vim.pack.add({
   { src = "https://github.com/zbirenbaum/copilot.lua" },
   { src = "https://github.com/fang2hou/blink-copilot" },
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
-})
+  { src = "https://github.com/m4xshen/hardtime.nvim" },
+}, { load = true })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 vim.g.tmux_navigator_no_mappings = true
@@ -39,6 +41,10 @@ require("ts-comments").setup()
 require("nvim-lastplace").setup({
   lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
   lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
+})
+
+require("hardtime").setup({
+  restriction_mode = "hint",
 })
 
 require("conform").setup({

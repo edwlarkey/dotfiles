@@ -14,7 +14,7 @@ opt.signcolumn = "yes:1" -- Always show sign column
 opt.cursorline = true -- Highlight the current line
 opt.scrolloff = 8 -- Keep 8 lines above and below the cursor
 opt.inccommand = "nosplit" -- Shows the effects of a command incrementally in the buffer
-opt.completeopt = { "menuone", "popup", "noinsert" } -- Options for completion menu
+opt.completeopt = { "fuzzy", "menuone", "popup", "noinsert" } -- Options for completion menu
 opt.winborder = "rounded" -- Use rounded borders for windows
 
 --
