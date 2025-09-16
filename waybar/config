@@ -8,6 +8,7 @@
     "custom/start",
     "wlr/workspaces",
     "sway/workspaces",
+    "hyprland/workspaces",
   ],
   "modules-center": [
     "sway/window"
@@ -55,6 +56,27 @@
     }
   },
   "sway/window": {
+    "format": "{}",
+    "rewrite": {
+      "(.*) — Firefox": "$1",
+      "(.*) - zsh": "> [$1]"
+    },
+  },
+  "hyprland/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": true,
+    "on-click": "activate",
+    "format": "{name}:{icon}",
+    "format-icons": {
+      //"1": "",
+      //"2": "",
+      //"7": "",
+      "urgent": "",
+      "focused": "",
+      "default": ""
+    }
+  },
+  "hyprland/window": {
     "format": "{}",
     "rewrite": {
       "(.*) — Firefox": "$1",
@@ -130,7 +152,7 @@
     "on-click": "pavucontrol"
   },
   "custom/vpn": {
-    "format": "{icon} {}",
+    "format": "{icon} {text}",
     "return-type": "json",
     "interval": 10,
     "format-icons": {
@@ -151,9 +173,9 @@
     "tooltip": false,
     "on-click": "exec $HOME/dotfiles/waybar/scripts/power.sh"
   },
- "custom/start": {
+  "custom/start": {
     "format": "       Start",
     "tooltip": false,
     "on-click": "exec wofi -m -I --show drun"
-    },
+  },
 }

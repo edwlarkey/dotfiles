@@ -74,6 +74,8 @@ link_files () {
     success 'starship config linked'
     ln -nfs "$HOME/dotfiles/sway" "$HOME/.config/sway"
     success 'sway config linked'
+    ln -nfs "$HOME/dotfiles/hypr" "$HOME/.config/hypr"
+    success 'hyprland config linked'
     ln -nfs "$HOME/dotfiles/mako" "$HOME/.config/mako"
     success 'mako config linked'
     ln -nfs "$HOME/dotfiles/waybar" "$HOME/.config/waybar"

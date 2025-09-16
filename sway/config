@@ -22,7 +22,7 @@ set $lockCommand swaylock -f -c 000000
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/.config/sway/wallpaper.png fill
+output * bg ~/dotfiles/wallpaper/wallpaper.png fill
 #
 # Example configuration:
 #
@@ -351,6 +351,7 @@ for_window [class="stalonetray"] floating enable
 # Floating
 for_window [app_id="lutris"] floating enable
 for_window [class="vlc"] floating enable, border normal
+for_window [app_id="mpv"] border normal, floating enable, resize set width 1000 height 700
 
 # set floating for window roles
 for_window [window_role="pop-up"] floating enable
