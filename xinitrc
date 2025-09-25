@@ -9,7 +9,7 @@ case $WM in
   i3      ) exec i3;;
   xfce    )
     export XDG_SESSION_TYPE=X11
-    plank &
+    #plank &
     redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
     xmodmap dotfiles/xmodmap
     exec startxfce4;;

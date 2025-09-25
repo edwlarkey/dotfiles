@@ -19,6 +19,9 @@ set $menu dmenu_path | wofi -m -I | xargs swaymsg exec --
 
 set $lockCommand swaylock -f -c 000000
 
+set $cursor_size 32
+set $cursor_theme Adwaita
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -42,6 +45,9 @@ gaps left 2
 gaps right 2
 gaps inner 2
 default_border pixel
+
+# Mouse
+seat seat0 xcursor_theme $cursor_theme $cursor_size
 
 ### Idle configuration
 #
@@ -135,7 +141,7 @@ font pango:Hack, pango:FontAwesome 12
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
-    # Exit sway (logs you out of your Wayland session)
+# Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
