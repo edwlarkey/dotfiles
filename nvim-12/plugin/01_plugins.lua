@@ -15,10 +15,9 @@ vim.pack.add({
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/mfussenegger/nvim-lint" },
-  { src = "https://github.com/zbirenbaum/copilot.lua" },
-  { src = "https://github.com/fang2hou/blink-copilot" },
+  -- { src = "https://github.com/zbirenbaum/copilot.lua" },
+  -- { src = "https://github.com/fang2hou/blink-copilot" },
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
-  { src = "https://github.com/m4xshen/hardtime.nvim" },
 }, { load = true })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
@@ -43,10 +42,6 @@ require("nvim-lastplace").setup({
   lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
 })
 
-require("hardtime").setup({
-  restriction_mode = "hint",
-})
-
 require("conform").setup({
   notify_on_error = false,
   default_format_opts = { lsp_format = "fallback" },
@@ -61,6 +56,7 @@ require("conform").setup({
     markdown = { "prettierd", "prettier" },
     yaml = { "prettierd", "prettier" },
     gha = { "prettierd", "prettier" },
+    terraform = { "terraform_fmt" },
   },
   formatters = {
     shfmt = {
@@ -154,22 +150,22 @@ lint.try_lint(nil, { ignore_errors = true })
 
 -- End Linting
 
-require("copilot").setup({
-  suggestion = {
-    enabled = false,
-    auto_trigger = true,
-    keymap = {
-      accept = false, -- handled by nvim-cmp / blink.cmp
-      next = "<M-]>",
-      prev = "<M-[>",
-    },
-  },
-  panel = { enabled = false },
-  filetypes = {
-    markdown = true,
-    help = true,
-  },
-})
+-- require("copilot").setup({
+--   suggestion = {
+--     enabled = false,
+--     auto_trigger = true,
+--     keymap = {
+--       accept = false, -- handled by nvim-cmp / blink.cmp
+--       next = "<M-]>",
+--       prev = "<M-[>",
+--     },
+--   },
+--   panel = { enabled = false },
+--   filetypes = {
+--     markdown = true,
+--     help = true,
+--   },
+-- })
 
 require("blink.cmp").setup({
   fuzzy = { implementation = "prefer_rust_with_warning" },
@@ -200,15 +196,16 @@ require("blink.cmp").setup({
   snippets = { preset = "mini_snippets" },
 
   sources = {
-    default = { "lsp", "path", "snippets", "buffer", "copilot" },
-    providers = {
-      copilot = {
-        name = "copilot",
-        module = "blink-copilot",
-        score_offset = 100,
-        async = true,
-      },
-    },
+    -- default = { "lsp", "path", "snippets", "buffer", "copilot" },
+    default = { "lsp", "path", "snippets", "buffer" },
+    -- providers = {
+    --   copilot = {
+    --     name = "copilot",
+    --     module = "blink-copilot",
+    --     score_offset = 100,
+    --     async = true,
+    --   },
+    -- },
   },
 })
 

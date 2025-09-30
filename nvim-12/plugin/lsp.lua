@@ -22,7 +22,7 @@ vim.lsp.enable({
   "gopls",
   "lua_ls",
   "golangci-lint-langserver",
-  "copilot",
+  -- "copilot",
   "yamlls",
   "basedpyright",
   "ruff",
