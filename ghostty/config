@@ -1,7 +1,7 @@
 font-family = BlexMono Nerd Font Mono
 font-family = Hack Nerd Font Mono
 font-size = 16
-theme = GruvboxDark
+theme = Gruvbox Dark
 clipboard-read = allow
 
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
