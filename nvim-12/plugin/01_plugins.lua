@@ -16,8 +16,9 @@ vim.pack.add({
   { src = "https://github.com/stevearc/conform.nvim" },
   { src = "https://github.com/mfussenegger/nvim-lint" },
   -- { src = "https://github.com/zbirenbaum/copilot.lua" },
-  -- { src = "https://github.com/fang2hou/blink-copilot" },
+  { src = "https://github.com/fang2hou/blink-copilot" },
   { src = "https://github.com/saghen/blink.cmp", version = vim.version.range("^1") },
+  { src = "https://github.com/folke/sidekick.nvim" },
 }, { load = true })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
@@ -208,6 +209,51 @@ require("blink.cmp").setup({
     -- },
   },
 })
+
+require("sidekick").setup({
+  opts = {
+    cli = {
+      mux = {
+        backend = "tmux",
+        enabled = true,
+      },
+    },
+    tools = {
+      gemini = {
+        cmd = { "gemini" },
+        env = {
+          GOOGLE_CLOUD_PROJECT = "robin-tooling",
+        },
+      },
+    },
+  },
+})
+
+-- stylua: ignore start
+-- Goto/Apply Next Edit Suggestion
+vim.keymap.set('n', '<tab>', function()
+  -- if there is a next edit, jump to it, otherwise apply it if any
+  if not require("sidekick").nes_jump_or_apply() then
+    return "<Tab>" -- fallback to normal tab
+  end
+end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
+-- Sidekick Toggle
+vim.keymap.set({ "n", "t", "i", "x" }, '<c-.>', function() require("sidekick.cli").toggle() end, { desc = "Sidekick Toggle" })
+-- Sidekick Toggle CLI
+vim.keymap.set('n', '<leader>aa', function() require("sidekick.cli").toggle() end, { desc = "Sidekick Toggle CLI" })
+-- Select CLI
+vim.keymap.set('n', '<leader>as', function() require("sidekick.cli").select() end, { desc = "Select CLI" })
+-- Send This
+vim.keymap.set({ "x", "n" }, '<leader>at', function() require("sidekick.cli").send({ msg = "{this}" }) end, { desc = "Send This" })
+-- Send File
+vim.keymap.set('n', '<leader>af', function() require("sidekick.cli").send({ msg = "{file}" }) end, { desc = "Send File" })
+-- Send Visual Selection
+vim.keymap.set('x', '<leader>av', function() require("sidekick.cli").send({ msg = "{selection}" }) end, { desc = "Send Visual Selection" })
+-- Sidekick Select Prompt
+vim.keymap.set({ "n", "x" }, '<leader>ap', function() require("sidekick.cli").prompt() end, { desc = "Sidekick Select Prompt" })
+-- Sidekick Toggle Gemini
+vim.keymap.set('n', '<leader>ac', function() require("sidekick.cli").toggle({ name = "gemini", focus = true }) end, { desc = "Sidekick Toggle Gemini" })
+-- stylua: ignore end
 
 require("mason").setup()
 local mr = require("mason-registry")
