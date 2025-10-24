@@ -142,14 +142,14 @@
   },
   "pulseaudio": {
     "min-length": 6,
-    "scroll-step": 1,
+    "scroll-step": 5,
     "format": "{icon} {volume}%      ",
     "format-bluetooth": "{volume}% {icon} {format_source}      ",
     "format-bluetooth-muted": " {icon} {format_source}      ",
     "format-muted": " {volume}%      ",
     "format-source": "      ",
     "format-source-muted": "      ",
-    "on-click": "pavucontrol"
+    "on-click": "pwvucontrol"
   },
   "custom/vpn": {
     "format": "{icon} {text}",
