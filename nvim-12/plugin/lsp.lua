@@ -22,6 +22,7 @@ vim.lsp.enable({
   "gopls",
   "lua_ls",
   "golangci-lint-langserver",
+  "arduino_language_server",
   -- "copilot",
   "yamlls",
   "basedpyright",
