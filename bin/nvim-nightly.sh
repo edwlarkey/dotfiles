@@ -22,7 +22,7 @@ if [ "$OS" = "Darwin" ]; then
   IS_MACOS=true
   # The nightly release seems to have a universal binary now.
   PKG_NAME="nvim-macos-arm64.tar.gz"
-  EXTRACTED_DIR="nvim-macos"
+  EXTRACTED_DIR="nvim-macos-arm64"
 elif [ "$OS" = "Linux" ]; then
   # Using the name provided by the user.
   PKG_NAME="nvim-linux-x86_64.tar.gz"

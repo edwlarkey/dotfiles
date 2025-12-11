@@ -27,7 +27,7 @@ vim.lsp.enable({
   "yamlls",
   "basedpyright",
   "ruff",
-  "terraform-ls",
+  "terraformls",
   "dockerls",
   "jsonls",
   "gh_actions_ls",

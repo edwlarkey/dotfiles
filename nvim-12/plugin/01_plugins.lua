@@ -58,6 +58,7 @@ require("conform").setup({
     yaml = { "prettierd", "prettier" },
     gha = { "prettierd", "prettier" },
     terraform = { "terraform_fmt" },
+    ["terraform-vars"] = { "terraform_fmt" },
   },
   formatters = {
     shfmt = {
