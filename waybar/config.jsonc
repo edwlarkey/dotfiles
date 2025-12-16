@@ -174,7 +174,7 @@
     "on-click": "exec $HOME/dotfiles/waybar/scripts/power.sh"
   },
   "custom/start": {
-    "format": "       Start",
+    "format": "       ",
     "tooltip": false,
     "on-click": "exec wofi -m -I --show drun"
   },

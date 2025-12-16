@@ -52,9 +52,9 @@ window#waybar {
   margin: 5px 3px;
   font-weight: bold;
   background: url('/usr/share/icons/Chicago95-tux/places/32/start-here.png');
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: 24px;
   border-left: 1px solid #ffffff;
   border-top: 1px solid #ffffff;
   border-bottom: 1px solid #404040;
@@ -63,18 +63,18 @@ window#waybar {
 
 #custom-start:hover {
   background: url('/usr/share/icons/Chicago95-tux/places/32/start-here.png');
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: 24px;
   box-shadow: 0px 0px 0px;
   text-shadow: none;
 }
 
 #custom-start:active {
   background: url('/usr/share/icons/Chicago95-tux/places/32/start-here.png');
-  background-position: left;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: 24px;
   box-shadow: 0px 0px 0px;
   text-shadow: none;
   background-color: #f0f0f0;
