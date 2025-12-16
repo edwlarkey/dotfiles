@@ -31,6 +31,7 @@ vim.lsp.enable({
   "dockerls",
   "jsonls",
   "gh_actions_ls",
+  "tinymist",
 })
 
 vim.lsp.config("gopls", {
