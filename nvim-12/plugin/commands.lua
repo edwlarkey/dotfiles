@@ -66,6 +66,17 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  pattern = {
+    "typst",
+  },
+  group = markdown_group,
+  callback = function()
+    vim.wo.spell = true
+    vim.o.textwidth = 79
+  end,
+})
+
 local neorg_group = vim.api.nvim_create_augroup("neorg_group", { clear = true })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {

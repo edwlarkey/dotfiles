@@ -16,6 +16,7 @@ opt.scrolloff = 8 -- Keep 8 lines above and below the cursor
 opt.inccommand = "nosplit" -- Shows the effects of a command incrementally in the buffer
 opt.completeopt = { "fuzzy", "menuone", "popup", "noinsert" } -- Options for completion menu
 opt.winborder = "rounded" -- Use rounded borders for windows
+opt.spellfile = vim.fn.stdpath("config") .. "/spell/en.utf-8.add"
 
 --
 -- Backup, swap, undo
