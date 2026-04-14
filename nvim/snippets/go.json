@@ -1,7 +1,0 @@
-{
-  "fmt.ErrorWrap": {
-    "prefix": "few",
-    "body": "fmt.Errorf(\"$1: %w\", err)",
-    "description": "Snippet for fmt.Errorf() error wrapping"
-  }
-}
