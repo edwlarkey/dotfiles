@@ -9,8 +9,9 @@ case $WM in
   i3      ) exec i3;;
   xfce    )
     export XDG_SESSION_TYPE=X11
+    setxkbmap -option caps:ctrl
     #plank &
-    redshift -l 41.20 -95.99 -t 6000 4500 -b 1.00 0.99 &
+    redshift -P -O 4000 &
     xmodmap dotfiles/xmodmap
     exec startxfce4;;
   kde    )
