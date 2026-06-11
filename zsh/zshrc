@@ -68,6 +68,7 @@ if [[ -z "$LANG" ]]; then
   export LANG='en_US.UTF-8'
 fi
 export LANG='en_US.UTF-8'
+export LC_TIME='en_DK.UTF-8'
 
 #
 # Go
