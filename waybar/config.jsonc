@@ -8,7 +8,7 @@
     "custom/start",
     "wlr/workspaces",
     "sway/workspaces",
-    "hyprland/workspaces",
+    "ext/workspaces",
   ],
   "modules-center": [
     "sway/window"
@@ -62,7 +62,7 @@
       "(.*) - zsh": "> [$1]"
     },
   },
-  "hyprland/workspaces": {
+  "ext/workspaces": {
     "disable-scroll": false,
     "all-outputs": true,
     "on-click": "activate",
