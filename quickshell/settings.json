@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "bar": {
+      "fontSize": 12,
+      "monochromeTrayIcons": true,
+      "trayIconSize": 16
+    },
+    "execCommands": {
+      "files": "nemo",
+      "terminal": "kitty"
+    },
+    "militaryTimeClockFormat": true,
+    "systemDetails": {
+      "cpu": "CPU Name",
+      "gpu": "GPU Name",
+      "osName": "Linux Distro",
+      "osVersion": "Distro Version",
+      "ram": "Ram"
+    },
+    "systemProfileImageSource": "/home/username/Pictures/system_profile_picture.png",
+    "version": "0.1"
+  }
+}
