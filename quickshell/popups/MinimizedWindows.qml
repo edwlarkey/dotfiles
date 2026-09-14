@@ -61,6 +61,8 @@ PopupWindow {
     }
 
     function closeMinimized() {
+        if (!root.visible)
+            return;
         if (openAnimation.running)
             openAnimation.stop();
         frame.opacity = 0;

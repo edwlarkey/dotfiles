@@ -1,10 +1,6 @@
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Io
-import Quickshell.Widgets
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls.Basic
 
 import ".."
 import "../popups" as Popups
@@ -21,11 +17,15 @@ Scope {
     readonly property color macButtonPressed: "#a8a8a8"
 
     property bool isExpanded: false
-    property bool popupOpen: false
+    property string openPopup: ""
+    property bool popupOpen: openPopup !== ""
     property real hiddenOpacity: Config.settings.macDock ? Config.settings.macDock.hiddenOpacity : 0.0
     property Item hoveredItem: null
     property string hoveredLabel: ""
-    readonly property int tipSpace: 22
+    readonly property int tipSpace: 26
+    readonly property int stripHeight: 44
+    readonly property int moduleWidth: 48
+    readonly property int iconSize: Config.settings.macDock && Config.settings.macDock.iconSize ? Config.settings.macDock.iconSize : 28
 
     function showDockTip(item, text) {
         if (root.popupOpen || !item || !text)
@@ -37,6 +37,45 @@ Scope {
     function hideDockTip() {
         hoveredItem = null;
         hoveredLabel = "";
+    }
+
+    function closeAllPopups() {
+        if (openPopup === "minimized")
+            minimizedPopup.closeMinimized();
+        else if (openPopup === "volume")
+            volumePopup.closeVolume();
+        else if (openPopup === "battery")
+            batteryPopup.closeBattery();
+        else if (openPopup === "session")
+            sessionPopup.closeSession();
+        else
+            openPopup = "";
+    }
+
+    function togglePopup(name) {
+        hideDockTip();
+        if (openPopup === name) {
+            closeAllPopups();
+            return;
+        }
+        if (openPopup !== "")
+            closeAllPopups();
+        hideTimer.stop();
+        isExpanded = true;
+        openPopup = name;
+        if (name === "minimized")
+            minimizedPopup.openMinimized();
+        else if (name === "volume")
+            volumePopup.openVolume();
+        else if (name === "battery")
+            batteryPopup.openBattery();
+        else if (name === "session")
+            sessionPopup.openSession();
+    }
+
+    function onPopupClosed() {
+        openPopup = "";
+        hideTimer.start();
     }
 
     readonly property var entries: [
@@ -58,14 +97,14 @@ Scope {
             left: true
         }
 
-        implicitHeight: 32 + root.tipSpace
+        implicitHeight: root.stripHeight + root.tipSpace
         implicitWidth: contentRow.implicitWidth + pullTab.width
         exclusionMode: ExclusionMode.Ignore
 
         mask: Region {
             x: 0
             y: (root.isExpanded || slideAnim.running) ? 0 : root.tipSpace
-            height: (root.isExpanded || slideAnim.running) ? dock.height : 32
+            height: (root.isExpanded || slideAnim.running) ? dock.height : root.stripHeight
             width: (root.isExpanded || slideAnim.running) ? dock.implicitWidth : pullTab.width
         }
 
@@ -97,7 +136,7 @@ Scope {
                     anchors.centerIn: parent
                     text: root.hoveredLabel
                     font.family: fontCharcoal.name
-                    font.pixelSize: 11
+                    font.pixelSize: 12
                     color: "#000000"
                 }
             }
@@ -107,7 +146,7 @@ Scope {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
-                height: 32
+                height: root.stripHeight
                 clip: true
 
             Row {
@@ -133,9 +172,12 @@ Scope {
                         color: macBase
                     }
 
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: macHighlight }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: macDarkShadow }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 1; height: 1; color: macShadow }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 2; color: macHighlight }
+                    Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: macHighlight }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 2; color: macDarkShadow }
+                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: macDarkShadow }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; height: 1; color: macShadow }
+                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
 
                     Row {
                         id: contentRow
@@ -143,236 +185,84 @@ Scope {
 
                         Repeater {
                             model: root.entries
-                            delegate: Item {
-                                required property var modelData
-                                width: 36
-                                height: parent.height
-
-                                Rectangle {
-                                    anchors.fill: parent
-                                    color: btnArea.pressed ? macButtonPressed : (btnArea.containsMouse ? "#b8b8b8" : "transparent")
-                                }
-
-                                Image {
-                                    anchors.centerIn: parent
-                                    width: 22
-                                    height: 22
-                                    source: modelData.iconName ? (Quickshell.iconPath(modelData.iconName, true) || "") : ""
-                                    sourceSize: Qt.size(width, height)
-                                }
-
-                                Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
-                                Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
-
-                                MouseArea {
-                                    id: btnArea
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    cursorShape: Qt.PointingHandCursor
-                                    onContainsMouseChanged: {
-                                        if (containsMouse)
-                                            root.showDockTip(parent, modelData.name);
-                                        else
-                                            root.hideDockTip();
-                                    }
-                                    onClicked: {
-                                        if (modelData.type === "folder") {
-                                            Quickshell.execDetached(["thunar", modelData.path]);
-                                        } else {
-                                            Quickshell.execDetached([modelData.command]);
-                                        }
-                                    }
-                                }
+                            delegate: LauncherModule {
+                                dock: root
                             }
                         }
 
-                        Item {
+                        MinimizedModule {
                             id: minSlot
-                            width: 36
-                            height: parent.height
-
-                            Rectangle {
-                                anchors.fill: parent
-                                color: minArea.pressed || root.popupOpen ? macButtonPressed : (minArea.containsMouse ? "#b8b8b8" : "transparent")
-                            }
-
-                            Column {
-                                anchors.centerIn: parent
-                                spacing: 3
-                                Repeater {
-                                    model: 2
-                                    Rectangle {
-                                        width: 14
-                                        height: 3
-                                        color: macDarkShadow
-                                        Rectangle {
-                                            anchors.top: parent.top
-                                            anchors.left: parent.left
-                                            anchors.right: parent.right
-                                            height: 1
-                                            color: macHighlight
-                                        }
-                                    }
-                                }
-                            }
-
-                            Rectangle {
-                                visible: minimizedPopup.count > 0
-                                anchors.right: parent.right
-                                anchors.bottom: parent.bottom
-                                anchors.margins: 2
-                                width: minimizedPopup.count > 9 ? 16 : 12
-                                height: 10
-                                color: macDarkShadow
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: minimizedPopup.count > 9 ? "9+" : "" + minimizedPopup.count
-                                    font.family: fontCharcoal.name
-                                    font.pixelSize: 8
-                                    color: macHighlight
-                                }
-                            }
-
-                            Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
-                            Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
-
-                            MouseArea {
-                                id: minArea
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                cursorShape: Qt.PointingHandCursor
-                                onContainsMouseChanged: {
-                                    if (containsMouse)
-                                        root.showDockTip(minSlot, minimizedPopup.count > 0 ? "Minimized (" + minimizedPopup.count + ")" : "Minimized");
-                                    else
-                                        root.hideDockTip();
-                                }
-                                onClicked: {
-                                    root.hideDockTip();
-                                    if (root.popupOpen) {
-                                        minimizedPopup.closeMinimized();
-                                    } else {
-                                        hideTimer.stop();
-                                        root.isExpanded = true;
-                                        root.popupOpen = true;
-                                        minimizedPopup.openMinimized();
-                                    }
-                                }
-                            }
+                            dock: root
+                            count: minimizedPopup.count
+                            active: root.openPopup === "minimized"
+                            onClicked: root.togglePopup("minimized")
                         }
 
-                        Item {
-                            width: 150
-                            height: parent.height
-
-                            Rectangle {
-                                anchors.fill: parent
-                                color: clkArea.pressed ? macButtonPressed : (clkArea.containsMouse ? "#b8b8b8" : "transparent")
-                            }
-
-                            RowLayout {
-                                anchors.fill: parent
-                                anchors.leftMargin: 8
-                                anchors.rightMargin: 8
-                                spacing: 6
-
-                                Image {
-                                    Layout.preferredWidth: 16
-                                    Layout.preferredHeight: 16
-                                    source: Quickshell.iconPath("preferences-system-time", true) || ""
-                                    sourceSize: Qt.size(16, 16)
-                                }
-                                Text {
-                                    Layout.fillWidth: true
-                                    text: Time.time
-                                    font.family: fontCharcoal.name
-                                    font.pixelSize: 11
-                                    color: macText
-                                    verticalAlignment: Text.AlignVCenter
-                                }
-                            }
-
-                            Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
-                            Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
-
-                            MouseArea {
-                                id: clkArea
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                cursorShape: Qt.PointingHandCursor
-                                onContainsMouseChanged: {
-                                    if (containsMouse)
-                                        root.showDockTip(parent, "Clock");
-                                    else
-                                        root.hideDockTip();
-                                }
-                            }
+                        VolumeModule {
+                            id: volSlot
+                            dock: root
+                            active: root.openPopup === "volume"
+                            onClicked: root.togglePopup("volume")
                         }
 
-                        Item {
-                            width: 36
-                            height: parent.height
+                        BatteryModule {
+                            id: batSlot
+                            dock: root
+                            active: root.openPopup === "battery"
+                            onClicked: root.togglePopup("battery")
+                        }
 
-                            Rectangle {
-                                anchors.fill: parent
-                                color: setArea.pressed ? macButtonPressed : (setArea.containsMouse ? "#b8b8b8" : "transparent")
-                            }
+                        DockModule {
+                            id: sessionSlot
+                            dock: root
+                            tip: "Special"
+                            active: root.openPopup === "session"
+                            onClicked: root.togglePopup("session")
 
                             Image {
                                 anchors.centerIn: parent
-                                width: 20
-                                height: 20
-                                source: Quickshell.iconPath("preferences-desktop", true) || ""
-                                sourceSize: Qt.size(20, 20)
+                                width: sessionSlot.iconSize
+                                height: sessionSlot.iconSize
+                                source: Quickshell.iconPath("system-shutdown", true) || ""
+                                sourceSize: Qt.size(width, height)
                             }
+                        }
 
-                            Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
-                            Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
+                        ClockModule {
+                            dock: root
+                        }
 
-                            MouseArea {
-                                id: setArea
-                                anchors.fill: parent
-                                hoverEnabled: true
-                                cursorShape: Qt.PointingHandCursor
-                                onContainsMouseChanged: {
-                                    if (containsMouse)
-                                        root.showDockTip(parent, "Settings");
-                                    else
-                                        root.hideDockTip();
-                                }
-                                onClicked: {
-                                    Config.openSettingsWindow = !Config.openSettingsWindow;
-                                }
-                            }
+                        SettingsModule {
+                            dock: root
                         }
                     }
                 }
 
                 Item {
                     id: pullTab
-                    width: 16
+                    width: 20
                     height: parent.height
 
                     Rectangle {
                         anchors.fill: parent
                         color: macBase
-                        radius: 4
-                        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 4; color: macBase }
+                        radius: 5
+                        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 5; color: macBase }
                     }
 
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; height: 1; color: macHighlight }
-                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 2; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; width: 1; color: macDarkShadow }
-                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.topMargin: 1; anchors.bottom: parent.bottom; anchors.bottomMargin: 1; width: 1; color: macShadow }
-                    Rectangle { anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; height: 1; color: macDarkShadow }
-                    Rectangle { anchors.bottom: parent.bottom; anchors.bottomMargin: 1; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 1; height: 1; color: macShadow }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; anchors.top: parent.top; height: 2; color: macHighlight }
+                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 3; anchors.bottom: parent.bottom; anchors.bottomMargin: 3; width: 2; color: macDarkShadow }
+                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.topMargin: 2; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; width: 1; color: macShadow }
+                    Rectangle { anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; height: 2; color: macDarkShadow }
+                    Rectangle { anchors.bottom: parent.bottom; anchors.bottomMargin: 2; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; height: 1; color: macShadow }
 
                     Column {
                         anchors.centerIn: parent
-                        spacing: 2
+                        spacing: 3
                         Repeater {
                             model: 3
                             Rectangle {
-                                width: 4; height: 2; color: macHighlight
+                                width: 6; height: 3; color: macHighlight
                                 Rectangle { anchors.top: parent.top; anchors.left: parent.left; anchors.right: parent.right; height: 1; color: macShadow }
                             }
                         }
@@ -394,12 +284,40 @@ Scope {
             id: minimizedPopup
             anchor.window: dock
             anchor.item: minSlot
-            anchor.edges: Edges.Bottom | Edges.Left
+            anchor.edges: Edges.Top | Edges.Left
             anchor.gravity: Edges.Top | Edges.Right
-            closeCallback: function () {
-                root.popupOpen = false;
-                hideTimer.start();
-            }
+            closeCallback: root.onPopupClosed
+        }
+
+        VolumePopup {
+            id: volumePopup
+            anchor.window: dock
+            anchor.item: volSlot
+            anchor.edges: Edges.Top | Edges.Left
+            anchor.gravity: Edges.Top | Edges.Right
+            audio: volSlot.audio
+            sinkName: volSlot.sinkName
+            closeCallback: root.onPopupClosed
+        }
+
+        BatteryPopup {
+            id: batteryPopup
+            anchor.window: dock
+            anchor.item: batSlot
+            anchor.edges: Edges.Top | Edges.Left
+            anchor.gravity: Edges.Top | Edges.Right
+            battery: batSlot.battery
+            closeCallback: root.onPopupClosed
+        }
+
+        Popups.SessionPopup {
+            id: sessionPopup
+            anchor.window: dock
+            anchor.item: sessionSlot
+            anchor.edges: Edges.Top | Edges.Left
+            anchor.gravity: Edges.Top | Edges.Right
+            iconSize: Math.max(16, Math.round(root.iconSize * 0.6))
+            closeCallback: root.onPopupClosed
         }
 
         HoverHandler {
@@ -446,9 +364,7 @@ Scope {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                minimizedPopup.closeMinimized();
-            }
+            onClicked: root.closeAllPopups()
         }
     }
 }

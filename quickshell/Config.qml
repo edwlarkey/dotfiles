@@ -66,6 +66,7 @@ Singleton {
                 }
                 property JsonObject macDock: JsonObject {
                     property real hiddenOpacity: 0.0
+                    property int iconSize: 28
                     property int gridCols: 3
                     property var entries: [
                         {"name": "Terminal", "type": "app", "command": "kitty", "icon": "\ueb8e"},

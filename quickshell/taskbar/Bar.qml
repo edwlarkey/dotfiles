@@ -105,12 +105,6 @@ Scope {
                 }
                 /*=== ============================== ===*/
 
-                /*=== StartMenu & Other popup Stuff ===*/
-                Popups.SessionMenu {
-                    id: sessionMenu
-                    menuWidth: taskbar.width - sessionMenu.implicitWidth - test.width - 24
-                    closeCallback: taskbar.closeAllPopups
-                }
                 Popups.AppLauncher {
                     id: appLauncher
                     closeCallback: taskbar.closeAllPopups
@@ -120,9 +114,6 @@ Scope {
                 }
                 function closeAllPopups() {
                     switch (root.currentPopup) {
-                    case Config.SystemPopup.SessionMenu:
-                        sessionMenu.closeSessionMenu();
-                        break;
                     case Config.SystemPopup.AppLauncher:
                         appLauncher.closeAppLauncher();
                         break;
@@ -130,24 +121,6 @@ Scope {
                     root.currentPopup = Config.SystemPopup.None;
                 }
 
-                TaskbarButton {
-                    id: sessionMenuButton
-                    isToggled: root.currentPopup == Config.SystemPopup.SessionMenu ? true : false
-                    iconFontValue: "\uf011"
-                    toggledIconFontValue: "\uf011"
-                    anchors.right: test.left
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.rightMargin: 12
-                    onClicked: {
-                        if (root.currentPopup == Config.SystemPopup.None) {
-                            sessionMenu.openSessionMenu();
-                            root.currentPopup = Config.SystemPopup.SessionMenu;
-                        } else {
-                            taskbar.closeAllPopups();
-                            root.currentPopup = Config.SystemPopup.None;
-                        }
-                    }
-                }
                 TaskbarButton {
                     id: appLauncherButton
                     isToggled: root.currentPopup == Config.SystemPopup.AppLauncher ? true : false
