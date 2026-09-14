@@ -1,0 +1,14 @@
+#!/bin/bash
+set -euo pipefail
+REPO="${OS99_REPO:-$HOME/.local/src/os-99}"
+SHARE="${XDG_DATA_HOME:-$HOME/.local/share}/os99"
+PALETTE="${OS99_PALETTE:-light}"
+GEN="$REPO/themes/os-99-platinum/decor/generate-art.py"
+
+echo "==> redrawing art (standalone)"
+python3 "$GEN" --out "$SHARE/decor" --palette "$PALETTE"
+
+echo "==> re-applying plugin settings"
+env OS99_DIR="$SHARE" "$HOME/.local/bin/os99-window-bars"
+
+echo "==> ok"

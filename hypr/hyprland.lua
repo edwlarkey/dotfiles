@@ -56,3 +56,13 @@ hl.gesture({
 require("bindings")
 require("decoration")
 require("windows")
+
+-- OS 99 (only if the setup script has installed it)
+do
+  local path = os.getenv("HOME") .. "/.config/hypr/os99.lua"
+  local f = io.open(path, "r")
+  if f then
+    f:close()
+    dofile(path)
+  end
+end

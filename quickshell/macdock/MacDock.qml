@@ -118,7 +118,7 @@ PanelWindow {
                                     if (modelData.type === "folder") {
                                         Quickshell.execDetached(["thunar", modelData.path]);
                                     } else {
-                                        Quickshell.execDetached(modelData.command);
+                                        Quickshell.execDetached([modelData.command]);
                                     }
                                 }
                             }

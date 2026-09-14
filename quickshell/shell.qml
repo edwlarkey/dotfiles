@@ -4,8 +4,8 @@
 //@ pragma Env QT_QUICK_FLICKABLE_WHEEL_DECELERATION=10000
 
 /* NOTE: CHANGE THESE IF YOU WANT TO USE A DIFFERENT ICON THEME:*/
-//@ pragma IconTheme RetroismIcons
-//@ pragma Env QS_ICON_THEME=RetroismIcons
+//@ pragma IconTheme nineicons-redux-v0.6
+//@ pragma Env QS_ICON_THEME=nineicons-redux-v0.6
 
 import QtQuick
 import Quickshell
