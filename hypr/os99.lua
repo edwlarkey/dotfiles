@@ -4,10 +4,11 @@
 
 local home = os.getenv("HOME")
 local os99_share = (os.getenv("XDG_DATA_HOME") or (home .. "/.local/share")) .. "/os99"
-local os99_bin = home .. "/.local/bin"
+local os99_bin   = home .. "/.local/bin"
 
 os99_dir = os99_share .. "/decor"
 
 if os99_dir and io.open(os99_dir .. "/bars.lua", "r") then
   dofile(os99_dir .. "/bars.lua")
 end
+
