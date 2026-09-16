@@ -10,4 +10,4 @@ the initial versions may not follow best practices for design or readability.
 
 ## Settings
 
-Colors, bar size, and Control Strip icon size live in `Config.qml`.
+Colors, bar size, dock apps, and Control Strip icon size live in `Config.qml`.

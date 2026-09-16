@@ -4,6 +4,8 @@ import Quickshell.Services.Pam
 import Quickshell.Io
 import QtQuick
 
+import ".."
+
 Scope {
     id: root
 
@@ -73,7 +75,7 @@ Scope {
                 root.lockRequested = false;
         }
         WlSessionLockSurface {
-            color: "#8c8c8c"
+            color: Config.colors.desktop
             LockScreen {
                 anchors.fill: parent
                 auth: root

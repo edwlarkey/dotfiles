@@ -12,10 +12,6 @@ PopupWindow {
     property string sinkName: ""
     property var closeCallback: function () {}
 
-    readonly property color macBase: "#c8c8c8"
-    readonly property color macHighlight: "#ffffff"
-    readonly property color macShadow: "#808080"
-    readonly property color macDarkShadow: "#404040"
     readonly property bool muted: audio ? audio.muted : false
     readonly property real volume: audio ? audio.volume : 0
     readonly property int volumePct: Math.round(Math.max(0, Math.min(1, volume)) * 100)
@@ -50,14 +46,8 @@ PopupWindow {
         id: frame
         opacity: 0
         anchors.fill: parent
-        color: macBase
-
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: macDarkShadow }
-        Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macDarkShadow }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 1; height: 1; color: macShadow }
-        Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
+        color: Config.colors.base
+        Bevel {}
 
         ColumnLayout {
             anchors.fill: parent
@@ -80,9 +70,9 @@ PopupWindow {
                 Rectangle {
                     Layout.preferredWidth: 28
                     Layout.preferredHeight: 22
-                    color: muteArea.pressed ? "#a8a8a8" : (muteArea.containsMouse ? "#b8b8b8" : macBase)
+                    color: muteArea.pressed ? Config.colors.accent : (muteArea.containsMouse ? Config.colors.hover : Config.colors.base)
                     border.width: 1
-                    border.color: macDarkShadow
+                    border.color: Config.colors.dark
 
                     Text {
                         anchors.centerIn: parent
@@ -109,12 +99,9 @@ PopupWindow {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: macShadow
+                        color: Config.colors.shadow
                     }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: macDarkShadow }
-                    Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macDarkShadow }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: macHighlight }
-                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
+                    Bevel { inset: true }
 
                     Rectangle {
                         anchors.left: parent.left
@@ -122,7 +109,7 @@ PopupWindow {
                         anchors.bottom: parent.bottom
                         anchors.margins: 2
                         width: Math.round((parent.width - 4) * Math.max(0, Math.min(1, root.muted ? 0 : root.volume)))
-                        color: root.muted ? macShadow : macDarkShadow
+                        color: root.muted ? Config.colors.shadow : Config.colors.dark
                     }
 
                     MouseArea {

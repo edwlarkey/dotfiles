@@ -264,7 +264,7 @@ PopupWindow {
 
                                 Rectangle {
                                     anchors.fill: parent
-                                    color: index === root.selected ? Config.colors.outline : (rowArea.containsMouse ? "#d8d8d8" : "transparent")
+                                    color: index === root.selected ? Config.colors.outline : (rowArea.containsMouse ? Config.colors.hover : "transparent")
                                 }
 
                                 RowLayout {
@@ -318,7 +318,7 @@ PopupWindow {
                                 required property var modelData
                                 Layout.fillWidth: true
                                 Layout.preferredHeight: 24
-                                color: btnArea.pressed ? "#a8a8a8" : (btnArea.containsMouse ? "#b8b8b8" : Config.colors.base)
+                                color: btnArea.pressed ? Config.colors.accent : (btnArea.containsMouse ? Config.colors.hover : Config.colors.base)
                                 border.width: 1
                                 border.color: Config.colors.outline
 

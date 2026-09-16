@@ -8,14 +8,6 @@ import "../popups" as Popups
 Scope {
     id: root
 
-    readonly property color macBase: "#c8c8c8"
-    readonly property color macHighlight: "#ffffff"
-    readonly property color macShadow: "#808080"
-    readonly property color macDarkShadow: "#404040"
-    readonly property color macText: "#000000"
-    readonly property color macButtonFace: "#c8c8c8"
-    readonly property color macButtonPressed: "#a8a8a8"
-
     property bool isExpanded: false
     property string openPopup: ""
     property bool popupOpen: openPopup !== ""
@@ -72,13 +64,6 @@ Scope {
         openPopup = "";
         hideTimer.start();
     }
-
-    readonly property var entries: [
-        {"name": "Terminal", "type": "app", "command": "ghostty", "iconName": "utilities-terminal"},
-        {"name": "Browser", "type": "app", "command": "firefox", "iconName": "firefox"},
-        {"name": "Files", "type": "folder", "path": "/home/edwlarkey", "iconName": "system-file-manager"},
-        {"name": "Documents", "type": "folder", "path": "/home/edwlarkey/Sync/docs", "iconName": "folder-documents"},
-    ]
 
     PanelWindow {
         id: dock
@@ -164,22 +149,22 @@ Scope {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: macBase
+                        color: Config.colors.base
                     }
 
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 2; color: macHighlight }
-                    Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: macHighlight }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 2; color: macDarkShadow }
-                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: macDarkShadow }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; height: 1; color: macShadow }
-                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 2; color: Config.colors.highlight }
+                    Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: Config.colors.highlight }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 2; color: Config.colors.dark }
+                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: Config.colors.dark }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; height: 1; color: Config.colors.shadow }
+                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: Config.colors.shadow }
 
                     Row {
                         id: contentRow
                         height: parent.height
 
                         Repeater {
-                            model: root.entries
+                            model: Config.macDock.entries
                             delegate: LauncherModule {
                                 dock: root
                             }
@@ -232,16 +217,16 @@ Scope {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: macBase
+                        color: Config.colors.base
                         radius: 5
-                        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 5; color: macBase }
+                        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 5; color: Config.colors.base }
                     }
 
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; anchors.top: parent.top; height: 2; color: macHighlight }
-                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 3; anchors.bottom: parent.bottom; anchors.bottomMargin: 3; width: 2; color: macDarkShadow }
-                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.topMargin: 2; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; width: 1; color: macShadow }
-                    Rectangle { anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; height: 2; color: macDarkShadow }
-                    Rectangle { anchors.bottom: parent.bottom; anchors.bottomMargin: 2; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; height: 1; color: macShadow }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; anchors.top: parent.top; height: 2; color: Config.colors.highlight }
+                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 3; anchors.bottom: parent.bottom; anchors.bottomMargin: 3; width: 2; color: Config.colors.dark }
+                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.topMargin: 2; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; width: 1; color: Config.colors.shadow }
+                    Rectangle { anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; height: 2; color: Config.colors.dark }
+                    Rectangle { anchors.bottom: parent.bottom; anchors.bottomMargin: 2; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; height: 1; color: Config.colors.shadow }
 
                     Column {
                         anchors.centerIn: parent
@@ -249,8 +234,8 @@ Scope {
                         Repeater {
                             model: 3
                             Rectangle {
-                                width: 6; height: 3; color: macHighlight
-                                Rectangle { anchors.top: parent.top; anchors.left: parent.left; anchors.right: parent.right; height: 1; color: macShadow }
+                                width: 6; height: 3; color: Config.colors.highlight
+                                Rectangle { anchors.top: parent.top; anchors.left: parent.left; anchors.right: parent.right; height: 1; color: Config.colors.shadow }
                             }
                         }
                     }

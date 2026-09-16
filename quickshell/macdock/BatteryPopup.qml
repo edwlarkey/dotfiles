@@ -12,10 +12,6 @@ PopupWindow {
     property var battery: null
     property var closeCallback: function () {}
 
-    readonly property color macBase: "#c8c8c8"
-    readonly property color macHighlight: "#ffffff"
-    readonly property color macShadow: "#808080"
-    readonly property color macDarkShadow: "#404040"
     readonly property real rawPct: battery ? battery.percentage : 0
     readonly property int percent: rawPct > 1 ? Math.round(rawPct) : Math.round(rawPct * 100)
     readonly property real rawHealth: battery && battery.healthSupported ? battery.healthPercentage : 0
@@ -70,14 +66,8 @@ PopupWindow {
         id: frame
         opacity: 0
         anchors.fill: parent
-        color: macBase
-
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: macDarkShadow }
-        Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macDarkShadow }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 1; height: 1; color: macShadow }
-        Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
+        color: Config.colors.base
+        Bevel {}
 
         ColumnLayout {
             anchors.fill: parent

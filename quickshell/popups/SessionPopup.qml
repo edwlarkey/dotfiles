@@ -11,10 +11,6 @@ PopupWindow {
     property var closeCallback: function () {}
     property int iconSize: 16
 
-    readonly property color macBase: "#c8c8c8"
-    readonly property color macHighlight: "#ffffff"
-    readonly property color macShadow: "#808080"
-    readonly property color macDarkShadow: "#404040"
     readonly property var actions: [
         {"name": "Sleep", "cmd": ["systemctl", "suspend"], "iconName": "system-suspend"},
         {"name": "Restart", "cmd": ["systemctl", "reboot"], "iconName": "system-reboot"},
@@ -50,14 +46,8 @@ PopupWindow {
         id: frame
         opacity: 0
         anchors.fill: parent
-        color: macBase
-
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: macDarkShadow }
-        Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macDarkShadow }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 1; height: 1; color: macShadow }
-        Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: macShadow }
+        color: Config.colors.base
+        Bevel {}
 
         Column {
             anchors.fill: parent
@@ -73,7 +63,7 @@ PopupWindow {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: rowArea.pressed ? "#a8a8a8" : (rowArea.containsMouse ? "#b8b8b8" : "transparent")
+                        color: rowArea.pressed ? Config.colors.accent : (rowArea.containsMouse ? Config.colors.hover : "transparent")
                     }
 
                     RowLayout {

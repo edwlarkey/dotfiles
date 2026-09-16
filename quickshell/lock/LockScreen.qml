@@ -3,14 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Quickshell
 
+import ".."
+
 Item {
     id: root
     required property var auth
-
-    readonly property color macBase: "#c8c8c8"
-    readonly property color macHighlight: "#ffffff"
-    readonly property color macShadow: "#808080"
-    readonly property color macDark: "#404040"
 
     Rectangle {
         id: dialog
@@ -18,14 +15,8 @@ Item {
         anchors.horizontalCenterOffset: 0
         width: 400
         height: 210
-        color: root.macBase
-
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: root.macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: root.macHighlight }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: root.macDark }
-        Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: root.macDark }
-        Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 1; height: 1; color: root.macShadow }
-        Rectangle { anchors.right: parent.right; anchors.rightMargin: 1; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: root.macShadow }
+        color: Config.colors.base
+        Bevel {}
 
         Item {
             id: titleBar
@@ -44,13 +35,13 @@ Item {
                 anchors.left: parent.left
                 anchors.leftMargin: 4
                 anchors.verticalCenter: parent.verticalCenter
-                color: root.macBase
+                color: Config.colors.base
                 border.width: 1
                 border.color: "#000000"
-                Rectangle { anchors.left: parent.left; anchors.top: parent.top; width: parent.width - 1; height: 1; color: root.macHighlight }
-                Rectangle { anchors.left: parent.left; anchors.top: parent.top; width: 1; height: parent.height - 1; color: root.macHighlight }
-                Rectangle { anchors.left: parent.left; anchors.bottom: parent.bottom; width: parent.width; height: 1; color: root.macShadow }
-                Rectangle { anchors.right: parent.right; anchors.top: parent.top; width: 1; height: parent.height; color: root.macShadow }
+                Rectangle { anchors.left: parent.left; anchors.top: parent.top; width: parent.width - 1; height: 1; color: Config.colors.highlight }
+                Rectangle { anchors.left: parent.left; anchors.top: parent.top; width: 1; height: parent.height - 1; color: Config.colors.highlight }
+                Rectangle { anchors.left: parent.left; anchors.bottom: parent.bottom; width: parent.width; height: 1; color: Config.colors.shadow }
+                Rectangle { anchors.right: parent.right; anchors.top: parent.top; width: 1; height: parent.height; color: Config.colors.shadow }
             }
 
             Column {
@@ -65,7 +56,7 @@ Item {
                     Rectangle {
                         width: parent.width
                         height: 1
-                        color: index % 2 === 0 ? root.macShadow : root.macHighlight
+                        color: index % 2 === 0 ? Config.colors.shadow : Config.colors.highlight
                     }
                 }
             }
@@ -91,7 +82,7 @@ Item {
                     Rectangle {
                         width: parent.width
                         height: 1
-                        color: index % 2 === 0 ? root.macShadow : root.macHighlight
+                        color: index % 2 === 0 ? Config.colors.shadow : Config.colors.highlight
                     }
                 }
             }
@@ -129,11 +120,11 @@ Item {
             anchors.verticalCenter: nameLabel.verticalCenter
             width: 220
             height: 22
-            color: root.macHighlight
+            color: Config.colors.highlight
             border.width: 1
             border.color: "#000000"
-            Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: root.macShadow }
-            Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: root.macShadow }
+            Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: Config.colors.shadow }
+            Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: Config.colors.shadow }
 
             Text {
                 anchors.left: parent.left
@@ -155,7 +146,7 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.margins: 1
                 width: 18
-                Rectangle { anchors.left: parent.left; width: 1; height: parent.height; color: root.macShadow }
+                Rectangle { anchors.left: parent.left; width: 1; height: parent.height; color: Config.colors.shadow }
                 Canvas {
                     anchors.centerIn: parent
                     width: 9
@@ -193,11 +184,11 @@ Item {
             anchors.right: nameField.right
             anchors.verticalCenter: passwordLabel.verticalCenter
             height: 22
-            color: root.macHighlight
+            color: Config.colors.highlight
             border.width: 1
             border.color: "#000000"
-            Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: root.macShadow }
-            Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: root.macShadow }
+            Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: Config.colors.shadow }
+            Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: Config.colors.shadow }
 
             TextField {
                 id: passwordField
@@ -209,7 +200,7 @@ Item {
                 font.family: fontCharcoal.name
                 font.pixelSize: 13
                 color: "#000000"
-                selectedTextColor: root.macHighlight
+                selectedTextColor: Config.colors.highlight
                 selectionColor: "#000000"
                 background: Item {}
                 enabled: !root.auth.authenticating
@@ -241,13 +232,13 @@ Item {
                 id: loginFace
                 anchors.fill: parent
                 anchors.margins: 3
-                color: loginClick.pressed ? "#a8a8a8" : root.macBase
+                color: loginClick.pressed ? Config.colors.accent : Config.colors.base
                 border.width: 1
                 border.color: "#000000"
-                Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; anchors.leftMargin: 1; anchors.rightMargin: 1; height: 1; color: root.macHighlight }
-                Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.topMargin: 1; width: 1; color: root.macHighlight }
-                Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: root.macDark }
-                Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: root.macDark }
+                Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; anchors.leftMargin: 1; anchors.rightMargin: 1; height: 1; color: Config.colors.highlight }
+                Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; anchors.topMargin: 1; width: 1; color: Config.colors.highlight }
+                Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: Config.colors.dark }
+                Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: Config.colors.dark }
                 Text {
                     anchors.centerIn: parent
                     text: "Log in"

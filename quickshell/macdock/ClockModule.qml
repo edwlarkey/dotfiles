@@ -27,7 +27,7 @@ DockModule {
             text: Time.time
             font.family: fontCharcoal.name
             font.pixelSize: 13
-            color: root.macText
+            color: Config.colors.text
             verticalAlignment: Text.AlignVCenter
         }
     }

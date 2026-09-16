@@ -1,5 +1,7 @@
 import QtQuick
 
+import ".."
+
 Item {
     id: root
 
@@ -9,17 +11,12 @@ Item {
     property int moduleWidth: dock && dock.moduleWidth ? dock.moduleWidth : 48
     property int iconSize: dock && dock.iconSize ? dock.iconSize : 28
 
-    readonly property color macHighlight: dock ? dock.macHighlight : "#ffffff"
-    readonly property color macShadow: dock ? dock.macShadow : "#808080"
-    readonly property color macDarkShadow: dock ? dock.macDarkShadow : "#404040"
-    readonly property color macButtonPressed: dock ? dock.macButtonPressed : "#a8a8a8"
-    readonly property color macText: dock ? dock.macText : "#000000"
     readonly property bool hovered: mouse.containsMouse
     readonly property bool pressed: mouse.pressed
     readonly property bool sunken: pressed || active
-    readonly property color bevelLight: sunken ? macDarkShadow : macHighlight
-    readonly property color bevelMid: sunken ? macHighlight : macShadow
-    readonly property color bevelDark: sunken ? macHighlight : macDarkShadow
+    readonly property color bevelLight: sunken ? Config.colors.dark : Config.colors.highlight
+    readonly property color bevelMid: sunken ? Config.colors.highlight : Config.colors.shadow
+    readonly property color bevelDark: sunken ? Config.colors.highlight : Config.colors.dark
 
     signal clicked()
     signal wheel(var event)
@@ -31,7 +28,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: root.sunken ? root.macButtonPressed : (root.hovered ? "#b8b8b8" : "transparent")
+        color: root.sunken ? Config.colors.accent : (root.hovered ? Config.colors.hover : "transparent")
     }
 
     Item {
