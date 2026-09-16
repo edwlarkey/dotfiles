@@ -33,10 +33,6 @@ Scope {
         id: fontChicago
         source: "fonts/ChicagoFLF.ttf"
     }
-    FontLoader {
-        id: fontChicagoKare
-        source: "fonts/ChicagoKare.ttf"
-    }
     Taskbar.Bar {}
 
     MacDock.MacDock {}

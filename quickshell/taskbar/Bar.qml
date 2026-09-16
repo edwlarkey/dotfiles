@@ -50,10 +50,10 @@ Scope {
                     anchors.left: parent.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
-                    text: "\uF8FF"
-                    fontFamily: fontChicagoKare.name
-                    fontSize: Config.bar.fontSize + 8
-                    pad: 12
+                    iconSource: Qt.resolvedUrl("../assets/Apple_logo_black.svg")
+                    iconSourceLit: Qt.resolvedUrl("../assets/Apple_logo_white.svg")
+                    iconSize: Config.bar.fontSize + 4
+                    pad: 8
                     active: root.currentPopup == Config.SystemPopup.SessionMenu
                     onClicked: {
                         if (root.currentPopup == Config.SystemPopup.None) {

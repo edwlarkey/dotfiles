@@ -8,6 +8,8 @@ Item {
 
     property string text: ""
     property string iconName: ""
+    property string iconSource: ""
+    property string iconSourceLit: ""
     property int iconSize: Config.bar.iconSize
     property bool active: false
     property int pad: 8
@@ -21,7 +23,7 @@ Item {
     signal clicked()
 
     implicitWidth: {
-        const iconW = root.iconName !== "" ? root.iconSize + 6 : 0;
+        const iconW = root.iconName !== "" || root.iconSource !== "" ? root.iconSize + 6 : 0;
         const textW = label.implicitWidth;
         const w = iconW + textW + pad * 2;
         return maxWidth > 0 ? Math.min(maxWidth, Math.max(pad * 2 + iconSize, w)) : Math.max(pad * 2, w);
@@ -41,11 +43,16 @@ Item {
         spacing: 6
 
         Image {
-            visible: root.iconName !== ""
+            visible: root.iconName !== "" || root.iconSource !== ""
             anchors.verticalCenter: parent.verticalCenter
             width: root.iconSize
             height: root.iconSize
-            source: root.iconName ? (Quickshell.iconPath(root.iconName, true) || "") : ""
+            fillMode: Image.PreserveAspectFit
+            source: {
+                if (root.iconSource !== "")
+                    return root.lit && root.iconSourceLit !== "" ? root.iconSourceLit : root.iconSource;
+                return root.iconName ? (Quickshell.iconPath(root.iconName, true) || "") : "";
+            }
             sourceSize: Qt.size(width, height)
         }
 
