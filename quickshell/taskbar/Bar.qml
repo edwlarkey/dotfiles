@@ -90,17 +90,82 @@ Scope {
                     }
                 }
 
+                Item {
+                    id: clockAppSep
+                    anchors.right: appMenuButton.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    width: 12
+
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.horizontalCenterOffset: -1
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: 4
+                        anchors.bottomMargin: 4
+                        width: 2
+                        color: Config.colors.dark
+                    }
+                    Rectangle {
+                        anchors.left: parent.horizontalCenter
+                        anchors.leftMargin: 1
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: 4
+                        anchors.bottomMargin: 4
+                        width: 2
+                        color: Config.colors.highlight
+                    }
+                }
+
                 ClockWidget {
                     id: clockWidget
-                    anchors.right: appMenuButton.left
-                    anchors.rightMargin: 8
+                    anchors.right: clockAppSep.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                }
+
+                Item {
+                    id: batteryClockSep
+                    visible: batteryWidget.visible
+                    anchors.right: clockWidget.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    width: visible ? 12 : 0
+
+                    Rectangle {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.horizontalCenterOffset: -1
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: 4
+                        anchors.bottomMargin: 4
+                        width: 2
+                        color: Config.colors.dark
+                    }
+                    Rectangle {
+                        anchors.left: parent.horizontalCenter
+                        anchors.leftMargin: 1
+                        anchors.top: parent.top
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: 4
+                        anchors.bottomMargin: 4
+                        width: 2
+                        color: Config.colors.highlight
+                    }
+                }
+
+                BatteryWidget {
+                    id: batteryWidget
+                    anchors.right: batteryClockSep.left
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                 }
 
                 SysTray {
                     id: sysTray
-                    anchors.right: clockWidget.left
+                    anchors.right: batteryWidget.left
                     anchors.rightMargin: 8
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom

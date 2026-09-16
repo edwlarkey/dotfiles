@@ -15,6 +15,7 @@ MenuTitle {
     text: appName
     iconName: appClass
     iconSize: Config.bar.iconSize
+    fontSize: Config.bar.fontSize + 2
     maxWidth: 280
     pad: 12
 }
