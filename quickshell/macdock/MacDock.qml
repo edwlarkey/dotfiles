@@ -19,13 +19,12 @@ Scope {
     property bool isExpanded: false
     property string openPopup: ""
     property bool popupOpen: openPopup !== ""
-    property real hiddenOpacity: Config.settings.macDock ? Config.settings.macDock.hiddenOpacity : 0.0
     property Item hoveredItem: null
     property string hoveredLabel: ""
     readonly property int tipSpace: 26
     readonly property int stripHeight: 44
     readonly property int moduleWidth: 48
-    readonly property int iconSize: Config.settings.macDock && Config.settings.macDock.iconSize ? Config.settings.macDock.iconSize : 28
+    readonly property int iconSize: Config.macDock.iconSize
 
     function showDockTip(item, text) {
         if (root.popupOpen || !item || !text)

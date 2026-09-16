@@ -1,13 +1,10 @@
 pragma Singleton
 import QtQuick
 import Quickshell
-import Quickshell.Io
 
 Singleton {
     id: root
 
-    //*=======================================================================*/
-    // Fixed color palette (theme switching removed).
     property var colors: {
         "base": "#c8c8c8",
         "shadow": "#808080",
@@ -22,59 +19,26 @@ Singleton {
     enum SystemPopup {
         SessionMenu,
         AppLauncher,
+        AppSwitcher,
         None
     }
 
     property bool openSettingsWindow: false
+    property string version: "0.1"
 
-    property alias settings: settingsJsonAdapter.settings
-    FileView {
-        path: Qt.resolvedUrl("./settings.json")
-        // when changes are made on disk, reload the file's content
-        watchChanges: true
-        onFileChanged: reload()
-        // when changes are made to properties in the adapter, save them
-        onAdapterUpdated: writeAdapter()
+    property QtObject bar: QtObject {
+        property int height: 32
+        property int fontSize: 14
+        property int iconSize: 18
+        property int trayIconSize: 20
+        property bool monochromeTrayIcons: true
+        property int menuFontSize: 16
+        property int menuWidth: 280
+        property int menuMaxRows: 18
+        property int menuIconSize: 20
+    }
 
-        onLoadFailed: error => {
-            if (error == FileViewError.FileNotFound) {
-                writeAdapter();
-            }
-        }
-
-        JsonAdapter {
-            id: settingsJsonAdapter
-            property JsonObject settings: JsonObject {
-                property string version: "0.1"
-                property bool militaryTimeClockFormat: true
-                property string systemProfileImageSource: "/home/username/Pictures/system_profile_picture.png"
-                property JsonObject execCommands: JsonObject {
-                    property string terminal: "kitty"
-                    property string files: "nemo"
-                }
-                property JsonObject systemDetails: JsonObject {
-                    property string osName: "Linux Distro"
-                    property string osVersion: "Distro Version"
-                    property string ram: "Ram"
-                    property string cpu: "CPU Name"
-                    property string gpu: "GPU Name"
-                }
-                property JsonObject bar: JsonObject {
-                    property int fontSize: 12
-                    property int trayIconSize: 16
-                    property bool monochromeTrayIcons: true
-                }
-                property JsonObject macDock: JsonObject {
-                    property real hiddenOpacity: 0.0
-                    property int iconSize: 28
-                    property int gridCols: 3
-                    property var entries: [
-                        {"name": "Terminal", "type": "app", "command": "kitty", "icon": "\ueb8e"},
-                        {"name": "Files", "type": "folder", "path": "/home/edwlarkey", "icon": "\ue2c7"},
-                        {"name": "Documents", "type": "folder", "path": "/home/edwlarkey/Documents", "icon": "\ue2c7"}
-                    ]
-                }
-            }
-        }
+    property QtObject macDock: QtObject {
+        property int iconSize: 28
     }
 }

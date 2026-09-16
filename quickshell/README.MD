@@ -1,4 +1,4 @@
-# Linux Retroism | Quickshell Frontend
+# Linux Platinum | Quickshell Frontend
 
 Before going into details:
 
@@ -8,12 +8,6 @@ a project like this.
 I will likely update and refactor the quickshell project to improve things with time, as
 the initial versions may not follow best practices for design or readability.
 
-## Style Variants
+## Settings
 
-You can add your own color-schemes in the `Config.qml` file, they will be updated
-and added automatically to the theme switcher UI.
-
-Various other settings can be changed/set by editing the `settings.json` file; although
-those values can also be changed using the settings GUI.
-
-> I am planning on making a GUI for creating and adding your own themes.
+Colors, bar size, and Control Strip icon size live in `Config.qml`.

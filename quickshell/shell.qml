@@ -28,14 +28,22 @@ Scope {
         id: fontCharcoal
         source: "fonts/Charcoal.ttf"
     }
+    FontLoader {
+        id: fontChicago
+        source: "fonts/ChicagoFLF.ttf"
+    }
+    FontLoader {
+        id: fontChicagoKare
+        source: "fonts/ChicagoKare.ttf"
+    }
     Taskbar.Bar {}
 
     MacDock.MacDock {}
 
     FloatingWindow {
         id: settingsWindow
-        title: "RetroismSettingsWindow"
-        reloadableId: "RetroismSettingsWindow"
+        title: "LinuxPlatinumSettingsWindow"
+        reloadableId: "LinuxPlatinumSettingsWindow"
         visible: Config.openSettingsWindow
         Popups.PopupWindowFrame {
             id: settingsWindowFrame
@@ -65,7 +73,7 @@ Scope {
                         verticalAlignment: Text.AlignVCenter
                         font.family: fontMonaco.name
                         font.pixelSize: 28
-                        text: "Linux Retroism " + Config.settings.version
+                        text: "Linux Platinum " + Config.version
                     }
                     Text {
                         anchors.fill: parent
@@ -74,7 +82,7 @@ Scope {
                         verticalAlignment: Text.AlignBottom
                         font.family: fontMonaco.name
                         font.pixelSize: 12
-                        text: "Version 0.1 is very early and does not yet have a proper settings menu.\nPlease look forward for future releases on github ~ diinki"
+                        text: "Version 0.1 is very early and does not yet have a proper settings menu."
                     }
                 }
             }

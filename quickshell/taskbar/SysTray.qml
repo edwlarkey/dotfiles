@@ -7,11 +7,10 @@ import QtQuick.Effects
 
 import ".."
 
-RowLayout {
+Row {
     id: sysTrayRow
-    anchors.right: parent.right
-    anchors.verticalCenter: parent.verticalCenter
-    anchors.rightMargin: 12
+    spacing: 6
+    height: parent ? parent.height : Config.bar.height
 
     Repeater {
         id: sysTray
@@ -20,39 +19,25 @@ RowLayout {
         MouseArea {
             id: trayItem
             property SystemTrayItem item: modelData
-            implicitWidth: Config.settings.bar.trayIconSize
-            implicitHeight: Config.settings.bar.trayIconSize
+            implicitWidth: Config.bar.trayIconSize
+            implicitHeight: parent.height
 
             onClicked: event => {
                 switch (event.button) {
                 case Qt.LeftButton:
-                    if (item.hasMenu) {
-                        menu.open();
-                    }
-                    break;
                 case Qt.RightButton:
-                    if (item.hasMenu) {
+                    if (item.hasMenu)
                         menu.open();
-                    }
                     break;
                 }
-
                 event.accepted = true;
             }
 
-            // TODO: Create a bespoke menu design instead of using QsMenu.
             QsMenuAnchor {
                 id: menu
-
                 menu: trayItem.item.menu
                 anchor.window: taskbar
-
-                // Yes I know, this is a confusing way to get the position for the menu, but that's
-                // just how Qt is.
-                anchor.rect.x: taskbar.width - (sysTrayRow.width + clockWidget.width - trayItem.x)
-                anchor.rect.y: taskbar.height - 10
-
-                anchor.rect.height: trayItem.height
+                anchor.item: trayItem
                 anchor.edges: Edges.Bottom
             }
 
@@ -60,20 +45,19 @@ RowLayout {
                 id: trayIcon
                 source: trayItem.item.icon
                 anchors.centerIn: parent
-                width: parent.width
-                height: parent.height
+                width: Config.bar.trayIconSize
+                height: Config.bar.trayIconSize
                 visible: false
             }
             Loader {
                 anchors.fill: trayIcon
                 sourceComponent: MultiEffect {
                     source: trayIcon
-                    saturation: Config.settings.bar.monochromeTrayIcons ? -1.0 : 0
-                    contrast: Config.settings.bar.monochromeTrayIcons ? 0.7 : 0.0
+                    saturation: Config.bar.monochromeTrayIcons ? -1.0 : 0
+                    contrast: Config.bar.monochromeTrayIcons ? 0.7 : 0.0
                     opacity: mouse.hovered || menu.visible ? 1 : 0.7
                     blurEnabled: false
                     shadowEnabled: true
-
                     shadowBlur: 0
                     blurMax: 1
                     shadowScale: 1
@@ -89,8 +73,5 @@ RowLayout {
                 cursorShape: Qt.PointingHandCursor
             }
         }
-    }
-    ClockWidget {
-        id: clockWidget
     }
 }

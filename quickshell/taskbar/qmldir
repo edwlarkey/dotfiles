@@ -4,3 +4,5 @@ TaskbarButton 1.0 TaskbarButton.qml
 Workspaces 1.0 Workspaces.qml
 ClockWidget 1.0 ClockWidget.qml
 SysTray 1.0 SysTray.qml
+MenuTitle 1.0 MenuTitle.qml
+AppMenu 1.0 AppMenu.qml
