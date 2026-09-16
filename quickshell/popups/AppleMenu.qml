@@ -1,4 +1,6 @@
 import Quickshell
+import Quickshell.Wayland
+import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
@@ -6,15 +8,26 @@ import QtQuick.Controls.Basic
 import ".."
 import "../utils" as Utils
 
-PopupWindow {
+PanelWindow {
     id: root
     visible: false
+    exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
+    color: "transparent"
+
+    anchors {
+        top: true
+        left: true
+    }
+    margins.top: Config.bar.height
 
     property var closeCallback: function () {}
     property int iconSize: Config.bar.menuIconSize
     property int fontSize: Config.bar.menuFontSize
     property string query: ""
     property int selected: 0
+    property bool grabActive: false
 
     readonly property var allApps: Utils.AppSearch.list.filter(a => !a.noDisplay)
     readonly property var filtered: query.trim().length === 0 ? allApps : Utils.AppSearch.fuzzyQuery(query)
@@ -25,14 +38,25 @@ PopupWindow {
 
     implicitWidth: Config.bar.menuWidth
     implicitHeight: 8 + rowH + 2 + Math.min(Math.max(count, 1), maxRows) * rowH + 6
-    color: "transparent"
+
+    HyprlandFocusGrab {
+        active: root.grabActive
+        windows: [root]
+        onCleared: {
+            if (root.visible)
+                root.closeMenu();
+        }
+    }
 
     function openMenu() {
         query = "";
         selected = 0;
         root.visible = true;
         openAnimation.start();
-        searchInput.forceActiveFocus();
+        Qt.callLater(() => {
+            root.grabActive = true;
+            searchInput.forceActiveFocus();
+        });
     }
 
     function closeMenu() {
@@ -41,6 +65,7 @@ PopupWindow {
         if (openAnimation.running)
             openAnimation.stop();
         frame.opacity = 0;
+        root.grabActive = false;
         root.visible = false;
         root.closeCallback();
     }
@@ -87,6 +112,7 @@ PopupWindow {
                     selectedTextColor: Config.colors.highlight
                     selectByMouse: true
                     placeholderText: "Filter"
+                    focus: true
                     background: Item {}
                     onTextChanged: {
                         root.query = text;

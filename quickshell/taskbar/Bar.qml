@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
+import Quickshell.Hyprland
 import QtQuick
 
 import "../popups" as Popups
@@ -78,11 +79,11 @@ Scope {
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
                     pad: 12
-                    active: root.currentPopup == Config.SystemPopup.AppSwitcher
+                    active: root.currentPopup == Config.SystemPopup.AppList
                     onClicked: {
                         if (root.currentPopup == Config.SystemPopup.None) {
                             appSwitcher.openSwitcher();
-                            root.currentPopup = Config.SystemPopup.AppSwitcher;
+                            root.currentPopup = Config.SystemPopup.AppList;
                         } else {
                             taskbar.closeAllPopups();
                         }
@@ -105,23 +106,6 @@ Scope {
                     anchors.bottom: parent.bottom
                 }
 
-                Popups.AppLauncher {
-                    id: appLauncher
-                    closeCallback: taskbar.closeAllPopups
-                    menuWidth: taskbar.width / 2
-                    popupWidth: 500
-                    screenHeight: modelData.height
-                }
-
-                Popups.AppleMenu {
-                    id: appleMenu
-                    anchor.window: taskbar
-                    anchor.item: appleMenuButton
-                    anchor.edges: Edges.Bottom | Edges.Left
-                    anchor.gravity: Edges.Bottom | Edges.Right
-                    closeCallback: taskbar.closeAllPopups
-                }
-
                 Popups.AppSwitcher {
                     id: appSwitcher
                     anchor.window: taskbar
@@ -136,31 +120,37 @@ Scope {
                     case Config.SystemPopup.SessionMenu:
                         appleMenu.closeMenu();
                         break;
-                    case Config.SystemPopup.AppLauncher:
-                        appLauncher.closeAppLauncher();
-                        break;
-                    case Config.SystemPopup.AppSwitcher:
+                    case Config.SystemPopup.AppList:
                         appSwitcher.closeSwitcher();
                         break;
                     }
                     root.currentPopup = Config.SystemPopup.None;
                 }
 
-                Scope {
-                    id: appLauncherIpc
-                    property string screenName: taskbar.screen.name
-                    IpcHandler {
-                        target: "appLauncher_" + appLauncherIpc.screenName
-                        function toggleAppLauncher() {
-                            if (root.currentPopup == Config.SystemPopup.None) {
-                                appLauncher.openAppLauncher();
-                                root.currentPopup = Config.SystemPopup.AppLauncher;
-                            } else {
-                                taskbar.closeAllPopups();
-                            }
-                        }
+                function toggleAppLauncher() {
+                    const focused = Hyprland.focusedMonitor;
+                    if (focused && focused.name !== taskbar.screen.name)
+                        return;
+                    if (root.currentPopup == Config.SystemPopup.None) {
+                        root.currentPopup = Config.SystemPopup.SessionMenu;
+                        appleMenu.openMenu();
+                    } else {
+                        taskbar.closeAllPopups();
                     }
                 }
+
+                IpcHandler {
+                    target: "appLauncher"
+                    function toggleAppLauncher() {
+                        taskbar.toggleAppLauncher();
+                    }
+                }
+            }
+
+            Popups.AppleMenu {
+                id: appleMenu
+                screen: root.modelData
+                closeCallback: taskbar.closeAllPopups
             }
 
             PanelWindow {

@@ -39,9 +39,7 @@ Scope {
     }
 
     function closeAllPopups() {
-        if (openPopup === "minimized")
-            minimizedPopup.closeMinimized();
-        else if (openPopup === "volume")
+        if (openPopup === "volume")
             volumePopup.closeVolume();
         else if (openPopup === "battery")
             batteryPopup.closeBattery();
@@ -62,9 +60,7 @@ Scope {
         hideTimer.stop();
         isExpanded = true;
         openPopup = name;
-        if (name === "minimized")
-            minimizedPopup.openMinimized();
-        else if (name === "volume")
+        if (name === "volume")
             volumePopup.openVolume();
         else if (name === "battery")
             batteryPopup.openBattery();
@@ -189,14 +185,6 @@ Scope {
                             }
                         }
 
-                        MinimizedModule {
-                            id: minSlot
-                            dock: root
-                            count: minimizedPopup.count
-                            active: root.openPopup === "minimized"
-                            onClicked: root.togglePopup("minimized")
-                        }
-
                         VolumeModule {
                             id: volSlot
                             dock: root
@@ -277,15 +265,6 @@ Scope {
                 }
             }
             }
-        }
-
-        Popups.MinimizedWindows {
-            id: minimizedPopup
-            anchor.window: dock
-            anchor.item: minSlot
-            anchor.edges: Edges.Top | Edges.Left
-            anchor.gravity: Edges.Top | Edges.Right
-            closeCallback: root.onPopupClosed
         }
 
         VolumePopup {

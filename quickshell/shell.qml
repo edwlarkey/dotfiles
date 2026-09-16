@@ -13,6 +13,7 @@ import Quickshell
 import "taskbar" as Taskbar
 import "popups" as Popups
 import "macdock" as MacDock
+import "lock" as Lock
 
 Scope {
     id: root
@@ -39,6 +40,8 @@ Scope {
     Taskbar.Bar {}
 
     MacDock.MacDock {}
+
+    Lock.Lock {}
 
     FloatingWindow {
         id: settingsWindow

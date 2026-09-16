@@ -3,7 +3,7 @@ local terminal = "ghostty"
 local fileManager = "thunar"
 local cliFileManager = "yazi"
 local top = "btop"
-local menu = "dmenu_path | wofi -m -I | xargs exec --"
+local menu = "qs ipc call appLauncher toggleAppLauncher"
 
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.kill())

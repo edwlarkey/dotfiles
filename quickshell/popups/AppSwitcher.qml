@@ -47,6 +47,10 @@ PopupWindow {
         return name || "Finder";
     }
 
+    function isParked(t) {
+        return t && t.workspace && t.workspace.name === root.parkWorkspace;
+    }
+
     function refresh() {
         const byClass = {};
         const tops = Hyprland.toplevels.values;
@@ -54,18 +58,19 @@ PopupWindow {
             const t = tops[i];
             if (!t)
                 continue;
-            if (t.workspace && t.workspace.name === root.parkWorkspace)
-                continue;
             const c = classOf(t);
             const key = c || addrOf(t);
             if (!byClass[key]) {
                 byClass[key] = {
                     className: c,
                     name: displayName(c),
-                    windows: []
+                    windows: [],
+                    parked: 0
                 };
             }
             byClass[key].windows.push(t);
+            if (isParked(t))
+                byClass[key].parked++;
         }
         const out = [];
         for (const k in byClass)
@@ -95,10 +100,21 @@ PopupWindow {
         root.closeCallback();
     }
 
-    function hideAddr(addr) {
+    function onWindow(addr, call) {
         if (!addr)
             return;
-        Quickshell.execDetached(["os99-minimize", "hide", addr]);
+        Hyprland.dispatch('(function() for _, w in ipairs(hl.get_windows()) do if w.address == "' + addr + '" then return ' + call + ' end end return hl.dsp.no_op() end)()');
+    }
+
+    function hideAddr(addr) {
+        onWindow(addr, 'hl.dsp.window.move({ window = w, workspace = "name:' + root.parkWorkspace + '", follow = false })');
+    }
+
+    function restoreAddr(addr) {
+        const ws = Hyprland.focusedWorkspace;
+        const dest = ws ? String(ws.id) : "1";
+        onWindow(addr, 'hl.dsp.window.move({ window = w, workspace = "' + dest + '", follow = false })');
+        onWindow(addr, 'hl.dsp.focus({ window = w })');
     }
 
     function hideApp(app) {
@@ -122,17 +138,40 @@ PopupWindow {
     }
 
     function showAll() {
-        Quickshell.execDetached(["os99-minimize", "restore-all"]);
+        const tops = Hyprland.toplevels.values;
+        for (let i = 0; i < tops.length; i++) {
+            if (isParked(tops[i]))
+                restoreAddr(addrOf(tops[i]));
+        }
         Qt.callLater(refresh);
+    }
+
+    function focusWindow(t) {
+        if (!t)
+            return;
+        if (t.wayland)
+            t.wayland.activate();
+        else
+            onWindow(addrOf(t), 'hl.dsp.focus({ window = w })');
     }
 
     function focusApp(app) {
         if (!app || !app.windows.length)
             return;
-        const addr = addrOf(app.windows[0]);
+        const parked = [];
+        let visible = null;
+        for (let i = 0; i < app.windows.length; i++) {
+            const t = app.windows[i];
+            if (isParked(t))
+                parked.push(addrOf(t));
+            else if (!visible)
+                visible = t;
+        }
         root.closeSwitcher();
-        if (addr)
-            Hyprland.dispatch('hl.dsp.focus({ window = "' + addr + '" })');
+        for (let i = 0; i < parked.length; i++)
+            restoreAddr(parked[i]);
+        if (visible)
+            root.focusWindow(visible);
     }
 
     Connections {
@@ -242,7 +281,7 @@ PopupWindow {
                                     }
                                     Text {
                                         Layout.fillWidth: true
-                                        text: modelData.name
+                                        text: modelData.parked === modelData.windows.length ? modelData.name + " (hidden)" : modelData.name
                                         font.family: fontCharcoal.name
                                         font.pixelSize: 12
                                         color: index === root.selected ? Config.colors.highlight : Config.colors.text
@@ -256,8 +295,10 @@ PopupWindow {
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     cursorShape: Qt.PointingHandCursor
-                                    onClicked: root.selected = index
-                                    onDoubleClicked: root.focusApp(modelData)
+                                    onClicked: {
+                                        root.selected = index;
+                                        root.focusApp(modelData);
+                                    }
                                 }
                             }
                         }

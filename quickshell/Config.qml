@@ -12,14 +12,12 @@ Singleton {
         "urgent": "#ff723e",
         "accent": "#a8a8a8",
         "text": "#000000",
-        "outline": "#000000",
-        "outlineGradientFade": "#161616"
+        "outline": "#000000"
     }
 
     enum SystemPopup {
         SessionMenu,
-        AppLauncher,
-        AppSwitcher,
+        AppList,
         None
     }
 
