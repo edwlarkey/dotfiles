@@ -1,8 +1,6 @@
 import Quickshell
 import Quickshell.Hyprland
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls.Basic
 
 import ".."
 import "../utils" as Utils
@@ -12,24 +10,65 @@ PopupWindow {
     visible: false
 
     property var closeCallback: function () {}
-    property int iconSize: 16
+    property int iconSize: Config.bar.menuIconSize
+    property int fontSize: Config.bar.menuFontSize
     property string parkWorkspace: "os99-minimized"
     property var apps: []
-    property string query: ""
     property int selected: 0
+    property bool grabActive: false
 
-    readonly property var filtered: {
-        const q = query.trim().toLowerCase();
-        if (!q)
-            return apps;
-        return apps.filter(a => a.name.toLowerCase().indexOf(q) !== -1);
+    readonly property int rowH: Math.max(26, fontSize + 12)
+    readonly property int sepH: 8
+    readonly property int count: items.length
+    readonly property var selectedItem: count > 0 ? items[Math.max(0, Math.min(selected, count - 1))] : null
+    readonly property var frontApp: {
+        const t = Hyprland.activeToplevel;
+        if (!t)
+            return null;
+        const c = classOf(t);
+        for (let i = 0; i < apps.length; i++) {
+            if (apps[i].className === c)
+                return apps[i];
+        }
+        return null;
     }
-    readonly property int count: filtered.length
-    readonly property var selectedApp: count > 0 ? filtered[Math.max(0, Math.min(selected, count - 1))] : null
+    readonly property var items: {
+        const out = [];
+        for (let i = 0; i < apps.length; i++) {
+            const a = apps[i];
+            out.push({
+                kind: "app",
+                name: a.parked === a.windows.length ? a.name + " (hidden)" : a.name,
+                app: a,
+                enabled: true
+            });
+        }
+        if (apps.length > 0)
+            out.push({ kind: "sep" });
+        const parked = apps.some(a => a.parked > 0);
+        out.push({ kind: "action", name: "Hide", action: "hide", enabled: !!frontApp });
+        out.push({ kind: "action", name: "Hide Others", action: "others", enabled: !!frontApp && apps.length > 1 });
+        out.push({ kind: "action", name: "Show All", action: "show", enabled: parked });
+        return out;
+    }
 
-    implicitWidth: 280
-    implicitHeight: 38 + 16 + 28 + 8 + Math.max(1, Math.min(count, 8)) * 24 + 8 + 28 + 12
+    implicitWidth: Config.bar.menuWidth
+    implicitHeight: {
+        let h = 6;
+        for (let i = 0; i < items.length; i++)
+            h += items[i].kind === "sep" ? sepH : rowH;
+        return h + 6;
+    }
     color: "transparent"
+
+    HyprlandFocusGrab {
+        active: root.grabActive
+        windows: [root]
+        onCleared: {
+            if (root.visible)
+                root.closeSwitcher();
+        }
+    }
 
     function classOf(t) {
         return Utils.AppSearch.classOfToplevel(t);
@@ -77,17 +116,30 @@ PopupWindow {
             out.push(byClass[k]);
         out.sort((a, b) => a.name.localeCompare(b.name));
         apps = out;
-        if (selected >= out.length)
-            selected = Math.max(0, out.length - 1);
+        if (selected >= items.length)
+            selected = Math.max(0, items.length - 1);
+    }
+
+    function indexOfFront() {
+        if (!frontApp)
+            return 0;
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].kind === "app" && items[i].app.className === frontApp.className)
+                return i;
+        }
+        return 0;
     }
 
     function openSwitcher() {
-        query = "";
         selected = 0;
         refresh();
+        selected = indexOfFront();
         root.visible = true;
         openAnimation.start();
-        searchInput.forceActiveFocus();
+        Qt.callLater(() => {
+            root.grabActive = true;
+            frame.forceActiveFocus();
+        });
     }
 
     function closeSwitcher() {
@@ -96,8 +148,20 @@ PopupWindow {
         if (openAnimation.running)
             openAnimation.stop();
         frame.opacity = 0;
+        root.grabActive = false;
         root.visible = false;
         root.closeCallback();
+    }
+
+    function moveSelection(dir) {
+        let i = selected + dir;
+        while (i >= 0 && i < items.length) {
+            if (items[i].kind !== "sep") {
+                selected = i;
+                return;
+            }
+            i += dir;
+        }
     }
 
     function onWindow(addr, call) {
@@ -122,7 +186,6 @@ PopupWindow {
             return;
         for (let i = 0; i < app.windows.length; i++)
             hideAddr(addrOf(app.windows[i]));
-        Qt.callLater(refresh);
     }
 
     function hideOthers(app) {
@@ -134,7 +197,6 @@ PopupWindow {
             for (let j = 0; j < apps[i].windows.length; j++)
                 hideAddr(addrOf(apps[i].windows[j]));
         }
-        Qt.callLater(refresh);
     }
 
     function showAll() {
@@ -143,7 +205,6 @@ PopupWindow {
             if (isParked(tops[i]))
                 restoreAddr(addrOf(tops[i]));
         }
-        Qt.callLater(refresh);
     }
 
     function focusWindow(t) {
@@ -174,6 +235,28 @@ PopupWindow {
             root.focusWindow(visible);
     }
 
+    function activateItem(item) {
+        if (!item || item.kind === "sep")
+            return;
+        if (item.kind === "app") {
+            root.focusApp(item.app);
+            return;
+        }
+        if (!item.enabled)
+            return;
+        if (item.action === "hide")
+            root.hideApp(root.frontApp);
+        else if (item.action === "others")
+            root.hideOthers(root.frontApp);
+        else
+            root.showAll();
+        root.closeSwitcher();
+    }
+
+    function activateSelected() {
+        root.activateItem(root.selectedItem);
+    }
+
     Connections {
         target: Hyprland
         function onRawEvent(event) {
@@ -190,162 +273,96 @@ PopupWindow {
         opacity: 0
         anchors.fill: parent
         color: Config.colors.base
-        layer.enabled: true
+        focus: true
+        Keys.onEscapePressed: root.closeSwitcher()
+        Keys.onDownPressed: root.moveSelection(1)
+        Keys.onUpPressed: root.moveSelection(-1)
+        Keys.onReturnPressed: root.activateSelected()
+        Keys.onEnterPressed: root.activateSelected()
 
-        PopupWindowFrame {
-            id: managerFrame
-            windowTitle: "Application Menu"
-            windowTitleIcon: "\ue871"
-            windowTitleDecorationWidth: 40
+        Bevel {}
 
-            Item {
-                anchors.fill: managerFrame
-                anchors.margins: 12
-                anchors.topMargin: 38
+        Column {
+            anchors.fill: parent
+            anchors.margins: 3
+            spacing: 0
 
-                ColumnLayout {
-                    anchors.fill: parent
-                    spacing: 8
+            Repeater {
+                model: root.items
+                delegate: Item {
+                    required property var modelData
+                    required property int index
+                    width: parent.width
+                    height: modelData.kind === "sep" ? root.sepH : root.rowH
 
                     Rectangle {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 24
-                        color: Config.colors.highlight
-                        border.width: 1
-                        border.color: Config.colors.outline
+                        visible: modelData.kind !== "sep"
+                        anchors.fill: parent
+                        color: index === root.selected ? Config.colors.outline : "transparent"
+                    }
 
-                        TextField {
-                            id: searchInput
-                            anchors.fill: parent
-                            anchors.leftMargin: 6
-                            anchors.rightMargin: 6
-                            text: root.query
-                            font.family: fontCharcoal.name
-                            font.pixelSize: 12
-                            color: Config.colors.text
-                            selectionColor: Config.colors.shadow
-                            selectedTextColor: Config.colors.highlight
-                            selectByMouse: true
-                            placeholderText: "Filter"
-                            background: Item {}
-                            onTextChanged: {
-                                root.query = text;
-                                root.selected = 0;
-                            }
-                            Keys.onEscapePressed: root.closeSwitcher()
-                            Keys.onDownPressed: root.selected = Math.min(root.count - 1, root.selected + 1)
-                            Keys.onUpPressed: root.selected = Math.max(0, root.selected - 1)
-                            Keys.onReturnPressed: root.focusApp(root.selectedApp)
+                    Item {
+                        visible: modelData.kind === "sep"
+                        anchors.fill: parent
+
+                        Rectangle {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: 1
+                            anchors.rightMargin: 1
+                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.verticalCenterOffset: -1
+                            height: 1
+                            color: Config.colors.shadow
+                        }
+                        Rectangle {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: 1
+                            anchors.rightMargin: 1
+                            anchors.verticalCenter: parent.verticalCenter
+                            height: 1
+                            color: Config.colors.highlight
                         }
                     }
 
-                    Rectangle {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        color: Config.colors.highlight
-                        border.width: 1
-                        border.color: Config.colors.outline
-                        clip: true
-
-                        ListView {
-                            id: appList
-                            anchors.fill: parent
-                            anchors.margins: 1
-                            model: root.filtered
-                            clip: true
-                            boundsBehavior: Flickable.StopAtBounds
-                            currentIndex: root.selected
-
-                            delegate: Item {
-                                required property var modelData
-                                required property int index
-                                width: appList.width
-                                height: 24
-
-                                Rectangle {
-                                    anchors.fill: parent
-                                    color: index === root.selected ? Config.colors.outline : (rowArea.containsMouse ? Config.colors.hover : "transparent")
-                                }
-
-                                RowLayout {
-                                    anchors.fill: parent
-                                    anchors.leftMargin: 6
-                                    anchors.rightMargin: 6
-                                    spacing: 8
-
-                                    Image {
-                                        Layout.preferredWidth: root.iconSize
-                                        Layout.preferredHeight: root.iconSize
-                                        source: modelData.className ? (Quickshell.iconPath(modelData.className, true) || "") : ""
-                                        sourceSize: Qt.size(root.iconSize, root.iconSize)
-                                    }
-                                    Text {
-                                        Layout.fillWidth: true
-                                        text: modelData.parked === modelData.windows.length ? modelData.name + " (hidden)" : modelData.name
-                                        font.family: fontCharcoal.name
-                                        font.pixelSize: 12
-                                        color: index === root.selected ? Config.colors.highlight : Config.colors.text
-                                        elide: Text.ElideRight
-                                        verticalAlignment: Text.AlignVCenter
-                                    }
-                                }
-
-                                MouseArea {
-                                    id: rowArea
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        root.selected = index;
-                                        root.focusApp(modelData);
-                                    }
-                                }
-                            }
-                        }
+                    Image {
+                        id: appIcon
+                        visible: modelData.kind === "app"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        width: root.iconSize
+                        height: root.iconSize
+                        source: modelData.kind === "app" && modelData.app.className ? (Quickshell.iconPath(modelData.app.className, true) || "") : ""
+                        sourceSize: Qt.size(root.iconSize, root.iconSize)
                     }
 
-                    RowLayout {
-                        Layout.fillWidth: true
-                        spacing: 6
-
-                        Repeater {
-                            model: [
-                                {"name": "Hide", "action": "hide"},
-                                {"name": "Hide Others", "action": "others"},
-                                {"name": "Show All", "action": "show"}
-                            ]
-                            delegate: Rectangle {
-                                required property var modelData
-                                Layout.fillWidth: true
-                                Layout.preferredHeight: 24
-                                color: btnArea.pressed ? Config.colors.accent : (btnArea.containsMouse ? Config.colors.hover : Config.colors.base)
-                                border.width: 1
-                                border.color: Config.colors.outline
-
-                                Text {
-                                    anchors.centerIn: parent
-                                    text: modelData.name
-                                    font.family: fontCharcoal.name
-                                    font.pixelSize: 11
-                                    color: Config.colors.text
-                                }
-
-                                MouseArea {
-                                    id: btnArea
-                                    anchors.fill: parent
-                                    hoverEnabled: true
-                                    cursorShape: Qt.PointingHandCursor
-                                    onClicked: {
-                                        if (modelData.action === "hide")
-                                            root.hideApp(root.selectedApp);
-                                        else if (modelData.action === "others")
-                                            root.hideOthers(root.selectedApp);
-                                        else
-                                            root.showAll();
-                                    }
-                                }
-                            }
+                    Text {
+                        visible: modelData.kind !== "sep"
+                        anchors.left: parent.left
+                        anchors.leftMargin: 8 + root.iconSize + 8
+                        anchors.right: parent.right
+                        anchors.rightMargin: 8
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: modelData.name || ""
+                        font.family: fontCharcoal.name
+                        font.pixelSize: root.fontSize
+                        color: {
+                            if (modelData.kind !== "sep" && !modelData.enabled)
+                                return Config.colors.shadow;
+                            return index === root.selected ? Config.colors.highlight : Config.colors.text;
                         }
+                        elide: Text.ElideRight
+                    }
+
+                    MouseArea {
+                        visible: modelData.kind !== "sep"
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: modelData.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+                        onEntered: root.selected = index
+                        onClicked: root.activateItem(modelData)
                     }
                 }
             }
