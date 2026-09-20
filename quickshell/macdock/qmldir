@@ -3,6 +3,7 @@ MacDock 1.0 MacDock.qml
 DockModule 1.0 DockModule.qml
 LauncherModule 1.0 LauncherModule.qml
 ClockModule 1.0 ClockModule.qml
+DashboardModule 1.0 DashboardModule.qml
 SettingsModule 1.0 SettingsModule.qml
 VolumeModule 1.0 VolumeModule.qml
 BatteryModule 1.0 BatteryModule.qml

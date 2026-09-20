@@ -1,0 +1,5 @@
+module Notifs
+Toasts 1.0 Toasts.qml
+Toast 1.0 Toast.qml
+NotificationManager 1.0 NotificationManager.qml
+NotificationRow 1.0 NotificationRow.qml

@@ -1,0 +1,3 @@
+module Dashboard
+DashboardWindow 1.0 DashboardWindow.qml
+Meter 1.0 Meter.qml

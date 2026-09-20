@@ -14,6 +14,9 @@ import "taskbar" as Taskbar
 import "popups" as Popups
 import "macdock" as MacDock
 import "lock" as Lock
+import "notifs" as Notifs
+import "osd" as OsdUi
+import "dashboard" as Dash
 
 Scope {
     id: root
@@ -38,6 +41,14 @@ Scope {
     MacDock.MacDock {}
 
     Lock.Lock {}
+
+    Notifs.Toasts {}
+
+    Notifs.NotificationManager {}
+
+    OsdUi.OsdHud {}
+
+    Dash.DashboardWindow {}
 
     FloatingWindow {
         id: settingsWindow

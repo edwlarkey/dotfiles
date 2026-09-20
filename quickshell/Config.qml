@@ -39,6 +39,24 @@ Singleton {
         property int menuIconSize: 20
     }
 
+    property QtObject notifications: QtObject {
+        property int toastTimeout: 6000
+        property int maxToasts: 4
+        property int toastWidth: 320
+        property int managerWidth: 360
+        property int managerHeight: 420
+    }
+
+    property QtObject osd: QtObject {
+        property int timeout: 1400
+    }
+
+    property QtObject dashboard: QtObject {
+        property int width: 420
+        property int height: 640
+        property int fontSize: 14
+    }
+
     property QtObject macDock: QtObject {
         property int iconSize: 28
         property var entries: [

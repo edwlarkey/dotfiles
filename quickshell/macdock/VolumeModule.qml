@@ -38,10 +38,7 @@ DockModule {
     }
 
     function setVolume(value) {
-        if (!audio)
-            return;
-        audio.muted = false;
-        audio.volume = Math.max(0, Math.min(1, value));
+        Osd.setVolume(value);
     }
 
     onWheel: event => {

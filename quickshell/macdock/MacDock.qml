@@ -204,6 +204,10 @@ Scope {
                             dock: root
                         }
 
+                        DashboardModule {
+                            dock: root
+                        }
+
                         SettingsModule {
                             dock: root
                         }

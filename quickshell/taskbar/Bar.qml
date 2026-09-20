@@ -163,9 +163,25 @@ Scope {
                     anchors.bottom: parent.bottom
                 }
 
+                NotifWidget {
+                    id: notifWidget
+                    anchors.right: batteryWidget.left
+                    anchors.rightMargin: 4
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                }
+
+                VpnWidget {
+                    id: vpnWidget
+                    anchors.right: notifWidget.left
+                    anchors.rightMargin: 4
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                }
+
                 SysTray {
                     id: sysTray
-                    anchors.right: batteryWidget.left
+                    anchors.right: vpnWidget.left
                     anchors.rightMargin: 8
                     anchors.top: parent.top
                     anchors.bottom: parent.bottom
