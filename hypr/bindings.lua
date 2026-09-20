@@ -6,7 +6,7 @@ local top = "btop"
 local menu = "qs ipc call appLauncher toggleAppLauncher"
 
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.kill())
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot --mode region --output-folder ~/Pictures/screenshots"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal .. " -e " .. cliFileManager))
@@ -19,9 +19,19 @@ hl.bind("SUPER + V", hl.dsp.exec_cmd("~/bin/cliphist-wofi-img"))
 
 for i = 1, 10 do
   local key = 10 + i - 1
-  if i == 10 then key = 19 end
-  hl.bind(mainMod .. " + code:" .. key, hl.dsp.focus({ workspace = tostring(i) }), { description = "Switch to workspace " .. i })
-  hl.bind(mainMod .. " + SHIFT + code:" .. key, hl.dsp.window.move({ workspace = tostring(i), follow = false }), { description = "Move window to workspace " .. i })
+  if i == 10 then
+    key = 19
+  end
+  hl.bind(
+    mainMod .. " + code:" .. key,
+    hl.dsp.focus({ workspace = tostring(i) }),
+    { description = "Switch to workspace " .. i }
+  )
+  hl.bind(
+    mainMod .. " + SHIFT + code:" .. key,
+    hl.dsp.window.move({ workspace = tostring(i), follow = false }),
+    { description = "Move window to workspace " .. i }
+  )
 end
 
 -- Focus & Window Movement (Vim-style)
