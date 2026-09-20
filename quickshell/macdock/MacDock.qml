@@ -8,7 +8,7 @@ import "../popups" as Popups
 Scope {
     id: root
 
-    property bool isExpanded: false
+    property bool isExpanded: !Config.macDock.autoHide
     property string openPopup: ""
     property bool popupOpen: openPopup !== ""
     property Item hoveredItem: null
@@ -62,7 +62,8 @@ Scope {
 
     function onPopupClosed() {
         openPopup = "";
-        hideTimer.start();
+        if (Config.macDock.autoHide)
+            hideTimer.start();
     }
 
     PanelWindow {
@@ -291,6 +292,8 @@ Scope {
             id: dockHover
             acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
             onHoveredChanged: {
+                if (!Config.macDock.autoHide)
+                    return;
                 if (dockHover.hovered) {
                     hideTimer.stop();
                     root.isExpanded = true;
@@ -306,7 +309,7 @@ Scope {
             interval: 600
             repeat: false
             onTriggered: {
-                if (!dockHover.hovered && !root.popupOpen) {
+                if (Config.macDock.autoHide && !dockHover.hovered && !root.popupOpen) {
                     root.isExpanded = false;
                     root.hideDockTip();
                 }

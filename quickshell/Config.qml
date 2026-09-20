@@ -37,6 +37,7 @@ Singleton {
         property int menuWidth: 280
         property int menuMaxRows: 18
         property int menuIconSize: 20
+        property var menuFavorites: ["ghostty", "firefox", "obsidian", "thunar"]
     }
 
     property QtObject notifications: QtObject {
@@ -59,6 +60,7 @@ Singleton {
 
     property QtObject macDock: QtObject {
         property int iconSize: 28
+        property bool autoHide: true
         property var entries: [
             {"name": "Terminal", "type": "app", "command": "ghostty", "iconName": "utilities-terminal"},
             {"name": "Browser", "type": "app", "command": "firefox", "iconName": "firefox"},
