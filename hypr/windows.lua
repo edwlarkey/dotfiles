@@ -97,7 +97,7 @@ hl.window_rule({
 hl.window_rule({
   name = "thunar-workspace",
   workspace = "5",
-  float = true,
+  -- float = true,
   center = true,
   size = "1200 800",
   match = { class = "thunar" },
