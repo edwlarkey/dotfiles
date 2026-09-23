@@ -17,6 +17,7 @@ import "lock" as Lock
 import "notifs" as Notifs
 import "osd" as OsdUi
 import "dashboard" as Dash
+import "scrapbook" as Scrap
 
 Scope {
     id: root
@@ -49,6 +50,8 @@ Scope {
     OsdUi.OsdHud {}
 
     Dash.DashboardWindow {}
+
+    Scrap.ScrapbookWindow {}
 
     FloatingWindow {
         id: settingsWindow

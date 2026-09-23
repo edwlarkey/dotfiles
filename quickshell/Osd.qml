@@ -27,6 +27,8 @@ Singleton {
 
     property int brightnessPct: 0
     property bool brightnessReady: false
+    property bool hasBrightnessctl: false
+    property string backlightDevice: ""
 
     readonly property bool muted: kind === "mic" ? micMuted : (kind === "volume" ? volumeMuted : false)
     readonly property int percent: {
@@ -120,10 +122,14 @@ Singleton {
     }
 
     function brightnessUp() {
+        if (!hasBrightnessctl)
+            return;
         brightnessProc.exec(["brightnessctl", "-m", "set", "10%+"]);
     }
 
     function brightnessDown() {
+        if (!hasBrightnessctl)
+            return;
         brightnessProc.exec(["brightnessctl", "-m", "set", "10%-"]);
     }
 
@@ -154,6 +160,8 @@ Singleton {
     }
 
     function refreshBrightness() {
+        if (!hasBrightnessctl)
+            return;
         brightnessQuery.running = false;
         brightnessQuery.running = true;
     }
@@ -194,6 +202,21 @@ Singleton {
     }
 
     Process {
+        id: brightnessProbe
+        command: ["sh", "-c", "command -v brightnessctl >/dev/null && echo ctl; ls -1 /sys/class/backlight 2>/dev/null | head -n1"]
+        running: true
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const lines = String(text || "").trim().split("\n").filter(l => l.length);
+                root.hasBrightnessctl = lines.indexOf("ctl") !== -1;
+                root.backlightDevice = lines.find(l => l !== "ctl") || "";
+                if (root.hasBrightnessctl)
+                    root.refreshBrightness();
+            }
+        }
+    }
+
+    Process {
         id: brightnessProc
         stdout: StdioCollector {
             onStreamFinished: {
@@ -212,7 +235,7 @@ Singleton {
     Process {
         id: brightnessQuery
         command: ["brightnessctl", "-m"]
-        running: true
+        running: false
         stdout: StdioCollector {
             onStreamFinished: root.applyBrightnessText(text)
         }
@@ -220,8 +243,10 @@ Singleton {
 
     FileView {
         id: brightnessFile
-        path: "/sys/class/backlight/intel_backlight/brightness"
-        watchChanges: true
+        printErrors: false
+        preload: !!root.backlightDevice
+        watchChanges: !!root.backlightDevice
+        path: root.backlightDevice ? "/sys/class/backlight/" + root.backlightDevice + "/brightness" : ""
         onFileChanged: reload()
         onLoaded: {
             const cur = parseInt(text(), 10);
@@ -239,8 +264,10 @@ Singleton {
 
     FileView {
         id: brightnessMaxFile
-        path: "/sys/class/backlight/intel_backlight/max_brightness"
-        blockLoading: true
+        printErrors: false
+        preload: !!root.backlightDevice
+        blockLoading: !!root.backlightDevice
+        path: root.backlightDevice ? "/sys/class/backlight/" + root.backlightDevice + "/max_brightness" : ""
     }
 
     IpcHandler {

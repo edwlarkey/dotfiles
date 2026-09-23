@@ -4,6 +4,7 @@ DockModule 1.0 DockModule.qml
 LauncherModule 1.0 LauncherModule.qml
 ClockModule 1.0 ClockModule.qml
 DashboardModule 1.0 DashboardModule.qml
+ScrapbookModule 1.0 ScrapbookModule.qml
 SettingsModule 1.0 SettingsModule.qml
 VolumeModule 1.0 VolumeModule.qml
 BatteryModule 1.0 BatteryModule.qml

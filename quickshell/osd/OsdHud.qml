@@ -7,7 +7,7 @@ import ".."
 
 Scope {
     Variants {
-        model: Quickshell.screens
+            model: Config.realScreens
         PanelWindow {
             id: hud
             required property var modelData

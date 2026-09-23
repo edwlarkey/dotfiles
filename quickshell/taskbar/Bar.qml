@@ -8,12 +8,29 @@ import "../popups" as Popups
 import ".."
 
 Scope {
+    id: bars
+    property int launcherTick: 0
+
+    IpcHandler {
+        target: "appLauncher"
+        function toggleAppLauncher() {
+            bars.launcherTick++;
+        }
+    }
+
     Variants {
-        model: Quickshell.screens
+        model: Config.realScreens
         Item {
             id: root
             required property var modelData
             property int currentPopup: Config.SystemPopup.None
+
+            Connections {
+                target: bars
+                function onLauncherTickChanged() {
+                    taskbar.toggleAppLauncher();
+                }
+            }
 
             PanelWindow {
                 id: taskbar
@@ -217,13 +234,6 @@ Scope {
                         appleMenu.openMenu();
                     } else {
                         taskbar.closeAllPopups();
-                    }
-                }
-
-                IpcHandler {
-                    target: "appLauncher"
-                    function toggleAppLauncher() {
-                        taskbar.toggleAppLauncher();
                     }
                 }
             }

@@ -69,7 +69,7 @@ Scope {
     PanelWindow {
         id: dock
 
-        screen: Quickshell.screens[0]
+        screen: Config.realScreens.length ? Config.realScreens[0] : null
         WlrLayershell.layer: WlrLayer.Top
         WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
@@ -206,6 +206,10 @@ Scope {
                         }
 
                         DashboardModule {
+                            dock: root
+                        }
+
+                        ScrapbookModule {
                             dock: root
                         }
 

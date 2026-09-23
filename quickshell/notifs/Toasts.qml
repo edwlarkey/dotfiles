@@ -6,7 +6,7 @@ import ".."
 
 Scope {
     Variants {
-        model: Quickshell.screens
+            model: Config.realScreens
         PanelWindow {
             id: toastWin
             required property var modelData

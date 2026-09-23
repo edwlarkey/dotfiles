@@ -1,0 +1,3 @@
+module Scrapbook
+ScrapbookWindow 1.0 ScrapbookWindow.qml
+ScrapbookRow 1.0 ScrapbookRow.qml

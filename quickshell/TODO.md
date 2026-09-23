@@ -12,7 +12,7 @@ Mac OS 9 / Platinum-styled additions inspired by Omarchy, Caelestia, and end-4.
 - [ ] Bluetooth panel
 - [ ] Display/brightness panel (Monitors)
 - [ ] Audio mixer with per-app sliders (Sound control panel)
-- [ ] Clipboard history as Scrapbook
+- [x] Clipboard history as Scrapbook
 - [ ] Color picker as the classic Mac wheel/crayons picker
 - [ ] Screenshot overlay with marching-ants selection
 - [ ] Screensaver (After Dark / Energy Saver)
@@ -55,4 +55,4 @@ These give the Omarchy "complete shell" feel without fighting the theme:
 - [ ] Network
 - [ ] Bluetooth
 - [ ] Media
-- [ ] Clipboard/Scrapbook
+- [x] Clipboard/Scrapbook

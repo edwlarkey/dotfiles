@@ -27,6 +27,17 @@ Singleton {
     property bool openSettingsWindow: false
     property string version: "0.1"
 
+    readonly property var realScreens: {
+        const out = [];
+        const all = Quickshell.screens;
+        for (let i = 0; i < all.length; i++) {
+            const s = all[i];
+            if (s && s.name && s.name !== "FALLBACK")
+                out.push(s);
+        }
+        return out;
+    }
+
     property QtObject bar: QtObject {
         property int height: 32
         property int fontSize: 14
@@ -56,6 +67,14 @@ Singleton {
         property int width: 420
         property int height: 640
         property int fontSize: 14
+    }
+
+    property QtObject scrapbook: QtObject {
+        property int width: 600
+        property int height: 460
+        property int maxItems: 40
+        property int fontSize: 13
+        property bool showBinary: false
     }
 
     property QtObject macDock: QtObject {
