@@ -201,10 +201,6 @@ Scope {
                             }
                         }
 
-                        ClockModule {
-                            dock: root
-                        }
-
                         DashboardModule {
                             dock: root
                         }
@@ -214,6 +210,9 @@ Scope {
                         }
 
                         SettingsModule {
+                            dock: root
+                        }
+                        ClockModule {
                             dock: root
                         }
                     }
