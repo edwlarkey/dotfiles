@@ -48,7 +48,7 @@ Singleton {
         property int menuWidth: 280
         property int menuMaxRows: 18
         property int menuIconSize: 20
-        property var menuFavorites: ["ghostty", "firefox", "obsidian", "thunar"]
+        property var menuFavorites: ["firefox", "ghostty", "obsidian", "thunar"]
     }
 
     property QtObject notifications: QtObject {
