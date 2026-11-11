@@ -6,7 +6,7 @@ hl.on("hyprland.start", function()
   -- hl.exec_cmd("mako")
   -- hl.exec_cmd("waybar")
   hl.exec_cmd("quickshell")
-  hl.exec_cmd("/home/edwlarkey/.local/bin/os99-window-bars")
+  hl.exec_cmd((os.getenv("HOME") or "") .. "/.local/bin/os99 apply")
   hl.exec_cmd("hypridle")
   hl.exec_cmd("wl-paste --type text --watch cliphist store")
   hl.exec_cmd("wl-paste --type image --watch cliphist store")
@@ -58,12 +58,5 @@ require("bindings")
 require("decoration")
 require("windows")
 
--- OS 99 (only if the setup script has installed it)
-do
-  local path = os.getenv("HOME") .. "/.config/hypr/os99.lua"
-  local f = io.open(path, "r")
-  if f then
-    f:close()
-    dofile(path)
-  end
-end
+os99_dir = (os.getenv("HOME") or "") .. "/.local/share/os99/decor"
+pcall(dofile, os99_dir .. "/bars.lua")
