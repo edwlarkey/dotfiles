@@ -86,6 +86,20 @@ link_files () {
     success 'karabiner config linked'
 }
 
+link_linux_applications() {
+    if [[ $(uname -s) != Linux ]]; then
+        return
+    fi
+
+    info 'Linking desktop entries'
+    mkdir -p "$HOME/.local/share/applications"
+    ln -nfs "$HOME/dotfiles/applications/thunar.desktop" "$HOME/.local/share/applications/thunar.desktop"
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database "$HOME/.local/share/applications" || true
+    fi
+    success 'desktop entries linked'
+}
+
 make_dirs () {
     info 'Creating directories'
     mkdir -p "$HOME/.config"
@@ -227,6 +241,7 @@ done
 make_dirs
 setup_gitconfig
 link_files
+link_linux_applications
 pull_submodules
 # install_vim_plugins
 setup_os99
