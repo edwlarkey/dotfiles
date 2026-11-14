@@ -7,6 +7,7 @@ DockModule {
     id: root
 
     tip: "Settings"
+    active: Config.openSettingsWindow
 
     onClicked: Config.openSettingsWindow = !Config.openSettingsWindow
 

@@ -31,25 +31,19 @@ Rectangle {
             id: panelName
             anchors.centerIn: parent
             ColumnLayout {
-                spacing: 1
+                spacing: 0
                 Repeater {
-                    model: 4
-                    Rectangle {
-                        implicitHeight: 2
+                    model: 6
+                    Item {
+                        implicitHeight: 1
                         implicitWidth: windowTitleDecorationWidth
-                        gradient: Gradient {
-                            GradientStop {
-                                position: 0.0
-                                color: Config.colors.highlight
-                            }
-                            GradientStop {
-                                position: 0.5
-                                color: Config.colors.highlight
-                            }
-                            GradientStop {
-                                position: 1.0
-                                color: Config.colors.outline
-                            }
+                        Rectangle {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: index % 2 === 1 ? 1 : 0
+                            anchors.rightMargin: index % 2 === 0 ? 1 : 0
+                            height: 1
+                            color: index % 2 === 0 ? Config.colors.highlight : Config.colors.stripe
                         }
                     }
                 }
@@ -72,25 +66,19 @@ Rectangle {
                 color: Config.colors.text
             }
             ColumnLayout {
-                spacing: 1
+                spacing: 0
                 Repeater {
-                    model: 4
-                    Rectangle {
-                        implicitHeight: 2
+                    model: 6
+                    Item {
+                        implicitHeight: 1
                         implicitWidth: windowTitleDecorationWidth
-                        gradient: Gradient {
-                            GradientStop {
-                                position: 0.0
-                                color: Config.colors.highlight
-                            }
-                            GradientStop {
-                                position: 0.5
-                                color: Config.colors.highlight
-                            }
-                            GradientStop {
-                                position: 1.0
-                                color: Config.colors.outline
-                            }
+                        Rectangle {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: index % 2 === 1 ? 1 : 0
+                            anchors.rightMargin: index % 2 === 0 ? 1 : 0
+                            height: 1
+                            color: index % 2 === 0 ? Config.colors.highlight : Config.colors.stripe
                         }
                     }
                 }

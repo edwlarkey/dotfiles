@@ -52,12 +52,12 @@ PopupWindow {
         return out;
     }
 
-    implicitWidth: Config.bar.menuWidth
+    implicitWidth: Config.bar.menuWidth + 1
     implicitHeight: {
         let h = 6;
         for (let i = 0; i < items.length; i++)
             h += items[i].kind === "sep" ? sepH : rowH;
-        return h + 6;
+        return h + 6 + 1;
     }
     color: "transparent"
 
@@ -268,10 +268,14 @@ PopupWindow {
         }
     }
 
+    EdgeShadow { opacity: frame.opacity }
+
     Rectangle {
         id: frame
         opacity: 0
         anchors.fill: parent
+        anchors.rightMargin: 1
+        anchors.bottomMargin: 1
         color: Config.colors.base
         focus: true
         Keys.onEscapePressed: root.closeSwitcher()
@@ -295,10 +299,9 @@ PopupWindow {
                     width: parent.width
                     height: modelData.kind === "sep" ? root.sepH : root.rowH
 
-                    Rectangle {
-                        visible: modelData.kind !== "sep"
+                    AccentFill {
+                        visible: modelData.kind !== "sep" && index === root.selected && modelData.enabled
                         anchors.fill: parent
-                        color: index === root.selected ? Config.colors.outline : "transparent"
                     }
 
                     Item {
@@ -313,7 +316,7 @@ PopupWindow {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.verticalCenterOffset: -1
                             height: 1
-                            color: Config.colors.shadow
+                            color: Config.colors.dim
                         }
                         Rectangle {
                             anchors.left: parent.left
@@ -350,8 +353,8 @@ PopupWindow {
                         font.pixelSize: root.fontSize
                         color: {
                             if (modelData.kind !== "sep" && !modelData.enabled)
-                                return Config.colors.shadow;
-                            return index === root.selected ? Config.colors.highlight : Config.colors.text;
+                                return Config.colors.dim;
+                            return index === root.selected && modelData.enabled ? Config.colors.highlight : Config.colors.text;
                         }
                         elide: Text.ElideRight
                     }

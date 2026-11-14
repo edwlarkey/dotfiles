@@ -16,8 +16,8 @@ PopupWindow {
     readonly property real volume: audio ? audio.volume : 0
     readonly property int volumePct: Math.round(Math.max(0, Math.min(1, volume)) * 100)
 
-    implicitWidth: 176
-    implicitHeight: 78
+    implicitWidth: 176 + 1
+    implicitHeight: 78 + 1
     color: "transparent"
 
     function openVolume() {
@@ -42,10 +42,14 @@ PopupWindow {
         audio.volume = Math.max(0, Math.min(1, x / width));
     }
 
+    EdgeShadow { opacity: frame.opacity }
+
     Rectangle {
         id: frame
         opacity: 0
         anchors.fill: parent
+        anchors.rightMargin: 1
+        anchors.bottomMargin: 1
         color: Config.colors.base
         Bevel {}
 

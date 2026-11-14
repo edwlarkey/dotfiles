@@ -150,15 +150,12 @@ Scope {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: Config.colors.base
+                        color: "#c0c0c0"
                     }
 
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 2; color: Config.colors.highlight }
-                    Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: Config.colors.highlight }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 2; color: Config.colors.dark }
-                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 2; color: Config.colors.dark }
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; height: 1; color: Config.colors.shadow }
-                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: Config.colors.shadow }
+                    Rectangle { z: 4; anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; height: 1; color: Config.colors.outline }
+                    Rectangle { z: 4; anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 1; color: Config.colors.outline }
+                    Rectangle { z: 4; anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom; height: 1; color: Config.colors.outline }
 
                     Row {
                         id: contentRow
@@ -174,6 +171,7 @@ Scope {
                         VolumeModule {
                             id: volSlot
                             dock: root
+                            menu: true
                             active: root.openPopup === "volume"
                             onClicked: root.togglePopup("volume")
                         }
@@ -181,6 +179,7 @@ Scope {
                         BatteryModule {
                             id: batSlot
                             dock: root
+                            menu: true
                             active: root.openPopup === "battery"
                             onClicked: root.togglePopup("battery")
                         }
@@ -189,6 +188,7 @@ Scope {
                             id: sessionSlot
                             dock: root
                             tip: "Special"
+                            menu: true
                             active: root.openPopup === "session"
                             onClicked: root.togglePopup("session")
 
@@ -225,16 +225,16 @@ Scope {
 
                     Rectangle {
                         anchors.fill: parent
-                        color: Config.colors.base
+                        color: "#c0c0c0"
                         radius: 5
-                        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 5; color: Config.colors.base }
+                        Rectangle { anchors.left: parent.left; anchors.top: parent.top; anchors.bottom: parent.bottom; width: 5; color: "#c0c0c0" }
                     }
 
-                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; anchors.top: parent.top; height: 2; color: Config.colors.highlight }
-                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 3; anchors.bottom: parent.bottom; anchors.bottomMargin: 3; width: 2; color: Config.colors.dark }
-                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.topMargin: 2; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; width: 1; color: Config.colors.shadow }
-                    Rectangle { anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; height: 2; color: Config.colors.dark }
-                    Rectangle { anchors.bottom: parent.bottom; anchors.bottomMargin: 2; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; height: 1; color: Config.colors.shadow }
+                    Rectangle { anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; anchors.top: parent.top; height: 2; color: "#ffffff" }
+                    Rectangle { anchors.right: parent.right; anchors.top: parent.top; anchors.topMargin: 3; anchors.bottom: parent.bottom; anchors.bottomMargin: 3; width: 2; color: "#808080" }
+                    Rectangle { anchors.right: parent.right; anchors.rightMargin: 2; anchors.top: parent.top; anchors.topMargin: 2; anchors.bottom: parent.bottom; anchors.bottomMargin: 2; width: 1; color: "#a0a0a0" }
+                    Rectangle { anchors.bottom: parent.bottom; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 3; height: 2; color: "#808080" }
+                    Rectangle { anchors.bottom: parent.bottom; anchors.bottomMargin: 2; anchors.left: parent.left; anchors.right: parent.right; anchors.rightMargin: 2; height: 1; color: "#a0a0a0" }
 
                     Column {
                         anchors.centerIn: parent

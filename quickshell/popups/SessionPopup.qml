@@ -18,8 +18,8 @@ PopupWindow {
         {"name": "Log Out", "cmd": ["hyprctl", "dispatch", "exit"], "iconName": "system-log-out"}
     ]
 
-    implicitWidth: 148
-    implicitHeight: 8 + actions.length * 28
+    implicitWidth: 148 + 1
+    implicitHeight: 8 + actions.length * 28 + 1
     color: "transparent"
 
     function openSession() {
@@ -42,10 +42,14 @@ PopupWindow {
         Quickshell.execDetached(cmd);
     }
 
+    EdgeShadow { opacity: frame.opacity }
+
     Rectangle {
         id: frame
         opacity: 0
         anchors.fill: parent
+        anchors.rightMargin: 1
+        anchors.bottomMargin: 1
         color: Config.colors.base
         Bevel {}
 

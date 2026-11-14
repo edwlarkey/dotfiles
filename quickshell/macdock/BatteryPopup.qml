@@ -17,8 +17,8 @@ PopupWindow {
     readonly property real rawHealth: battery && battery.healthSupported ? battery.healthPercentage : 0
     readonly property int healthPct: rawHealth > 1 ? Math.round(rawHealth) : Math.round(rawHealth * 100)
 
-    implicitWidth: 176
-    implicitHeight: battery && battery.healthSupported ? 92 : 76
+    implicitWidth: 176 + 1
+    implicitHeight: (battery && battery.healthSupported ? 92 : 76) + 1
     color: "transparent"
 
     function openBattery() {
@@ -62,10 +62,14 @@ PopupWindow {
         return UPowerDeviceState.toString(battery.state);
     }
 
+    EdgeShadow { opacity: frame.opacity }
+
     Rectangle {
         id: frame
         opacity: 0
         anchors.fill: parent
+        anchors.rightMargin: 1
+        anchors.bottomMargin: 1
         color: Config.colors.base
         Bevel {}
 

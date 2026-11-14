@@ -6,13 +6,22 @@ Singleton {
     id: root
 
     property var colors: {
-        "base": "#c8c8c8",
-        "shadow": "#808080",
+        "base": "#dddddd",
+        "frame": "#cccccc",
+        "shade": "#999999",
+        "shadow": "#999999",
+        "dim": "#888888",
+        "stripe": "#777777",
+        "menuShadow": "#222222",
+        "inactive": "#555555",
         "dark": "#404040",
         "highlight": "#ffffff",
-        "hover": "#b8b8b8",
+        "hover": "#cccccc",
         "urgent": "#ff723e",
-        "accent": "#a8a8a8",
+        "accent": "#bbbbbb",
+        "accentTop": "#6666cc",
+        "accentBody": "#333399",
+        "accentBottom": "#000088",
         "text": "#000000",
         "outline": "#000000",
         "desktop": "#8c8c8c"

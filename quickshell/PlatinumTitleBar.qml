@@ -65,13 +65,20 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: root.showClose ? 8 : 6
         anchors.rightMargin: 8
-        spacing: 1
+        spacing: 0
         Repeater {
             model: 6
-            Rectangle {
+            Item {
                 width: parent.width
                 height: 1
-                color: index % 2 === 0 ? Config.colors.shadow : Config.colors.highlight
+                Rectangle {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: index % 2 === 1 ? 1 : 0
+                    anchors.rightMargin: index % 2 === 0 ? 1 : 0
+                    height: 1
+                    color: index % 2 === 0 ? Config.colors.highlight : Config.colors.stripe
+                }
             }
         }
     }
@@ -80,7 +87,7 @@ Item {
         id: titleText
         anchors.centerIn: parent
         text: "  " + root.title + "  "
-        font.family: fontChicago.name
+        font.family: fontCharcoal.name
         font.pixelSize: 13
         color: Config.colors.text
     }
@@ -91,13 +98,20 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 8
         anchors.rightMargin: 6
-        spacing: 1
+        spacing: 0
         Repeater {
             model: 6
-            Rectangle {
+            Item {
                 width: parent.width
                 height: 1
-                color: index % 2 === 0 ? Config.colors.shadow : Config.colors.highlight
+                Rectangle {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: index % 2 === 1 ? 1 : 0
+                    anchors.rightMargin: index % 2 === 0 ? 1 : 0
+                    height: 1
+                    color: index % 2 === 0 ? Config.colors.highlight : Config.colors.stripe
+                }
             }
         }
     }

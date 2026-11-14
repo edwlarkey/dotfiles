@@ -58,6 +58,14 @@ Scope {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom
+                    anchors.bottomMargin: 1
+                    height: 1
+                    color: Config.colors.shade
+                }
+                Rectangle {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
                     height: 1
                     color: Config.colors.outline
                 }

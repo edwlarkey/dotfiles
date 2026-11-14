@@ -105,8 +105,8 @@ PanelWindow {
         return Math.max(0, Math.min(y, maxY));
     }
 
-    implicitWidth: menuW
-    implicitHeight: Math.min(mainH, maxMenuH)
+    implicitWidth: menuW + 1
+    implicitHeight: Math.min(mainH, maxMenuH) + 1
 
     HyprlandFocusGrab {
         active: root.grabActive
@@ -240,6 +240,8 @@ PanelWindow {
         anchors.fill: parent
         opacity: 0
 
+        EdgeShadow {}
+
         Rectangle {
             id: mainFrame
             width: root.menuW
@@ -265,7 +267,7 @@ PanelWindow {
                         font.family: fontCharcoal.name
                         font.pixelSize: root.fontSize
                         color: Config.colors.text
-                        selectionColor: Config.colors.outline
+                        selectionColor: Config.colors.accentBody
                         selectedTextColor: Config.colors.highlight
                         selectByMouse: true
                         placeholderText: "Filter"
@@ -340,9 +342,9 @@ PanelWindow {
                         width: appList.width
                         height: root.rowH
 
-                        Rectangle {
+                        AccentFill {
                             anchors.fill: parent
-                            color: index === root.selected ? Config.colors.outline : "transparent"
+                            visible: index === root.selected
                         }
 
                         Image {
@@ -390,10 +392,9 @@ PanelWindow {
                         width: parent.width
                         height: modelData.kind === "sep" ? root.sepH : root.rowH
 
-                        Rectangle {
-                            visible: modelData.kind !== "sep"
+                        AccentFill {
+                            visible: modelData.kind !== "sep" && index === root.selected
                             anchors.fill: parent
-                            color: index === root.selected ? Config.colors.outline : "transparent"
                         }
 
                         Item {
@@ -408,7 +409,7 @@ PanelWindow {
                                 anchors.verticalCenter: parent.verticalCenter
                                 anchors.verticalCenterOffset: -1
                                 height: 1
-                                color: Config.colors.shadow
+                                color: Config.colors.dim
                             }
                             Rectangle {
                                 anchors.left: parent.left
@@ -495,8 +496,8 @@ PanelWindow {
         visible: root.visible && root.submenuOpen
         color: "transparent"
         grabFocus: false
-        implicitWidth: root.menuW
-        implicitHeight: root.submenuH
+        implicitWidth: root.menuW + 1
+        implicitHeight: root.submenuH + 1
         anchor.window: root
         anchor.rect.x: root.menuW - 1
         anchor.rect.y: root.submenuY
@@ -517,9 +518,13 @@ PanelWindow {
             }
         }
 
+        EdgeShadow {}
+
         Rectangle {
             id: subFrame
             anchors.fill: parent
+            anchors.rightMargin: 1
+            anchors.bottomMargin: 1
             color: Config.colors.base
             Bevel {}
 
@@ -539,9 +544,9 @@ PanelWindow {
                     width: subList.width
                     height: root.rowH
 
-                    Rectangle {
+                    AccentFill {
                         anchors.fill: parent
-                        color: root.inSubmenu && index === root.subSelected ? Config.colors.outline : "transparent"
+                        visible: root.inSubmenu && index === root.subSelected
                     }
 
                     Image {

@@ -30,9 +30,10 @@ Item {
     }
     implicitHeight: parent ? parent.height : Config.bar.height
 
-    Rectangle {
+    AccentFill {
         anchors.fill: parent
-        color: root.lit ? Config.colors.outline : "transparent"
+        anchors.bottomMargin: 1
+        visible: root.lit
     }
 
     Row {
